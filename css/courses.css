@@ -1,0 +1,28 @@
+/* ==========================================================================
+   COURSES.CSS — Courses page layout (sidebar + main content area)
+   ========================================================================== */
+
+.page-courses .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.side-bar {
+  width: 200px;
+  position: fixed;
+  top: calc(var(--nav-height) + var(--layout-gap));
+  left: var(--layout-inset);
+  bottom: var(--layout-inset);
+  background-color: var(--bg-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm);
+  box-shadow: 0 4px 24px rgba(13, 13, 13, 0.12);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: stretch;
+}

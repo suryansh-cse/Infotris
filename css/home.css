@@ -43,28 +43,37 @@
   gap: var(--space-md);
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-sm) var(--space-md);
+  min-height: var(--nav-height);
+  padding: var(--space-xs) var(--space-md);
 }
 
-/* Logo link: image + text side by side */
+/* Logo: assets/logo.png + wordmark */
 .navbar-logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.625rem;
   flex-shrink: 0;
+  transition: opacity var(--transition);
+}
+
+.navbar-logo:hover {
+  opacity: 0.85;
 }
 
 .navbar-logo img {
-  width: 40px;
-  height: 40px;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
   object-fit: contain;
-  border-radius: var(--radius-sm);
+  /* White PNG canvas blends into the light header */
+  mix-blend-mode: multiply;
 }
 
 .navbar-brand-text {
   font-weight: 700;
-  font-size: 1.125rem;
+  font-size: 1.3125rem;
   letter-spacing: -0.02em;
+  line-height: 1;
   color: var(--text-primary);
 }
 
@@ -373,6 +382,7 @@
   width: 36px;
   height: 36px;
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .footer-mission {

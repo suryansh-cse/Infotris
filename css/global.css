@@ -29,6 +29,10 @@
 
   --max-width: 1200px;       /* Content never stretches too wide on desktop */
   --transition: 0.2s ease;   /* Smooth hover states without JavaScript */
+
+  --nav-height: 4.75rem;     /* Navbar row height — keeps sidebar aligned below it */
+  --layout-inset: 0.75rem;   /* Page edge inset for fixed sidebar */
+  --layout-gap: 0.25rem;     /* Tight gap between navbar and sidebar */
 }
 
 /* --------------------------------------------------------------------------
