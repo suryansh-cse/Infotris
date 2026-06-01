@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OpenLearn Careers — Study structured paths toward tech roles. Pick a career-inspired route and start learning.">
+    <title>OpenLearn | Career Learning Paths</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/careers.css">
+</head>
+<body class="page-careers">
+
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="index.html" aria-label="OpenLearn home">
+                <img src="assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">OpenLearn</span>
+            </a>
+
+            <ul class="navbar-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="careers.html" aria-current="page">Careers</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+
+            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Hero: split layout with stats + quick nav -->
+        <section class="careers-hero" aria-labelledby="careers-heading">
+            <div class="careers-hero__grid">
+                <div class="careers-hero__content">
+                    <p class="careers-hero__eyebrow">Career learning</p>
+                    <h1 id="careers-heading" class="careers-hero__title">
+                        Study toward the career<br>
+                        <span class="careers-hero__title-note">you want someday.</span>
+                    </h1>
+                    <p class="careers-hero__lead">
+                        OpenLearn is a learning platform — not a job board. Study the right skills in the right order,
+                        with guided paths inspired by real tech careers.
+                    </p>
+
+                    <div class="careers-hero__actions">
+                        <a class="careers-btn careers-btn--primary" href="#paths">Explore study paths</a>
+                        <a class="careers-btn careers-btn--ghost" href="courses.html">Browse all courses</a>
+                    </div>
+
+                    <nav class="careers-hero__jump" aria-label="On this page">
+                        <a href="#journey">How it works</a>
+                        <a href="#paths">Study paths</a>
+                        <a href="#why-learn">Why OpenLearn</a>
+                        <a href="#faq">FAQ</a>
+                    </nav>
+                </div>
+
+                <aside class="careers-hero__panel" aria-label="Learning highlights">
+                    <ul class="careers-stats">
+                        <li class="careers-stat">
+                            <span class="careers-stat__value">9</span>
+                            <span class="careers-stat__label">Career-inspired paths</span>
+                        </li>
+                        <li class="careers-stat">
+                            <span class="careers-stat__value">9+</span>
+                            <span class="careers-stat__label">Courses to study</span>
+                        </li>
+                        <li class="careers-stat">
+                            <span class="careers-stat__value">100%</span>
+                            <span class="careers-stat__label">Free to learn</span>
+                        </li>
+                    </ul>
+                    <blockquote class="careers-hero__quote">
+                        <p>“Learn with purpose today — so when you are ready for work tomorrow, your skills already match the role.”</p>
+                    </blockquote>
+                </aside>
+            </div>
+        </section>
+
+        <!-- 4-step journey -->
+        <section class="careers-journey" id="journey" aria-labelledby="journey-heading">
+            <div class="careers-section__inner">
+                <header class="careers-section__header careers-section__header--center">
+                    <h2 id="journey-heading" class="careers-section__title">How we help you study</h2>
+                    <p class="careers-section__subtitle careers-section__subtitle--center">
+                        A simple learning flow — focused study, real practice, steady progress.
+                    </p>
+                </header>
+
+                <ol class="careers-timeline">
+                    <li class="careers-timeline__step">
+                        <span class="careers-timeline__num" aria-hidden="true">01</span>
+                        <div class="careers-timeline__body">
+                            <h3 class="careers-timeline__title">Pick a study path</h3>
+                            <p class="careers-timeline__text">
+                                Choose a path inspired by a tech role — HTML to Python, DSA to Git — and know what to study next.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="careers-timeline__step">
+                        <span class="careers-timeline__num" aria-hidden="true">02</span>
+                        <div class="careers-timeline__body">
+                            <h3 class="careers-timeline__title">Practice by building</h3>
+                            <p class="careers-timeline__text">
+                                Work through exercises and projects so you understand concepts — not just watch lessons.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="careers-timeline__step">
+                        <span class="careers-timeline__num" aria-hidden="true">03</span>
+                        <div class="careers-timeline__body">
+                            <h3 class="careers-timeline__title">Track your progress</h3>
+                            <p class="careers-timeline__text">
+                                Follow roadmaps and milestones from beginner topics toward advanced skills.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="careers-timeline__step">
+                        <span class="careers-timeline__num" aria-hidden="true">04</span>
+                        <div class="careers-timeline__body">
+                            <h3 class="careers-timeline__title">Grow toward your goal</h3>
+                            <p class="careers-timeline__text">
+                                Build skills that match the roles you are curious about — at your own pace, on your schedule.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Career paths grid -->
+        <section class="careers-section careers-section--muted" id="paths" aria-labelledby="paths-heading">
+            <div class="careers-section__inner">
+                <header class="careers-section__header">
+                    <h2 id="paths-heading" class="careers-section__title">Study paths inspired by tech careers</h2>
+                    <p class="careers-section__subtitle">
+                        These are learning routes — not job listings. Each path connects you to courses that teach
+                        skills people use in that kind of role.
+                    </p>
+                </header>
+
+                <ul class="careers-paths">
+                    <li>
+                        <article class="careers-path-card careers-path-card--featured">
+                            <div class="careers-path-card__top">
+                                <span class="careers-path-card__badge">Most popular</span>
+                                <span class="careers-path-card__icon" aria-hidden="true">Py</span>
+                            </div>
+                            <h3 class="careers-path-card__title">Python Developer</h3>
+                            <p class="careers-path-card__text">
+                                Automate workflows, build backends, and tackle data problems with Python.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>8–12 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Beginner → Advanced</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">Python</span></li>
+                                <li><span class="careers-path-card__skill">DSA</span></li>
+                                <li><span class="careers-path-card__skill">Problem Solving</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="careers/python-developer/index.html">View syllabus</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">FE</span>
+                            <h3 class="careers-path-card__title">Frontend Developer</h3>
+                            <p class="careers-path-card__text">
+                                Craft accessible, responsive interfaces with modern HTML, CSS, and JavaScript.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>6–10 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Beginner → Intermediate</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">HTML</span></li>
+                                <li><span class="careers-path-card__skill">CSS</span></li>
+                                <li><span class="careers-path-card__skill">JavaScript</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#web-foundations">Start studying</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">FS</span>
+                            <h3 class="careers-path-card__title">Full-Stack Developer</h3>
+                            <p class="careers-path-card__text">
+                                Ship end-to-end products — UI, logic, version control, and deployment basics.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>10–16 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Intermediate</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">Web Dev</span></li>
+                                <li><span class="careers-path-card__skill">Git</span></li>
+                                <li><span class="careers-path-card__skill">JavaScript</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#course-webdev">Start studying</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">AI</span>
+                            <h3 class="careers-path-card__title">AI Workflow Specialist</h3>
+                            <p class="careers-path-card__text">
+                                Integrate models, prompts, and automation into real developer workflows.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>3–6 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>All levels</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">AI</span></li>
+                                <li><span class="careers-path-card__skill">Python</span></li>
+                                <li><span class="careers-path-card__skill">Web Dev</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#course-ai">Start studying</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">DSA</span>
+                            <h3 class="careers-path-card__title">Software Engineer (Core CS)</h3>
+                            <p class="careers-path-card__text">
+                                Build strong fundamentals in data structures and algorithms — core skills for many software roles.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>8–14 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Intermediate → Advanced</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">DSA</span></li>
+                                <li><span class="careers-path-card__skill">Problem Solving</span></li>
+                                <li><span class="careers-path-card__skill">JavaScript</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#course-dsa">Start studying</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">Ops</span>
+                            <h3 class="careers-path-card__title">DevOps &amp; Collaboration</h3>
+                            <p class="careers-path-card__text">
+                                Work like a pro team — branching, PRs, reviews, and shipping with confidence.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>2–4 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Beginner</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">Git</span></li>
+                                <li><span class="careers-path-card__skill">Web Dev</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#course-git">Start studying</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">UI</span>
+                            <h3 class="careers-path-card__title">UI &amp; Web Designer</h3>
+                            <p class="careers-path-card__text">
+                                Learn layout, typography, and visual design with HTML and CSS — great if you care how things look and feel.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>4–8 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Beginner</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">HTML</span></li>
+                                <li><span class="careers-path-card__skill">CSS</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#course-css">Start studying</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">PS</span>
+                            <h3 class="careers-path-card__title">Logic &amp; Problem Solver</h3>
+                            <p class="careers-path-card__text">
+                                Train how you think — break problems down, spot patterns, and write cleaner solutions in any language.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>4–8 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Beginner → Intermediate</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">Problem Solving</span></li>
+                                <li><span class="careers-path-card__skill">DSA</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#course-problem-solving">Start studying</a>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="careers-path-card">
+                            <span class="careers-path-card__icon" aria-hidden="true">Jr</span>
+                            <h3 class="careers-path-card__title">Junior Web Developer</h3>
+                            <p class="careers-path-card__text">
+                                A gentle start for beginners — web basics, a bit of JavaScript, and how developers collaborate with Git.
+                            </p>
+                            <dl class="careers-path-card__meta">
+                                <div>
+                                    <dt>Study time</dt>
+                                    <dd>6–8 weeks</dd>
+                                </div>
+                                <div>
+                                    <dt>Level</dt>
+                                    <dd>Beginner</dd>
+                                </div>
+                            </dl>
+                            <ul class="careers-path-card__skills" aria-label="Core skills">
+                                <li><span class="careers-path-card__skill">HTML</span></li>
+                                <li><span class="careers-path-card__skill">JavaScript</span></li>
+                                <li><span class="careers-path-card__skill">Git</span></li>
+                            </ul>
+                            <a class="careers-path-card__cta" href="courses.html#course-html">Start studying</a>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Why OpenLearn (dark) -->
+        <section class="careers-section careers-section--dark" id="why-learn" aria-labelledby="approach-heading">
+            <div class="careers-section__inner">
+                <header class="careers-section__header careers-section__header--center">
+                    <h2 id="approach-heading" class="careers-section__title careers-section__title--light">
+                        A learning platform, not a job site
+                    </h2>
+                    <p class="careers-section__subtitle careers-section__subtitle--light careers-section__subtitle--center">
+                        We focus on helping you study well today. Career paths here guide what to learn — they are not job applications.
+                    </p>
+                </header>
+
+                <ul class="careers-benefits">
+                    <li class="careers-benefit">
+                        <span class="careers-benefit__icon" aria-hidden="true">◎</span>
+                        <h3 class="careers-benefit__title">Structured study plans</h3>
+                        <p class="careers-benefit__text">
+                            Courses ordered by topic and difficulty — so you build skills step by step, not at random.
+                        </p>
+                    </li>
+                    <li class="careers-benefit">
+                        <span class="careers-benefit__icon" aria-hidden="true">◇</span>
+                        <h3 class="careers-benefit__title">Clear roadmaps</h3>
+                        <p class="careers-benefit__text">
+                            See what to study each week and how topics connect — especially when you are learning on your own.
+                        </p>
+                    </li>
+                    <li class="careers-benefit">
+                        <span class="careers-benefit__icon" aria-hidden="true">▣</span>
+                        <h3 class="careers-benefit__title">Learn by doing</h3>
+                        <p class="careers-benefit__text">
+                            Practice with projects and exercises so knowledge sticks — not just passive watching.
+                        </p>
+                    </li>
+                    <li class="careers-benefit">
+                        <span class="careers-benefit__icon" aria-hidden="true">↗</span>
+                        <h3 class="careers-benefit__title">Skills that last</h3>
+                        <p class="careers-benefit__text">
+                            DSA, problem-solving, and fundamentals you can keep using — in school, side projects, or work later on.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="careers-section" id="faq" aria-labelledby="faq-heading">
+            <div class="careers-section__inner careers-section__inner--narrow">
+                <header class="careers-section__header careers-section__header--center">
+                    <h2 id="faq-heading" class="careers-section__title">Common questions</h2>
+                    <p class="careers-section__subtitle careers-section__subtitle--center">
+                        Straight answers about studying on OpenLearn and what we offer today.
+                    </p>
+                </header>
+
+                <div class="careers-faq">
+                    <details class="careers-faq__item">
+                        <summary class="careers-faq__question">Do I need prior experience to start?</summary>
+                        <p class="careers-faq__answer">
+                            No. Paths like Frontend Developer and Python Developer start from foundations.
+                            If you already code, jump to intermediate courses via the course catalog sidebar.
+                        </p>
+                    </details>
+                    <details class="careers-faq__item">
+                        <summary class="careers-faq__question">How long should I study each path?</summary>
+                        <p class="careers-faq__answer">
+                            It depends on your pace and how much time you have. Most paths suggest roughly 6–16 weeks
+                            of focused study. Consistency matters more than speed — even a few hours a week adds up.
+                        </p>
+                    </details>
+                    <details class="careers-faq__item">
+                        <summary class="careers-faq__question">Is OpenLearn free?</summary>
+                        <p class="careers-faq__answer">
+                            Yes — you can explore all guided paths and courses at no cost. We believe access to
+                            structured learning should not depend on your budget.
+                        </p>
+                    </details>
+                    <details class="careers-faq__item">
+                        <summary class="careers-faq__question">How is this different from YouTube tutorials?</summary>
+                        <p class="careers-faq__answer">
+                            Tutorials teach random topics. OpenLearn gives you ordered paths — what to study first,
+                            what comes next, and how lessons connect toward a career-shaped goal.
+                        </p>
+                    </details>
+                    <details class="careers-faq__item">
+                        <summary class="careers-faq__question">Does OpenLearn help me get a job?</summary>
+                        <p class="careers-faq__answer">
+                            OpenLearn is for learning — courses, paths, and practice. We do not list jobs or handle
+                            applications. This page helps you choose what to study toward the kind of work you are interested in.
+                        </p>
+                    </details>
+                    <details class="careers-faq__item">
+                        <summary class="careers-faq__question">What does the Careers page mean then?</summary>
+                        <p class="careers-faq__answer">
+                            It shows study paths inspired by common tech roles — so you know which courses to take
+                            if you are learning toward frontend work, Python, full-stack, and similar goals.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA band -->
+        <section class="careers-cta" aria-labelledby="cta-heading">
+            <div class="careers-cta__inner">
+                <h2 id="cta-heading" class="careers-cta__title">Ready to start studying?</h2>
+                <p class="careers-cta__text">
+                    Pick a path, open the courses, and learn at your own pace. That is what OpenLearn is for today.
+                </p>
+                <div class="careers-cta__actions">
+                    <a class="careers-btn careers-btn--light" href="courses.html">Go to courses</a>
+                    <a class="careers-btn careers-btn--outline-light" href="#paths">View study paths</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer-section">
+        <div class="footer-inner">
+
+            <div class="footer-column footer-brand">
+                <a class="footer-logo" href="index.html" aria-label="OpenLearn home">
+                    <img src="assets/logo.png" alt="" width="36" height="36">
+                    <span>OpenLearn</span>
+                </a>
+                <p class="footer-mission">
+                    We help learners build real skills with clarity, structure, and purpose.
+                </p>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms &amp; Conditions</a></li>
+                    <li><a href="#login">Login</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 OpenLearn. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

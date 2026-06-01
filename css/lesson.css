@@ -1,0 +1,169 @@
+/* Course lesson pages — courses/python/*.html */
+
+.lesson-breadcrumb {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-md) 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.lesson-breadcrumb a:hover {
+  color: var(--text-primary);
+}
+
+.lesson-breadcrumb span {
+  margin: 0 0.35rem;
+}
+
+.lesson-header {
+  padding: var(--space-lg) var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.lesson-header__inner {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.lesson-header__back {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.lesson-header__back:hover {
+  color: var(--text-primary);
+}
+
+.lesson-header__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.lesson-header__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-xs);
+}
+
+.lesson-header__meta {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.lesson-content {
+  padding: var(--space-lg) var(--space-md) var(--space-xl);
+}
+
+.lesson-content__inner {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.lesson-content h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: var(--space-lg) 0 var(--space-sm);
+}
+
+.lesson-content p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: var(--space-md);
+}
+
+.lesson-content pre {
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  background-color: var(--bg-dark);
+  color: var(--bg-light);
+  border-radius: var(--radius-md);
+}
+
+.lesson-placeholder {
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  background-color: rgba(13, 13, 13, 0.04);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.lesson-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-top: var(--space-lg);
+  margin-top: var(--space-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+.lesson-nav a {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.lesson-nav a:hover {
+  opacity: 0.7;
+}
+
+.lesson-nav__next {
+  margin-left: auto;
+}
+
+.lesson-content ul,
+.lesson-content ol {
+  margin: 0 0 var(--space-md) 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.lesson-content li {
+  margin-bottom: 0.35rem;
+}
+
+.lesson-content code {
+  font-size: 0.9em;
+  padding: 0.1rem 0.35rem;
+  background-color: rgba(13, 13, 13, 0.06);
+  border-radius: 4px;
+}
+
+.lesson-exercise {
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  background-color: rgba(13, 13, 13, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.lesson-exercise h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-xs);
+  color: var(--text-primary);
+}
+
+.lesson-exercise p {
+  margin-bottom: 0;
+}
+
+.lesson-content a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

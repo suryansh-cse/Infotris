@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Project 1 — Greeting script</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="../../careers/python-developer/index.html">Python Developer</a><span>/</span><span>Project 1</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="02-variables.html">← Lesson 2</a>
+                <p class="lesson-header__label">Project 1 · Week 1</p>
+                <h1 class="lesson-header__title">Personal greeting script</h1>
+                <p class="lesson-header__meta">~45 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>Goal</h2>
+                <p>Build a script that asks for the user's name and goal, then prints a personalized motivational message.</p>
+                <h2>Requirements</h2>
+                <ul>
+                    <li>Use <code>input()</code> at least twice</li>
+                    <li>Store answers in variables</li>
+                    <li>Print a multi-line message with f-strings</li>
+                </ul>
+                <h2>Starter template</h2>
+                <pre><code>name = input("What is your name? ")
+goal = input("What do you want to learn? ")
+
+print(f"""
+Hi {name}!
+Welcome to OpenLearn.
+Let's work toward: {goal}
+You've got this.
+""")</code></pre>
+                <h2>Stretch goals</h2>
+                <ul>
+                    <li>Ask for hours per week and estimate weeks to finish a 40-hour path</li>
+                    <li>Save the message to <code>greeting.txt</code></li>
+                </ul>
+                <nav class="lesson-nav">
+                    <a href="02-variables.html">← Lesson 2</a>
+                    <a class="lesson-nav__next" href="03-conditionals.html">Week 2: Conditionals →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Project 3 — Contact book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><span>Project 3</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <p class="lesson-header__label">Project 3 · Week 3</p>
+                <h1 class="lesson-header__title">Mini contact book</h1>
+                <p class="lesson-header__meta">~1–2 hours</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>Goal</h2>
+                <p>Store contacts in a list of dictionaries. Support add, list, and search by name.</p>
+                <h2>Requirements</h2>
+                <ul>
+                    <li>Menu loop: 1 Add, 2 List all, 3 Search, 4 Quit</li>
+                    <li>Each contact: name, phone, email (email optional)</li>
+                    <li>Search is case-insensitive partial match on name</li>
+                </ul>
+                <h2>Data shape</h2>
+                <pre><code>contacts = [
+    {"name": "Ada", "phone": "555-0100", "email": "ada@example.com"},
+]</code></pre>
+                <h2>Stretch</h2>
+                <p>Save and load contacts from a JSON file using the <code>json</code> module.</p>
+                <nav class="lesson-nav">
+                    <a href="07-dictionaries.html">← Lesson 7</a>
+                    <a class="lesson-nav__next" href="08-strings-files.html">Week 4 →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+</body>
+</html>

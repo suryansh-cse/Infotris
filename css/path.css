@@ -1,0 +1,198 @@
+/* Path syllabus pages — careers/python-developer/index.html */
+
+.navbar-links a[aria-current="page"] {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.path-breadcrumb {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-md) 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.path-breadcrumb a:hover {
+  color: var(--text-primary);
+}
+
+.path-breadcrumb span {
+  margin: 0 0.35rem;
+}
+
+.path-hero {
+  padding: var(--space-lg) var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.path-hero__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.path-hero__back {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.path-hero__back:hover {
+  color: var(--text-primary);
+}
+
+.path-hero__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.path-hero__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-sm);
+}
+
+.path-hero__lead {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 40rem;
+  margin-bottom: var(--space-md);
+}
+
+.path-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.path-hero__tag {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-secondary);
+}
+
+.path-hero__cta {
+  display: inline-flex;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--bg-light);
+  background-color: var(--bg-dark);
+  border-radius: 999px;
+}
+
+.path-hero__cta:hover {
+  opacity: 0.88;
+}
+
+.path-edit-note {
+  max-width: var(--max-width);
+  margin: var(--space-md) auto 0;
+  padding: var(--space-md) var(--space-lg);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background-color: rgba(13, 13, 13, 0.04);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.path-edit-note strong {
+  color: var(--text-primary);
+}
+
+.path-edit-note code {
+  font-size: 0.8125rem;
+  padding: 0.1rem 0.35rem;
+  background-color: rgba(13, 13, 13, 0.06);
+  border-radius: 4px;
+}
+
+.path-body {
+  padding: var(--space-xl) var(--space-md);
+}
+
+.path-body__inner {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.path-body__heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.02em;
+}
+
+.path-week {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.path-week:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.path-week__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--text-primary);
+}
+
+.path-lessons {
+  margin-bottom: var(--space-sm);
+  padding-left: 1.25rem;
+}
+
+.path-lessons li {
+  list-style: decimal;
+  margin-bottom: 0.35rem;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+.path-lessons a {
+  color: var(--text-primary);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.path-lessons a:hover {
+  opacity: 0.75;
+}
+
+.path-lessons__draft {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: 0.35rem;
+}
+
+.path-project {
+  font-size: 0.875rem;
+  padding: var(--space-sm) var(--space-md);
+  background-color: rgba(13, 13, 13, 0.04);
+  border-left: 3px solid var(--bg-dark);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-secondary);
+}
+
+.path-project strong {
+  color: var(--text-primary);
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Arrays</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <h1 class="lesson-header__title">Arrays and lists in depth</h1>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <p>In Python, lists are dynamic arrays. Index access is O(1). Append is amortized O(1). Insert at the front is O(n) because items shift.</p>
+                <pre><code>nums = [3, 1, 4, 1, 5]
+nums.append(9)      # fast at end
+nums.insert(0, 0)   # slow at front</code></pre>
+                <div class="lesson-exercise">
+                    <h3>Practice</h3>
+                    <p>Given a list, write a function that returns a new list with duplicates removed (order preserved).</p>
+                </div>
+                <nav class="lesson-nav">
+                    <a href="01-why-dsa.html">← Previous</a>
+                    <a class="lesson-nav__next" href="03-big-o.html">Next →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

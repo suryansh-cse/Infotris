@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Conditionals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+            <ul class="navbar-links"><li><a href="../../courses.html" aria-current="page">Courses</a></li><li><a href="../../careers.html">Careers</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="../../careers/python-developer/index.html">Python Developer</a><span>/</span><a href="index.html">Python</a><span>/</span><span>Lesson 3</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="project-01-greeting.html">← Project 1</a>
+                <p class="lesson-header__label">Lesson 3</p>
+                <h1 class="lesson-header__title">Conditionals (if / elif / else)</h1>
+                <p class="lesson-header__meta">~30 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>Decisions in code</h2>
+                <p>Programs branch based on conditions using <code>if</code>, <code>elif</code>, and <code>else</code>.</p>
+                <pre><code>score = int(input("Score? "))
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+else:
+    grade = "C"
+
+print("Grade:", grade)</code></pre>
+                <h2>Comparison operators</h2>
+                <p><code>==</code> equal, <code>!=</code> not equal, <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></p>
+                <h2>Combining conditions</h2>
+                <pre><code>age = 20
+has_id = True
+
+if age >= 18 and has_id:
+    print("Allowed")</code></pre>
+                <p>Use <code>and</code>, <code>or</code>, and <code>not</code> to combine tests.</p>
+                <div class="lesson-exercise">
+                    <h3>Practice</h3>
+                    <p>Write a program that tells the user if a number is positive, negative, or zero.</p>
+                </div>
+                <nav class="lesson-nav">
+                    <a href="02-variables.html">← Variables</a>
+                    <a class="lesson-nav__next" href="04-loops.html">Next: Loops →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+</body>
+</html>

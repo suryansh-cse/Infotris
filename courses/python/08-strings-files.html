@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Strings and files</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+            <ul class="navbar-links"><li><a href="../../courses.html" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="index.html">Python</a><span>/</span><span>Lesson 8</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="project-03-contact-book.html">← Project 3</a>
+                <p class="lesson-header__label">Lesson 8</p>
+                <h1 class="lesson-header__title">Strings and reading files</h1>
+                <p class="lesson-header__meta">~40 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>String methods</h2>
+                <pre><code>text = "  OpenLearn  "
+print(text.strip().lower())
+print("python".replace("p", "P"))</code></pre>
+                <h2>f-strings</h2>
+                <pre><code>topic = "Python"
+hours = 5
+print(f"You studied {topic} for {hours} hours.")</code></pre>
+                <h2>Reading a file</h2>
+                <pre><code>with open("notes.txt", "r", encoding="utf-8") as file:
+    content = file.read()
+    print(content)</code></pre>
+                <h2>Writing a file</h2>
+                <pre><code>with open("log.txt", "w", encoding="utf-8") as file:
+    file.write("Session complete\n")</code></pre>
+                <p><code>with</code> closes the file automatically — always prefer it.</p>
+                <div class="lesson-exercise">
+                    <h3>Practice</h3>
+                    <p>Write a program that counts lines in a text file you create manually.</p>
+                </div>
+                <nav class="lesson-nav">
+                    <a href="07-dictionaries.html">← Dictionaries</a>
+                    <a class="lesson-nav__next" href="09-modules.html">Next: Modules →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+</body>
+</html>

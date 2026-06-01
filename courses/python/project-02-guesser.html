@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Project 2 — Number guesser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="../../careers/python-developer/index.html">Python Developer</a><span>/</span><span>Project 2</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <p class="lesson-header__label">Project 2 · Week 2</p>
+                <h1 class="lesson-header__title">Number guessing game</h1>
+                <p class="lesson-header__meta">~1 hour</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>Goal</h2>
+                <p>The computer picks a random number. The player guesses until they get it right. Use conditionals, loops, and <code>random</code>.</p>
+                <h2>Requirements</h2>
+                <ul>
+                    <li>Secret number between 1 and 100</li>
+                    <li>Print "too high" / "too low" hints</li>
+                    <li>Count number of guesses</li>
+                </ul>
+                <h2>Hint</h2>
+                <pre><code>import random
+
+secret = random.randint(1, 100)
+guesses = 0
+
+while True:
+    guess = int(input("Your guess: "))
+    guesses += 1
+    if guess == secret:
+        print(f"Correct in {guesses} tries!")
+        break
+    elif guess &lt; secret:
+        print("Too low")
+    else:
+        print("Too high")</code></pre>
+                <nav class="lesson-nav">
+                    <a href="05-lists.html">← Lesson 5</a>
+                    <a class="lesson-nav__next" href="06-functions.html">Week 3: Functions →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+</body>
+</html>

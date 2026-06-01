@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Lists</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+            <ul class="navbar-links"><li><a href="../../courses.html" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="index.html">Python</a><span>/</span><span>Lesson 5</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="04-loops.html">← Previous</a>
+                <p class="lesson-header__label">Lesson 5</p>
+                <h1 class="lesson-header__title">Lists and list methods</h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>Creating lists</h2>
+                <pre><code>tasks = ["study", "practice", "review"]
+numbers = [10, 20, 30]
+mixed = ["Py", 3, True]</code></pre>
+                <h2>Indexing and slicing</h2>
+                <pre><code>print(tasks[0])      # first item
+print(tasks[-1])     # last item
+print(tasks[1:3])    # slice — items at index 1 and 2</code></pre>
+                <h2>Useful methods</h2>
+                <ul>
+                    <li><code>append(x)</code> — add to end</li>
+                    <li><code>remove(x)</code> — remove first match</li>
+                    <li><code>pop()</code> — remove and return last</li>
+                    <li><code>len(list)</code> — number of items</li>
+                </ul>
+                <h2>List comprehensions (intro)</h2>
+                <pre><code>squares = [n * n for n in range(6)]
+print(squares)</code></pre>
+                <div class="lesson-exercise">
+                    <h3>Practice</h3>
+                    <p>Build a to-do list: start empty, append three tasks, print each with a number.</p>
+                </div>
+                <nav class="lesson-nav">
+                    <a href="04-loops.html">← Loops</a>
+                    <a class="lesson-nav__next" href="project-02-guesser.html">Project 2 →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+</body>
+</html>

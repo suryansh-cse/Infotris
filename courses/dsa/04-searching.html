@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Searching</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <h1 class="lesson-header__title">Searching algorithms</h1>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>Linear search — O(n)</h2>
+                <p>Check each element until found. Works on any list.</p>
+                <h2>Binary search — O(log n)</h2>
+                <p>Requires a sorted list. Compare middle, discard half, repeat.</p>
+                <pre><code>def binary_search(nums, target):
+    lo, hi = 0, len(nums) - 1
+    while lo &lt;= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] &lt; target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1</code></pre>
+                <nav class="lesson-nav">
+                    <a href="03-big-o.html">← Previous</a>
+                    <a class="lesson-nav__next" href="05-sorting.html">Next →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

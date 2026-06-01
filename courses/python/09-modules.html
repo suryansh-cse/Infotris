@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Modules</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+            <ul class="navbar-links"><li><a href="../../courses.html" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="index.html">Python</a><span>/</span><span>Lesson 9</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="08-strings-files.html">← Previous</a>
+                <p class="lesson-header__label">Lesson 9</p>
+                <h1 class="lesson-header__title">Modules and organizing code</h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>Importing modules</h2>
+                <p>Python ships with many libraries. You import them to reuse tested code.</p>
+                <pre><code>import random
+import math
+
+print(random.randint(1, 10))
+print(math.sqrt(16))</code></pre>
+                <h2>Your own modules</h2>
+                <p>Put functions in <code>helpers.py</code>, then in <code>main.py</code>:</p>
+                <pre><code>from helpers import greet
+
+greet("OpenLearn")</code></pre>
+                <h2>Project structure tip</h2>
+                <ul>
+                    <li>One clear entry file (e.g. <code>main.py</code>)</li>
+                    <li>Helper logic in separate modules</li>
+                    <li>Data files in a <code>data/</code> folder</li>
+                </ul>
+                <div class="lesson-exercise">
+                    <h3>Practice</h3>
+                    <p>Split a small program into two files: one with functions, one that runs them.</p>
+                </div>
+                <nav class="lesson-nav">
+                    <a href="08-strings-files.html">← Strings &amp; files</a>
+                    <a class="lesson-nav__next" href="../problem-solving/01-break-down-problems.html">Problem Solving →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+</body>
+</html>
