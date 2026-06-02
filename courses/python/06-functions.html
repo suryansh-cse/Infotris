@@ -29,42 +29,69 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>Defining functions</h2>
-                <pre><code>def greet(name):
-    return f"Hello, {name}!"
-
-message = greet("Alex")
-print(message)</code></pre>
-                <h2>Parameters and arguments</h2>
-                <pre><code>def add(a, b):
-    return a + b
-
-print(add(3, 5))</code></pre>
-                <h2>Default parameters</h2>
-                <pre><code>def power(base, exponent=2):
+                <h2>1. Reusing Code: Defining Functions</h2>
+                <p>Functions are modular, self-contained blocks of code that perform a specific task. They prevent code duplication, enhance structure, and make debugging easier. You define a function in Python using the <code>def</code> keyword, followed by the function name, parentheses containing optional parameters, and a colon. Code inside the function block must be indented.</p>
+                
+                <h2>2. Parameters, Arguments, and Default Values</h2>
+                <p><strong>Parameters</strong> are the placeholders defined in the function signature. <strong>Arguments</strong> are the actual values passed to the function when calling it. Python also supports **default parameters**, which are used if no argument is passed during the function call.</p>
+                <pre><code># exponent has a default value of 2
+def power(base, exponent=2):
     return base ** exponent
 
-print(power(4))      # 16
-print(power(2, 5))   # 32</code></pre>
-                <h2>Why functions matter</h2>
-                <p>They reduce duplication, clarify intent, and make testing easier — essential for larger programs and projects.</p>
+print(power(3))      # Prints: 9 (uses default exponent=2)
+print(power(2, 4))   # Prints: 16 (overrides default, base=2, exponent=4)</code></pre>
+
+                <h2>3. Return Values vs. Printing</h2>
+                <p>A common point of confusion is the difference between <code>print()</code> and <code>return</code>:</p>
+                <ul>
+                    <li><code>print()</code> displays a value on the screen. It has no effect on the program's logic or calculations.</li>
+                    <li><code>return</code> sends a value back to the caller. It immediately terminates the function, allowing the program to store the result in a variable or use it in another function call.</li>
+                </ul>
+                <pre><code>def add_numbers(a, b):
+    return a + b
+
+# The return value is stored in a variable
+result = add_numbers(5, 7)
+print("The sum is:", result)  # Prints: The sum is: 12</code></pre>
+
+                <h2>4. Variable Scope: Local vs. Global</h2>
+                <p>Variables created inside a function are **local** to that function. They cannot be accessed from outside. Variables defined in the main script are **global** and can be read inside functions, but cannot be modified directly unless declared with the <code>global</code> keyword.</p>
+                <pre><code>x = 10  # Global variable
+
+def test():
+    y = 5  # Local variable
+    print(x)  # Reading global variable is allowed!
+
+test()
+# print(y)  # This will CRASH with a NameError because y is local to test()</code></pre>
+
+                <h2>5. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Forgetting to Return</strong>: Defining a function to compute a value but forgetting to write <code>return</code>. By default, Python functions return <code>None</code> if no return is written.</li>
+                        <li><strong>Invalid Parameter Order</strong>: Placing default parameters before required parameters. <code>def test(a=5, b):</code> is invalid. It must be: <code>def test(b, a=5):</code>.</li>
+                        <li><strong>Modifying Globals directly</strong>: Attempting to modify a global variable inside a function without the <code>global</code> keyword will result in a local variable being created, ignoring the global one.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="06-functions" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Define <code>celsius_to_fahrenheit(c)</code> and <code>is_even(n)</code>, then test each with a few values.</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Helper Functions</h2>
+                        <p class="practice-panel__hint">Define <code>celsius_to_fahrenheit(c)</code> which converts Celsius to Fahrenheit using <code>F = C * 9/5 + 32</code>. Also, define <code>is_even(n)</code> which returns <code>True</code> if a number is even, and <code>False</code> otherwise. Test both by printing results.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
                         <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="def celsius_to_fahrenheit(c):&#10;    ..."></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="def celsius_to_fahrenheit(c):&#10;    return c * 9 / 5 + 32&#10;&#10;def is_even(n):&#10;    return n % 2 == 0"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span><code>celsius_to_fahrenheit</code> uses the formula F = C × 9/5 + 32</span></label>
-                        <label class="practice-check"><input type="checkbox"><span><code>is_even</code> returns True for even numbers and False for odd</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Both functions are called and results are printed at least once each</span></label>
+                        <label class="practice-check"><input type="checkbox"><span><code>celsius_to_fahrenheit</code> calculates F correctly and returns the value</span></label>
+                        <label class="practice-check"><input type="checkbox"><span><code>is_even</code> evaluates parity and returns a Boolean</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Both functions are called and print results</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
@@ -72,6 +99,82 @@ print(power(2, 5))   # 32</code></pre>
                         <p class="practice-success__text">Functions defined and tested — dictionaries are next.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="06-functions">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is returned by default if a Python function has no `return` statement?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not return 0 automatically.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">0</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Functions without an explicit return statement return None.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">None</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. No error is thrown for missing returns.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It throws a SyntaxError</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which of the following function definitions has INVALID parameter order?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. This is valid. The required parameters are declared first, default parameters last.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">def calculate(x, y=10)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Required parameters (like y) cannot follow default parameters (like x=5). This causes a SyntaxError.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">def calculate(x=5, y)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. This is valid since both parameters have default values.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">def calculate(x=5, y=10)</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. Can you access a variable defined inside a function from outside that function?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Local scopes are strictly protected.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Yes, at any time</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Variables defined inside a function are local to it and cannot be referenced from the outer script scope.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">No, because it has local scope</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Functions are completed. Next, you'll learn how to store structured data mapping keys to values using **Dictionaries**.</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="05-lists.html">← Lists</a>
                     <a class="lesson-nav__next" href="07-dictionaries.html">Next: Dictionaries →</a>

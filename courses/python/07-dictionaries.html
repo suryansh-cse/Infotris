@@ -29,45 +29,157 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>What is a dictionary?</h2>
-                <p>A dict maps unique keys to values — perfect for records, counts, and lookups.</p>
+                <h2>1. What is a Dictionary?</h2>
+                <p>A dictionary (<code>dict</code>) is an unordered, mutable collection of elements stored as **key-value pairs**. Unlike lists where elements are accessed via their numerical index position, dictionary values are mapped directly to unique **keys**. Dictionaries are highly efficient for lookup operations, representing records, and structuring complex database outputs.</p>
+                
+                <h2>2. Key Constraints and Accessing Values</h2>
+                <p>Dictionary keys must be of an **immutable (hashable)** data type, such as strings, integers, or tuples. Lists and other dictionaries are mutable and cannot be used as keys. Values, however, can be of any data type, including duplicates and nested collections.</p>
+                <p>If you try to access a non-existent key using bracket notation (<code>dict[key]</code>), Python will crash with a <code>KeyError</code>. To access keys safely without crashing, use the <code>.get(key, default)</code> method, which returns a default value (or <code>None</code>) if the key isn't found.</p>
                 <pre><code>user = {
     "name": "Riya",
     "email": "riya@example.com",
-    "courses": 3
+    "score": 95
 }
 
-print(user["name"])
-user["courses"] = 4</code></pre>
-                <h2>Looping over dicts</h2>
-                <pre><code>for key, value in user.items():
-    print(key, "→", value)</code></pre>
-                <h2>Safe access</h2>
-                <pre><code>phone = user.get("phone", "not set")</code></pre>
+# Standard Access (crashes if key not found)
+print(user["name"])  # Prints: Riya
+
+# Safe Access
+phone = user.get("phone", "No phone registered")
+print(phone)  # Prints: No phone registered</code></pre>
+
+                <h2>3. Updating and Traversing Dictionaries</h2>
+                <p>You can add or update key-value pairs using assignment, or loop over them. By default, iterating over a dictionary loops over its **keys**. To loop over both keys and values, use the <code>.items()</code> method, which returns them as tuple pairs.</p>
+                <pre><code>user["score"] = 98            # Updates existing key
+user["location"] = "Mumbai"   # Adds new key-value pair
+
+# Iterate through keys and values
+for key, val in user.items():
+    print(f"{key} is set to: {val}")</code></pre>
+
+                <h2>4. Nested Dictionaries</h2>
+                <p>Dictionaries can store other dictionaries as values. This is perfect for managing structured relational data, like databases or catalog systems.</p>
+                <pre><code>students = {
+    "student_01": {"name": "Aman", "grade": "A"},
+    "student_02": {"name": "John", "grade": "B"}
+}
+print(students["student_01"]["name"])  # Prints: Aman</code></pre>
+
+                <h2>5. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>KeyError Crashes</strong>: Attempting to look up a key that doesn't exist using brackets. Always use <code>.get()</code> if there's any chance the key is missing.</li>
+                        <li><strong>Using Lists as Keys</strong>: Writing <code>{[1, 2]: "numbers"}</code> will crash with a <code>TypeError: unhashable type: 'list'</code>. Use a tuple <code>{(1, 2): "numbers"}</code> instead.</li>
+                        <li><strong>Iterating directly expecting values</strong>: Writing <code>for val in my_dict:</code> actually loops through the *keys*, not the values. Use <code>my_dict.values()</code> or <code>my_dict.items()</code>.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="07-dictionaries" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Create a contact dict with name, phone, and city. Print a readable card using those keys.</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Catalog Valuation</h2>
+                        <p class="practice-panel__hint">Create an inventory dictionary where keys are item names and values are nested sub-dictionaries with <code>qty</code> and <code>price</code>. Populate it with <code>"pen"</code> (qty 10, price 1.5) and <code>"book"</code> (qty 5, price 12.0). Loop through the catalog, compute the total value (qty * price), and print a formatted summary statement.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
                         <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder='contact = {"name": "...", ...}'></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="inventory = {&#10;    'pen': {'qty': 10, 'price': 1.5},&#10;    'book': {'qty': 5, 'price': 12.0}&#10;}&#10;total = 0&#10;for item, info in inventory.items():&#10;    total += info['qty'] * info['price']&#10;print(f'Total value: ${total}')"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>Dict has keys for name, phone, and city</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Values are accessed with keys or <code>.get()</code></span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Printed output looks like a contact card (labels + values)</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Dictionary contains nested items with quantities and prices</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Traverses items using <code>.items()</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Correctly calculates and prints the total inventory valuation ($75.0)</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Contact dict ready — build Project 3 next.</p>
+                        <p class="practice-success__text">Inventory catalog setup and evaluated — ready to check skills with the quiz below.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="07-dictionaries">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What happens if you try to access a non-existent key in a dictionary using bracket notation (e.g. `user["age"]`)?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. It does not return None, it halts execution.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It returns None silently</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Python crashes immediately with a KeyError if you look up a missing key with brackets.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It raises a KeyError exception and crashes</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not implicitly assign default types.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It creates the key automatically with an empty value</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which of the following is an INVALID dictionary key in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Strings are immutable and therefore hashable.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"id_string"</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Lists are mutable sequences, meaning they can change. This makes them unhashable and invalid as dictionary keys.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">[1, 2] (list)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Integers are immutable and are valid keys.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">42 (int)</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. Which dictionary method allows you to safely look up keys and specify a default value if they are missing?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. '.items()' returns key-value pairs, not single lookups.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.items()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! '.get()' returns the key value, or a default value if the key does not exist.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.get()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. '.values()' returns only values.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.values()</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Dictionaries are complete! You are ready to build **Project 3 — CLI To-Do &amp; Quiz App** next, or proceed to **Strings &amp; Files**.</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="06-functions.html">← Functions</a>
                     <a class="lesson-nav__next" href="project-03-contact-book.html">Project 3 →</a>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Problem Solving and Debugging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html" aria-label="OpenLearn home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">OpenLearn</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses.html" aria-current="page">Courses</a></li>
+                <li><a href="../../careers.html">Careers</a></li>
+            </ul>
+            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/index.html">Python Developer</a>
+        <span>/</span>
+        <a href="index.html">Python</a>
+        <span>/</span>
+        <span>Lesson 10</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="09-modules.html">← Lesson 9</a>
+                <p class="lesson-header__label">Lesson 10 · Python</p>
+                <h1 class="lesson-header__title">Problem Solving &amp; Debugging</h1>
+                <p class="lesson-header__meta">~40 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. The Problem-Solving Mindset</h2>
+                <p>Coding is not just writing syntax; it is solving problems. When faced with a complex task, never start typing code immediately. Follow this structured process:</p>
+                <ul>
+                    <li><strong>Deconstruct</strong>: Break the large problem down into tiny, independent subproblems (e.g., instead of "build a game", start with "how do I generate one random number").</li>
+                    <li><strong>Write Pseudocode</strong>: Write the logical steps in plain, structured English comments inside your editor before translating them to Python.</li>
+                    <li><strong>Incremental Coding</strong>: Write 2–3 lines of code, run the script, check the output, and only move on when it works. Never write 100 lines at once.</li>
+                </ul>
+
+                <h2>2. Understanding Python Tracebacks</h2>
+                <p>When your Python program crashes, it prints a **Traceback**. Do not panic or close the terminal! The traceback contains the exact diagnosis of the problem. Read it from the **bottom line up**:</p>
+                <ul>
+                    <li><strong>SyntaxError</strong>: Bad formatting, missing colons, or mismatched quotes/parentheses.</li>
+                    <li><strong>NameError</strong>: Using a variable or function name that hasn't been defined (often due to spelling typos).</li>
+                    <li><strong>TypeError</strong>: Performing operations on invalid data types (e.g., trying to add a string to an integer).</li>
+                    <li><strong>IndexError</strong>: Trying to access an index position in a list that lies outside its boundaries.</li>
+                </ul>
+                <pre><code># Sample Error trace:
+Traceback (most recent call last):
+  File "main.py", line 4, in <module>
+    print("User age is: " + age)
+TypeError: can only concatenate str (not "int") to str</code></pre>
+
+                <h2>3. Debugging Strategies</h2>
+                <p>When code outputs incorrect results (logical errors) instead of crashing, use these methods:</p>
+                <ul>
+                    <li><strong>Print Tracing</strong>: Insert <code>print(f"DEBUG: variable is {var}")</code> at intermediate steps to inspect state changes.</li>
+                    <li><strong>Dry Run</strong>: Read the code line by line, writing down the values of variables on a notepad as if you were the interpreter.</li>
+                </ul>
+
+                <h2>4. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Ignoring the Traceback line number</strong>: Changing code randomly instead of looking at the exact line number printed in the traceback.</li>
+                        <li><strong>Panicking at errors</strong>: Treating exceptions as failures. Errors are guides; they tell you exactly what line failed and why.</li>
+                        <li><strong>Writing too much code without testing</strong>: Coding for hours without running the script once, making it nearly impossible to locate where the bug was introduced.</li>
+                    </ul>
+                </div>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="10-problem-solving" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Debugging Challenge</h2>
+                        <p class="practice-panel__hint">A student wrote a script to compute averages, but it crashes. Locate the bugs (there are three: a typo, a syntax error, and a type mismatch), correct them in your editor, and verify the checklist.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Buggy Code Example</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false"># Locate the errors here:
+total_score = "150"
+players = 3
+
+if players > 0
+    average = total_score / player
+    print("Average score: " + average)</textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I fixed the missing colon <code>:</code> on the <code>if</code> statement</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I fixed the spelling typo of <code>player</code> (should be <code>players</code>)</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I cast <code>total_score</code> to an integer and formatted the output print safely</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Bugs resolved! You can analyze tracebacks and logical errors. Try the quiz below next.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="10-problem-solving">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. How should you read a Python Traceback when a script crashes?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. The top lines represent the entry point, but the specific crash cause is always at the bottom.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">From the top down to see history first</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Python tracebacks print the final error call and exception reason on the bottom lines.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">From the bottom up to locate the exact line and error cause immediately</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What error type is raised when you type `pint("Hello")` instead of `print("Hello")`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. SyntaxError occurs for format issues, not spellings.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">SyntaxError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Python cannot find a function named 'pint', so it raises a NameError.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">NameError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. TypeError is for wrong parameter data types.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">TypeError</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What is the recommended strategy for writing code to avoid hard-to-find bugs?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Writing tiny chunks of code and testing them immediately makes finding bugs easy.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Coding incrementally, testing frequently after writing a few lines</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. This makes debugging extremely painful when a bug pops up.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Writing the entire project first, then resolving all bugs at once</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Debugging is completed. Next, you'll learn how to track changes, write commit messages, and collaborate on GitHub using **Git Version Control**.</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="09-modules.html">← OOP &amp; Modules</a>
+                    <a class="lesson-nav__next" href="11-git.html">Next: Git &amp; GitHub →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn. All rights reserved.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>

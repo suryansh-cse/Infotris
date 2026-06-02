@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Git and GitHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html" aria-label="OpenLearn home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">OpenLearn</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses.html" aria-current="page">Courses</a></li>
+                <li><a href="../../careers.html">Careers</a></li>
+            </ul>
+            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/index.html">Python Developer</a>
+        <span>/</span>
+        <a href="index.html">Python</a>
+        <span>/</span>
+        <span>Lesson 11</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="10-problem-solving.html">← Lesson 10</a>
+                <p class="lesson-header__label">Lesson 11 · Python</p>
+                <h1 class="lesson-header__title">Git &amp; GitHub</h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Version Control and Git</h2>
+                <p>Version control is a system that records changes to files over time so you can recall specific versions later. **Git** is a command-line tool that manages your project history. Unlike sending file copies like <code>project_v2_final.py</code>, Git tracks lines of edits incrementally. **GitHub** is a cloud hosting platform for your Git repositories, allowing you to share code, showcase your portfolio, and collaborate.</p>
+                
+                <h2>2. The Three Stages of Git</h2>
+                <p>Git works in a cycle of three distinct environments:</p>
+                <ul>
+                    <li><strong>Working Directory</strong>: Your local folders on your disk where you are currently editing files.</li>
+                    <li><strong>Staging Area</strong>: An intermediate buffer space where you select and group specific changes to prepare them for a commit. You stage edits using <code>git add</code>.</li>
+                    <li><strong>Repository (Commit History)</strong>: The permanent database containing all committed snapshots. You commit changes using <code>git commit</code>.</li>
+                </ul>
+
+                <h2>3. Essential Git Commands</h2>
+                <pre><code># 1. Initialize a new local Git repository
+git init
+
+# 2. Check the status of files (untracked, modified, or staged)
+git status
+
+# 3. Add a file to the Staging Area
+git add main.py
+git add .  # Adds all modified files in the directory
+
+# 4. Commit staged files with a descriptive message
+git commit -m "Add user auth logic to entry script"
+
+# 5. Review commit history log
+git log --oneline</code></pre>
+
+                <h2>4. Ignoring Files: The .gitignore File</h2>
+                <p>You should never commit virtual environments (<code>venv/</code>), dependencies folders (<code>node_modules/</code>), or files containing API keys and database passwords (<code>.env</code>). You create a text file named exactly <code>.gitignore</code> in the root of your project to specify which files and directories Git should ignore.</p>
+                <pre><code># .gitignore content example:
+.env
+__pycache__/
+*.log
+venv/</code></pre>
+
+                <h2>5. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Useless Commit Messages</strong>: Writing messages like <code>git commit -m "stuff"</code> or <code>"fix"</code>. Write descriptive, imperative messages: <code>"Refactor loops for faster execution"</code>.</li>
+                        <li><strong>Forgetting to Add before Commit</strong>: Modifying files and running <code>git commit</code> without running <code>git add</code>. Git will tell you "nothing to commit, working tree clean".</li>
+                        <li><strong>Committing Massive Folders</strong>: Committing virtual environments or dependency directories, swelling your repository size. Always configure your <code>.gitignore</code> first.</li>
+                    </ul>
+                </div>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="11-git" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Git Commits Flow</h2>
+                        <p class="practice-panel__hint">Plan out a mock Git workspace commands sequence. You create a new file named <code>main.py</code>, stage it, configure a <code>.gitignore</code> to ignore log files, and commit all changes. Write the commands in sequence below.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="# 1. Init repo&#10;git init&#10;# 2. Create gitignore&#10;# 3. Stage and commit&#10;git add .&#10;git commit -m 'Initial commit'"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I used <code>git init</code> to start tracking</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I staged the files using <code>git add</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I specified a descriptive commit message using <code>-m</code></span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Git workflow planned! You are ready to manage project history. Take the quiz below to unlock the final lesson.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="11-git">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which command prepares modified files for a commit by moving them to the staging area?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. 'git commit' saves staged changes permanently, but does not stage them.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">git commit</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! 'git add' moves changes from the working directory to the staging area buffer.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">git add</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. 'git push' uploads committed history to remote servers like GitHub.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">git push</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What is the purpose of the `.gitignore` file in a project?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! '.gitignore' prevents Git from tracking files that should remain private, local-only, or temporary.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To specify files and folders that Git should ignore and not track</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. It does not compress or optimize repository structures.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To compress files for faster upload speeds to GitHub</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. It ignores files, not deletes them.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To delete temporary cache files from your system folder</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. Which git command shows the history of all commits made in a repository?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. 'git status' lists current edits and staged files, not committed history.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">git status</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! 'git log' displays a list of all committed changes in chronological order.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">git log</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Git version control is completed. You are ready to explore the final module: **Career Direction &amp; Portfolios** in Lesson 12.</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="10-problem-solving.html">← Problem Solving</a>
+                    <a class="lesson-nav__next" href="12-career.html">Next: Career Direction →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn. All rights reserved.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>

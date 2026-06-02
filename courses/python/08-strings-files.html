@@ -29,46 +29,159 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>String methods</h2>
-                <pre><code>text = "  OpenLearn  "
-print(text.strip().lower())
-print("python".replace("p", "P"))</code></pre>
-                <h2>f-strings</h2>
-                <pre><code>topic = "Python"
-hours = 5
-print(f"You studied {topic} for {hours} hours.")</code></pre>
-                <h2>Reading a file</h2>
-                <pre><code>with open("notes.txt", "r", encoding="utf-8") as file:
-    content = file.read()
-    print(content)</code></pre>
-                <h2>Writing a file</h2>
-                <pre><code>with open("log.txt", "w", encoding="utf-8") as file:
-    file.write("Session complete\n")</code></pre>
-                <p><code>with</code> closes the file automatically — always prefer it.</p>
+                <h2>1. Text Processing: String Methods</h2>
+                <p>Strings are immutable sequences of text characters in Python. To process and clean text data (such as user inputs or database strings), Python provides powerful built-in string methods:</p>
+                <ul>
+                    <li><code>strip()</code>: Removes leading and trailing whitespace (spaces, tabs, newlines).</li>
+                    <li><code>lower()</code> / <code>upper()</code>: Converts all characters to lowercase or uppercase.</li>
+                    <li><code>replace(old, new)</code>: Replaces occurrences of a substring with another.</li>
+                    <li><code>split(separator)</code>: Divides a string into a list of substrings based on a separator (e.g., split by commas).</li>
+                    <li><code>join(iterable)</code>: Combines elements of a list into a single string with a separator.</li>
+                </ul>
+                <pre><code>raw_input = "  alice,24,engineer \n"
+clean_data = raw_input.strip()  # "alice,24,engineer"
+fields = clean_data.split(",")  # ["alice", "24", "engineer"]
+reconstructed = "-".join(fields)  # "alice-24-engineer"</code></pre>
+
+                <h2>2. String Formatting: f-strings</h2>
+                <p>F-strings (formatted string literals) provide a clean, readable syntax to insert variables and expressions directly into strings. Prefix the string with an <code>f</code> or <code>F</code>, and write variables inside curly braces <code>{}</code>.</p>
+                <pre><code>name = "Sam"
+score = 88.5
+print(f"Student {name} achieved a score of {score}%.")</code></pre>
+
+                <h2>3. File Operations: Context Managers</h2>
+                <p>Python allows you to read from and write to physical files on your disk. Opening a file takes system resources (file handles), so files must be closed. Instead of manually calling <code>file.close()</code>, you should always use the <code>with</code> statement (a **context manager**). It guarantees the file will be closed automatically once execution exits the block, even if your code crashes.</p>
+                <p>The standard file modes are:</p>
+                <ul>
+                    <li><code>"r"</code>: Read mode (default). Raises an error if the file doesn't exist.</li>
+                    <li><code>"w"</code>: Write mode. Overwrites the file completely or creates a new one.</li>
+                    <li><code>"a"</code>: Append mode. Adds new data to the end of the file.</li>
+                </ul>
+                <pre><code># Writing to a file (creates or overwrites)
+with open("notes.txt", "w", encoding="utf-8") as file:
+    file.write("First line of notes.\n")
+    file.write("Second line of notes.\n")
+
+# Reading a file line by line
+with open("notes.txt", "r", encoding="utf-8") as file:
+    for line in file:
+        print("Line:", line.strip())</code></pre>
+
+                <h2>4. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Forgetting to close files</strong>: Working with raw <code>file = open()</code> without calling <code>.close()</code> can corrupt files and lock memory resources. Stick to <code>with open()</code>.</li>
+                        <li><strong>Accidental Overwriting</strong>: Using <code>"w"</code> mode when you actually wanted to append data (<code>"a"</code>). <code>"w"</code> deletes all pre-existing content immediately.</li>
+                        <li><strong>FileNotFoundError</strong>: Attempting to read a file that doesn't exist, or using a relative file path that points to the wrong directory. Double check your terminal execution path.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="08-strings-files" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Create a small text file, then write a program that counts how many lines it contains.</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Line Logger</h2>
+                        <p class="practice-panel__hint">Write a script that creates a file called <code>log.txt</code> and writes three lines of log messages using <code>with open()</code>. Then, re-open the file in read mode, iterate through the lines, count how many lines it has, and print each line with its line number.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
                         <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder='with open("notes.txt", "r") as f:'></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="with open('log.txt', 'w') as f:&#10;    f.write('Log 1\nLog 2\nLog 3\n')&#10;&#10;with open('log.txt', 'r') as f:&#10;    count = 0&#10;    for line in f:&#10;        count += 1&#10;        print(f'{count}: {line.strip()}')"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>Uses <code>with open(...)</code> to read a file</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Counts lines (e.g. loop over lines or <code>readlines()</code>)</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Prints the line count for your test file</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Uses <code>with open('log.txt', 'w')</code> to write content</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Re-opens in read mode (<code>'r'</code>) and loops over lines</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Keeps track of line count and prints numbered output</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">File reading works — try modules next.</p>
+                        <p class="practice-success__text">File reading and writing is working — ready for the checkpoint quiz below.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="08-strings-files">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which file mode will append new content to the end of a file instead of erasing it?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. 'w' mode deletes the existing content and starts writing from scratch.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"w"</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! 'a' (append) mode adds new data to the end of the file.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"a"</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. 'r' mode is strictly read-only.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"r"</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Why should you always prefer using `with open(...)` over `file = open(...)`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. It does not speed up execution time.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It makes the file read/write operations twice as fast</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! A context manager automatically closes the file when exiting the block, even if an error is encountered.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It automatically closes the file, preventing resource leaks</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. File permissions are handled by the operating system, not the Python syntax block.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It bypasses operating system security permissions</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What does string `.strip()` do?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Use '.split()' to separate fields.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Splits the string into a list of values</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! '.strip()' trims spaces, tabs, and newline characters from the start and end of a string.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Removes leading and trailing whitespace</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. '.strip()' does not mutate characters inside the word.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Replaces all lowercase characters with uppercase</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Text processing and files are mastered. Next, you'll enter Advanced programming and learn how to model real-world concepts with **Object-Oriented Programming (OOP) and Modules**.</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="07-dictionaries.html">← Dictionaries</a>
                     <a class="lesson-nav__next" href="09-modules.html">Next: Modules →</a>

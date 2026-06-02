@@ -44,50 +44,166 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>Variables</h2>
-                <p>A variable is a name that points to a value. You assign with <code>=</code>.</p>
-                <pre><code>name = "Sam"
-age = 17
-height = 5.9
-is_student = True</code></pre>
-                <h2>Common types</h2>
+                <h2>1. Storing Data: What is a Variable?</h2>
+                <p>A variable is a symbolic name that acts as a reference or pointer to an object or value stored in your computer's memory. In Python, you create a variable by assigning a value using the assignment operator (<code>=</code>). Variables do not need to be declared with a specific type; Python is **dynamically typed**, meaning it determines the data type at runtime based on the value assigned.</p>
+                
+                <h2>2. Standard Variable Naming Rules</h2>
+                <p>When naming variables, you must follow these rules:</p>
                 <ul>
-                    <li><strong>str</strong> — text in quotes</li>
-                    <li><strong>int</strong> — whole numbers</li>
-                    <li><strong>float</strong> — decimals</li>
-                    <li><strong>bool</strong> — <code>True</code> or <code>False</code></li>
+                    <li>Names must start with a letter (a-z, A-Z) or an underscore (<code>_</code>).</li>
+                    <li>Names cannot start with a number (e.g., <code>1st_place</code> is invalid).</li>
+                    <li>Names can only contain alphanumeric characters and underscores (A-z, 0-9, and <code>_</code>).</li>
+                    <li>Names are case-sensitive (<code>age</code>, <code>Age</code>, and <code>AGE</code> are three distinct variables).</li>
+                    <li>Python standard style (PEP 8) recommends using **snake_case** for variable names (e.g., <code>user_age</code>).</li>
                 </ul>
-                <h2>Checking types</h2>
-                <pre><code>print(type(name))   # &lt;class 'str'&gt;
-print(type(age))    # &lt;class 'int'&gt;</code></pre>
-                <h2>Input from the user</h2>
-                <pre><code>city = input("Where do you live? ")
-print("Nice to meet someone from", city)</code></pre>
-                <p><code>input()</code> always returns a string. Convert numbers with <code>int()</code> or <code>float()</code>.</p>
+
+                <h2>3. Built-in Core Data Types</h2>
+                <p>Python categorizes data into distinct types. The four most common types are:</p>
+                <ul>
+                    <li><code>str</code> (String): Text enclosed in quotes, e.g., <code>"Alice"</code>.</li>
+                    <li><code>int</code> (Integer): Whole numbers positive or negative, e.g., <code>42</code>.</li>
+                    <li><code>float</code> (Floating-Point): Decimals, e.g., <code>3.14159</code>.</li>
+                    <li><code>bool</code> (Boolean): Logical values, either <code>True</code> or <code>False</code> (must be capitalized).</li>
+                </ul>
+                <p>You can check the type of any variable using the built-in <code>type()</code> function.</p>
+                <pre><code>name = "Sam"
+age = 18
+score = 94.5
+is_passing = True
+
+print(type(name))         # Output: &lt;class 'str'&gt;
+print(type(age))          # Output: &lt;class 'int'&gt;
+print(type(is_passing))   # Output: &lt;class 'bool'&gt;</code></pre>
+
+                <h2>4. Collecting Inputs &amp; Converting Types</h2>
+                <p>To interact with a user, we use the <code>input()</code> function, which prompts the user for text. **Important**: <code>input()</code> always returns a string. If you need to perform calculations on a user's input, you must cast (convert) it to an integer or float using <code>int()</code> or <code>float()</code>.</p>
+                <pre><code># Collecting string input
+username = input("Enter your username: ")
+
+# Collecting and casting numerical input
+birth_year = input("Enter your birth year: ")
+birth_year = int(birth_year)  # Convert string to integer
+
+# Perform math operations
+current_year = 2026
+age = current_year - birth_year
+print(username, "is", age, "years old.")</code></pre>
+
+                <h2>5. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Adding Strings and Numbers</strong>: <code>"Age: " + 18</code> will fail with a <code>TypeError</code>. In Python, you cannot concatenate strings and numbers directly. Use f-strings: <code>f"Age: {age}"</code> or commas in <code>print()</code>.</li>
+                        <li><strong>Forgetting to Cast input()</strong>: <code>birth_year + 5</code> will crash if <code>birth_year</code> is directly from <code>input()</code> without <code>int()</code> conversion.</li>
+                        <li><strong>Using Reserved Keywords</strong>: You cannot use Python keywords (like <code>if</code>, <code>else</code>, <code>class</code>, or <code>import</code>) as variable names.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="02-variables" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Ask for name and birth year, compute age, print one introduction line.</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Profile Builder</h2>
+                        <p class="practice-panel__hint">Write a script that prompts for a user's name, birth year, and favorite programming language. Calculate their age based on the year 2026, and print a formatted summary statement. Paste your output below to verify.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
                         <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="name = input(...)"></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="name = input('Name: ')&#10;year = int(input('Birth year: '))&#10;lang = input('Language: ')&#10;age = 2026 - year&#10;print(f'{name} is {age} and likes {lang}')"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
                         <label class="practice-check"><input type="checkbox"><span>I used <code>input()</code> at least twice</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>I converted the year with <code>int()</code></span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Program prints a one-line intro with name and age</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I converted the year using <code>int()</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I printed a summary statement including the name, calculated age, and language</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Ready for Project 1 — build your greeting script next.</p>
+                        <p class="practice-success__text">Awesome. You can store and convert variables. Take the quiz below to unlock the next milestone.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="02-variables">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is the data type of the value returned by `input("Enter price: ")`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not automatically infer number types from user input.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">int or float (depending on what the user types)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! input() always returns a string (str). If you want a number, you must cast it.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">str (always)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python is dynamically typed but inputs are always loaded as text strings.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">bool</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which of the following is an INVALID variable name in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Underscores are perfectly valid in variables.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">user_name</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Variable names cannot begin with a number.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">3rd_score</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python variables can contain numbers as long as they don't start with them.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">score3</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What is the value of `result` after running: `result = 10 / 2`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. In Python, single division (/) always returns a floating point number.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">5 (integer)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Single division (/) always returns a float in Python (e.g., 5.0). To get an integer, use floor division (//).">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">5.0 (float)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python division evaluates to a float.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"5.0" (string)</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Variables and inputs are down. Now, it's time to build your first milestone project: **Project 1 — Personal Greeting Script**!</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="01-intro.html">← Introduction</a>
                     <a class="lesson-nav__next" href="project-01-greeting.html">Project 1 →</a>

@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Python course — all lessons for the Python Developer path on OpenLearn.">
-    <title>OpenLearn | Python course</title>
+    <meta name="description" content="Python Developer syllabus – structured roadmap and projects.">
+    <title>OpenLearn | Python Course</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/path.css">
+    <link rel="stylesheet" href="../../css/practice.css">
 </head>
 <body class="page-course-index">
-
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
             <a class="navbar-logo" href="../../index.html" aria-label="OpenLearn home">
@@ -37,119 +37,191 @@
     </nav>
 
     <main>
-        <header class="path-hero">
+        <!-- Hero Section -->
+        <section class="path-hero">
             <div class="path-hero__inner">
-                <a class="path-hero__back" href="../../careers/python-developer/index.html">← Full syllabus</a>
-                <p class="path-hero__eyebrow">Course · Weeks 1–4</p>
-                <h1 class="path-hero__title">Python</h1>
-                <p class="path-hero__lead">Nine core lessons plus three projects. Start at lesson 1 if you are new.</p>
-                <a class="path-hero__cta" href="01-intro.html">Lesson 1 — Introduction</a>
-
+                <a class="path-hero__back" href="../../careers/python-developer/index.html">← Back to Syllabus</a>
+                <p class="path-hero__eyebrow">Beginner → Advanced</p>
+                <h1 class="path-hero__title">Python Developer</h1>
+                <p class="path-hero__lead">Four‑week premium roadmap that takes you from zero to project‑ready Python developer.</p>
+                <p class="path-hero__duration"><strong>Estimated duration:</strong> 4 weeks (≈ 12 hrs)</p>
+                <a class="path-hero__cta button-primary" href="01-intro.html">Start Learning</a>
             </div>
-              <style>
-                .animation-fixed-corner {
-                  position: absolute;
-                  top: 8rem;
-                  right: 6rem; /* moved more left so fully in the frame */
-                  z-index: 50;
-                  pointer-events: none;
-                }
-                .animation-fixed-corner .row {
-                  display: flex;
-                  align-items: center;
-                  height: 4.5rem;
-                  margin-bottom: 1.2rem;
-                  justify-content: flex-end;
-                }
-                .animation-fixed-corner .square {
-                  width: 3.5rem;
-                  height: 3.5rem;
-                  background: #111;
-                  border-radius: 0.75rem;
-                  box-shadow: 0 5px 16px rgba(18,18,18,0.10);
-                  display: inline-block;
-                }
-              </style>
-              <div class="animation-fixed-corner">
-                  <div class="row">
-                      <div class="square" id="demo-square-1"></div>
-                  </div>
-                  <div class="row">
-                      <div class="square" id="demo-square-2"></div>
-                  </div>
-                  <div class="row">
-                      <div class="square" id="demo-square-3"></div>
-                  </div>
-              </div>
-              <script type="module">
-                import anime from 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.es.js';
+        </section>
 
-                // Animate first square: move inwards
-                anime({
-                  targets: '#demo-square-1',
-                  translateX: '4rem',
-                  direction: 'alternate',
-                  loop: true,
-                  easing: 'easeInOutSine',
-                  duration: 1200
-                });
-
-                // Animate second square: rotate continuously
-                anime({
-                  targets: '#demo-square-2',
-                  rotate: '1turn',
-                  easing: 'linear',
-                  duration: 1600,
-                  loop: true
-                });
-
-                // Animate third square: scale down and back up
-                anime({
-                  targets: '#demo-square-3',
-                  scale: [
-                    { value: 0.5, duration: 700, easing: 'easeInOutBack' },
-                    { value: 1, duration: 700, easing: 'easeInOutBack' }
-                  ],
-                  loop: true
-                });
-              </script>
+        <!-- What You'll Learn -->
+        <section class="learn-cards">
+            <h2 class="section-heading">What You’ll Learn</h2>
+            <div class="cards-grid">
+                <div class="card"><h3>Python Basics</h3></div>
+                <div class="card"><h3>Problem Solving</h3></div>
+                <div class="card"><h3>Automation</h3></div>
+                <div class="card"><h3>Object‑Oriented Programming</h3></div>
+                <div class="card"><h3>Real‑World Projects</h3></div>
+                <div class="card"><h3>Git & GitHub</h3></div>
             </div>
-        </header>
+        </section>
 
-        <section class="path-body">
-            <div class="path-body__inner">
-                <h2 class="path-body__heading">Lessons</h2>
-                <article class="path-week">
-                    <h3 class="path-week__title">Core lessons</h3>
-                    <ol class="path-lessons">
-                        <li><a href="01-intro.html">01 — Introduction to Python</a></li>
-                        <li><a href="02-variables.html">02 — Variables and data types</a></li>
-                        <li><a href="03-conditionals.html">03 — Conditionals</a></li>
-                        <li><a href="04-loops.html">04 — Loops</a></li>
-                        <li><a href="05-lists.html">05 — Lists</a></li>
-                        <li><a href="06-functions.html">06 — Functions</a></li>
-                        <li><a href="07-dictionaries.html">07 — Dictionaries</a></li>
-                        <li><a href="08-strings-files.html">08 — Strings and files</a></li>
-                        <li><a href="09-modules.html">09 — Modules</a></li>
-                    </ol>
-                </article>
-                <article class="path-week">
-                    <h3 class="path-week__title">Projects</h3>
-                    <ol class="path-lessons">
-                        <li><a href="project-01-greeting.html">Project 1 — Greeting script</a></li>
-                        <li><a href="project-02-guesser.html">Project 2 — Number guesser</a></li>
-                        <li><a href="project-03-contact-book.html">Project 3 — Contact book</a></li>
-                        <li><a href="project-capstone-cli.html">Capstone — CLI tool</a></li>
-                    </ol>
-                </article>
-                <article class="path-week">
-                    <h3 class="path-week__title">Continue path</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../problem-solving/index.html">Problem Solving (weeks 5–6)</a></li>
-                        <li><a href="../dsa/index.html">DSA (weeks 7–8)</a></li>
-                    </ol>
-                </article>
+        <!-- Learning Roadmap -->
+        <section class="roadmap">
+            <h2 class="section-heading">Learning Roadmap</h2>
+            <div class="roadmap-grid">
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 1 · Beginner</span>
+                    <h3 class="roadmap-card__title">Python Fundamentals</h3>
+                    <p class="roadmap-card__desc">Variables, data types, I/O, operators.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="01-intro.html" class="roadmap-card__lesson-link">01 Introduction</a>
+                        <a href="02-variables.html" class="roadmap-card__lesson-link">02 Variables & Types</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 2 · Beginner</span>
+                    <h3 class="roadmap-card__title">Logic Building</h3>
+                    <p class="roadmap-card__desc">Conditionals, loops, basic decision making.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="03-conditionals.html" class="roadmap-card__lesson-link">03 Conditionals</a>
+                        <a href="04-loops.html" class="roadmap-card__lesson-link">04 Loops</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 3 · Intermediate</span>
+                    <h3 class="roadmap-card__title">Functions & Modularity</h3>
+                    <p class="roadmap-card__desc">Define reusable functions, arguments, returns, scopes.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="06-functions.html" class="roadmap-card__lesson-link">06 Functions</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 4 · Intermediate</span>
+                    <h3 class="roadmap-card__title">Collections</h3>
+                    <p class="roadmap-card__desc">Lists, tuples, dictionaries, sets.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="05-lists.html" class="roadmap-card__lesson-link">05 Lists & Tuples</a>
+                        <a href="07-dictionaries.html" class="roadmap-card__lesson-link">07 Dictionaries</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 5 · Intermediate</span>
+                    <h3 class="roadmap-card__title">File Handling</h3>
+                    <p class="roadmap-card__desc">Read/write files, string processing.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="08-strings-files.html" class="roadmap-card__lesson-link">08 Strings & Files</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 6 · Advanced</span>
+                    <h3 class="roadmap-card__title">Object‑Oriented Programming</h3>
+                    <p class="roadmap-card__desc">Classes, objects, inheritance.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="09-modules.html" class="roadmap-card__lesson-link">09 OOP & Modules</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 7 · Advanced</span>
+                    <h3 class="roadmap-card__title">Problem Solving & Debugging</h3>
+                    <p class="roadmap-card__desc">Algorithmic thinking, debugging strategies.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="10-problem-solving.html" class="roadmap-card__lesson-link">10 Problem Solving</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 8 · Projects</span>
+                    <h3 class="roadmap-card__title">Real‑World Projects</h3>
+                    <p class="roadmap-card__desc">Apply everything in three progressive projects.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="project-01-greeting.html" class="roadmap-card__lesson-link">Project 1 – Greeting script</a>
+                        <a href="project-02-guesser.html" class="roadmap-card__lesson-link">Project 2 – Number Guesser</a>
+                        <a href="project-03-contact-book.html" class="roadmap-card__lesson-link">Project 3 – CLI Todo & Quiz</a>
+                        <a href="project-capstone-cli.html" class="roadmap-card__lesson-link">Capstone – Automation Tool</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 9 · Practical Development</span>
+                    <h3 class="roadmap-card__title">Git & GitHub</h3>
+                    <p class="roadmap-card__desc">Version control, collaborative workflows.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="11-git.html" class="roadmap-card__lesson-link">11 Git & GitHub</a>
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <span class="roadmap-card__tag">Module 10 · Career</span>
+                    <h3 class="roadmap-card__title">Career Direction</h3>
+                    <p class="roadmap-card__desc">Resume building, portfolio, interview prep.</p>
+                    <div class="roadmap-card__lessons">
+                        <a href="12-career.html" class="roadmap-card__lesson-link">12 Career Prep</a>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <!-- Weekly Planner -->
+        <section class="weekly-planner">
+            <h2 class="section-heading">Weekly Planner</h2>
+            <div class="planner-grid">
+                <div class="planner-week">
+                    <h3>Week 1 – Fundamentals</h3>
+                    <ul>
+                        <li>01 Introduction</li>
+                        <li>02 Variables & Types</li>
+                        <li>Project 1 – Greeting script</li>
+                    </ul>
+                </div>
+                <div class="planner-week">
+                    <h3>Week 2 – Logic</h3>
+                    <ul>
+                        <li>03 Conditionals</li>
+                        <li>04 Loops</li>
+                        <li>Project 2 – Number Guesser</li>
+                    </ul>
+                </div>
+                <div class="planner-week">
+                    <h3>Week 3 – Functions & Files</h3>
+                    <ul>
+                        <li>06 Functions</li>
+                        <li>08 Strings & Files</li>
+                        <li>Project 3 – CLI Todo & Quiz</li>
+                    </ul>
+                </div>
+                <div class="planner-week">
+                    <h3>Week 4 – Advanced & Career</h3>
+                    <ul>
+                        <li>09 OOP & Modules</li>
+                        <li>10 Problem Solving</li>
+                        <li>11 Git & GitHub</li>
+                        <li>12 Career Prep</li>
+                        <li>Capstone – Automation Tool</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Showcase -->
+        <section class="projects-showcase">
+            <h2 class="section-heading">Projects You’ll Build</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Beginner</h3>
+                    <p>Calculator, Quiz App</p>
+                </div>
+                <div class="project-card">
+                    <h3>Intermediate</h3>
+                    <p>To‑do App</p>
+                </div>
+                <div class="project-card">
+                    <h3>Advanced</h3>
+                    <p>Automation Script</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Philosophy -->
+        <section class="learning-philosophy">
+            <h2 class="section-heading">Learning Philosophy</h2>
+            <blockquote class="philosophy-quote">
+                “Build before moving ahead.”
+            </blockquote>
+            <p>Complete each tiny project or exercise before progressing to the next module. Mastery is built through focused, hands‑on practice.</p>
         </section>
     </main>
 
@@ -175,6 +247,6 @@
     </footer>
 
     <script src="../../js/practice.js" defer></script>
-    <script src="../../js/anime.js" type="module"></script>
+    
 </body>
 </html>

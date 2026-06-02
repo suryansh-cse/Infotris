@@ -28,24 +28,41 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>Goal</h2>
-                <p>Build a script that asks for the user's name and goal, then prints a personalized motivational message.</p>
-                <h2>Starter template</h2>
+                <h2>Milestone 1 Goal</h2>
+                <p>Build a script that functions as a Personal Profile &amp; Study Calculator. The script prompts the user for their name, birth year, hourly rate, and weekly study hours. It then calculates their age, estimates yearly learning hours, and displays a formatted CLI profile card using f-strings.</p>
+                
+                <h2>Requirements</h2>
+                <ul>
+                    <li>Ask for name, birth year, hourly rate, and weekly study hours using <code>input()</code>.</li>
+                    <li>Convert numerical inputs from string to <code>int</code> and <code>float</code>.</li>
+                    <li>Calculate age (using the current year 2026) and annual study hours (weekly hours * 52).</li>
+                    <li>Print a visual, multi-line card banner with user details using f-strings or triple quotes.</li>
+                </ul>
+                
+                <h2>Starter Template</h2>
                 <pre><code>name = input("What is your name? ")
-goal = input("What do you want to learn? ")
+birth_year = int(input("What is your birth year? "))
+weekly_hours = float(input("How many hours do you study per week? "))
+
+age = 2026 - birth_year
+yearly_hours = weekly_hours * 52
 
 print(f"""
-Hi {name}!
-Welcome to OpenLearn.
-Let's work toward: {goal}
-You've got this.
+----------------------------------------
+       DEVELOPER PROFILE CARD
+----------------------------------------
+Name:         {name}
+Age:          {age} years old
+Weekly Study: {weekly_hours} hours
+Yearly Study: {yearly_hours} hours
+----------------------------------------
 """)</code></pre>
 
-                <section class="practice-panel practice-panel--project" data-practice-type="project" data-practice-id="project-01" data-expected-output="hi welcome to openlearn you've got this" aria-labelledby="practice-title">
+                <section class="practice-panel practice-panel--project" data-practice-type="project" data-practice-id="project-01" data-expected-output="developer profile card name age" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
                         <span class="practice-panel__eyebrow">Build &amp; verify</span>
-                        <h2 id="practice-title" class="practice-panel__title">Practice workspace</h2>
-                        <p class="practice-panel__hint">Code in your editor, run in the terminal, then check each requirement. When everything is checked, you will see a success message — that means you built the right project.</p>
+                        <h2 id="practice-title" class="practice-panel__title">Project Workspace</h2>
+                        <p class="practice-panel__hint">Write your script in your editor (e.g., <code>profile.py</code>), run it in the terminal, and verify each requirement. Paste the printed profile card below to check output.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                             <div class="practice-progress__bar"></div>
                         </div>
@@ -54,18 +71,23 @@ You've got this.
 
                     <div class="practice-workspace">
                         <label for="practice-code">Your code (paste here to keep notes)</label>
-                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="# Paste your greeting.py here..."></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="# Paste your profile.py here..."></textarea>
                     </div>
 
                     <div class="practice-expected">
-                        <p class="practice-expected__title">Example terminal output (after you type Sam and Python)</p>
+                        <p class="practice-expected__title">Example terminal output (after typing Sam, 2000, and 10)</p>
                         <pre>What is your name? Sam
-What do you want to learn? Python
+What is your birth year? 2000
+How many hours do you study per week? 10
 
-Hi Sam!
-Welcome to OpenLearn.
-Let's work toward: Python
-You've got this.</pre>
+----------------------------------------
+       DEVELOPER PROFILE CARD
+----------------------------------------
+Name:         Sam
+Age:          26 years old
+Weekly Study: 10.0 hours
+Yearly Study: 520.0 hours
+----------------------------------------</pre>
                     </div>
 
                     <div class="practice-output-check">
@@ -77,10 +99,10 @@ You've got this.</pre>
 
                     <fieldset class="practice-checklist">
                         <legend>Project requirements — check when true</legend>
-                        <label class="practice-check"><input type="checkbox"><span>My script uses <code>input()</code> at least twice</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Answers are stored in variables</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>The message uses an f-string or <code>format</code></span></label>
-                        <label class="practice-check"><input type="checkbox" data-check="output"><span>Running the file prints a personalized greeting (no errors)</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>My script prompts for name, birth year, and weekly hours</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Numerical values are converted with <code>int()</code> / <code>float()</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Age and annual hours are computed correctly</span></label>
+                        <label class="practice-check"><input type="checkbox" data-check="output"><span>The script prints a multi-line formatted card output (no errors)</span></label>
                     </fieldset>
 
                     <div class="practice-success" hidden>
@@ -90,10 +112,10 @@ You've got this.</pre>
                     </div>
                 </section>
 
-                <h2>Stretch goals</h2>
+                <h2>Stretch Goals</h2>
                 <ul>
-                    <li>Ask for hours per week and estimate weeks to finish a 40-hour path</li>
-                    <li>Save the message to <code>greeting.txt</code></li>
+                    <li>Add an hourly budget calculator (e.g. rate * hours) to estimate learning savings.</li>
+                    <li>Use a conditional to print a special tip if the user's weekly hours are below 5.</li>
                 </ul>
                 <nav class="lesson-nav">
                     <a href="02-variables.html">← Lesson 2</a>

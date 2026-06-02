@@ -29,46 +29,156 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>for loops</h2>
-                <p>Repeat code for each item in a sequence.</p>
-                <pre><code>for i in range(5):
-    print(i)  # 0 1 2 3 4
+                <h2>1. What are Loops?</h2>
+                <p>In programming, loops are control flow constructs that allow you to repeat a block of code multiple times. This is essential for traversing collections, automating tasks, and logic building. Python supports two main types of loops: <code>for</code> loops (for iterating over a predetermined sequence) and <code>while</code> loops (for repeating actions as long as a condition evaluates to <code>True</code>).</p>
+                
+                <h2>2. The `for` Loop and `range()`</h2>
+                <p>A <code>for</code> loop iterates over elements in any sequence (like a list or text string) or a range of numbers. The <code>range(start, stop, step)</code> function generates numbers starting from <code>start</code> (inclusive), up to but not including <code>stop</code> (exclusive), incrementing by <code>step</code>.</p>
+                <pre><code># Iterate from 0 up to 4 (5 is excluded)
+for i in range(5):
+    print(i)  # Prints: 0, 1, 2, 3, 4
 
-fruits = ["apple", "banana", "cherry"]
-for fruit in fruits:
-    print(fruit)</code></pre>
-                <h2>while loops</h2>
-                <p>Repeat while a condition stays true. Always ensure the loop can end.</p>
-                <pre><code>count = 3
-while count > 0:
-    print(count)
-    count -= 1</code></pre>
-                <h2>break and continue</h2>
-                <p><code>break</code> exits the loop early. <code>continue</code> skips to the next iteration.</p>
+# Iterate from 1 to 10 with step 2 (odd numbers only)
+for number in range(1, 11, 2):
+    print(number)  # Prints: 1, 3, 5, 7, 9</code></pre>
+
+                <h2>3. The `while` Loop</h2>
+                <p>A <code>while</code> loop executes code repeatedly as long as its condition remains <code>True</code>. It is crucial to modify the condition state inside the loop block; otherwise, the loop will run forever, creating an **infinite loop** that crashes your system.</p>
+                <pre><code>count = 5
+while count &gt; 0:
+    print("Countdown:", count)
+    count -= 1  # Decrement count so condition eventually becomes False
+print("Blastoff!")</code></pre>
+
+                <h2>4. Loop Interruption: break and continue</h2>
+                <p>You can fine-tune loops using control statements:</p>
+                <ul>
+                    <li><code>break</code>: Terminates the loop immediately and jumps to the code following the loop block.</li>
+                    <li><code>continue</code>: Skips the remaining code inside the current loop iteration and moves directly to the next loop cycle.</li>
+                </ul>
+                <pre><code># Skip 3, stop loop at 7
+for n in range(1, 10):
+    if n == 3:
+        continue  # Skip printing 3
+    if n == 8:
+        break     # Stop loop at 8
+    print(n)</code></pre>
+
+                <h2>5. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Infinite Loops</strong>: Forgetting to increment the loop control counter variable inside a <code>while</code> loop, resulting in a loop that never terminates.</li>
+                        <li><strong>Off-by-One Range Boundary</strong>: Forgetting that <code>range(1, 10)</code> runs from 1 to 9, not 10. The ending value is always excluded.</li>
+                        <li><strong>Incorrect Indentation</strong>: Code that you want inside the loop must be indented. Placing code flush with the margin means it will only execute after the loop ends.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="04-loops" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Use a <code>for</code> loop to print the square of each number from 1 through 10.</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Squaring Calculator</h2>
+                        <p class="practice-panel__hint">Write a script that uses a <code>for</code> loop to print the squares of each number from 1 through 10. However, use the <code>continue</code> statement to skip printing the square if it is an odd number (only print even squares).</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
                         <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="for n in range(1, 11):"></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="for n in range(1, 11):&#10;    square = n * n&#10;    if square % 2 != 0:&#10;        continue&#10;    print(square)"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>Uses a <code>for</code> loop (not ten separate prints)</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Covers numbers 1 through 10 inclusive</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Each line shows n and n squared (or just the square)</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Uses a <code>for</code> loop iterating 1 through 10</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Uses the <code>continue</code> keyword to skip odd squares</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Prints only the even squares (e.g., 4, 16, 36, 64, 100)</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Loops are working — move on to lists.</p>
+                        <p class="practice-success__text">Excellent. Loops are under control. Test your knowledge below to unlock data structures.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="04-loops">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which numbers are generated by `range(1, 5)` in a loop?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Range parameters are (start, stop), and the stop is exclusive.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">1, 2, 3, 4, 5</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Python range starts at the first number and stops one number before the second.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">1, 2, 3, 4</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Range starts at 1, not 0.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">0, 1, 2, 3, 4</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What does the `continue` statement do when reached inside a loop?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. 'break' exits the loop, not 'continue'.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Exits the loop immediately</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! 'continue' skips the remainder of the current loop iteration and proceeds directly to the next loop check or cycle.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Skips the rest of the current iteration and goes to the next cycle</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. 'continue' doesn't cause crashes, it just changes execution flow.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Crashes the loop with a StopIteration error</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What is a key danger of using a `while` loop?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! If the loop's condition never becomes False, it creates an infinite loop, hanging or crashing the script.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Creating an infinite loop if the condition never becomes False</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. While loops can iterate over numbers or check user input easily.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It can only run exactly 10 times before crashing</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. While loops are perfectly valid, standard tools.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It is deprecated in modern versions of Python</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You have unlocked data collections! Next, you'll learn how to organize, access, and manipulate sequence lists using **Lists, Tuples, and Sets**.</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="03-conditionals.html">← Conditionals</a>
                     <a class="lesson-nav__next" href="05-lists.html">Next: Lists →</a>

@@ -45,53 +45,125 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>What is Python?</h2>
-                <p>Python is a readable, versatile language used for web apps, automation, data science, scripting, and AI tools. Its syntax is closer to plain English than many languages, which makes it a strong first language.</p>
-                <h2>How to run Python</h2>
+                <h2>1. What is Python?</h2>
+                <p>Python is a high-level, interpreted programming language known for its clear syntax and readability. Unlike low-level languages like C++ or Assembly, Python code is compiled at runtime by an interpreter, which reads and executes instructions line by line. This makes the language highly portable and easy to debug, but slightly slower for raw execution. Python is widely used in web development, data analysis, scripting, artificial intelligence, and automation.</p>
+                
+                <h2>2. How Python Runs Code</h2>
+                <p>To run Python on your computer, you need to download and install the Python runtime from the official <a href="https://python.org" target="_blank">python.org</a> website. Python can be executed in two main ways:</p>
                 <ul>
-                    <li>Install Python from <strong>python.org</strong> (3.10+ recommended).</li>
-                    <li>Open a terminal and type <code>python</code> or <code>python3</code> for an interactive shell.</li>
-                    <li>Or save code in a file ending in <code>.py</code> and run: <code>python myfile.py</code></li>
+                    <li><strong>Interactive REPL (Read-Eval-Print Loop)</strong>: By typing <code>python</code> or <code>python3</code> in your command terminal, you open a live environment where every line of code you write is executed immediately. This is great for testing and quick experimentation.</li>
+                    <li><strong>Script Mode</strong>: For real applications, you write your code in text files ending with the <code>.py</code> extension (e.g., <code>hello.py</code>), and then run the whole script from your terminal using: <code>python hello.py</code>.</li>
                 </ul>
-                <h2>Your first program</h2>
-                <pre><code>print("Hello, OpenLearn!")</code></pre>
-                <p><code>print()</code> sends text to the screen. Strings go inside quotes.</p>
-                <h2>Comments</h2>
-                <pre><code># This line is ignored — use comments for notes
-print("Code runs")  # comment after code works too</code></pre>
+
+                <h2>3. Syntax and Your First Script</h2>
+                <p>Python values simplicity. To display output to the screen, we use the built-in <code>print()</code> function. Strings (text) must be enclosed inside double or single quotes. Multi-line comments or descriptions can be written, but for single-line notes, Python uses the <code>#</code> symbol.</p>
+                <pre><code># This is a comment. The interpreter ignores it.
+print("Hello, OpenLearn!")  # Prints text to console
+
+# Multiple arguments can be separated by commas
+print("Welcome to", "Python", 3.12)</code></pre>
+
+                <h2>4. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Case Sensitivity</strong>: <code>Print("Hello")</code> will fail with a <code>NameError</code>. Python functions are case-sensitive. Use lowercase: <code>print()</code>.</li>
+                        <li><strong>Missing Quotes</strong>: <code>print(Hello)</code> will try to look for a variable named <code>Hello</code> rather than printing the word, causing an error.</li>
+                        <li><strong>Unmatched Quotes</strong>: Mixing quotes like <code>"Hello'</code> will cause a <code>SyntaxError</code>.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="01-intro" data-expected-output="hello openlearn" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Write code locally, run it, then confirm you did each step.</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Run Your First Code</h2>
+                        <p class="practice-panel__hint">Write a script locally, save it as <code>intro.py</code>, run it in your terminal, and confirm the steps. Copy the printed output to check it.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                             <div class="practice-progress__bar"></div>
                         </div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
-                        <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="6" spellcheck="false">print("Hello, OpenLearn!")
-# Add your name and goal below</textarea>
+                        <label for="practice-code">Write your code here (Scratchpad)</label>
+                        <textarea id="practice-code" class="practice-code" rows="6" spellcheck="false" placeholder="# Paste your script here to keep notes...&#10;print(&quot;Hello, OpenLearn!&quot;)"></textarea>
                     </div>
                     <div class="practice-output-check">
-                        <label for="practice-output">Paste your terminal output</label>
+                        <label for="practice-output">Paste what your terminal printed</label>
                         <textarea id="practice-output" class="practice-output-input" rows="3" placeholder="Hello, OpenLearn!"></textarea>
                         <button type="button" class="practice-btn" data-output-verify>Check my output</button>
                         <p class="practice-feedback" hidden></p>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>I created a <code>.py</code> file and ran it</span></label>
-                        <label class="practice-check"><input type="checkbox" data-check="output"><span>Output shows at least one <code>print</code> message</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>I printed my name and one learning goal</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I installed Python on my system</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I created an <code>intro.py</code> file and ran it</span></label>
+                        <label class="practice-check"><input type="checkbox" data-check="output"><span>My script printed the message successfully</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Great start. Move on to variables when you are ready.</p>
+                        <p class="practice-success__text">Awesome. You can run Python files. Take the quiz below to unlock the next lesson.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="01-intro">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What kind of language is Python primarily considered?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Low-level languages (like Assembly) are closely tied to CPU machine code.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Low-level, compiled machine language</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Python is a high-level, human-readable language that executes through an interpreter at runtime.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">High-level, interpreted language</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. While compiled steps occur implicitly, Python runs via an interpreter line by line.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Hardware assembly macro script</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. How is a comment written in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. '//' is used in Java, C, JS, etc.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">// Comment here</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Single line comments start with a #.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text"># Comment here</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Standard HTML comments look like <!-- -->.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">&lt;!-- Comment --&gt;</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">By completing this introduction, you have unlocked the fundamentals. Next, you'll learn how to store information and compute numbers using **Variables and Data Types**.</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="index.html">All lessons</a>
                     <a class="lesson-nav__next" href="02-variables.html">Next: Variables →</a>

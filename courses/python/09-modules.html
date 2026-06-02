@@ -29,51 +29,155 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>Importing modules</h2>
-                <p>Python ships with many libraries. You import them to reuse tested code.</p>
-                <pre><code>import random
-import math
+                <h2>1. Object-Oriented Programming (OOP)</h2>
+                <p>Object-Oriented Programming is a design paradigm used to structure software by grouping related data and behaviors into individual bundles called **objects**. In Python, you define a blueprint for these objects using the <code>class</code> keyword. Objects are instances of a class.</p>
+                <p>Classes contain a constructor method called <code>__init__</code> which initializes the object's properties (attributes) when a new instance is created. Every instance method inside a class must accept <code>self</code> as its first parameter, which refers to the specific object instance calling the method.</p>
+                <pre><code>class Student:
+    # Constructor method
+    def __init__(self, name, score):
+        self.name = name          # Instance attribute
+        self.score = score        # Instance attribute
 
-print(random.randint(1, 10))
-print(math.sqrt(16))</code></pre>
-                <h2>Your own modules</h2>
-                <p>Put functions in <code>helpers.py</code>, then in <code>main.py</code>:</p>
-                <pre><code>from helpers import greet
+    # Instance method
+    def is_passing(self):
+        return self.score &gt;= 50
 
-greet("OpenLearn")</code></pre>
-                <h2>Project structure tip</h2>
+# Instantiating an object
+s1 = Student("Aman", 78)
+print(s1.name)             # Prints: Aman
+print(s1.is_passing())     # Prints: True</code></pre>
+
+                <h2>2. Code Organization: Modules</h2>
+                <p>As applications grow, keeping all logic in a single file becomes unmanageable. A **module** is simply a Python file (e.g., <code>helpers.py</code>) containing functions, classes, or variables that can be imported and reused in another script (e.g., <code>main.py</code>).</p>
+                <p>Python also features a vast standard library of built-in modules that you can import directly:</p>
                 <ul>
-                    <li>One clear entry file (e.g. <code>main.py</code>)</li>
-                    <li>Helper logic in separate modules</li>
-                    <li>Data files in a <code>data/</code> folder</li>
+                    <li><code>import random</code>: Used for random numbers and shuffling sequences.</li>
+                    <li><code>import math</code>: Used for advanced mathematical operations (like square roots, trigonometric ratios).</li>
                 </ul>
+                <pre><code>import random
+from math import sqrt
+
+print(random.randint(1, 10))  # Prints a random integer between 1 and 10
+print(sqrt(25))               # Prints: 5.0</code></pre>
+
+                <h2>3. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Forgetting 'self'</strong>: Declaring a class method like <code>def get_name():</code>. When called on an object, Python will raise a <code>TypeError: takes 0 positional arguments but 1 was given</code>. Always write: <code>def get_name(self):</code>.</li>
+                        <li><strong>Forgetting parenthesis on instantiation</strong>: Writing <code>s1 = Student</code> instead of <code>s1 = Student("Aman", 78)</code>. The former assigns the class blueprint itself to the variable, rather than creating a new object.</li>
+                        <li><strong>Circular Imports</strong>: Importing file A inside file B, and file B inside file A. This creates an import loop and throws an <code>ImportError</code>. Keep imports linear.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="09-modules" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Split a small program into <code>helpers.py</code> (functions) and <code>main.py</code> (imports and runs them).</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Bank Account Simulator</h2>
+                        <p class="practice-panel__hint">Define a <code>BankAccount</code> class with attributes <code>owner</code> and <code>balance</code> (starting at 0). Write methods <code>deposit(amount)</code> (adds to balance) and <code>withdraw(amount)</code> (subtracts from balance). Put this class in a file named <code>bank.py</code>, then write a script in <code>main.py</code> to import it, create an account, perform transactions, and print the resulting balance.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
-                        <label for="practice-code">Paste helpers.py and main.py (or notes)</label>
-                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="# helpers.py&#10;# main.py"></textarea>
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="# bank.py&#10;class BankAccount:&#10;    def __init__(self, owner):&#10;        self.owner = owner&#10;        self.balance = 0&#10;    def deposit(self, amount):&#10;        self.balance += amount&#10;    def withdraw(self, amount):&#10;        self.balance -= amount"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>At least one function lives in a separate module file</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Entry file imports from the helper module</span></label>
-                        <label class="practice-check"><input type="checkbox"><span><code>python main.py</code> runs without import errors</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Class <code>BankAccount</code> defined with constructor and <code>self</code> attributes</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Methods update <code>self.balance</code> correctly</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Class is imported into an entry script, instantiated, and transactions are printed</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Code is split across files — continue to Problem Solving.</p>
+                        <p class="practice-success__text">Classes and modular structures are complete. Take the quiz to unlock Problem Solving.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="09-modules">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is the purpose of the `self` parameter in Python class methods?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not use 'self' to declare variables as global.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It makes variables accessible globally across all modules</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! 'self' acts as a reference pointing to the specific instance of the object calling the method, allowing access to its attributes.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It references the specific object instance calling the method</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. It is standard parameter naming, not a system keyword for speed optimization.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It optimizes execution speed by bypassing the interpreter</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which special method is invoked automatically when you instantiate a new object from a class?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. '__new__' exists for raw allocation but constructor logic goes in '__init__'.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">__new__</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The '__init__' constructor runs immediately when a class object is created, initializing attributes.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">__init__</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. '__str__' handles string representation of objects.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">__str__</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. How do you import a specific function `randint` from the `random` module?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. This is incorrect syntax.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">import randint from random</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! In Python, specific functions are loaded using: 'from module import name'.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">from random import randint</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. This is invalid syntax.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">from random load randint</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">OOP and modules are complete! You are ready to explore **Problem Solving and Debugging Strategies** in Lesson 10.</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="08-strings-files.html">← Strings &amp; files</a>
-                    <a class="lesson-nav__next" href="../problem-solving/01-break-down-problems.html">Problem Solving →</a>
+                    <a class="lesson-nav__next" href="10-problem-solving.html">Next: Problem Solving →</a>
                 </nav>
             </div>
         </article>

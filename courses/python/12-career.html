@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Career Direction and Portfolios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html" aria-label="OpenLearn home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">OpenLearn</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses.html" aria-current="page">Courses</a></li>
+                <li><a href="../../careers.html">Careers</a></li>
+            </ul>
+            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/index.html">Python Developer</a>
+        <span>/</span>
+        <a href="index.html">Python</a>
+        <span>/</span>
+        <span>Lesson 12</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="11-git.html">← Lesson 11</a>
+                <p class="lesson-header__label">Lesson 12 · Python</p>
+                <h1 class="lesson-header__title">Career Direction &amp; Portfolios</h1>
+                <p class="lesson-header__meta">~30 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Python Job Roles</h2>
+                <p>Python is an extremely versatile tool. Once you master its core fundamentals, you can direct your career toward several specializations:</p>
+                <ul>
+                    <li><strong>Backend Web Developer</strong>: Build APIs and server-side application logic using frameworks like <strong>Django</strong>, <strong>Flask</strong>, or <strong>FastAPI</strong>.</li>
+                    <li><strong>Data Analyst / Data Scientist</strong>: Clean, process, and analyze statistics and models using packages like <strong>Pandas</strong>, <strong>NumPy</strong>, and <strong>Matplotlib</strong>.</li>
+                    <li><strong>AI &amp; Machine Learning Engineer</strong>: Structure deep learning models and custom pipelines using <strong>TensorFlow</strong>, <strong>PyTorch</strong>, or <strong>scikit-learn</strong>.</li>
+                    <li><strong>DevOps / Automation Engineer</strong>: Write scripts to automate repetitive system administration tasks, monitor network services, or organize file flows.</li>
+                </ul>
+
+                <h2>2. Building a Developer Portfolio</h2>
+                <p>A hiring manager values what you have built over credentials. To showcase your skills:</p>
+                <ul>
+                    <li><strong>Host Code on GitHub</strong>: Ensure your projects have clean, public repositories, containing a clear <code>README.md</code> that explains what the app is, how to install it, and what technologies you used.</li>
+                    <li><strong>Build a Portfolio Page</strong>: Set up a simple, clean, responsive static page hosting links to your resume, contact info, and active links to your code. You can host this for free on <strong>GitHub Pages</strong>.</li>
+                </ul>
+
+                <h2>3. Formatting a Technical Resume</h2>
+                <p>Your resume should focus on **action verbs** and **verifiable accomplishments** rather than generic listings. For example, instead of writing "responsible for coding scripts", write: <code>"Built a CLI automation tool in Python that parsed CSV files, saving 4 hours of manual data entry weekly."</code> Always include active hyperlinks to your GitHub repositories.</p>
+
+                <h2>4. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Tutorial Hell</strong>: Watching tutorials endlessly without building unique apps from scratch. Hiring managers can spot generic tutorial projects instantly.</li>
+                        <li><strong>Private Repositories</strong>: Keeping your projects in private repos where recruiters can't inspect the quality of your code, commits, and structures.</li>
+                        <li><strong>Listing Skills without Evidence</strong>: Writing "Python, SQL, Django" on your resume without linking to projects that prove you have actually written code using those technologies.</li>
+                    </ul>
+                </div>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="12-career" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Portfolio Planner</h2>
+                        <p class="practice-panel__hint">Plan your three showcase projects. For each, list its name, the technologies used (e.g., Python, JSON, files), and the core value it delivers to a user. Write down your planning draft below.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your Portfolio Plan</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="Project 1: Number Guessing Game (Uses random, branches, while loops)&#10;Project 2: CLI Todo & Quiz app (Uses lists, dicts, file JSON persistence)&#10;Project 3: Capstone CLI Automation Tool (Uses OOP, argparse, mock API requests)"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I mapped out three unique projects matching my learning path</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I specified the core Python features each project relies on</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I wrote a clear, descriptive value statement for each project</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Portfolio plan designed! You are ready to start building your capstone tool. Take the final quiz below to complete the core syllabus.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="12-career">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which Python framework is popular for building large, secure, backend web applications?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Django is a high-level, batteries-included Python framework for backend web development.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Django</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. NumPy is a data processing library, not a web framework.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">NumPy</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. PyTorch is for deep learning models.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">PyTorch</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. How should you describe your coding projects on a resume?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Recruiters and engineering leads value actual evidence and live code links.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">By just naming the project title without describing what it does</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! You should write action-oriented accomplishments and include links to your public code.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Using action verbs, measurable outcomes, and links to public repositories</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What does 'tutorial hell' refer to?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Watching tutorials is useful, but over-relying on them hinders problem-solving.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A system error where a video player doesn't render tutorials properly</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Tutorial hell is the phase where you keep watching tutorials but struggle to build applications independently without guidance.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Watching coding videos continuously without building your own projects from scratch</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Congratulations on completing the core syllabus! Now, put everything you've learned to the test by building your final portfolio piece: **Capstone Project — Automation &amp; API CLI Tool**.</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="11-git.html">← Git &amp; GitHub</a>
+                    <a class="lesson-nav__next" href="project-capstone-cli.html">Next: Capstone Project →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn. All rights reserved.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>

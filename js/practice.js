@@ -142,7 +142,119 @@
     updateProgress();
   }
 
+  function initQuiz(quizEl) {
+    const questions = quizEl.querySelectorAll(".quiz-question");
+    const submitBtn = quizEl.querySelector(".quiz-btn-submit");
+
+    const storageKey = "openlearn-quiz-" + window.location.pathname.replace(/^\//, "") + "-" + (quizEl.dataset.quizId || "default");
+    let isQuizComplete = false;
+
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved === "complete") {
+        isQuizComplete = true;
+      }
+    } catch (e) {}
+
+    questions.forEach((q) => {
+      const options = q.querySelectorAll(".quiz-option");
+      const feedback = q.querySelector(".quiz-feedback");
+
+      options.forEach((opt) => {
+        const radio = opt.querySelector("input[type='radio']");
+        if (!radio) return;
+
+        const isCorrectOption = radio.dataset.correct === "true";
+        if (isQuizComplete && isCorrectOption) {
+          radio.checked = true;
+          opt.classList.add("is-correct");
+          if (feedback) {
+            feedback.style.display = "block";
+            feedback.className = "quiz-feedback quiz-feedback--correct is-visible";
+            feedback.textContent = radio.dataset.explanation || "Correct!";
+          }
+        }
+
+        radio.addEventListener("change", () => {
+          if (isQuizComplete) return;
+          // Clear selected class from other options in this question
+          options.forEach((o) => o.classList.remove("is-selected"));
+          opt.classList.add("is-selected");
+        });
+      });
+    });
+
+    if (isQuizComplete && submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Quiz Complete";
+    }
+
+    if (submitBtn) {
+      submitBtn.addEventListener("click", () => {
+        let allAnswered = true;
+        let allCorrect = true;
+
+        questions.forEach((q) => {
+          const selectedRadio = q.querySelector("input[type='radio']:checked");
+          const feedback = q.querySelector(".quiz-feedback");
+          const options = q.querySelectorAll(".quiz-option");
+
+          if (!selectedRadio) {
+            allAnswered = false;
+            return;
+          }
+
+          const isCorrect = selectedRadio.dataset.correct === "true";
+          options.forEach((opt) => {
+            const radio = opt.querySelector("input[type='radio']");
+            opt.classList.remove("is-selected", "is-correct", "is-incorrect");
+            if (radio.dataset.correct === "true") {
+              opt.classList.add("is-correct");
+            } else if (radio.checked) {
+              opt.classList.add("is-incorrect");
+            }
+          });
+
+          if (feedback) {
+            feedback.style.display = "block";
+            if (isCorrect) {
+              feedback.className = "quiz-feedback quiz-feedback--correct is-visible";
+              feedback.textContent = selectedRadio.dataset.explanation || "Correct!";
+            } else {
+              allCorrect = false;
+              feedback.className = "quiz-feedback quiz-feedback--incorrect is-visible";
+              feedback.textContent = selectedRadio.dataset.explanation || "Incorrect. Try again!";
+            }
+          } else {
+            if (!isCorrect) allCorrect = false;
+          }
+        });
+
+        if (!allAnswered) {
+          alert("Please answer all questions before submitting the quiz.");
+          return;
+        }
+
+        if (allCorrect) {
+          isQuizComplete = true;
+          try {
+            localStorage.setItem(storageKey, "complete");
+          } catch (e) {}
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Quiz Complete";
+          
+          const quizCheck = document.querySelector(".practice-check input[data-check='quiz']");
+          if (quizCheck) {
+            quizCheck.checked = true;
+            quizCheck.dispatchEvent(new Event('change'));
+          }
+        }
+      });
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".practice-panel").forEach(initPanel);
+    document.querySelectorAll(".quiz-panel").forEach(initQuiz);
   });
 })();

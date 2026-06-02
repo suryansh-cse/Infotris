@@ -29,48 +29,158 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>Creating lists</h2>
-                <pre><code>tasks = ["study", "practice", "review"]
-numbers = [10, 20, 30]
-mixed = ["Py", 3, True]</code></pre>
-                <h2>Indexing and slicing</h2>
-                <pre><code>print(tasks[0])      # first item
-print(tasks[-1])     # last item
-print(tasks[1:3])    # slice — items at index 1 and 2</code></pre>
-                <h2>Useful methods</h2>
+                <h2>1. Core Collections: Lists, Tuples, and Sets</h2>
+                <p>As you build larger programs, storing single pieces of data in individual variables becomes impractical. Python provides powerful built-in collection types to group multiple values together. The three primary sequential collections are:</p>
                 <ul>
-                    <li><code>append(x)</code> — add to end</li>
-                    <li><code>remove(x)</code> — remove first match</li>
-                    <li><code>pop()</code> — remove and return last</li>
-                    <li><code>len(list)</code> — number of items</li>
+                    <li><strong>Lists</strong> (<code>[val1, val2]</code>): Ordered, mutable (changeable) sequences. Items can be added, updated, or removed. Duplicates are allowed.</li>
+                    <li><strong>Tuples</strong> (<code>(val1, val2)</code>): Ordered, immutable (unchangeable) sequences. Once defined, they cannot be modified. They are faster than lists and serve as read-only templates.</li>
+                    <li><strong>Sets</strong> (<code>{val1, val2}</code>): Unordered, unindexed collections. They only store unique elements (any duplicates are automatically filtered out).</li>
                 </ul>
-                <h2>List comprehensions (intro)</h2>
-                <pre><code>squares = [n * n for n in range(6)]
-print(squares)</code></pre>
+
+                <h2>2. Indexing and Slicing Sequences</h2>
+                <p>Lists and tuples support indexing and slicing. Python indexes start at <code>0</code>. Negative indexes count backward from the end (e.g., <code>-1</code> is the last item). Slicing extracts a sub-sequence using the syntax <code>list[start:stop]</code> (where stop is exclusive).</p>
+                <pre><code>fruits = ["apple", "banana", "cherry", "date"]
+
+print(fruits[0])      # Prints: "apple" (first element)
+print(fruits[-1])     # Prints: "date" (last element)
+print(fruits[1:3])    # Prints: ["banana", "cherry"] (indices 1 and 2)</code></pre>
+
+                <h2>3. Useful List Methods</h2>
+                <p>Python provides built-in methods to manipulate lists:</p>
+                <ul>
+                    <li><code>append(item)</code>: Adds an item to the end of the list.</li>
+                    <li><code>insert(index, item)</code>: Inserts an item at a specified index.</li>
+                    <li><code>remove(item)</code>: Removes the first occurrence of the specified item.</li>
+                    <li><code>pop(index)</code>: Removes and returns the item at the given index (defaults to the last item).</li>
+                    <li><code>len(list)</code>: A built-in function that returns the total count of elements.</li>
+                </ul>
+                <pre><code>numbers = [10, 20]
+numbers.append(30)          # [10, 20, 30]
+numbers.insert(1, 15)       # [10, 15, 20, 30]
+last_val = numbers.pop()    # Removes 30, last_val is 30
+print(len(numbers))         # Prints: 3 (elements left: [10, 15, 20])</code></pre>
+
+                <h2>4. List Comprehensions</h2>
+                <p>List comprehensions provide a concise way to create lists from existing iterables. They act like compact, fast <code>for</code> loops inside brackets: <code>[expression for item in iterable]</code>.</p>
+                <pre><code># Generate squares of numbers 0 to 4
+squares = [n * n for n in range(5)]
+print(squares)  # Prints: [0, 1, 4, 9, 16]</code></pre>
+
+                <h2>5. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>IndexError: list index out of range</strong>: Trying to access an index that doesn't exist. If a list has 3 items, the maximum index is 2. `list[3]` will crash.</li>
+                        <li><strong>Modifying a Tuple</strong>: Writing <code>my_tuple[0] = "new"</code> will crash with a <code>TypeError</code> because tuples are immutable. Use a list instead if you need to alter values.</li>
+                        <li><strong>Set Unordered Expectation</strong>: Trying to index a set (e.g., <code>my_set[0]</code>) will crash. Sets do not have order or indexes.</li>
+                    </ul>
+                </div>
+
                 <section class="practice-panel" data-practice-type="lesson" data-practice-id="05-lists" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Try it now</h2>
-                        <p class="practice-panel__hint">Start with an empty list, append three tasks, then print each with a number (1, 2, 3…).</p>
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Shopping Cart Manager</h2>
+                        <p class="practice-panel__hint">Start with a list containing <code>["milk", "bread"]</code>. Append <code>"eggs"</code>, insert <code>"apples"</code> at the beginning (index 0), remove <code>"bread"</code>, and print the remaining list sorted alphabetically. Verify your code checklist.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
                         <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="tasks = []"></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="cart = ['milk', 'bread']&#10;cart.append('eggs')&#10;cart.insert(0, 'apples')&#10;cart.remove('bread')&#10;cart.sort()&#10;print(cart)"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>List starts empty and grows with <code>append()</code></span></label>
-                        <label class="practice-check"><input type="checkbox"><span>At least three tasks were added</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Output shows numbered lines for each task</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Initial list includes milk and bread, eggs is appended</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>apples is inserted at index 0 and bread is removed</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>The remaining elements are printed sorted alphabetically</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Your to-do list works — ready for Project 2.</p>
+                        <p class="practice-success__text">Excellent. You can handle sequences. Revisit Project 2 next or take the quiz below.</p>
                     </div>
                 </section>
+
+                <section class="quiz-panel" data-quiz-id="05-lists">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which of the following collections is ordered and immutable?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Lists are ordered but mutable (changeable).">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">List</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Tuples are ordered sequences that cannot be modified after creation.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Tuple</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Sets are unordered, unindexed, and contain unique values.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Set</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What is the value of `len([1, 2, [3, 4]])` in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python doesn't recursively count elements of nested lists with len().">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">4</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The items are: 1, 2, and the list [3, 4] itself. This makes 3 items total.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">3</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The list has exactly 3 elements.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">2</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. Which collection type automatically eliminates duplicate entries?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Lists store duplicates freely.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">List</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Sets automatically filter out any duplicate values.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Set</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Tuples allow duplicate values.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Tuple</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Sequences are finished. Next, you'll learn how to write reusable, modular blocks of logic using **Functions**.</p>
+                </div>
+
                 <nav class="lesson-nav">
                     <a href="04-loops.html">← Loops</a>
                     <a class="lesson-nav__next" href="project-02-guesser.html">Project 2 →</a>
