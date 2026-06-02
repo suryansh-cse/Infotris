@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Python Developer syllabus – structured roadmap and projects.">
+    <meta name="description" content="Python course overview, roadmap, study planner, and projects.">
     <title>OpenLearn | Python Course</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,8 +12,663 @@
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/path.css">
     <link rel="stylesheet" href="../../css/practice.css">
+    <style>
+        .python-course {
+            --course-card-bg: #ffffff;
+            --course-muted-bg: rgba(13, 13, 13, 0.035);
+        }
+
+        .python-course .path-hero {
+            padding: var(--space-lg) var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .python-course .path-hero__inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+            align-items: center;
+            gap: var(--space-xl);
+        }
+
+        .path-hero__content {
+            max-width: 42rem;
+        }
+
+        .path-hero__badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin: 0 0 var(--space-md);
+        }
+
+        .course-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2rem;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .course-badge--dark {
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-color: var(--bg-dark);
+        }
+
+        .path-hero__duration {
+            margin-bottom: var(--space-md);
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+        }
+
+        .path-hero__duration strong {
+            color: var(--text-primary);
+        }
+
+        .path-hero__actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .path-hero__secondary {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.75rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: color var(--transition);
+        }
+
+        .path-hero__secondary:hover {
+            color: var(--text-primary);
+        }
+
+        .course-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            max-width: 34rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: rgba(255, 255, 255, 0.72);
+            overflow: hidden;
+        }
+
+        .course-stat {
+            padding: var(--space-sm);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .course-stat:last-child {
+            border-right: none;
+        }
+
+        .course-stat strong,
+        .course-stat span {
+            display: block;
+        }
+
+        .course-stat strong {
+            font-size: 1.25rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .course-stat span {
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .python-course-visual {
+            position: relative;
+            width: 100%;
+            min-height: 350px;
+            padding: var(--space-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(247, 247, 245, 0.92)),
+                repeating-linear-gradient(90deg, rgba(13, 13, 13, 0.035) 0 1px, transparent 1px 54px);
+            box-shadow: 0 18px 55px rgba(13, 13, 13, 0.055);
+            overflow: hidden;
+        }
+
+        .python-course-visual::before {
+            content: "";
+            position: absolute;
+            inset: 1.25rem;
+            border: 1px dashed rgba(13, 13, 13, 0.16);
+            border-radius: var(--radius-md);
+        }
+
+        .python-course-visual__track {
+            position: absolute;
+            left: 50%;
+            top: 3rem;
+            bottom: 3rem;
+            width: 1px;
+            background-color: rgba(13, 13, 13, 0.2);
+            transform: translateX(-50%);
+        }
+
+        .python-course-visual__track::before,
+        .python-course-visual__track::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            width: 4.25rem;
+            height: 1px;
+            background-color: rgba(13, 13, 13, 0.16);
+        }
+
+        .python-course-visual__track::before {
+            top: 5.4rem;
+            transform: translateX(-100%);
+        }
+
+        .python-course-visual__track::after {
+            bottom: 5.4rem;
+        }
+
+        .python-course-visual__pulse {
+            position: absolute;
+            left: 50%;
+            top: 3rem;
+            width: 0.65rem;
+            height: 0.65rem;
+            background-color: var(--bg-dark);
+            border-radius: 50%;
+            transform: translate(-50%, 0);
+            animation: python-pulse 5.2s ease-in-out infinite;
+            box-shadow: 0 0 0 8px rgba(13, 13, 13, 0.06);
+        }
+
+        .python-course-visual__node {
+            position: absolute;
+            width: min(46%, 11.5rem);
+            padding: var(--space-sm);
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 28px rgba(13, 13, 13, 0.055);
+            animation: python-node-float 5.4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .python-course-visual__node:nth-child(3) {
+            left: 1.25rem;
+            top: 2.25rem;
+        }
+
+        .python-course-visual__node:nth-child(4) {
+            right: 1.25rem;
+            top: 7.5rem;
+            animation-delay: -1.3s;
+        }
+
+        .python-course-visual__node:nth-child(5) {
+            left: 1.25rem;
+            bottom: 6.2rem;
+            animation-delay: -2.1s;
+        }
+
+        .python-course-visual__node:nth-child(6) {
+            right: 1.25rem;
+            bottom: 2.25rem;
+            animation-delay: -3s;
+        }
+
+        .python-course-visual__step {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .python-course-visual__title {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+
+        .python-course-visual__code {
+            position: absolute;
+            left: 50%;
+            bottom: 1.25rem;
+            width: min(78%, 18rem);
+            padding: 0.85rem 1rem;
+            font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+            font-size: 0.8125rem;
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-radius: var(--radius-md);
+            transform: translateX(-50%);
+            box-shadow: 0 14px 35px rgba(13, 13, 13, 0.14);
+            z-index: 2;
+        }
+
+        .python-course-visual__cursor {
+            display: inline-block;
+            width: 0.5rem;
+            height: 1em;
+            margin-left: 0.2rem;
+            vertical-align: -0.15em;
+            background-color: var(--bg-light);
+            animation: python-cursor 1s steps(2, start) infinite;
+        }
+
+        @keyframes python-pulse {
+            0%,
+            100% {
+                transform: translate(-50%, 0);
+            }
+            50% {
+                transform: translate(-50%, 15.5rem);
+            }
+        }
+
+        @keyframes python-node-float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-7px);
+            }
+        }
+
+        @keyframes python-cursor {
+            0%,
+            45% {
+                opacity: 1;
+            }
+            46%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .course-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        .course-section + .course-section {
+            padding-top: 0;
+        }
+
+        .course-section__header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-heading {
+            font-size: clamp(1.35rem, 2.5vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+        }
+
+        .section-kicker {
+            max-width: 32rem;
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .cards-grid,
+        .planner-grid,
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--space-md);
+        }
+
+        .learn-card,
+        .planner-week,
+        .project-card,
+        .roadmap-card {
+            background-color: var(--course-card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 30px rgba(13, 13, 13, 0.035);
+            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+        }
+
+        .learn-card:hover,
+        .planner-week:hover,
+        .project-card:hover,
+        .roadmap-card:hover {
+            border-color: rgba(17, 17, 17, 0.42);
+            box-shadow: 0 14px 38px rgba(13, 13, 13, 0.065);
+            transform: translateY(-2px);
+        }
+
+        .learn-card {
+            min-height: 9.25rem;
+            padding: var(--space-md);
+        }
+
+        .learn-card__number,
+        .project-card__level {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .learn-card h3,
+        .planner-week h3,
+        .project-card h3 {
+            margin-bottom: var(--space-xs);
+            font-size: 1.0625rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+
+        .project-card h3 a {
+            transition: opacity var(--transition);
+        }
+
+        .project-card h3 a:hover {
+            opacity: 0.72;
+        }
+
+        .learn-card p,
+        .planner-week p,
+        .project-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .roadmap-list {
+            display: grid;
+            gap: var(--space-sm);
+        }
+
+        .roadmap-card {
+            display: grid;
+            grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1fr);
+            gap: var(--space-md);
+            padding: var(--space-md);
+        }
+
+        .roadmap-card__index {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .roadmap-card__tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .roadmap-card__meta {
+            width: fit-content;
+            padding: 0.22rem 0.55rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background-color: var(--course-muted-bg);
+            border: 1px solid rgba(217, 217, 217, 0.75);
+            border-radius: 999px;
+        }
+
+        .roadmap-card__title {
+            margin-bottom: 0.35rem;
+            font-size: 1.0625rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+
+        .roadmap-card__topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .roadmap-card__topics span,
+        .roadmap-card__topics a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.75rem;
+            padding: 0.25rem 0.65rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background-color: var(--course-muted-bg);
+            border: 1px solid rgba(217, 217, 217, 0.75);
+            border-radius: 999px;
+        }
+
+        .roadmap-card__topics a {
+            color: var(--text-primary);
+        }
+
+        .roadmap-card__topics a:hover {
+            border-color: var(--text-primary);
+            background-color: rgba(13, 13, 13, 0.07);
+        }
+
+        .planner-week {
+            position: relative;
+            padding: var(--space-md);
+            border-style: dashed;
+            background-color: rgba(255, 255, 255, 0.72);
+            overflow: hidden;
+        }
+
+        .planner-week::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 4px;
+            background-color: var(--bg-dark);
+        }
+
+        .planner-week__meta {
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .projects-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .project-card {
+            padding: var(--space-md);
+        }
+
+        .project-card__cta {
+            display: inline-flex;
+            margin-top: var(--space-md);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            transition: opacity var(--transition);
+        }
+
+        .project-card__cta:hover {
+            opacity: 0.7;
+        }
+
+        .project-card--featured {
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-color: var(--bg-dark);
+        }
+
+        .project-card--featured p,
+        .project-card--featured .project-card__level {
+            color: #c8c8c8;
+        }
+
+        .project-card--featured .project-card__cta {
+            color: var(--bg-light);
+        }
+
+        .final-cta {
+            padding: 0 var(--space-md) var(--space-xl);
+        }
+
+        .final-cta__inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-radius: var(--radius-lg);
+        }
+
+        .final-cta h2 {
+            margin-bottom: 0.25rem;
+            font-size: clamp(1.35rem, 2.4vw, 2rem);
+            letter-spacing: -0.025em;
+        }
+
+        .final-cta p {
+            max-width: 34rem;
+            color: #c8c8c8;
+        }
+
+        .final-cta .path-hero__cta {
+            color: var(--text-primary);
+            background-color: var(--bg-light);
+        }
+
+        @media (max-width: 992px) {
+            .python-course .path-hero__inner,
+            .roadmap-card {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid,
+            .planner-grid,
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .course-section__header,
+            .final-cta__inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cards-grid,
+            .planner-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .python-course .path-hero {
+                padding-top: var(--space-md);
+            }
+
+            .course-section {
+                padding-bottom: var(--space-lg);
+            }
+
+            .learn-card {
+                min-height: auto;
+            }
+
+            .python-course-visual {
+                min-height: 420px;
+            }
+
+            .python-course-visual__track {
+                left: 1.75rem;
+            }
+
+            .python-course-visual__pulse {
+                left: 1.75rem;
+            }
+
+            .python-course-visual__node {
+                left: 3.2rem !important;
+                right: auto !important;
+                width: calc(100% - 4.5rem);
+            }
+
+            .python-course-visual__node:nth-child(3) {
+                top: 2rem;
+            }
+
+            .python-course-visual__node:nth-child(4) {
+                top: 7.4rem;
+            }
+
+            .python-course-visual__node:nth-child(5) {
+                top: 12.8rem;
+                bottom: auto;
+            }
+
+            .python-course-visual__node:nth-child(6) {
+                top: 18.2rem;
+                bottom: auto;
+            }
+
+            .python-course-visual__code {
+                width: calc(100% - 2rem);
+            }
+
+            .course-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .course-stat {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .course-stat:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
 </head>
-<body class="page-course-index">
+<body class="page-course-index python-course">
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
             <a class="navbar-logo" href="../../index.html" aria-label="OpenLearn home">
@@ -31,197 +686,297 @@
     </header>
 
     <nav class="path-breadcrumb" aria-label="Breadcrumb">
-        <a href="../../careers/python-developer/index.html">Python Developer</a>
+        <a href="../../courses.html">Courses</a>
         <span aria-hidden="true">/</span>
         <span>Python</span>
     </nav>
 
     <main>
-        <!-- Hero Section -->
-        <section class="path-hero">
+        <section class="path-hero" aria-labelledby="python-course-heading">
             <div class="path-hero__inner">
-                <a class="path-hero__back" href="../../careers/python-developer/index.html">← Back to Syllabus</a>
-                <p class="path-hero__eyebrow">Beginner → Advanced</p>
-                <h1 class="path-hero__title">Python Developer</h1>
-                <p class="path-hero__lead">Four‑week premium roadmap that takes you from zero to project‑ready Python developer.</p>
-                <p class="path-hero__duration"><strong>Estimated duration:</strong> 4 weeks (≈ 12 hrs)</p>
-                <a class="path-hero__cta button-primary" href="01-intro.html">Start Learning</a>
+                <div class="path-hero__content">
+                    <a class="path-hero__back" href="../../courses.html">Back to courses</a>
+                    <div class="path-hero__badge-row" aria-label="Course details">
+                        <span class="course-badge course-badge--dark">Beginner to Advanced</span>
+                        <span class="course-badge">4 weeks</span>
+                        <span class="course-badge">12 hours</span>
+                    </div>
+                    <p class="path-hero__eyebrow">Course overview</p>
+                    <h1 id="python-course-heading" class="path-hero__title">Python</h1>
+                    <p class="path-hero__lead">
+                        A focused Python course for learners who want clear direction, practical examples, and a clean path from first syntax to useful programs.
+                    </p>
+                    <p class="path-hero__duration"><strong>Estimated duration:</strong> 4 focused weeks with guided lessons, practice, and projects.</p>
+                    <div class="path-hero__actions">
+                        <a class="path-hero__cta button-primary" href="01-intro.html">Start Learning</a>
+                        <a class="path-hero__secondary" href="#roadmap-heading">View Roadmap</a>
+                    </div>
+                    <div class="course-stats" aria-label="Course snapshot">
+                        <div class="course-stat">
+                            <strong>10</strong>
+                            <span>Lessons</span>
+                        </div>
+                        <div class="course-stat">
+                            <strong>7</strong>
+                            <span>Modules</span>
+                        </div>
+                        <div class="course-stat">
+                            <strong>4</strong>
+                            <span>Projects</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual" aria-label="Python course roadmap animation">
+                    <div class="python-course-visual">
+                        <div class="python-course-visual__track" aria-hidden="true"></div>
+                        <div class="python-course-visual__pulse" aria-hidden="true"></div>
+                        <div class="python-course-visual__node">
+                            <span class="python-course-visual__step">Step 01</span>
+                            <span class="python-course-visual__title">Learn Syntax</span>
+                        </div>
+                        <div class="python-course-visual__node">
+                            <span class="python-course-visual__step">Step 02</span>
+                            <span class="python-course-visual__title">Solve Logic</span>
+                        </div>
+                        <div class="python-course-visual__node">
+                            <span class="python-course-visual__step">Step 03</span>
+                            <span class="python-course-visual__title">Build Projects</span>
+                        </div>
+                        <div class="python-course-visual__node">
+                            <span class="python-course-visual__step">Step 04</span>
+                            <span class="python-course-visual__title">Practice Python</span>
+                        </div>
+                        <div class="python-course-visual__code" aria-hidden="true">
+                            python basics.py<span class="python-course-visual__cursor"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- What You'll Learn -->
-        <section class="learn-cards">
-            <h2 class="section-heading">What You’ll Learn</h2>
+        <section class="course-section" aria-labelledby="learn-heading">
+            <div class="course-section__header">
+                <h2 id="learn-heading" class="section-heading">What You'll Learn</h2>
+                <p class="section-kicker">Six Python skill areas, designed to keep the path clear without turning this overview into a textbook.</p>
+            </div>
             <div class="cards-grid">
-                <div class="card"><h3>Python Basics</h3></div>
-                <div class="card"><h3>Problem Solving</h3></div>
-                <div class="card"><h3>Automation</h3></div>
-                <div class="card"><h3>Object‑Oriented Programming</h3></div>
-                <div class="card"><h3>Real‑World Projects</h3></div>
-                <div class="card"><h3>Git & GitHub</h3></div>
+                <article class="learn-card">
+                    <span class="learn-card__number">01</span>
+                    <h3>Python Fundamentals</h3>
+                    <p>Syntax, values, input, output, and the habits that make code readable.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">02</span>
+                    <h3>Problem Solving</h3>
+                    <p>Break problems into smaller steps before writing the first line.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">03</span>
+                    <h3>Automation</h3>
+                    <p>Use Python to save time with scripts, files, and repeatable workflows.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">04</span>
+                    <h3>OOP</h3>
+                    <p>Model programs with classes, objects, and reusable structure.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">05</span>
+                    <h3>Projects</h3>
+                    <p>Turn concepts into small applications with visible outcomes.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">06</span>
+                    <h3>Modules</h3>
+                    <p>Split Python code into reusable files and import what your programs need.</p>
+                </article>
             </div>
         </section>
 
-        <!-- Learning Roadmap -->
-        <section class="roadmap">
-            <h2 class="section-heading">Learning Roadmap</h2>
-            <div class="roadmap-grid">
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 1 · Beginner</span>
-                    <h3 class="roadmap-card__title">Python Fundamentals</h3>
-                    <p class="roadmap-card__desc">Variables, data types, I/O, operators.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="01-intro.html" class="roadmap-card__lesson-link">01 Introduction</a>
-                        <a href="02-variables.html" class="roadmap-card__lesson-link">02 Variables & Types</a>
+        <section class="course-section" aria-labelledby="roadmap-heading">
+            <div class="course-section__header">
+                <h2 id="roadmap-heading" class="section-heading">Course Roadmap</h2>
+                <p class="section-kicker">A scannable syllabus that shows where each lesson fits, without placing the full lessons on this page.</p>
+            </div>
+            <div class="roadmap-list">
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 1</span>
+                        <span class="roadmap-card__meta">2 lessons</span>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 2 · Beginner</span>
-                    <h3 class="roadmap-card__title">Logic Building</h3>
-                    <p class="roadmap-card__desc">Conditionals, loops, basic decision making.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="03-conditionals.html" class="roadmap-card__lesson-link">03 Conditionals</a>
-                        <a href="04-loops.html" class="roadmap-card__lesson-link">04 Loops</a>
+                    <div>
+                        <h3 class="roadmap-card__title">Python Basics</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="01-intro.html">Introduction</a>
+                            <a href="02-variables.html">Variables</a>
+                            <span>Data Types</span>
+                            <span>Input / Output</span>
+                            <span>Operators</span>
+                        </div>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 3 · Intermediate</span>
-                    <h3 class="roadmap-card__title">Functions & Modularity</h3>
-                    <p class="roadmap-card__desc">Define reusable functions, arguments, returns, scopes.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="06-functions.html" class="roadmap-card__lesson-link">06 Functions</a>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 2</span>
+                        <span class="roadmap-card__meta">2 lessons</span>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 4 · Intermediate</span>
-                    <h3 class="roadmap-card__title">Collections</h3>
-                    <p class="roadmap-card__desc">Lists, tuples, dictionaries, sets.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="05-lists.html" class="roadmap-card__lesson-link">05 Lists & Tuples</a>
-                        <a href="07-dictionaries.html" class="roadmap-card__lesson-link">07 Dictionaries</a>
+                    <div>
+                        <h3 class="roadmap-card__title">Logic Building</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="03-conditionals.html">Conditions</a>
+                            <a href="04-loops.html">Loops</a>
+                            <span>Decision Making</span>
+                        </div>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 5 · Intermediate</span>
-                    <h3 class="roadmap-card__title">File Handling</h3>
-                    <p class="roadmap-card__desc">Read/write files, string processing.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="08-strings-files.html" class="roadmap-card__lesson-link">08 Strings & Files</a>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 3</span>
+                        <span class="roadmap-card__meta">1 lesson</span>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 6 · Advanced</span>
-                    <h3 class="roadmap-card__title">Object‑Oriented Programming</h3>
-                    <p class="roadmap-card__desc">Classes, objects, inheritance.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="09-modules.html" class="roadmap-card__lesson-link">09 OOP & Modules</a>
+                    <div>
+                        <h3 class="roadmap-card__title">Functions</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="06-functions.html">Functions</a>
+                            <span>Arguments</span>
+                            <span>Returns</span>
+                            <span>Scope</span>
+                        </div>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 7 · Advanced</span>
-                    <h3 class="roadmap-card__title">Problem Solving & Debugging</h3>
-                    <p class="roadmap-card__desc">Algorithmic thinking, debugging strategies.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="10-problem-solving.html" class="roadmap-card__lesson-link">10 Problem Solving</a>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 4</span>
+                        <span class="roadmap-card__meta">2 lessons</span>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 8 · Projects</span>
-                    <h3 class="roadmap-card__title">Real‑World Projects</h3>
-                    <p class="roadmap-card__desc">Apply everything in three progressive projects.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="project-01-greeting.html" class="roadmap-card__lesson-link">Project 1 – Greeting script</a>
-                        <a href="project-02-guesser.html" class="roadmap-card__lesson-link">Project 2 – Number Guesser</a>
-                        <a href="project-03-contact-book.html" class="roadmap-card__lesson-link">Project 3 – CLI Todo & Quiz</a>
-                        <a href="project-capstone-cli.html" class="roadmap-card__lesson-link">Capstone – Automation Tool</a>
+                    <div>
+                        <h3 class="roadmap-card__title">Data Structures</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="05-lists.html">Lists</a>
+                            <a href="07-dictionaries.html">Dictionaries</a>
+                            <span>Tuples</span>
+                            <span>Sets</span>
+                        </div>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 9 · Practical Development</span>
-                    <h3 class="roadmap-card__title">Git & GitHub</h3>
-                    <p class="roadmap-card__desc">Version control, collaborative workflows.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="11-git.html" class="roadmap-card__lesson-link">11 Git & GitHub</a>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 5</span>
+                        <span class="roadmap-card__meta">1 lesson</span>
                     </div>
-                </div>
-                <div class="roadmap-card">
-                    <span class="roadmap-card__tag">Module 10 · Career</span>
-                    <h3 class="roadmap-card__title">Career Direction</h3>
-                    <p class="roadmap-card__desc">Resume building, portfolio, interview prep.</p>
-                    <div class="roadmap-card__lessons">
-                        <a href="12-career.html" class="roadmap-card__lesson-link">12 Career Prep</a>
+                    <div>
+                        <h3 class="roadmap-card__title">File Handling</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="08-strings-files.html">Strings</a>
+                            <span>Read Files</span>
+                            <span>Write Files</span>
+                        </div>
                     </div>
-                </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 6</span>
+                        <span class="roadmap-card__meta">1 lesson</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Object-Oriented Programming</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="09-modules.html">OOP &amp; Modules</a>
+                            <span>Classes</span>
+                            <span>Objects</span>
+                            <span>Inheritance</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 7</span>
+                        <span class="roadmap-card__meta">1 lesson</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Python Practice</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="10-problem-solving.html">Problem Solving</a>
+                            <span>Mini Programs</span>
+                            <span>Practice Flow</span>
+                            <span>Review</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Weekly Planner -->
-        <section class="weekly-planner">
-            <h2 class="section-heading">Weekly Planner</h2>
+        <section class="course-section" aria-labelledby="planner-heading">
+            <div class="course-section__header">
+                <h2 id="planner-heading" class="section-heading">Weekly Study Planner</h2>
+                <p class="section-kicker">A simple pacing model for learners who want a clean four-week route.</p>
+            </div>
             <div class="planner-grid">
-                <div class="planner-week">
-                    <h3>Week 1 – Fundamentals</h3>
-                    <ul>
-                        <li>01 Introduction</li>
-                        <li>02 Variables & Types</li>
-                        <li>Project 1 – Greeting script</li>
-                    </ul>
-                </div>
-                <div class="planner-week">
-                    <h3>Week 2 – Logic</h3>
-                    <ul>
-                        <li>03 Conditionals</li>
-                        <li>04 Loops</li>
-                        <li>Project 2 – Number Guesser</li>
-                    </ul>
-                </div>
-                <div class="planner-week">
-                    <h3>Week 3 – Functions & Files</h3>
-                    <ul>
-                        <li>06 Functions</li>
-                        <li>08 Strings & Files</li>
-                        <li>Project 3 – CLI Todo & Quiz</li>
-                    </ul>
-                </div>
-                <div class="planner-week">
-                    <h3>Week 4 – Advanced & Career</h3>
-                    <ul>
-                        <li>09 OOP & Modules</li>
-                        <li>10 Problem Solving</li>
-                        <li>11 Git & GitHub</li>
-                        <li>12 Career Prep</li>
-                        <li>Capstone – Automation Tool</li>
-                    </ul>
-                </div>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Week 1</span>
+                    <h3>Basics</h3>
+                    <p>Start with syntax, variables, data types, input, output, and a first mini project.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Week 2</span>
+                    <h3>Logic</h3>
+                    <p>Build confidence with conditions, loops, and small decision-based programs.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Week 3</span>
+                    <h3>Functions</h3>
+                    <p>Organize code with functions, collections, strings, and file handling.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Week 4</span>
+                    <h3>Projects</h3>
+                    <p>Apply OOP, file handling, problem solving, and Python project structure through final builds.</p>
+                </article>
             </div>
         </section>
 
-        <!-- Projects Showcase -->
-        <section class="projects-showcase">
-            <h2 class="section-heading">Projects You’ll Build</h2>
+        <section class="course-section" aria-labelledby="projects-heading">
+            <div class="course-section__header">
+                <h2 id="projects-heading" class="section-heading">Projects You'll Build</h2>
+                <p class="section-kicker">A beginner-to-advanced progression that turns the roadmap into visible work.</p>
+            </div>
             <div class="projects-grid">
-                <div class="project-card">
-                    <h3>Beginner</h3>
-                    <p>Calculator, Quiz App</p>
-                </div>
-                <div class="project-card">
-                    <h3>Intermediate</h3>
-                    <p>To‑do App</p>
-                </div>
-                <div class="project-card">
-                    <h3>Advanced</h3>
-                    <p>Automation Script</p>
-                </div>
+                <article class="project-card">
+                    <span class="project-card__level">Beginner</span>
+                    <h3><a href="project-01-greeting.html">Greeting Script</a></h3>
+                    <p>Practice input, output, strings, and simple program flow.</p>
+                    <a class="project-card__cta" href="project-01-greeting.html">Open project</a>
+                </article>
+                <article class="project-card">
+                    <span class="project-card__level">Beginner+</span>
+                    <h3><a href="project-02-guesser.html">Number Guesser</a></h3>
+                    <p>Use conditions and loops to create an interactive terminal game.</p>
+                    <a class="project-card__cta" href="project-02-guesser.html">Open project</a>
+                </article>
+                <article class="project-card">
+                    <span class="project-card__level">Intermediate</span>
+                    <h3><a href="project-03-contact-book.html">Contact Book</a></h3>
+                    <p>Combine functions, collections, and file-style thinking.</p>
+                    <a class="project-card__cta" href="project-03-contact-book.html">Open project</a>
+                </article>
+                <article class="project-card project-card--featured">
+                    <span class="project-card__level">Advanced</span>
+                    <h3><a href="project-capstone-cli.html">CLI Automation Tool</a></h3>
+                    <p>Build a useful Python CLI project that brings functions, files, and structure together.</p>
+                    <a class="project-card__cta" href="project-capstone-cli.html">Open capstone</a>
+                </article>
             </div>
         </section>
 
-        <!-- Learning Philosophy -->
-        <section class="learning-philosophy">
-            <h2 class="section-heading">Learning Philosophy</h2>
-            <blockquote class="philosophy-quote">
-                “Build before moving ahead.”
-            </blockquote>
-            <p>Complete each tiny project or exercise before progressing to the next module. Mastery is built through focused, hands‑on practice.</p>
+        <section class="final-cta" aria-labelledby="final-cta-heading">
+            <div class="final-cta__inner">
+                <div>
+                    <h2 id="final-cta-heading">Ready to begin Python?</h2>
+                    <p>Start with lesson one and move through the roadmap at a steady, project-first pace.</p>
+                </div>
+                <a class="path-hero__cta" href="01-intro.html">Start Learning</a>
+            </div>
         </section>
     </main>
 
@@ -247,6 +1002,5 @@
     </footer>
 
     <script src="../../js/practice.js" defer></script>
-    
 </body>
 </html>

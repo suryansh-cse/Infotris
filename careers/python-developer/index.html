@@ -3,19 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Python Developer study path — complete 8–12 week syllabus on OpenLearn.">
-    <title>OpenLearn | Python Developer — Study path</title>
+    <meta name="description" content="Python Developer career path overview, roadmap, weekly plan, and portfolio projects on OpenLearn.">
+    <title>OpenLearn | Python Developer Path</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/path.css">
-    <script type="module" src="careers/careers-anime.js"></script>
-<link rel="stylesheet" href="careers/careers-anime.css">
-</head>
-<body class="page-path">
+    <style>
+        .developer-path {
+            --path-card-bg: #ffffff;
+            --path-muted-bg: rgba(13, 13, 13, 0.035);
+        }
 
+        .developer-path .path-hero {
+            padding: var(--space-lg) var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .developer-path .path-hero__inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+            align-items: center;
+            gap: var(--space-xl);
+        }
+
+        .path-hero__content {
+            max-width: 42rem;
+        }
+
+        .path-hero__badge-row,
+        .path-hero__actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .path-hero__badge-row {
+            margin: 0 0 var(--space-md);
+        }
+
+        .path-hero__actions {
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .path-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2rem;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.72);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+        }
+
+        .path-badge--dark {
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-color: var(--bg-dark);
+        }
+
+        .path-hero__secondary {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.75rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: color var(--transition);
+        }
+
+        .path-hero__secondary:hover {
+            color: var(--text-primary);
+        }
+
+        .path-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            max-width: 34rem;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.72);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+        .path-stat {
+            padding: var(--space-sm);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .path-stat:last-child {
+            border-right: none;
+        }
+
+        .path-stat strong,
+        .path-stat span {
+            display: block;
+        }
+
+        .path-stat strong {
+            font-size: 1.25rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .path-stat span {
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .developer-visual {
+            position: relative;
+            min-height: 420px;
+            min-width: 420px;
+            padding: var(--space-md);
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(247, 247, 245, 0.95)),
+                repeating-linear-gradient(0deg, rgba(13, 13, 13, 0.03) 0 1px, transparent 1px 42px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 18px 55px rgba(13, 13, 13, 0.055);
+        }
+
+        .developer-visual::before {
+            content: "";
+            position: absolute;
+            inset: 1.25rem;
+            border: 1px dashed rgba(13, 13, 13, 0.16);
+            border-radius: var(--radius-md);
+        }
+
+        .developer-visual__orbit {
+            position: absolute;
+            inset: 3.2rem;
+            border: 1px solid rgba(13, 13, 13, 0.12);
+            border-radius: 50%;
+            animation: developer-orbit 12s linear infinite;
+        }
+
+        .developer-visual__orbit::before,
+        .developer-visual__orbit::after {
+            content: "";
+            position: absolute;
+            width: 0.65rem;
+            height: 0.65rem;
+            background-color: var(--bg-dark);
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px rgba(13, 13, 13, 0.055);
+        }
+
+        .developer-visual__orbit::before {
+            left: 50%;
+            top: -0.35rem;
+        }
+
+        .developer-visual__orbit::after {
+            right: 10%;
+            bottom: 1.1rem;
+        }
+
+        .developer-visual__stack {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: min(76%, 19rem);
+            transform: translate(-50%, -50%);
+        }
+
+        .developer-visual__layer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+            margin-bottom: 0.7rem;
+            padding: 0.8rem 0.95rem;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 28px rgba(13, 13, 13, 0.055);
+            animation: developer-layer 5.6s ease-in-out infinite;
+        }
+
+        .developer-visual__layer:nth-child(2) {
+            margin-left: 1rem;
+            animation-delay: -1.1s;
+        }
+
+        .developer-visual__layer:nth-child(3) {
+            margin-left: 2rem;
+            animation-delay: -2.2s;
+        }
+
+        .developer-visual__layer:nth-child(4) {
+            margin-left: 3rem;
+            margin-bottom: 0;
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-color: var(--bg-dark);
+            animation-delay: -3.3s;
+        }
+
+        .developer-visual__label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .developer-visual__layer:nth-child(4) .developer-visual__label {
+            color: #c8c8c8;
+        }
+
+        .developer-visual__title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+
+        @keyframes developer-orbit {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes developer-layer {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .path-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        .path-section + .path-section {
+            padding-top: 0;
+        }
+
+        .path-section__header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-heading {
+            font-size: clamp(1.35rem, 2.5vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .section-kicker {
+            max-width: 32rem;
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .cards-grid,
+        .planner-grid,
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--space-md);
+        }
+
+        .skill-card,
+        .planner-week,
+        .project-card,
+        .path-roadmap-card {
+            background-color: var(--path-card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 30px rgba(13, 13, 13, 0.035);
+            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+        }
+
+        .skill-card:hover,
+        .planner-week:hover,
+        .project-card:hover,
+        .path-roadmap-card:hover {
+            border-color: rgba(17, 17, 17, 0.42);
+            box-shadow: 0 14px 38px rgba(13, 13, 13, 0.065);
+            transform: translateY(-2px);
+        }
+
+        .skill-card,
+        .planner-week,
+        .project-card {
+            padding: var(--space-md);
+        }
+
+        .skill-card {
+            min-height: 9.25rem;
+        }
+
+        .card-label,
+        .planner-week__meta,
+        .project-card__level,
+        .path-roadmap-card__tag {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .skill-card h3,
+        .planner-week h3,
+        .project-card h3,
+        .path-roadmap-card__title {
+            margin-bottom: var(--space-xs);
+            font-size: 1.0625rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+
+        .skill-card p,
+        .planner-week p,
+        .project-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .path-roadmap-list {
+            display: grid;
+            gap: var(--space-sm);
+        }
+
+        .path-roadmap-card {
+            display: grid;
+            grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1fr);
+            gap: var(--space-md);
+            padding: var(--space-md);
+        }
+
+        .path-roadmap-card__index {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .path-roadmap-card__meta {
+            width: fit-content;
+            padding: 0.22rem 0.55rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background-color: var(--path-muted-bg);
+            border: 1px solid rgba(217, 217, 217, 0.75);
+            border-radius: 999px;
+        }
+
+        .path-roadmap-card__topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .path-roadmap-card__topics span,
+        .path-roadmap-card__topics a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.75rem;
+            padding: 0.25rem 0.65rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background-color: var(--path-muted-bg);
+            border: 1px solid rgba(217, 217, 217, 0.75);
+            border-radius: 999px;
+        }
+
+        .path-roadmap-card__topics a {
+            color: var(--text-primary);
+        }
+
+        .path-roadmap-card__topics a:hover {
+            border-color: var(--text-primary);
+            background-color: rgba(13, 13, 13, 0.07);
+        }
+
+        .planner-week {
+            position: relative;
+            border-style: dashed;
+            background-color: rgba(255, 255, 255, 0.72);
+            overflow: hidden;
+        }
+
+        .planner-week::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 4px;
+            background-color: var(--bg-dark);
+        }
+
+        .projects-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .project-card__cta {
+            display: inline-flex;
+            margin-top: var(--space-md);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            transition: opacity var(--transition);
+        }
+
+        .project-card__cta:hover {
+            opacity: 0.7;
+        }
+
+        .project-card--featured {
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-color: var(--bg-dark);
+        }
+
+        .project-card--featured p,
+        .project-card--featured .project-card__level {
+            color: #c8c8c8;
+        }
+
+        .project-card--featured .project-card__cta {
+            color: var(--bg-light);
+        }
+
+        .final-cta {
+            padding: 0 var(--space-md) var(--space-xl);
+        }
+
+        .final-cta__inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+            color: var(--bg-light);
+            background-color: var(--bg-dark);
+            border-radius: var(--radius-lg);
+        }
+
+        .final-cta h2 {
+            margin-bottom: 0.25rem;
+            font-size: clamp(1.35rem, 2.4vw, 2rem);
+            letter-spacing: -0.025em;
+        }
+
+        .final-cta p {
+            max-width: 34rem;
+            color: #c8c8c8;
+        }
+
+        .final-cta .path-hero__cta {
+            color: var(--text-primary);
+            background-color: var(--bg-light);
+        }
+
+        @media (max-width: 992px) {
+            .developer-path .path-hero__inner,
+            .path-roadmap-card {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid,
+            .planner-grid,
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .path-section__header,
+            .final-cta__inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cards-grid,
+            .planner-grid,
+            .projects-grid,
+            .path-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .developer-path .path-hero {
+                padding-top: var(--space-md);
+            }
+
+            .path-section {
+                padding-bottom: var(--space-lg);
+            }
+
+            .skill-card {
+                min-height: auto;
+            }
+
+            .path-stat {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .path-stat:last-child {
+                border-bottom: none;
+            }
+
+            .developer-visual {
+                min-height: 410px;
+            }
+
+            .developer-visual__orbit {
+                inset: 4.25rem 2.25rem;
+            }
+
+            .developer-visual__stack {
+                width: calc(100% - 2rem);
+            }
+
+            .developer-visual__layer,
+            .developer-visual__layer:nth-child(n) {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body class="page-path developer-path">
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
             <a class="navbar-logo" href="../../index.html" aria-label="OpenLearn home">
@@ -39,129 +579,242 @@
     </nav>
 
     <main>
-        <header class="path-hero" aria-labelledby="path-title">
+        <section class="path-hero" aria-labelledby="path-title">
             <div class="path-hero__inner">
-                <a class="path-hero__back" href="../../careers.html">← All career paths</a>
-                <p class="path-hero__eyebrow">Study path · 8 weeks</p>
-                <h1 id="path-title" class="path-hero__title">Python Developer</h1>
-                <p class="path-hero__lead">
-                    A complete learning route: Python fundamentals, four hands-on projects, problem-solving skills,
-                    DSA basics, and a capstone CLI tool. Work through each week in order.
-                </p>
-                <div class="path-hero__meta">
-                    <span class="path-hero__tag">8–12 weeks</span>
-                    <span class="path-hero__tag">Beginner → Advanced</span>
-                    <span class="path-hero__tag">27 lessons + 5 projects</span>
+                <div class="path-hero__content">
+                    <a class="path-hero__back" href="../../careers.html">All career paths</a>
+                    <div class="path-hero__badge-row" aria-label="Path details">
+                        <span class="path-badge path-badge--dark">Career path</span>
+                        <span class="path-badge">8-12 weeks</span>
+                        <span class="path-badge">Beginner to Advanced</span>
+                    </div>
+                    <p class="path-hero__eyebrow">Professional roadmap</p>
+                    <h1 id="path-title" class="path-hero__title">Python Developer</h1>
+                    <p class="path-hero__lead">
+                        A complete route from Python fundamentals to problem solving, DSA basics, portfolio projects, and a capstone CLI tool.
+                    </p>
+                    <div class="path-hero__actions">
+                        <a class="path-hero__cta" href="../../courses/python/01-intro.html">Start lesson 1</a>
+                        <a class="path-hero__secondary" href="#path-roadmap-heading">View Roadmap</a>
+                    </div>
+                    <div class="path-stats" aria-label="Path snapshot">
+                        <div class="path-stat">
+                            <strong>21</strong>
+                            <span>Lessons</span>
+                        </div>
+                        <div class="path-stat">
+                            <strong>5</strong>
+                            <span>Projects</span>
+                        </div>
+                        <div class="path-stat">
+                            <strong>8</strong>
+                            <span>Weeks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual" aria-label="Python Developer career stack animation">
+                    <div class="developer-visual">
+                        <div class="developer-visual__orbit" aria-hidden="true"></div>
+                        <div class="developer-visual__stack">
+                            <div class="developer-visual__layer">
+                                <span class="developer-visual__label">Core</span>
+                                <span class="developer-visual__title">Python</span>
+                            </div>
+                            <div class="developer-visual__layer">
+                                <span class="developer-visual__label">Practice</span>
+                                <span class="developer-visual__title">Problems</span>
+                            </div>
+                            <div class="developer-visual__layer">
+                                <span class="developer-visual__label">Systems</span>
+                                <span class="developer-visual__title">DSA</span>
+                            </div>
+                            <div class="developer-visual__layer">
+                                <span class="developer-visual__label">Outcome</span>
+                                <span class="developer-visual__title">Portfolio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="path-section" aria-labelledby="skills-heading">
+            <div class="path-section__header">
+                <h2 id="skills-heading" class="section-heading">What You'll Build Toward</h2>
+                <p class="section-kicker">A focused career path that connects lessons, practice, and projects into one professional learning route.</p>
+            </div>
+            <div class="cards-grid">
+                <article class="skill-card">
+                    <span class="card-label">01</span>
+                    <h3>Python Fluency</h3>
+                    <p>Write clear scripts, handle data, structure functions, and work with files.</p>
+                </article>
+                <article class="skill-card">
+                    <span class="card-label">02</span>
+                    <h3>Problem Solving</h3>
+                    <p>Break challenges down, debug calmly, and practice reusable coding patterns.</p>
+                </article>
+                <article class="skill-card">
+                    <span class="card-label">03</span>
+                    <h3>Data Structures</h3>
+                    <p>Understand arrays, complexity, searching, and sorting foundations.</p>
+                </article>
+                <article class="skill-card">
+                    <span class="card-label">04</span>
+                    <h3>Developer Workflow</h3>
+                    <p>Use GitHub and portfolio habits to present work professionally.</p>
+                </article>
+                <article class="skill-card">
+                    <span class="card-label">05</span>
+                    <h3>Automation</h3>
+                    <p>Build useful terminal tools and automate repeated tasks with Python.</p>
+                </article>
+                <article class="skill-card">
+                    <span class="card-label">06</span>
+                    <h3>Portfolio Direction</h3>
+                    <p>Finish with projects that show learning progress and practical thinking.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="path-section" aria-labelledby="path-roadmap-heading">
+            <div class="path-section__header">
+                <h2 id="path-roadmap-heading" class="section-heading">Career Roadmap</h2>
+                <p class="section-kicker">A clean overview of the path. Use the links to jump into the course blocks when you're ready.</p>
+            </div>
+            <div class="path-roadmap-list">
+                <article class="path-roadmap-card">
+                    <div class="path-roadmap-card__index">
+                        <span class="path-roadmap-card__tag">Phase 1</span>
+                        <span class="path-roadmap-card__meta">Weeks 1-4</span>
+                    </div>
+                    <div>
+                        <h3 class="path-roadmap-card__title">Python Foundation</h3>
+                        <div class="path-roadmap-card__topics">
+                            <a href="../../courses/python/index.html">Python course hub</a>
+                            <a href="../../courses/python/01-intro.html">Start Python</a>
+                            <span>OOP</span>
+                            <span>GitHub</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="path-roadmap-card">
+                    <div class="path-roadmap-card__index">
+                        <span class="path-roadmap-card__tag">Phase 2</span>
+                        <span class="path-roadmap-card__meta">Weeks 5-6</span>
+                    </div>
+                    <div>
+                        <h3 class="path-roadmap-card__title">Problem Solving</h3>
+                        <div class="path-roadmap-card__topics">
+                            <a href="../../courses/problem-solving/index.html">Problem solving hub</a>
+                            <span>Pseudocode</span>
+                            <span>Debugging</span>
+                            <span>Challenges</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="path-roadmap-card">
+                    <div class="path-roadmap-card__index">
+                        <span class="path-roadmap-card__tag">Phase 3</span>
+                        <span class="path-roadmap-card__meta">Weeks 7-8</span>
+                    </div>
+                    <div>
+                        <h3 class="path-roadmap-card__title">DSA Basics</h3>
+                        <div class="path-roadmap-card__topics">
+                            <a href="../../courses/dsa/index.html">DSA hub</a>
+                            <span>Arrays</span>
+                            <span>Big O</span>
+                            <span>Search &amp; Sort</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="path-roadmap-card">
+                    <div class="path-roadmap-card__index">
+                        <span class="path-roadmap-card__tag">Phase 4</span>
+                        <span class="path-roadmap-card__meta">Capstone</span>
+                    </div>
+                    <div>
+                        <h3 class="path-roadmap-card__title">Portfolio Build</h3>
+                        <div class="path-roadmap-card__topics">
+                            <a href="../../courses/python/project-capstone-cli.html">CLI capstone</a>
+                            <span>Automation</span>
+                            <span>Portfolio polish</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="path-section" aria-labelledby="planner-heading">
+            <div class="path-section__header">
+                <h2 id="planner-heading" class="section-heading">Weekly Study Planner</h2>
+                <p class="section-kicker">A compact pacing guide for the full Python Developer path.</p>
+            </div>
+            <div class="planner-grid">
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 1-2</span>
+                    <h3>Python Basics</h3>
+                    <p>Setup, variables, logic, loops, collections, and two early projects.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 3-4</span>
+                    <h3>Python Projects</h3>
+                    <p>Functions, files, OOP, GitHub, career prep, and the first capstone pass.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 5-6</span>
+                    <h3>Problem Solving</h3>
+                    <p>Break down problems, debug, practice patterns, and complete challenges.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 7-8</span>
+                    <h3>DSA + Capstone</h3>
+                    <p>Learn arrays, Big O, search, sort, then refine a portfolio CLI tool.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="path-section" aria-labelledby="projects-heading">
+            <div class="path-section__header">
+                <h2 id="projects-heading" class="section-heading">Portfolio Projects</h2>
+                <p class="section-kicker">A progression of builds that gives the path a practical portfolio shape.</p>
+            </div>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <span class="project-card__level">Starter</span>
+                    <h3><a href="../../courses/python/project-01-greeting.html">Greeting Script</a></h3>
+                    <p>First Python input/output project with clean terminal behavior.</p>
+                    <a class="project-card__cta" href="../../courses/python/project-01-greeting.html">Open project</a>
+                </article>
+                <article class="project-card">
+                    <span class="project-card__level">Logic</span>
+                    <h3><a href="../../courses/python/project-02-guesser.html">Number Guesser</a></h3>
+                    <p>Interactive game using conditions, loops, and state.</p>
+                    <a class="project-card__cta" href="../../courses/python/project-02-guesser.html">Open project</a>
+                </article>
+                <article class="project-card">
+                    <span class="project-card__level">Intermediate</span>
+                    <h3><a href="../../courses/problem-solving/project-challenges.html">Coding Challenges</a></h3>
+                    <p>Five focused challenges for pattern recognition and debugging.</p>
+                    <a class="project-card__cta" href="../../courses/problem-solving/project-challenges.html">Open project</a>
+                </article>
+                <article class="project-card project-card--featured">
+                    <span class="project-card__level">Capstone</span>
+                    <h3><a href="../../courses/python/project-capstone-cli.html">CLI Automation Tool</a></h3>
+                    <p>A final build that brings Python, structure, and problem solving together.</p>
+                    <a class="project-card__cta" href="../../courses/python/project-capstone-cli.html">Open capstone</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="final-cta" aria-labelledby="final-cta-heading">
+            <div class="final-cta__inner">
+                <div>
+                    <h2 id="final-cta-heading">Ready to follow the path?</h2>
+                    <p>Start with Python lesson one and move through the phases with projects as checkpoints.</p>
                 </div>
                 <a class="path-hero__cta" href="../../courses/python/01-intro.html">Start lesson 1</a>
-                <!-- ANIMATION FIXED CORNER -->
-                <!-- Animation Section -->
-<section class="career-animation-section">
-
-    <div class="docs-demo-html">
-      
-      <div class="medium row">
-        <div class="square" data-x="170"></div>
-      </div>
-  
-      <div class="medium row">
-        <div class="square" data-x="80"></div>
-      </div>
-  
-      <div class="medium row">
-        <div class="square" data-x="270"></div>
-      </div>
-  
-    </div>
-  
-  </section>
-  
-  <!-- Animation CSS -->
-  <link rel="stylesheet" href="../careers-anime.css">
-  
-  <!-- Animation JS -->
-  <script type="module" src="../careers-anime.js"></script>
-            </div>
-        </header>
-
-        <section class="path-body" aria-labelledby="syllabus-heading">
-            <div class="path-body__inner">
-                <h2 id="syllabus-heading" class="path-body__heading">Full syllabus</h2>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 1 — Python foundations</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/python/01-intro.html">Introduction to Python &amp; Setup</a></li>
-                        <li><a href="../../courses/python/02-variables.html">Variables, Data Types &amp; Operators</a></li>
-                    </ol>
-                    <p class="path-project"><strong>Project 1:</strong> <a href="../../courses/python/project-01-greeting.html">Personal Profile &amp; Greeting Script</a></p>
-                </article>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 2 — Control flow &amp; collections</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/python/03-conditionals.html">Conditionals &amp; Nested Logic</a></li>
-                        <li><a href="../../courses/python/04-loops.html">Loops &amp; Logic Building</a></li>
-                        <li><a href="../../courses/python/05-lists.html">Lists, Tuples &amp; Sets</a></li>
-                    </ol>
-                    <p class="path-project"><strong>Project 2:</strong> <a href="../../courses/python/project-02-guesser.html">Number Guessing Game</a></p>
-                </article>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 3 — Modular code &amp; structures</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/python/06-functions.html">Functions &amp; Return values</a></li>
-                        <li><a href="../../courses/python/07-dictionaries.html">Dictionaries &amp; Nested data maps</a></li>
-                        <li><a href="../../courses/python/08-strings-files.html">Strings &amp; Reading/Writing Files</a></li>
-                    </ol>
-                    <p class="path-project"><strong>Project 3:</strong> <a href="../../courses/python/project-03-contact-book.html">Interactive To-Do &amp; Quiz CLI App</a></p>
-                </article>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 4 — Advanced development &amp; career prep</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/python/09-modules.html">OOP: Classes &amp; Objects</a></li>
-                        <li><a href="../../courses/python/10-problem-solving.html">Problem Solving &amp; Debugging</a></li>
-                        <li><a href="../../courses/python/11-git.html">Git Version Control &amp; GitHub</a></li>
-                        <li><a href="../../courses/python/12-career.html">Career Direction &amp; Portfolios</a></li>
-                    </ol>
-                    <p class="path-project"><strong>Capstone Project:</strong> <a href="../../courses/python/project-capstone-cli.html">Automation &amp; API CLI Tool</a></p>
-                </article>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 5 — Problem solving mindset</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/problem-solving/01-break-down-problems.html">Breaking down problems</a></li>
-                        <li><a href="../../courses/problem-solving/02-pseudocode.html">Pseudocode before code</a></li>
-                    </ol>
-                </article>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 6 — Debugging &amp; practice</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/problem-solving/03-debugging.html">Debugging strategies</a></li>
-                        <li><a href="../../courses/problem-solving/04-practice-patterns.html">Common patterns &amp; practice</a></li>
-                    </ol>
-                    <p class="path-project"><strong>Project 4:</strong> <a href="../../courses/problem-solving/project-challenges.html">Five coding challenges</a></p>
-                </article>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 7 — DSA fundamentals</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/dsa/01-why-dsa.html">Why data structures matter</a></li>
-                        <li><a href="../../courses/dsa/02-arrays.html">Arrays and lists in depth</a></li>
-                        <li><a href="../../courses/dsa/03-big-o.html">Big O notation (intro)</a></li>
-                    </ol>
-                </article>
-
-                <article class="path-week">
-                    <h3 class="path-week__title">Week 8 — Search, sort &amp; capstone</h3>
-                    <ol class="path-lessons">
-                        <li><a href="../../courses/dsa/04-searching.html">Searching algorithms</a></li>
-                        <li><a href="../../courses/dsa/05-sorting.html">Sorting algorithms (intro)</a></li>
-                    </ol>
-                    <p class="path-project"><strong>Capstone:</strong> <a href="../../courses/python/project-capstone-cli.html">Build a CLI tool in Python</a></p>
-                </article>
             </div>
         </section>
     </main>
@@ -193,6 +846,5 @@
             <p>&copy; 2026 OpenLearn. All rights reserved.</p>
         </div>
     </footer>
-<script type="module" src="../../js/anime.js"></script>
 </body>
 </html>
