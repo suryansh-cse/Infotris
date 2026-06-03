@@ -1,20 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <!-- Official Python Logo: Two intertwined snakes -->
+  <!-- Premium Python Logo -->
   <defs>
-    <linearGradient id="pythonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="pyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#3776ab;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#ffd43b;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <!-- Background circle -->
-  <circle cx="24" cy="24" r="22" fill="url(#pythonGradient)"/>
-  <!-- Two interlocking snakes representing Python -->
+  <circle cx="24" cy="24" r="22" fill="url(#pyGrad)"/>
   <g transform="translate(24, 24)">
-    <!-- Upper snake head -->
-    <circle cx="-3" cy="-8" r="3.5" fill="#ffffff"/>
-    <path d="M -3,-4.5 Q -6,-2 -8,2 Q -9,5 -7,8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <!-- Lower snake head -->
-    <circle cx="3" cy="8" r="3.5" fill="#ffffff"/>
-    <path d="M 3,4.5 Q 6,2 8,-2 Q 9,-5 7,-8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Python snake logo -->
+    <path d="M -5,-8 Q -8,-6 -8,-2 Q -8,2 -5,4 L 0,6 Q 3,7 5,5 Q 8,3 8,0 Q 8,-3 5,-5 L 0,-7 Q -3,-8 -5,-8" fill="#ffffff" opacity="0.95"/>
+    <path d="M 5,8 Q 2,6 0,5 Q -3,4 -5,6 Q -8,8 -8,12 Q -8,16 -5,18 Q -2,20 2,19 Q 5,18 8,16" fill="#ffffff" opacity="0.95"/>
   </g>
 </svg>

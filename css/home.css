@@ -465,7 +465,7 @@
     black 92%,
     transparent 100%
   );
-  animation: carousel-scroll 50s linear infinite;
+  animation: carousel-scroll 60s linear infinite;
 }
 
 .logo-item {
@@ -502,6 +502,7 @@
     transform: translateX(0);
   }
   100% {
+    /* Animate to 50% (half of total width) to complete first cycle */
     transform: translateX(calc(-100px * 8 - 12px * 8));
   }
 }

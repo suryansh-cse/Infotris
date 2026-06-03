@@ -1,26 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <!-- Official GitHub Logo: Octocat -->
+  <!-- Premium GitHub Logo -->
   <defs>
-    <linearGradient id="githubGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="githubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#333333;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <circle cx="24" cy="24" r="22" fill="url(#githubGradient)"/>
-  <!-- Octocat silhouette -->
+  <circle cx="24" cy="24" r="22" fill="url(#githubGrad)"/>
   <g transform="translate(24, 24)">
-    <!-- Head -->
-    <circle cx="0" cy="-5" r="4" fill="#ffffff"/>
-    <!-- Body -->
-    <ellipse cx="0" cy="4" rx="3" ry="5" fill="#ffffff"/>
-    <!-- Left arm -->
-    <path d="M -3,2 L -7,0" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-    <!-- Right arm -->
-    <path d="M 3,2 L 7,0" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-    <!-- Tentacles (8 arms) -->
-    <path d="M -2,8 L -4,12" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
-    <path d="M 0,9 L -1,12" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
-    <path d="M 2,8 L 4,12" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
-    <path d="M 0,9 L 1,12" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- Octocat head -->
+    <circle cx="0" cy="-6" r="4.5" fill="#ffffff"/>
+    <!-- Octocat body -->
+    <ellipse cx="0" cy="4.5" rx="4" ry="6" fill="#ffffff"/>
+    <!-- Left pair of arms -->
+    <path d="M -3,1.5 L -7,-0.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Right pair of arms -->
+    <path d="M 3,1.5 L 7,-0.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Left tentacles -->
+    <path d="M -2,9.5 L -4,13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 0,10 L -1,13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Right tentacles -->
+    <path d="M 2,9.5 L 4,13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 0,10 L 1,13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
   </g>
 </svg>
