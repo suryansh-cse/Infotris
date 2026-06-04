@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Data Type</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">OpenLearn</span></a>
+            <ul class="navbar-links"><li><a href="../../courses.html" aria-current="page">Courses</a></li><li><a href="../../careers.html">Careers</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="../../careers/python-developer/index.html">Python Developer</a><span>/</span><a href="index.html">Python</a><span>/</span><span>Lesson 3</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="project-01-greeting.html">← Project 1</a>
+                <p class="lesson-header__label">Lesson 3</p>
+                <h1 class="lesson-header__title">Data Type </h1>
+                <p class="lesson-header__meta">~30 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. What are Data Types?</h2>
+                <p>In Python, data types define what kind of value a variable stores. </p>
+                <p>For example:</p>
+                <ul>
+                     <li>• A name is text → <code>string</code></li>
+                     <il>• Age is a number → <code>integer</code></il><br>
+                     <il>• Marks with decimals → <code>float</code></il><br>
+                     <il>• True or False values → <code>boolean</code></il><br>
+                </ul>
+                <p>Think of data types like labels that tell Python how to understand and use data.</p>
+
+                <h2>2. Why Data Types Matter? </h2>
+                <p>Why Data Types Matter?</p>
+                <ul>
+                     <il>• What operations can be performed</il>  
+                     <il>• How much memory to use</il>  
+                     <il>• How data should behave</il>
+                </ul>
+                <p>Example:</p>
+                <pre><code>
+                    age = 18
+                    name = "Suryansh"
+                    height = 5.9
+                    is_student = True</code></pre>
+
+                <h2>3. Logical Operators: and, or, not</h2>
+                <p>Logical operators allow you to combine multiple conditional statements or invert them:</p>
+                <ul>
+                    <li><code>and</code>: Returns <code>True</code> if both conditions are True.</li>
+                    <li><code>or</code>: Returns <code>True</code> if at least one condition is True.</li>
+                    <li><code>not</code>: Inverts the Boolean state (returns <code>True</code> if the condition is False).</li>
+                </ul>
+                <pre><code>age = 20
+has_ticket = True
+is_vip = False
+
+# Both must be True
+if age &gt;= 18 and has_ticket:
+    print("Allowed entry")
+
+# Either can be True
+if has_ticket or is_vip:
+    print("Welcome inside")</code></pre>
+
+                <h2>4. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Missing Colon</strong>: Forgetting the <code>:</code> at the end of <code>if</code>, <code>elif</code>, or <code>else</code>. This causes a <code>SyntaxError</code>.</li>
+                        <li><strong>Single '=' for Comparison</strong>: Writing <code>if score = 100:</code> instead of <code>if score == 100:</code>. This is a syntax error because <code>=</code> assigns variables.</li>
+                        <li><strong>Indentation Errors</strong>: Failing to indent the code blocks under the conditional statement or mixing spaces and tabs. Ensure exactly 4 spaces.</li>
+                    </ul>
+                </div>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="03-conditionals" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Movie Ticket Calculator</h2>
+                        <p class="practice-panel__hint">Write a script that prompts a user for their age. If they are under 12, the ticket costs $5. If they are between 12 and 64, the ticket costs $10. If they are 65 or older, the ticket costs $7. Print the ticket price in a formatted string.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="age = int(input('Enter age: '))&#10;if age < 12:&#10;    price = 5&#10;elif age <= 64:&#10;    price = 10&#10;else:&#10;    price = 7&#10;print(f'Ticket is ${price}')"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>Program prompts for an age and converts it to integer</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Uses <code>if</code>, <code>elif</code>, and <code>else</code> branches</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>Correctly outputs $5, $10, or $7 based on input age</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Awesome. You can branch code. Complete the quiz below to unlock loops.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="03-conditionals">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which operator is used to check if two values are equal in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. The single '=' operator is used to assign values to variables.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">=</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Python uses '==' for equality checks.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">==</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. 'equals' is not a standard operator keyword for basic comparison in Python.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">equals</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What is the output of `print(True or False)`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The 'or' operator evaluates to True if at least one side is True.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">True</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Only the 'and' operator would output False here.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">False</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What happens if you skip indenting the code inside an `if` block?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python will not skip or guess, it requires formatting.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It executes normally but ignores the check</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Python relies on indentation for block definition. Skipping it causes an IndentationError.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It crashes immediately with an IndentationError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python does not compile blocks implicitly without spaces.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It runs but prints a warning message</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Decisions are completed. Next, you'll learn how to repeat actions efficiently using **Loops**.</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="project-01-greeting.html">← Project 1</a>
+                    <a class="lesson-nav__next" href="04-loops.html">Next: Loops →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
