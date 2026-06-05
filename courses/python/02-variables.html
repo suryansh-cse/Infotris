@@ -58,14 +58,78 @@
                 </ul>
 
                 <h2>3. Built-in Core Data Types</h2>
-                <p>Python categorizes data into distinct types. The four most common types are:</p>
-                <ul>
-                    <li><code>str</code> (String): Text enclosed in quotes, e.g., <code>"Alice"</code>.</li>
-                    <li><code>int</code> (Integer): Whole numbers positive or negative, e.g., <code>42</code>.</li>
-                    <li><code>float</code> (Floating-Point): Decimals, e.g., <code>3.14159</code>.</li>
-                    <li><code>bool</code> (Boolean): Logical values, either <code>True</code> or <code>False</code> (must be capitalized).</li>
-                </ul>
-                <p>You can check the type of any variable using the built-in <code>type()</code> function.</p>
+                <p>Python categorizes data into distinct types. Understanding these types is crucial because they determine what operations you can perform on your data. The four most common types are:</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">3.1 Integer (int)</h3>
+                <p><strong>What it is:</strong> An integer is a whole number without a decimal point. It can be positive (like 42), negative (like -5), or zero.</p>
+                <p><strong>Simple explanation:</strong> Integers represent countable quantities — the number of students in a class, a person's age, or a score on a test.</p>
+                <p><strong>Beginner-friendly example:</strong> If you have 8 apples and get 3 more, you now have 11 apples. The numbers 8, 3, and 11 are all integers.</p>
+                <p><strong>Python code example:</strong></p>
+                <pre><code>age = 18
+score = 100
+temperature = -5
+students = 0
+
+print(age)           # Output: 18
+print(type(age))     # Output: &lt;class 'int'&gt;
+print(score + 5)     # Output: 105 (math works!)</code></pre>
+                <p><strong>Why it matters:</strong> Integers are the foundation for counting, scoring, and calculations. They're fast and memory-efficient compared to other number types.</p>
+                <p><strong>Mini practice task:</strong> Create a variable called <code>my_age</code> and assign it your age. Print it to the console. Then add 10 to your age and print the result.</p>
+                <p><strong>Key takeaway:</strong> Use integers for whole numbers. Python will automatically handle integers of any size.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">3.2 Float (float)</h3>
+                <p><strong>What it is:</strong> A float (floating-point) is a number with a decimal point. It can have any number of decimal places.</p>
+                <p><strong>Simple explanation:</strong> Floats are used when you need precision beyond whole numbers — like prices, measurements, or scientific data.</p>
+                <p><strong>Beginner-friendly example:</strong> A pizza costs $12.99, water is 3.5 liters, and a student's GPA is 3.85. These are all floats because they have decimal points.</p>
+                <p><strong>Python code example:</strong></p>
+                <pre><code>price = 12.99
+height = 5.9
+pi = 3.14159
+temperature = -2.5
+
+print(price)         # Output: 12.99
+print(type(price))   # Output: &lt;class 'float'&gt;
+print(pi * 2)        # Output: 6.28318 (math works!)</code></pre>
+                <p><strong>Why it matters:</strong> Floats are essential for real-world measurements, calculations, and financial applications where decimal precision matters.</p>
+                <p><strong>Mini practice task:</strong> Create a variable called <code>gpa</code> and assign it a decimal value like 3.75. Add 0.25 to it and print the result.</p>
+                <p><strong>Key takeaway:</strong> Use floats for decimal numbers. Be aware that floats can sometimes have tiny precision issues due to how computers store decimals (but for most beginner tasks, this won't matter).</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">3.3 String (str)</h3>
+                <p><strong>What it is:</strong> A string is a sequence of characters (letters, numbers, symbols, spaces) enclosed in quotes.</p>
+                <p><strong>Simple explanation:</strong> Strings represent text — names, messages, addresses, or any information you'd normally type into a form.</p>
+                <p><strong>Beginner-friendly example:</strong> Your name "Alice", a greeting "Hello, World!", or an address "123 Main Street" are all strings.</p>
+                <p><strong>Python code example:</strong></p>
+                <pre><code>name = "Alice"
+greeting = "Hello, OpenLearn!"
+email = "student@example.com"
+empty_text = ""  # Empty string
+
+print(name)           # Output: Alice
+print(type(name))     # Output: &lt;class 'str'&gt;
+print(greeting + "!")  # Output: Hello, OpenLearn!! (concatenation)</code></pre>
+                <p><strong>Why it matters:</strong> Strings are used for user names, messages, labels, and any textual data. They're one of the most frequently used data types in programs.</p>
+                <p><strong>Mini practice task:</strong> Create a variable called <code>city</code> and assign it the name of your favorite city. Create another variable called <code>country</code>. Print both with a comma and space between them (e.g., "Paris, France").</p>
+                <p><strong>Key takeaway:</strong> Use strings for text. You can use single quotes <code>'text'</code> or double quotes <code>"text"</code> — both work the same way in Python.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">3.4 Boolean (bool)</h3>
+                <p><strong>What it is:</strong> A boolean is a value that is either <code>True</code> or <code>False</code>. These are the only two boolean values in Python.</p>
+                <p><strong>Simple explanation:</strong> Booleans represent yes/no or on/off states. They answer questions like "Is the light on?" or "Have you finished your homework?"</p>
+                <p><strong>Beginner-friendly example:</strong> A door is either open (True) or closed (False). A student either passed the exam (True) or didn't (False).</p>
+                <p><strong>Python code example:</strong></p>
+                <pre><code>is_student = True
+is_weekend = False
+has_account = True
+is_verified = False
+
+print(is_student)       # Output: True
+print(type(is_student)) # Output: &lt;class 'bool'&gt;
+print(not is_weekend)   # Output: True (opposite)</code></pre>
+                <p><strong>Why it matters:</strong> Booleans are essential for decision-making in programs. They form the basis of conditional statements (if/else) that we'll learn later.</p>
+                <p><strong>Mini practice task:</strong> Create a variable called <code>am_i_learning</code> and set it to True. Create another called <code>is_python_hard</code> and set it to False. Print both.</p>
+                <p><strong>Key takeaway:</strong> Use booleans for yes/no questions. Always capitalize <code>True</code> and <code>False</code> in Python — lowercase versions will cause errors.</p>
+
+                <h2>3.5 Checking Types with type()</h2>
+                <p>The built-in <code>type()</code> function tells you what data type any variable is. This is extremely useful when debugging or understanding what kind of data you're working with.</p>
                 <pre><code>name = "Sam"
 age = 18
 score = 94.5
@@ -73,7 +137,12 @@ is_passing = True
 
 print(type(name))         # Output: &lt;class 'str'&gt;
 print(type(age))          # Output: &lt;class 'int'&gt;
-print(type(is_passing))   # Output: &lt;class 'bool'&gt;</code></pre>
+print(type(score))        # Output: &lt;class 'float'&gt;
+print(type(is_passing))   # Output: &lt;class 'bool'&gt;
+
+# You can also check built-in functions
+print(type(input))        # Output: &lt;class 'builtin_function_or_method'&gt;</code></pre>
+                <p><strong>Why use type()?</strong> Sometimes you receive data and aren't sure what type it is. The <code>type()</code> function instantly reveals the type, helping you understand what operations are safe to perform.</p>
 
                 <h2>4. Collecting Inputs &amp; Converting Types</h2>
                 <p>To interact with a user, we use the <code>input()</code> function, which prompts the user for text. **Important**: <code>input()</code> always returns a string. If you need to perform calculations on a user's input, you must cast (convert) it to an integer or float using <code>int()</code> or <code>float()</code>.</p>

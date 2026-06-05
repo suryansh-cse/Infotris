@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLearn | Input and Output in Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../index.html" aria-label="OpenLearn home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">OpenLearn</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses.html" aria-current="page">Courses</a></li>
+                <li><a href="../../careers.html">Careers</a></li>
+                <li><a href="../../about.html">About</a></li>
+            </ul>
+            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/index.html">Python Developer</a>
+        <span>/</span>
+        <a href="index.html">Python</a>
+        <span>/</span>
+        <span>Lesson 2</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="index.html">? Syllabus</a>
+                <p class="lesson-header__label">Lesson 2 · Python</p>
+                <h1 class="lesson-header__title">Input and Output</h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Why Input and Output Matter</h2>
+                <p>Programs aren''t very useful if they just run silently. To make interactive applications, you need two things:</p>
+                <ul>
+                    <li><strong>Output:</strong> Displaying information to the user on their screen</li>
+                    <li><strong>Input:</strong> Receiving information from the user through their keyboard</li>
+                </ul>
+                <p>Together, input and output (I/O) create a conversation between your program and the user. This lesson teaches you how to make that conversation happen.</p>
+
+                <h2>2. The print() Function – Displaying Output</h2>
+                <p>We''ve already used <code>print()</code> to display text. Let''s dive deeper into how powerful this function really is.</p>
+
+                <h3>Basic Output</h3>
+                <p>The simplest way to display something is:</p>
+                <pre><code>print("Hello, World!")</code></pre>
+                <p><strong>Output:</strong></p>
+                <pre><code>Hello, World!</code></pre>
+
+                <h3>Printing Variables</h3>
+                <p>You can print the value stored in a variable:</p>
+                <pre><code>name = "Alice"
+age = 18
+gpa = 3.85
+
+print(name)
+print(age)
+print(gpa)</code></pre>
+                <p><strong>Output:</strong></p>
+                <pre><code>Alice
+18
+3.85</code></pre>
+
+                <h3>Printing Multiple Items</h3>
+                <p>Separate items with commas, and <code>print()</code> automatically adds spaces between them:</p>
+                <pre><code>name = "Bob"
+age = 20
+
+print("My name is", name, "and I am", age, "years old.")</code></pre>
+                <p><strong>Output:</strong></p>
+                <pre><code>My name is Bob and I am 20 years old.</code></pre>
+
+                <h3>Why This Matters</h3>
+                <p>Output is how your program communicates with the user. Without it, the user wouldn''t know what your program is doing.</p>
+
+                <h2>3. The input() Function – Receiving Input</h2>
+                <p>The <code>input()</code> function pauses your program, waits for the user to type something, and then stores what they typed as a string.</p>
+
+                <h3>Basic Input</h3>
+                <p>Here''s the simplest form:</p>
+                <pre><code>name = input()
+print("You entered:", name)</code></pre>
+                <p>When you run this, the program waits silently for the user to type. If the user types "Charlie", the program displays:</p>
+                <pre><code>You entered: Charlie</code></pre>
+
+                <h3>Adding a Prompt</h3>
+                <p>Usually, you should tell the user what to type. Use a prompt string inside <code>input()</code>:</p>
+                <pre><code>name = input("Enter your name: ")
+print("Hello,", name)</code></pre>
+                <p><strong>Output (when user types "David"):</strong></p>
+                <pre><code>Enter your name: David
+Hello, David</code></pre>
+
+                <h3>Important: input() Returns a String</h3>
+                <p><strong>Critical point:</strong> <code>input()</code> always returns text (a string), even if the user types numbers:</p>
+                <pre><code>age = input("Enter your age: ")
+print(type(age))</code></pre>
+                <p><strong>Output (when user types "25"):</strong></p>
+                <pre><code>Enter your age: 25
+&lt;class ''str''&gt;</code></pre>
+                <p>The age is stored as the string <code>"25"</code>, not the number <code>25</code>. This matters when doing math!</p>
+
+                <h2>4. Converting Input to Numbers</h2>
+                <p>If you need to perform calculations with user input, you must convert the string to a number first.</p>
+
+                <h3>Converting to Integer with int()</h3>
+                <pre><code>age_text = input("Enter your age: ")
+age_number = int(age_text)
+birth_year = 2026 - age_number
+
+print("You were born in approximately", birth_year)</code></pre>
+                <p><strong>Output (when user enters "20"):</strong></p>
+                <pre><code>Enter your age: 20
+You were born in approximately 2006</code></pre>
+
+                <h3>Converting to Float with float()</h3>
+                <p>Use <code>float()</code> for decimal numbers:</p>
+                <pre><code>height_text = input("Enter your height (in meters): ")
+height_number = float(height_text)
+
+print("Your height is", height_number, "meters")</code></pre>
+                <p><strong>Output (when user enters "1.75"):</strong></p>
+                <pre><code>Enter your height (in meters): 1.75
+Your height is 1.75 meters</code></pre>
+
+                <h3>Shortcut: Convert Inside input()</h3>
+                <p>You can convert directly to save a line:</p>
+                <pre><code>age = int(input("Enter your age: "))
+height = float(input("Enter your height: "))</code></pre>
+
+                <h2>5. Working with Input and Output Together</h2>
+                <p>The real magic happens when you combine input and output to create interactive programs.</p>
+
+                <h3>Example: Simple Calculator</h3>
+                <pre><code>num1 = int(input("Enter first number: "))
+num2 = int(input("Enter second number: "))
+
+sum_result = num1 + num2
+
+print("The sum is:", sum_result)</code></pre>
+                <p><strong>Output (when user enters "10" and "5"):</strong></p>
+                <pre><code>Enter first number: 10
+Enter second number: 5
+The sum is: 15</code></pre>
+
+                <h3>Example: Personal Information Program</h3>
+                <pre><code>name = input("What is your name? ")
+city = input("What city are you from? ")
+hobby = input("What is your favorite hobby? ")
+
+print("\n--- Your Profile ---")
+print("Name:", name)
+print("City:", city)
+print("Hobby:", hobby)</code></pre>
+                <p><strong>Output (with sample input):</strong></p>
+                <pre><code>What is your name? Emma
+What city are you from? Boston
+What is your favorite hobby? Reading
+
+--- Your Profile ---
+Name: Emma
+City: Boston
+Hobby: Reading</code></pre>
+                <p><strong>Note:</strong> The <code>\n</code> in the string creates a blank line (newline character).</p>
+
+                <h2>6. String Formatting – Making Output Look Nice</h2>
+                <p>Python offers clean ways to insert variables into text using f-strings.</p>
+
+                <h3>F-Strings (Modern Python)</h3>
+                <p>Place an <code>f</code> before the string and put variable names inside curly braces:</p>
+                <pre><code>name = "Frank"
+age = 22
+
+print(f"My name is {name} and I am {age} years old.")</code></pre>
+                <p><strong>Output:</strong></p>
+                <pre><code>My name is Frank and I am 22 years old.</code></pre>
+
+                <h3>F-Strings with Calculations</h3>
+                <p>You can perform operations directly inside the braces:</p>
+                <pre><code>birth_year = 2004
+current_year = 2026
+
+age = current_year - birth_year
+print(f"You are {age} years old.")</code></pre>
+                <p><strong>Output:</strong></p>
+                <pre><code>You are 22 years old.</code></pre>
+
+                <h3>Why Format Your Output?</h3>
+                <p>F-strings make your code cleaner and easier to read. Compare:</p>
+                <ul>
+                    <li><strong>Without f-string:</strong> <code>print("Hello " + name + "! You are " + str(age) + " years old.")</code></li>
+                    <li><strong>With f-string:</strong> <code>print(f"Hello {name}! You are {age} years old.")</code></li>
+                </ul>
+                <p>The f-string version is much cleaner.</p>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="input-output" data-expected-output="hello" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Create an Interactive Greeting Program</h2>
+                        <p class="practice-panel__hint">Write a Python script that asks for the user''s name and greets them. Use input() to ask, and f-strings to display a personalized greeting. Save as <code>greet.py</code> and run it.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            <div class="practice-progress__bar"></div>
+                        </div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Write your code here (Scratchpad)</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="# Write a greeting program here&#10;name = input(&quot;Enter your name: &quot;)&#10;print(f&quot;Hello, {name}!&quot;)"></textarea>
+                    </div>
+                    <div class="practice-output-check">
+                        <label for="practice-output">Paste what your terminal printed</label>
+                        <textarea id="practice-output" class="practice-output-input" rows="3" placeholder="Enter your name: Alice&#10;Hello, Alice!"></textarea>
+                        <button type="button" class="practice-btn" data-output-verify>Check my output</button>
+                        <p class="practice-feedback" hidden></p>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I created a Python script that uses <code>input()</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I used an f-string to display output</span></label>
+                        <label class="practice-check"><input type="checkbox" data-check="output"><span>My script prints a personalized greeting</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">?</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Great! You''ve created an interactive program. You now understand the basics of input and output. Take the quiz below to test your knowledge.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="input-output">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What does the <code>input()</code> function return?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! No matter what the user types—even if it''s a number—input() always returns a string.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A string, regardless of what the user types</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. input() returns a string. If the user types a number, it''s still stored as text.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A number if the user enters digits</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. input() reads from keyboard input, not from files or the web directly.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Data from a file or website</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. You need to get a user''s age as a number to perform calculations. What should you do?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Calling input() without conversion will give you a string, not a number.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Just use age = input("Enter age: ")</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Use int() to convert the string input to an integer so you can do math with it.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Use age = int(input("Enter age: "))</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. str() converts TO a string, but you want to convert FROM a string. Use int() instead.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Use age = str(input("Enter age: "))</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What will be printed by this code?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. print() adds a space between multiple arguments.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">HelloWorld</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! When print() has multiple arguments separated by commas, it joins them with spaces.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Hello World</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. print() would only produce an error if the arguments weren''t properly formatted.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">An error</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. The output includes both strings connected by the space added by print().">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Nothing</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. Which f-string correctly displays a user''s name and age?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Without the ''f'' prefix, {name} and {age} are treated as literal text, not variables.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"I am {name} and {age} years old"</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! The ''f'' prefix tells Python to interpret the curly braces as variable placeholders.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">f"I am {name} and {age} years old"</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. The ''s'' is not a Python string prefix for formatting. Use ''f'' for f-strings.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">s"I am {name} and {age} years old"</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">?? Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">By mastering input and output, you can now build interactive programs that communicate with users. Next, you''ll learn about **Data Types and Variables** to store and manipulate different kinds of information.</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="index.html">All lessons</a>
+                    <a class="lesson-nav__next" href="data-type.html">Next: Data Types ?</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 OpenLearn.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
