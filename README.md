@@ -1,2 +1,2 @@
-# OpenLearn
-OpenLearn
+# Infotris
+Infotris
