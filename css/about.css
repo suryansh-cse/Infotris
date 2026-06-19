@@ -530,6 +530,23 @@ body.page-about .footer-bottom {
   font-size: 0.975rem;
 }
 
+.founder-bio p {
+  margin-bottom: 1.25rem;
+}
+
+.founder-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.founder-belief {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.5;
+  border-left: 2px solid #111111;
+  padding-left: 1rem;
+}
+
 /* --------------------------------------------------------------------------
    SECTION 9: CLOSING STATEMENT & FOOTER QUOTE
    -------------------------------------------------------------------------- */
