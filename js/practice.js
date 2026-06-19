@@ -1,5 +1,5 @@
 /**
- * OpenLearn practice panels — checklists, progress, optional output check.
+ * Infotris practice panels — checklists, progress, optional output check.
  * Works on static HTML lesson and project pages.
  */
 (function () {

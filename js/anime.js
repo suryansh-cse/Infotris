@@ -33,7 +33,7 @@ function startPillarAnimation() {
 
   if (!container) {
     console.error(
-      '[OpenLearn anime.js] .layout-container not found. Check index.html markup.'
+      '[Infotris anime.js] .layout-container not found. Check index.html markup.'
     );
     return;
   }

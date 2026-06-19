@@ -1,4 +1,4 @@
-# OpenLearn content guide
+# Infotris content guide
 
 ## Python Developer path (complete)
 
