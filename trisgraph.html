@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TrisGraph Explorer - Infotris's interactive visual knowledge mapping system connecting skills, concepts, and career trajectories.">
+    <title>TrisGraph Explorer | Infotris</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/trisgraph-page.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body class="page-trisgraph">
+
+    <!-- Header navigation -->
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="index.html" aria-label="Infotris home">
+                <img src="assets/logo.png" alt="Infotris logo" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+
+            <ul class="navbar-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="trisgraph.html" aria-current="page">TrisGraph</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+
+            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+        </nav>
+    </header>
+
+    <main class="trisgraph-page-layout">
+        <!-- LEFT PANEL: Control Sidebar -->
+        <aside class="trisgraph-sidebar" aria-label="Graph controls and details">
+            <div class="sidebar-header">
+                <span class="section-eyebrow">Visual Knowledge Map</span>
+                <h1 class="sidebar-title">TrisGraph Explorer</h1>
+                <p class="sidebar-subtitle">Discover structured learning sequences and conceptual connections.</p>
+            </div>
+
+            <!-- Search Panel -->
+            <div class="search-box">
+                <label for="node-search" class="visually-hidden">Search concepts or technologies</label>
+                <input type="search" id="node-search" class="search-input" placeholder="Search concepts (e.g. React, SQL, OOP)..." autocomplete="off">
+                <div class="search-results-indicator" id="search-indicator">No matches</div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="filter-section">
+                <span class="filter-label">Active Trails</span>
+                <div class="trail-selectors">
+                    <!-- Python Card -->
+                    <button class="trail-selector-btn active" data-path="python">
+                        <span class="btn-bullet"></span>
+                        <div class="btn-content">
+                            <h3>Python Trail</h3>
+                            <p>Core programming & logic</p>
+                        </div>
+                    </button>
+
+                    <!-- AI Card -->
+                    <button class="trail-selector-btn" data-path="ai">
+                        <span class="btn-bullet"></span>
+                        <div class="btn-content">
+                            <h3>AI & ML Trail</h3>
+                            <p>Models & neural networks</p>
+                        </div>
+                    </button>
+
+                    <!-- Web Dev Card -->
+                    <button class="trail-selector-btn" data-path="webdev">
+                        <span class="btn-bullet"></span>
+                        <div class="btn-content">
+                            <h3>Web Development Trail</h3>
+                            <p>Frontend & database design</p>
+                        </div>
+                    </button>
+
+                    <!-- Data Science Card -->
+                    <button class="trail-selector-btn" data-path="datascience">
+                        <span class="btn-bullet"></span>
+                        <div class="btn-content">
+                            <h3>Data Science Trail</h3>
+                            <p>Statistics & data frames</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Trail Details Sequence Card -->
+            <div class="sidebar-details-card">
+                <div id="trail-sequence-header">
+                    <h2 class="sequence-title">Python Learning Trail</h2>
+                    <p class="sequence-desc">Foundational programming from syntax to core library integration.</p>
+                </div>
+                
+                <div class="sequence-steps-container" id="trail-sequence-steps">
+                    <!-- Steps will be generated by JavaScript -->
+                </div>
+
+                <div class="sidebar-cta-container" id="trail-cta-container">
+                    <a href="courses/python/index.html" class="btn-sidebar-cta">Start Python Trail</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT PANEL: Graph Canvas -->
+        <section class="trisgraph-canvas-container" aria-label="Interactive graph display">
+            <div class="canvas-header-bar">
+                <div class="canvas-controls">
+                    <button class="canvas-btn active" id="btn-highlight-all">Highlight Trail Only</button>
+                    <button class="canvas-btn" id="btn-show-all">Reveal Complete Mesh</button>
+                </div>
+                <div class="canvas-legend">
+                    <span class="legend-item"><span class="legend-dot active"></span> Active Node</span>
+                    <span class="legend-item"><span class="legend-dot connected"></span> Connected</span>
+                </div>
+            </div>
+
+            <div class="trisgraph-canvas">
+                <!-- SVG Network Graph -->
+                <svg class="trisgraph-page-svg" id="trisgraph-svg" viewBox="0 0 700 500" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- Grid backdrop pattern -->
+                        <pattern id="canvas-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+                            <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(0, 0, 0, 0.03)" stroke-width="1" />
+                        </pattern>
+                        <!-- Glow filter for selected/active central nodes -->
+                        <filter id="node-glow" x="-30%" y="-30%" width="160%" height="160%">
+                            <feGaussianBlur stdDeviation="3.5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+
+                    <!-- Background Grid -->
+                    <rect width="100%" height="100%" fill="url(#canvas-grid)" />
+
+                    <!-- Connections Layer (Lines) -->
+                    <!-- Core paths from Infotris -->
+                    <line x1="350" y1="250" x2="220" y2="170" class="trisgraph-line path-python path-webdev" data-from="infotris" data-to="python" />
+                    <line x1="350" y1="250" x2="480" y2="170" class="trisgraph-line path-ai path-python" data-from="infotris" data-to="ai" />
+                    <line x1="350" y1="250" x2="220" y2="330" class="trisgraph-line path-webdev" data-from="infotris" data-to="webdev" />
+                    <line x1="350" y1="250" x2="480" y2="330" class="trisgraph-line path-datascience path-python" data-from="infotris" data-to="datascience" />
+
+                    <!-- Python Connections -->
+                    <line x1="220" y1="170" x2="100" y2="110" class="trisgraph-line path-python" data-from="python" data-to="syntax" />
+                    <line x1="220" y1="170" x2="200" y2="60" class="trisgraph-line path-python" data-from="python" data-to="oop" />
+                    <line x1="220" y1="170" x2="490" y2="60" class="trisgraph-line path-python path-ai" data-from="python" data-to="pytorch" />
+                    <line x1="220" y1="170" x2="590" y2="400" class="trisgraph-line path-python path-datascience" data-from="python" data-to="pandas" />
+
+                    <!-- AI Connections -->
+                    <line x1="480" y1="170" x2="600" y2="110" class="trisgraph-line path-ai" data-from="ai" data-to="neuralnetworks" />
+                    <line x1="480" y1="170" x2="490" y2="60" class="trisgraph-line path-ai" data-from="ai" data-to="pytorch" />
+
+                    <!-- Web Dev Connections -->
+                    <line x1="220" y1="330" x2="100" y2="400" class="trisgraph-line path-webdev" data-from="webdev" data-to="htmlcss" />
+                    <line x1="220" y1="330" x2="200" y2="440" class="trisgraph-line path-webdev" data-from="webdev" data-to="react" />
+                    <line x1="220" y1="330" x2="350" y2="410" class="trisgraph-line path-webdev path-datascience" data-from="webdev" data-to="sql" />
+
+                    <!-- Data Science Connections -->
+                    <line x1="480" y1="330" x2="590" y2="400" class="trisgraph-line path-datascience" data-from="datascience" data-to="pandas" />
+                    <line x1="480" y1="330" x2="350" y2="410" class="trisgraph-line path-datascience" data-from="datascience" data-to="sql" />
+                    <line x1="480" y1="330" x2="490" y2="440" class="trisgraph-line path-datascience" data-from="datascience" data-to="statistics" />
+
+                    <!-- Nodes Layer (Groups of Circles + Text) -->
+                    <!-- Center: Infotris -->
+                    <g class="trisgraph-node-group node-infotris" data-node="infotris">
+                        <circle cx="350" cy="250" r="11" class="trisgraph-node-circle" />
+                        <text x="350" y="228" text-anchor="middle" class="trisgraph-node-text">Infotris</text>
+                    </g>
+
+                    <!-- Python Core -->
+                    <g class="trisgraph-node-group node-python" data-node="python">
+                        <circle cx="220" cy="170" r="8" class="trisgraph-node-circle" />
+                        <text x="220" y="152" text-anchor="middle" class="trisgraph-node-text">Python</text>
+                    </g>
+                    <!-- Python Sub-nodes -->
+                    <g class="trisgraph-node-group node-python" data-node="syntax">
+                        <circle cx="100" cy="110" r="6" class="trisgraph-node-circle" />
+                        <text x="100" y="96" text-anchor="middle" class="trisgraph-node-text">Syntax</text>
+                    </g>
+                    <g class="trisgraph-node-group node-python" data-node="oop">
+                        <circle cx="200" cy="60" r="6" class="trisgraph-node-circle" />
+                        <text x="200" y="46" text-anchor="middle" class="trisgraph-node-text">OOP</text>
+                    </g>
+
+                    <!-- AI Core -->
+                    <g class="trisgraph-node-group node-ai" data-node="ai">
+                        <circle cx="480" cy="170" r="8" class="trisgraph-node-circle" />
+                        <text x="480" y="152" text-anchor="middle" class="trisgraph-node-text">AI & ML</text>
+                    </g>
+                    <!-- AI Sub-nodes -->
+                    <g class="trisgraph-node-group node-ai" data-node="neuralnetworks">
+                        <circle cx="600" cy="110" r="6" class="trisgraph-node-circle" />
+                        <text x="600" y="96" text-anchor="middle" class="trisgraph-node-text">Neural Nets</text>
+                    </g>
+                    <g class="trisgraph-node-group node-ai node-python" data-node="pytorch">
+                        <circle cx="490" cy="60" r="6" class="trisgraph-node-circle" />
+                        <text x="490" y="46" text-anchor="middle" class="trisgraph-node-text">PyTorch</text>
+                    </g>
+
+                    <!-- Web Dev Core -->
+                    <g class="trisgraph-node-group node-webdev" data-node="webdev">
+                        <circle cx="220" cy="330" r="8" class="trisgraph-node-circle" />
+                        <text x="220" y="352" text-anchor="middle" class="trisgraph-node-text">Web Dev</text>
+                    </g>
+                    <!-- Web Dev Sub-nodes -->
+                    <g class="trisgraph-node-group node-webdev" data-node="htmlcss">
+                        <circle cx="100" cy="400" r="6" class="trisgraph-node-circle" />
+                        <text x="100" y="418" text-anchor="middle" class="trisgraph-node-text">HTML & CSS</text>
+                    </g>
+                    <g class="trisgraph-node-group node-webdev" data-node="react">
+                        <circle cx="200" cy="440" r="6" class="trisgraph-node-circle" />
+                        <text x="200" y="458" text-anchor="middle" class="trisgraph-node-text">React</text>
+                    </g>
+
+                    <!-- Data Science Core -->
+                    <g class="trisgraph-node-group node-datascience" data-node="datascience">
+                        <circle cx="480" cy="330" r="8" class="trisgraph-node-circle" />
+                        <text x="480" y="352" text-anchor="middle" class="trisgraph-node-text">Data Science</text>
+                    </g>
+                    <!-- Shared / Data Science Sub-nodes -->
+                    <g class="trisgraph-node-group node-datascience node-python" data-node="pandas">
+                        <circle cx="590" cy="400" r="6" class="trisgraph-node-circle" />
+                        <text x="590" y="418" text-anchor="middle" class="trisgraph-node-text">Pandas</text>
+                    </g>
+                    <g class="trisgraph-node-group node-datascience node-webdev" data-node="sql">
+                        <circle cx="350" cy="410" r="6" class="trisgraph-node-circle" />
+                        <text x="350" y="428" text-anchor="middle" class="trisgraph-node-text">SQL</text>
+                    </g>
+                    <g class="trisgraph-node-group node-datascience" data-node="statistics">
+                        <circle cx="490" cy="440" r="6" class="trisgraph-node-circle" />
+                        <text x="490" y="458" text-anchor="middle" class="trisgraph-node-text">Statistics</text>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Page Context Info Tooltip -->
+            <div class="canvas-floating-tooltip" id="canvas-node-tooltip">
+                <h4 class="tooltip-heading">Select a node</h4>
+                <p class="tooltip-content">Hover or search to explore deep course materials, links, and relationships.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-section">
+        <div class="footer-inner">
+            <div class="footer-column footer-brand">
+                <a class="footer-logo" href="index.html" aria-label="Infotris home">
+                    <img src="assets/logo.png" alt="Infotris logo" width="36" height="36">
+                    <span>Infotris</span>
+                </a>
+                <p class="footer-mission">Infotris helps learners navigate knowledge through structured trails, visual learning systems, and practical skill development.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms &amp; Conditions</a></li>
+                    <li><a href="#login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Infotris. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/trisgraph-page.js" type="module"></script>
+</body>
+</html>

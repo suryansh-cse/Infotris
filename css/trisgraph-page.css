@@ -1,0 +1,694 @@
+/* ==========================================================================
+   TRISGRAPH-PAGE.CSS — Custom Styles for Dedicated TrisGraph Explorer
+   ========================================================================== */
+
+/* Full-height layout structure below header */
+.page-trisgraph {
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.trisgraph-page-layout {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  min-height: 500px;
+}
+
+/* --------------------------------------------------------------------------
+   LEFT PANEL: SIDEBAR CONTROLS
+   -------------------------------------------------------------------------- */
+.trisgraph-sidebar {
+  width: 400px;
+  flex-shrink: 0;
+  background-color: #fafafa;
+  border-right: 1px solid var(--border-color);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.sidebar-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Node search inputs */
+.search-box {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-input:focus {
+  border-color: var(--text-primary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.search-results-indicator {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #c0c0c0;
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.search-results-indicator.active {
+  opacity: 1;
+}
+
+/* Trail Selectors list */
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999999;
+}
+
+.trail-selectors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.trail-selector-btn {
+  display: flex;
+  align-items: center;
+  gap: 1.125rem;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+
+.trail-selector-btn:hover {
+  border-color: #bbbbbb;
+  transform: translateY(-1px);
+}
+
+.trail-selector-btn.active {
+  border-color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.btn-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  flex-shrink: 0;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.trail-selector-btn.active .btn-bullet {
+  background: var(--text-primary);
+  transform: scale(1.3);
+}
+
+.btn-content h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+
+.btn-content p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* Dynamic details card in sidebar */
+.sidebar-details-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-grow: 1;
+}
+
+.sequence-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.sequence-desc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Vertical steps layout for selected trail mapping */
+.sequence-steps-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+/* Vertical line behind items */
+.sequence-steps-container::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background-color: #eaeaea;
+}
+
+.sequence-step {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.sequence-step:last-child {
+  margin-bottom: 0;
+}
+
+.sequence-step::before {
+  content: '';
+  position: absolute;
+  left: -23px;
+  top: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #c0c0c0;
+  transition: all var(--transition);
+}
+
+.sequence-step.active::before {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.step-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.1rem;
+  display: block;
+}
+
+.step-desc {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  display: block;
+}
+
+.sidebar-cta-container {
+  margin-top: auto;
+}
+
+.btn-sidebar-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--text-primary);
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color var(--transition);
+}
+
+.btn-sidebar-cta:hover {
+  background-color: #222222;
+}
+
+
+/* --------------------------------------------------------------------------
+   RIGHT PANEL: CANVAS & GRAPH DISPLAY
+   -------------------------------------------------------------------------- */
+.trisgraph-canvas-container {
+  flex-grow: 1;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.canvas-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  background: #ffffff;
+  z-index: 5;
+}
+
+.canvas-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.canvas-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+
+.canvas-btn:hover {
+  border-color: #999999;
+}
+
+.canvas-btn.active {
+  background: var(--text-primary);
+  color: #ffffff;
+  border-color: var(--text-primary);
+}
+
+.canvas-legend {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.active {
+  background: var(--text-primary);
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+
+.legend-dot.connected {
+  background: #ffffff;
+  border: 1.5px solid var(--text-primary);
+}
+
+.trisgraph-canvas {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.trisgraph-page-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 850px;
+  max-height: 550px;
+  overflow: visible;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   NETWORK GRAPH SVG STYLING
+   -------------------------------------------------------------------------- */
+.trisgraph-line {
+  stroke: #eaeaea;
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  transition: stroke 0.4s ease, stroke-width 0.4s ease, stroke-dasharray 0.4s ease, opacity 0.4s ease;
+}
+
+.trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #d9d9d9;
+  stroke-width: 2px;
+  cursor: pointer;
+  transition: fill 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), r 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.trisgraph-node-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  fill: #a8a8a8;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  transition: fill 0.4s ease, font-weight 0.4s ease, opacity 0.4s ease;
+}
+
+.node-infotris .trisgraph-node-text {
+  font-size: 11px;
+}
+
+/* Active central nodes highlight standard */
+.node-infotris .trisgraph-node-circle {
+  fill: #111111;
+  stroke: #111111;
+  filter: url(#node-glow);
+}
+
+/* DEFAULT trail focus rules: Dim everything else */
+.page-trisgraph[data-view-mode="trail"] [data-active-path] .trisgraph-line {
+  stroke: #eaeaea;
+  stroke-width: 1.2px;
+  opacity: 0.25;
+}
+
+.page-trisgraph[data-view-mode="trail"] [data-active-path] .trisgraph-node-group .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #eaeaea;
+  opacity: 0.4;
+}
+
+.page-trisgraph[data-view-mode="trail"] [data-active-path] .trisgraph-node-group .trisgraph-node-text {
+  fill: #c0c0c0;
+  font-weight: 500;
+  opacity: 0.4;
+}
+
+/* Core Flow Active Animations */
+.page-trisgraph[data-view-mode="trail"][data-active-path="python"] .path-python {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="python"] .node-python .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="python"] .node-python .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.page-trisgraph[data-view-mode="trail"][data-active-path="ai"] .path-ai {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="ai"] .node-ai .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="ai"] .node-ai .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.page-trisgraph[data-view-mode="trail"][data-active-path="webdev"] .path-webdev {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="webdev"] .node-webdev .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="webdev"] .node-webdev .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.page-trisgraph[data-view-mode="trail"][data-active-path="datascience"] .path-datascience {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="datascience"] .node-datascience .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+.page-trisgraph[data-view-mode="trail"][data-active-path="datascience"] .node-datascience .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* Dynamic Animation Flows: Marching Ant offsets along paths */
+.page-trisgraph[data-view-mode="trail"] .trisgraph-line.active-trail-flow {
+  stroke: #111111 !important;
+  stroke-width: 2.5px !important;
+  stroke-dasharray: 6 5;
+  animation: line-flow 16s linear infinite;
+  opacity: 1 !important;
+}
+
+@keyframes line-flow {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+/* Forces center node to always glow */
+.page-trisgraph .node-infotris .trisgraph-node-circle {
+  fill: #111111 !important;
+  stroke: #111111 !important;
+  opacity: 1 !important;
+}
+.page-trisgraph .node-infotris .trisgraph-node-text {
+  fill: #111111 !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTION: HOVER STATE CLASSES (Added via JS)
+   -------------------------------------------------------------------------- */
+.trisgraph-node-group.active-hover-node .trisgraph-node-circle {
+  fill: #111111 !important;
+  stroke: #111111 !important;
+  r: 9.5 !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-node-group.active-hover-node .trisgraph-node-text {
+  fill: #111111 !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-node-group.active-hover-neighbor .trisgraph-node-circle {
+  stroke: #111111 !important;
+  opacity: 1 !important;
+  r: 7.5 !important;
+}
+
+.trisgraph-node-group.active-hover-neighbor .trisgraph-node-text {
+  fill: #111111 !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-line.active-hover-line {
+  stroke: #111111 !important;
+  stroke-width: 2.5px !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-node-group.inactive-hover-node .trisgraph-node-circle {
+  opacity: 0.15 !important;
+}
+
+.trisgraph-node-group.inactive-hover-node .trisgraph-node-text {
+  opacity: 0.15 !important;
+}
+
+/* Node Search Highlight state */
+.trisgraph-node-group.search-match-node .trisgraph-node-circle {
+  fill: #111111 !important;
+  stroke: #111111 !important;
+  r: 10.5 !important;
+  stroke-width: 4px !important;
+  opacity: 1 !important;
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.trisgraph-node-group.search-match-node .trisgraph-node-text {
+  fill: #111111 !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.4);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(17, 17, 17, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0);
+  }
+}
+
+/* Floating bottom right details panel */
+.canvas-floating-tooltip {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  width: 280px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.tooltip-heading {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.tooltip-content {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE OVERRIDES
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .trisgraph-page-layout {
+    flex-direction: column;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .trisgraph-sidebar {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 2rem 1.5rem;
+  }
+
+  .trisgraph-canvas-container {
+    height: auto;
+    min-height: 550px;
+  }
+
+  .trisgraph-canvas {
+    padding: 2rem 1.5rem;
+  }
+
+  .canvas-floating-tooltip {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    left: 1.5rem;
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .canvas-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .canvas-legend {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .trisgraph-canvas-container {
+    min-height: 480px;
+  }
+}

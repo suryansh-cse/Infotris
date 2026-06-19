@@ -512,8 +512,376 @@
     transform: translateX(calc(-112px * 8));
   }
 }
+
 /* ==========================================================================
-   RESPONSIVE DESIGN â€” Media queries for tablets and phones
+   4. TRISGRAPH SECTION — Interactive Visual Knowledge System
+   ========================================================================== */
+.trisgraph-section {
+  background-color: #ffffff; /* Contrast white for premium redesign */
+  border-top: 1px solid var(--border-color);
+  padding: 8rem 1.5rem;
+}
+
+.trisgraph-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 4rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  align-items: center;
+}
+
+.trisgraph-content {
+  text-align: left;
+}
+
+.trisgraph-title {
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.trisgraph-subtitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.trisgraph-description {
+  font-size: 0.975rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 32rem;
+}
+
+.trisgraph-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.trisgraph-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  max-width: 480px;
+  font-family: inherit;
+  transition: border-color var(--transition), background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.trisgraph-card:hover {
+  border-color: var(--text-primary);
+  background-color: rgba(17, 17, 17, 0.01);
+  transform: translateY(-1px);
+}
+
+.trisgraph-card.active {
+  border-color: var(--text-primary);
+  background-color: rgba(17, 17, 17, 0.02);
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.02);
+}
+
+.trisgraph-card .card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(17, 17, 17, 0.03);
+  color: var(--text-primary);
+  flex-shrink: 0;
+  transition: background-color var(--transition);
+}
+
+.trisgraph-card .card-icon svg.custom-card-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.trisgraph-card.active .card-icon {
+  background: var(--text-primary);
+  color: #ffffff;
+}
+
+.trisgraph-card.active .card-icon img {
+  filter: brightness(0) invert(1);
+}
+
+.trisgraph-card.active .card-icon svg {
+  color: #ffffff;
+}
+
+.card-text h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.card-text p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.trisgraph-visual-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.trisgraph-visual-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  position: relative;
+  overflow: visible;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.trisgraph-visual-card:hover {
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+}
+
+.trisgraph-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Base lines and node styling */
+.trisgraph-line {
+  stroke: #eaeaea;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: stroke 0.4s ease, stroke-width 0.4s ease, opacity 0.4s ease;
+}
+
+.trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #d9d9d9;
+  stroke-width: 2px;
+  r: 5;
+  cursor: pointer;
+  transition: fill 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), r 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+/* Center node exception */
+.node-infotris .trisgraph-node-circle {
+  r: 9;
+}
+
+.trisgraph-node-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  fill: #888888;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  transition: fill 0.4s ease, font-weight 0.4s ease, opacity 0.4s ease;
+}
+
+.node-infotris .trisgraph-node-text {
+  font-size: 11px;
+}
+
+/* Active path highlighting */
+[data-active-path] .trisgraph-line {
+  stroke: #eaeaea;
+  stroke-width: 1.5;
+  opacity: 0.35;
+}
+
+[data-active-path] .trisgraph-node-group .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #eaeaea;
+  opacity: 0.5;
+}
+
+[data-active-path] .trisgraph-node-group .trisgraph-node-text {
+  fill: #c0c0c0;
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+/* Active path rules */
+[data-active-path="python"] .path-python {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+[data-active-path="python"] .node-python .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+[data-active-path="python"] .node-python .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+[data-active-path="ai"] .path-ai {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+[data-active-path="ai"] .node-ai .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+[data-active-path="ai"] .node-ai .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+[data-active-path="webdev"] .path-webdev {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+[data-active-path="webdev"] .node-webdev .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+[data-active-path="webdev"] .node-webdev .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+[data-active-path="datascience"] .path-datascience {
+  stroke: #111111;
+  stroke-width: 2.2px;
+  opacity: 1;
+}
+[data-active-path="datascience"] .node-datascience .trisgraph-node-circle {
+  fill: #ffffff;
+  stroke: #111111;
+  stroke-width: 2.5px;
+  opacity: 1;
+}
+[data-active-path="datascience"] .node-datascience .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* Force center node to always be active and bold */
+[data-active-path] .node-infotris .trisgraph-node-circle {
+  fill: #111111;
+  stroke: #111111;
+  opacity: 1;
+}
+[data-active-path] .node-infotris .trisgraph-node-text {
+  fill: #111111;
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* Hover-specific interaction styling overrides */
+.trisgraph-node-group.active-hover-node .trisgraph-node-circle {
+  fill: #111111 !important;
+  stroke: #111111 !important;
+  r: 8 !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-node-group.active-hover-node .trisgraph-node-text {
+  fill: #111111 !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-node-group.active-hover-neighbor .trisgraph-node-circle {
+  stroke: #111111 !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-node-group.active-hover-neighbor .trisgraph-node-text {
+  fill: #111111 !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-line.active-hover-line {
+  stroke: #111111 !important;
+  stroke-width: 2.5px !important;
+  opacity: 1 !important;
+}
+
+.trisgraph-node-group.inactive-hover-node .trisgraph-node-circle {
+  opacity: 0.15 !important;
+}
+
+.trisgraph-node-group.inactive-hover-node .trisgraph-node-text {
+  opacity: 0.15 !important;
+}
+
+/* Tooltip info panel */
+.trisgraph-tooltip {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.tooltip-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.tooltip-desc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN — Media queries for tablets and phones
    Breakpoints: 992px (tablet), 768px (mobile nav), 480px (small phone)
    ========================================================================== */
 
@@ -521,6 +889,15 @@
   .hero-inner {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
+  }
+
+  .trisgraph-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .trisgraph-card {
+    max-width: 100%;
   }
 
   .hero-visual-box {
@@ -586,6 +963,21 @@
 
   .hero-section {
     padding-top: var(--space-lg);
+  }
+
+  .trisgraph-section {
+    padding: 5rem 1.5rem;
+  }
+
+  .trisgraph-visual-card {
+    padding: 1.5rem;
+  }
+
+  .trisgraph-tooltip {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    padding: 1rem;
   }
 
   .search-bar {
