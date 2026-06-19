@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About Infotris - Learn, build, and grow through structured trails, visual learning systems, and practical skill development.">
-    <title>About Infotris</title>
+    <meta name="description" content="About Infotris - Learn, build, and grow through structured learning paths. Organizing scattered knowledge into clear paths towards skills, careers, and projects.">
+    <title>About Infotris | Learn • Build • Grow</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
-    <link rel="icon" 
-    type="image/png" 
-    href="assets/logo.png">
+    <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
 <body class="page-about">
 
+    <!-- Header navigation -->
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
             <a class="navbar-logo" href="index.html" aria-label="Infotris home">
-                <img src="assets/logo.png" alt="" width="56" height="56">
+                <img src="assets/logo.png" alt="Infotris logo" width="56" height="56">
                 <span class="navbar-brand-text">Infotris</span>
             </a>
 
@@ -36,117 +37,233 @@
     </header>
 
     <main>
+        <!-- SECTION 1: Hero Section -->
+        <section class="about-hero scroll-reveal" aria-labelledby="hero-heading">
+            <p class="about-hero__eyebrow">Learn • Build • Grow</p>
+            <h1 id="hero-heading" class="about-hero__title">Knowledge is everywhere.
+Direction is not.</h1>
+            <p class="about-hero__lead">
+                The internet contains millions of tutorials, articles, videos, guides, and resources. Finding information is easy. Finding the right path is difficult.<br><br>
+                Infotris exists to organize knowledge into structured trails that help people learn, build, and grow.
+            </p>
+            <div class="hero-ctas">
+                <a href="courses.html" class="btn-primary">Explore Trails</a>
+                <a href="#story" class="btn-secondary">Read Our Story</a>
+            </div>
+        </section>
 
-        <!-- Page hero -->
-        <section class="about-hero" aria-labelledby="about-heading">
-            <div class="about-hero__inner">
-                <p class="about-hero__eyebrow">Learn • Build • Grow</p>
-                <h1 id="about-heading" class="about-hero__title">About Infotris</h1>
-                <p class="about-hero__lead">
-                    Infotris is a learning platform designed to transform scattered information into structured learning experiences.
-                    Instead of creating knowledge from scratch, Infotris organizes the world's best resources into clear trails that
-                    help learners learn, build, and grow.
+        <!-- SECTION 2: What Is Infotris? -->
+        <section id="story" class="about-what scroll-reveal" aria-labelledby="what-heading">
+            <span class="section-eyebrow">Introduction</span>
+            <h2 id="what-heading" class="about-what__title">What is Infotris?</h2>
+            <div class="about-what__content">
+                <p class="highlight-large">
+                    Infotris is a structured learning platform designed to organize the world's knowledge into connected trails.
+                </p>
+                <p>
+                    Instead of overwhelming learners with thousands of disconnected resources, Infotris helps people discover clear paths toward skills, careers, and projects.
+                </p>
+                <p>
+                    Every trail is designed to help learners move from curiosity to capability.
+                </p>
+                <p>
+                    Whether someone wants to learn Python, web development, artificial intelligence, design, entrepreneurship, or future technologies, the goal remains the same:
+                </p>
+                <p class="highlight-large" style="margin-top: 1.5rem; font-weight: 600; letter-spacing: -0.02em;">
+                    Learn. Build. Grow.
                 </p>
             </div>
         </section>
 
-        <!-- Mission -->
-        <section class="about-section" aria-labelledby="mission-heading">
-            <div class="about-section__inner about-section__inner--split">
-                <div class="about-section__content">
-                    <h2 id="mission-heading" class="about-section__title">Our mission</h2>
-                    <p class="about-section__text">
-                        Infotris doesn't create knowledge—it organizes the world's knowledge into structured trails so anyone can
-                        learn, build, and grow.
-                    </p>
-                    <p class="about-section__text">
-                        The internet has knowledge. Infotris organizes it into connected trails, TrisGraph maps, and practical
-                        learning systems that help learners move with direction.
+        <!-- SECTION 3: The Meaning Behind The Name -->
+        <section class="about-why-name scroll-reveal" aria-labelledby="why-heading">
+            <div class="why-grid">
+                <div class="why-text">
+                    <span class="section-eyebrow">The Origin</span>
+                    <h2 id="why-heading">Why "Infotris"?</h2>
+                    
+                    <div class="why-item">
+                        <h3 class="why-item__title">Info</h3>
+                        <p class="why-item__desc">Representing information, knowledge, learning, and discovery.</p>
+                    </div>
+                    
+                    <div class="why-item">
+                        <h3 class="why-item__title">Tris</h3>
+                        <p class="why-item__desc">Representing progression through three stages: Learn, Build, and Grow.</p>
+                    </div>
+
+                    <p style="margin-top: 2rem; color: #666666; font-size: 0.95rem; line-height: 1.6;">
+                        The three nodes inside the Infotris symbol represent this journey. Every learner starts by learning. Knowledge becomes valuable when it is used to build. Growth happens when learning and building continue over time.
                     </p>
                 </div>
-                <div class="about-mission-card" aria-hidden="true">
-                    <span class="about-mission-card__quote">"</span>
-                    <p>Learn • Build • Grow</p>
+                
+                <div class="why-visual" aria-hidden="true">
+                    <svg class="nodes-diagram" viewBox="0 0 300 200" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Connection Lines -->
+                        <line x1="150" y1="50" x2="70" y2="150" stroke="#eaeaea" stroke-width="2" />
+                        <line x1="150" y1="50" x2="230" y2="150" stroke="#eaeaea" stroke-width="2" />
+                        <line x1="70" y1="150" x2="230" y2="150" stroke="#eaeaea" stroke-width="2" />
+                        
+                        <!-- Pulse Effects -->
+                        <circle cx="150" cy="50" r="14" fill="rgba(0,0,0,0.02)" />
+                        <circle cx="70" cy="150" r="14" fill="rgba(0,0,0,0.02)" />
+                        <circle cx="230" cy="150" r="14" fill="rgba(0,0,0,0.02)" />
+                        
+                        <!-- Nodes -->
+                        <circle cx="150" cy="50" r="8" fill="#111111" />
+                        <circle cx="70" cy="150" r="8" fill="#111111" />
+                        <circle cx="230" cy="150" r="8" fill="#111111" />
+                        
+                        <!-- Labels -->
+                        <text x="150" y="32" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#111111" letter-spacing="0.1em">LEARN</text>
+                        <text x="70" y="180" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#111111" letter-spacing="0.1em">BUILD</text>
+                        <text x="230" y="180" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#111111" letter-spacing="0.1em">GROW</text>
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Vision -->
-        <section class="about-section about-section--dark" aria-labelledby="vision-heading">
-            <div class="about-section__inner">
-                <h2 id="vision-heading" class="about-section__title about-section__title--light">Our vision</h2>
-                <p class="about-section__subtitle about-section__subtitle--light">
-                    Our vision is to build a global learning ecosystem where students can navigate skills, careers,
-                    technologies, and knowledge through connected learning systems.
-                </p>
+        <!-- SECTION 4: Our Philosophy -->
+        <section class="about-philosophy scroll-reveal" aria-labelledby="philosophy-heading">
+            <div class="philosophy-container">
+                <span class="section-eyebrow">Core Philosophy</span>
+                <blockquote id="philosophy-heading" class="philosophy-quote">
+                    "Infotris doesn't create knowledge—it organizes the world's knowledge into structured trails so anyone can learn, build, and grow."
+                </blockquote>
+                <div class="philosophy-desc">
+                    <p>
+                        The internet already contains extraordinary teachers, creators, engineers, researchers, and educators. The problem isn't the lack of knowledge. The problem is discovering the right path through it.
+                    </p>
+                    <p>
+                        Infotris exists to reduce confusion and increase clarity. We focus on organization rather than ownership. Structure rather than noise. Direction rather than distraction.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <!-- Why Infotris Exists -->
-        <section class="about-section" aria-labelledby="why-heading">
-            <div class="about-section__inner">
-                <h2 id="why-heading" class="about-section__title" style=" left: 200px; ">Why Infotris exists</h2>
-                <p class="about-section__subtitle">
-                    The internet contains unlimited information, but learners often struggle to find the right path.
-                    Infotris exists to organize knowledge into meaningful learning journeys.
-                </p>
+        <!-- SECTION 5: How Infotris Works -->
+        <section class="about-how" aria-labelledby="how-heading">
+            <div class="how-header scroll-reveal">
+                <span class="section-eyebrow">Methodology</span>
+                <h2 id="how-heading">How It Works</h2>
+            </div>
+            
+            <div class="how-grid">
+                <!-- CARD 1 -->
+                <div class="how-card scroll-reveal reveal-delay-1">
+                    <span class="how-card__num">01</span>
+                    <h3 class="how-card__title">Learn</h3>
+                    <p class="how-card__text">Discover curated learning resources from trusted educators and creators.</p>
+                </div>
+                
+                <!-- CARD 2 -->
+                <div class="how-card scroll-reveal reveal-delay-2">
+                    <span class="how-card__num">02</span>
+                    <h3 class="how-card__title">Build</h3>
+                    <p class="how-card__text">Apply knowledge through projects, practice, experimentation, and real-world implementation.</p>
+                </div>
+                
+                <!-- CARD 3 -->
+                <div class="how-card scroll-reveal reveal-delay-3">
+                    <span class="how-card__num">03</span>
+                    <h3 class="how-card__title">Grow</h3>
+                    <p class="how-card__text">Develop skills, confidence, opportunities, and long-term capability.</p>
+                </div>
             </div>
         </section>
 
-        <!-- Values -->
-        <section class="about-section about-section--dark" aria-labelledby="values-heading">
-            <div class="about-section__inner">
-                <h2 id="values-heading" class="about-section__title about-section__title--light">Core values</h2>
-                <p class="about-section__subtitle about-section__subtitle--light">
-                    Learn • Build • Grow
-                </p>
-
-                <ul class="about-values">
-                    <li class="about-value-card">
-                        <span class="about-value-card__icon" aria-hidden="true">◎</span>
-                        <h3 class="about-value-card__title">Learn</h3>
-                        <p class="about-value-card__text">
-                            Navigate knowledge through clear trails, connected topics, and visual systems that make learning easier to follow.
-                        </p>
-                    </li>
-                    <li class="about-value-card">
-                        <span class="about-value-card__icon" aria-hidden="true">◇</span>
-                        <h3 class="about-value-card__title">Build</h3>
-                        <p class="about-value-card__text">
-                            Turn knowledge into capability through practical projects, exercises, and skill-based progress.
-                        </p>
-                    </li>
-                    <li class="about-value-card">
-                        <span class="about-value-card__icon" aria-hidden="true">▣</span>
-                        <h3 class="about-value-card__title">Grow</h3>
-                        <p class="about-value-card__text">
-                            Keep moving toward stronger skills, clearer career direction, and lifelong learning confidence.
-                        </p>
-                    </li>
-                </ul>
+        <!-- SECTION 6: The Infotris Ecosystem -->
+        <section class="about-ecosystem" aria-labelledby="ecosystem-heading">
+            <div class="ecosystem-grid">
+                <div class="ecosystem-intro scroll-reveal">
+                    <span class="section-eyebrow">Architecture</span>
+                    <h2 id="ecosystem-heading">The Infotris Ecosystem</h2>
+                    <p>Infotris is being built as an interconnected ecosystem of knowledge.</p>
+                </div>
+                
+                <div class="ecosystem-list">
+                    <div class="ecosystem-item scroll-reveal reveal-delay-1">
+                        <h3 class="ecosystem-item__title">TrisGraph</h3>
+                        <p class="ecosystem-item__desc">A visual map connecting knowledge, skills, careers, and learning paths.</p>
+                    </div>
+                    
+                    <div class="ecosystem-item scroll-reveal reveal-delay-2">
+                        <h3 class="ecosystem-item__title">Trails</h3>
+                        <p class="ecosystem-item__desc">Structured learning journeys such as Python Trail, Web Development Trail, AI Trail, and more.</p>
+                    </div>
+                    
+                    <div class="ecosystem-item scroll-reveal reveal-delay-3">
+                        <h3 class="ecosystem-item__title">Career Paths</h3>
+                        <p class="ecosystem-item__desc">Guided routes toward real-world careers.</p>
+                    </div>
+                    
+                    <div class="ecosystem-item scroll-reveal reveal-delay-4">
+                        <h3 class="ecosystem-item__title">Projects</h3>
+                        <p class="ecosystem-item__desc">Hands-on implementation and portfolio building.</p>
+                    </div>
+                    
+                    <div class="ecosystem-item scroll-reveal reveal-delay-4" style="transition-delay: 0.5s;">
+                        <h3 class="ecosystem-item__title">Future Products</h3>
+                        <p class="ecosystem-item__desc">Tools and systems that help learners move faster from learning to building.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Founder note -->
-        <section class="about-cta" aria-labelledby="cta-heading">
-            <div class="about-cta__inner">
-                <h2 id="cta-heading" class="about-cta__title">Founder note</h2>
-                <p class="about-cta__text">
-                    Infotris began with a simple belief: learning should be clear, connected, and accessible. We are building tools,
-                    trails, and knowledge systems that help learners move from curiosity to capability.
-                </p>
-                <a class="about-cta__button" href="courses.html">Explore Courses</a>
+        <!-- SECTION 7: Open Letter -->
+        <section class="about-letter scroll-reveal" aria-labelledby="letter-heading">
+            <div class="letter-container">
+                <span class="section-eyebrow" style="text-align: center;">Purpose</span>
+                <h2 id="letter-heading" class="letter-title">An Open Letter</h2>
+                <div class="letter-body">
+                    <p>Learning changed my life.</p>
+                    <p>Like many students, I spent countless hours searching for resources, tutorials, roadmaps, videos, notes, and guides.</p>
+                    <p>The information existed. The direction did not.</p>
+                    <p>Infotris started from a simple idea: What if knowledge could be organized into clear trails instead of scattered links?</p>
+                    <p>This project is my attempt to build that system. Not just for myself. For anyone who wants a clearer path forward.</p>
+                    
+                    <div class="letter-signature">
+                        — Suryansh
+                        <span>Founder, Infotris</span>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- SECTION 8: About The Founder -->
+        <section class="about-founder scroll-reveal" aria-labelledby="founder-heading">
+            <span class="section-eyebrow">The Creator</span>
+            <div class="founder-card">
+                <div class="founder-avatar" aria-hidden="true">S</div>
+                <div class="founder-info">
+                    <h3 id="founder-heading">Suryansh</h3>
+                    <p class="founder-role">Founder & Builder</p>
+                    <p class="founder-bio">
+                        Suryansh is a computer science student, builder, and lifelong learner focused on technology, education, systems, and innovation. He created Infotris with the belief that learning becomes more powerful when knowledge is organized and accessible. His long-term goal is to build systems that help people learn, create, and solve meaningful problems.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9: Closing Statement -->
+        <section class="about-closing scroll-reveal" aria-labelledby="closing-heading">
+            <h2 id="closing-heading" class="closing-title">Every skill begins with a first step.</h2>
+            <p class="closing-subtitle">Every journey begins with a trail. Begin yours with Infotris.</p>
+            <a href="courses.html" class="btn-primary">Explore Infotris</a>
+        </section>
+
+        <!-- FOOTER QUOTE -->
+        <div class="footer-quote-section scroll-reveal">
+            Learn. Build. Grow.
+        </div>
     </main>
 
+    <!-- Footer navigation -->
     <footer class="footer-section">
         <div class="footer-inner">
-
             <div class="footer-column footer-brand">
                 <a class="footer-logo" href="index.html" aria-label="Infotris home">
-                    <img src="assets/logo.png" alt="" width="36" height="36">
+                    <img src="assets/logo.png" alt="Infotris logo" width="36" height="36">
                     <span>Infotris</span>
                 </a>
                 <p class="footer-mission">Infotris helps learners navigate knowledge through structured trails, visual learning systems, and practical skill development.</p>
@@ -177,7 +294,6 @@
                     <li><a href="#login">Login</a></li>
                 </ul>
             </div>
-
         </div>
 
         <div class="footer-bottom">
@@ -185,5 +301,27 @@
         </div>
     </footer>
 
+    <!-- Scroll Reveal JavaScript logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px', // Trigger slightly before element enters view
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Trigger animation once
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>

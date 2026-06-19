@@ -1,23 +1,76 @@
 /* ==========================================================================
-   ABOUT.CSS — Styles for the Infotris about page
-   Loaded after global.css and home.css (navbar + footer reuse home.css).
+   ABOUT.CSS — Premium, Minimalist Redesign for Infotris About Page
+   Aesthetic reference: Apple, Linear, Stripe, Notion, OpenAI, GitHub
    ========================================================================== */
 
-.navbar-links a[aria-current="page"] {
-  color: var(--text-primary);
-  font-weight: 600;
+/* Page background override to pure white for crisp, high-contrast look */
+body.page-about {
+  background-color: #ffffff;
+  color: #111111;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Override global Header and Footer backgrounds on About Page to match pure white theme */
+body.page-about .site-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.page-about .navbar-links a[aria-current="page"] {
+  color: #111111;
+  font-weight: 500;
+}
+
+body.page-about .footer-section {
+  background-color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 6rem;
+}
+
+body.page-about .footer-bottom {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: 3rem;
+  padding: 2.5rem 0;
 }
 
 /* --------------------------------------------------------------------------
-   HERO
+   UTILITY & REVEAL ANIMATIONS (Apple/Linear-style smooth scroll reveal)
    -------------------------------------------------------------------------- */
-.about-hero {
-  padding: var(--space-xl) var(--space-md) var(--space-lg);
-  border-bottom: 1px solid var(--border-color);
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
-.about-hero__inner {
-  max-width: 42rem;
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #888888;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 1: HERO
+   -------------------------------------------------------------------------- */
+.about-hero {
+  padding: 10rem 1.5rem 7rem;
+  text-align: center;
+  max-width: 58rem;
   margin: 0 auto;
 }
 
@@ -25,262 +78,559 @@
   font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-sm);
+  letter-spacing: 0.15em;
+  color: #888888;
+  margin-bottom: 2rem;
 }
 
 .about-hero__title {
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-}
-
-.about-hero__title-note {
-  color: var(--text-secondary);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #111111;
+  margin-bottom: 2.5rem;
+  white-space: pre-line;
 }
 
 .about-hero__lead {
-  font-size: 1.0625rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
-
-/* --------------------------------------------------------------------------
-   SECTIONS
-   -------------------------------------------------------------------------- */
-.about-section {
-  padding: var(--space-xl) var(--space-md);
-}
-
-.about-section--dark {
-  background-color: var(--bg-dark);
-}
-
-.about-section__inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.about-section__inner--split {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: var(--space-xl);
-  align-items: center;
-}
-
-.about-section__title {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-md);
-  color: var(--text-primary);
-}
-
-.about-section__title--light {
-  color: var(--bg-light);
-  text-align: center;
-}
-
-.about-section__subtitle {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  text-align: center;
-  margin: calc(var(--space-sm) * -1) auto var(--space-lg);
-  max-width: 28rem;
-}
-
-.about-section__subtitle--light {
-  color: #a8a8a8;
-}
-
-.about-section__text {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-  margin-bottom: var(--space-md);
-}
-
-.about-section__text:last-child {
-  margin-bottom: 0;
-}
-
-/* Mission quote card */
-.about-mission-card {
-  position: relative;
-  padding: var(--space-lg);
-  background-color: rgba(13, 13, 13, 0.04);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  text-align: center;
-}
-
-.about-mission-card__quote {
-  display: block;
-  font-size: 3rem;
-  line-height: 1;
-  color: var(--text-secondary);
-  opacity: 0.35;
-  margin-bottom: var(--space-xs);
-}
-
-.about-mission-card p {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  color: #666666;
+  line-height: 1.6;
+  max-width: 42rem;
+  margin: 0 auto 3.5rem;
+  font-weight: 400;
   letter-spacing: -0.01em;
-  color: var(--text-primary);
-  line-height: 1.4;
 }
 
-/* --------------------------------------------------------------------------
-   VALUES GRID
-   -------------------------------------------------------------------------- */
-.about-values {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
-  margin-top: var(--space-md);
-}
-
-.about-value-card {
-  padding: var(--space-lg);
-  background-color: rgba(247, 247, 245, 0.06);
-  border: 1px solid rgba(217, 217, 217, 0.2);
-  border-radius: var(--radius-lg);
-  transition: background-color var(--transition), border-color var(--transition);
-}
-
-.about-value-card:hover {
-  background-color: rgba(247, 247, 245, 0.1);
-  border-color: rgba(217, 217, 217, 0.35);
-}
-
-.about-value-card__icon {
-  display: inline-flex;
-  align-items: center;
+.hero-ctas {
+  display: flex;
+  gap: 1.25rem;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: 1.125rem;
-  color: var(--bg-light);
-  background-color: rgba(247, 247, 245, 0.1);
-  border: 1px solid rgba(217, 217, 217, 0.25);
-  border-radius: var(--radius-sm);
-  margin-bottom: var(--space-md);
+  align-items: center;
 }
 
-.about-value-card__title {
-  font-size: 1.0625rem;
-  font-weight: 600;
-  color: var(--bg-light);
-  margin-bottom: var(--space-xs);
-}
-
-.about-value-card__text {
-  font-size: 0.9375rem;
-  color: #a8a8a8;
-  line-height: 1.65;
-}
-
-/* --------------------------------------------------------------------------
-   STATS
-   -------------------------------------------------------------------------- */
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
-  text-align: center;
-}
-
-.about-stat {
-  padding: var(--space-lg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  background-color: var(--bg-light);
-}
-
-.about-stat__number {
-  display: block;
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-  line-height: 1.1;
-  margin-bottom: var(--space-xs);
-}
-
-.about-stat__label {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
-}
-
-/* --------------------------------------------------------------------------
-   CTA
-   -------------------------------------------------------------------------- */
-.about-cta {
-  padding: var(--space-xl) var(--space-md);
-  border-top: 1px solid var(--border-color);
-}
-
-.about-cta__inner {
-  max-width: 36rem;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.about-cta__title {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-sm);
-}
-
-.about-cta__text {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-lg);
-}
-
-.about-cta__button {
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.85rem 1.75rem;
   font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--bg-light);
-  background-color: var(--bg-dark);
-  border-radius: 999px;
-  transition: opacity var(--transition);
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #111111;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.about-cta__button:hover {
-  opacity: 0.88;
+.btn-primary:hover {
+  background-color: #222222;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.75rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #111111;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #111111;
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE
+   SECTION 2: WHAT IS INFOTRIS
+   -------------------------------------------------------------------------- */
+.about-what {
+  max-width: 46rem;
+  margin: 8rem auto;
+  padding: 0 1.5rem;
+  text-align: left;
+}
+
+.about-what__title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111111;
+  margin-bottom: 2rem;
+  line-height: 1.15;
+}
+
+.about-what__content {
+  font-size: 1.125rem;
+  color: #555555;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+}
+
+.about-what__content p {
+  margin-bottom: 1.5rem;
+}
+
+.about-what__content p:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-large {
+  font-size: 1.35rem;
+  color: #111111;
+  line-height: 1.6;
+  font-weight: 450;
+  margin-bottom: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 3: WHY INFOTRIS
+   -------------------------------------------------------------------------- */
+.about-why-name {
+  max-width: 60rem;
+  margin: 10rem auto;
+  padding: 0 1.5rem;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.why-text h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111111;
+  margin-bottom: 2rem;
+}
+
+.why-item {
+  margin-bottom: 2rem;
+}
+
+.why-item:last-child {
+  margin-bottom: 0;
+}
+
+.why-item__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin-bottom: 0.5rem;
+}
+
+.why-item__desc {
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.65;
+}
+
+.why-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  padding: 3rem;
+  min-height: 280px;
+}
+
+.nodes-diagram {
+  max-width: 100%;
+}
+
+.nodes-diagram circle {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), fill 0.3s ease;
+}
+
+.nodes-diagram:hover circle {
+  fill: #000000;
+  transform: scale(1.1);
+  transform-origin: center;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 4: OUR PHILOSOPHY
+   -------------------------------------------------------------------------- */
+.about-philosophy {
+  background-color: #fafafa;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 9rem 1.5rem;
+  text-align: center;
+}
+
+.philosophy-container {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.philosophy-quote {
+  font-size: clamp(1.5rem, 3.2vw, 2.125rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: #111111;
+  margin-bottom: 3.5rem;
+}
+
+.philosophy-desc {
+  font-size: 1.0625rem;
+  color: #666666;
+  line-height: 1.8;
+  max-width: 44rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 5: HOW IT WORKS
+   -------------------------------------------------------------------------- */
+.about-how {
+  max-width: 60rem;
+  margin: 10rem auto;
+  padding: 0 1.5rem;
+}
+
+.how-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.how-header h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111111;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.how-card {
+  padding: 2.5rem 2.25rem;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.how-card:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+  transform: translateY(-2px);
+}
+
+.how-card__num {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #a8a8a8;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.how-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin-bottom: 1rem;
+}
+
+.how-card__text {
+  font-size: 0.9375rem;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 6: THE ECOSYSTEM
+   -------------------------------------------------------------------------- */
+.about-ecosystem {
+  max-width: 60rem;
+  margin: 10rem auto;
+  padding: 0 1.5rem;
+}
+
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.ecosystem-intro h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111111;
+  margin-bottom: 1.5rem;
+}
+
+.ecosystem-intro p {
+  font-size: 1.0625rem;
+  color: #666666;
+  line-height: 1.7;
+}
+
+.ecosystem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.ecosystem-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 2rem;
+}
+
+.ecosystem-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ecosystem-item__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #111111;
+  margin-bottom: 0.5rem;
+}
+
+.ecosystem-item__desc {
+  font-size: 0.9375rem;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 7: OPEN LETTER
+   -------------------------------------------------------------------------- */
+.about-letter {
+  background-color: #fafafa;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 9rem 1.5rem;
+}
+
+.letter-container {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.letter-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.letter-body {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: #333333;
+}
+
+.letter-body p {
+  margin-bottom: 1.5rem;
+}
+
+.letter-body p:last-child {
+  margin-bottom: 0;
+}
+
+.letter-signature {
+  margin-top: 3.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.4;
+}
+
+.letter-signature span {
+  display: block;
+  font-weight: 400;
+  color: #888888;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 8: ABOUT FOUNDER
+   -------------------------------------------------------------------------- */
+.about-founder {
+  max-width: 50rem;
+  margin: 10rem auto;
+  padding: 0 1.5rem;
+}
+
+.founder-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 3rem;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 3.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.founder-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #888888;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.founder-info h3 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+  color: #111111;
+}
+
+.founder-role {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #a8a8a8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+}
+
+.founder-bio {
+  color: #666666;
+  line-height: 1.7;
+  font-size: 0.975rem;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 9: CLOSING STATEMENT & FOOTER QUOTE
+   -------------------------------------------------------------------------- */
+.about-closing {
+  padding: 10rem 1.5rem;
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.closing-title {
+  font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: #111111;
+  margin-bottom: 1.5rem;
+}
+
+.closing-subtitle {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 450;
+  color: #666666;
+  margin-bottom: 3.5rem;
+  letter-spacing: -0.02em;
+}
+
+.footer-quote-section {
+  padding: 6rem 1.5rem 3rem;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #a8a8a8;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN (Adaptive breakpoints)
    -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
-  .about-section__inner--split {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
+  .about-hero {
+    padding-top: 8rem;
   }
-
-  .about-values {
+  
+  .why-grid {
     grid-template-columns: 1fr;
+    gap: 3rem;
   }
-
-  .about-stats {
+  
+  .why-visual {
+    order: -1;
+  }
+  
+  .how-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .ecosystem-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .founder-card {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+    padding: 2.5rem;
+  }
+  
+  .founder-avatar {
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
   .about-hero {
-    padding-top: var(--space-lg);
+    padding-top: 6rem;
+  }
+
+  .about-hero__title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
+    max-width: 20rem;
+    margin: 0 auto;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+  }
+  
+  .about-what, .about-why-name, .about-how, .about-ecosystem, .about-founder, .about-closing {
+    margin: 6rem auto;
+  }
+  
+  .about-philosophy, .about-letter {
+    padding: 6rem 1.5rem;
   }
 }
