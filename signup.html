@@ -173,20 +173,20 @@
     <!-- Header Navbar -->
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
-            <a class="navbar-logo" href="index.html" aria-label="Infotris home">
+            <a class="navbar-logo" href="./" aria-label="Infotris home">
                 <img src="assets/logo.png" alt="" width="56" height="56">
                 <span class="navbar-brand-text">INFOTRIS</span>
             </a>
 
             <ul class="navbar-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="courses.html">Courses</a></li>
-                <li><a href="careers.html">Careers</a></li>
-                <li><a href="trisgraph.html">TrisGraph</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="./">Home</a></li>
+                <li><a href="courses">Courses</a></li>
+                <li><a href="careers">Careers</a></li>
+                <li><a href="trisgraph">TrisGraph</a></li>
+                <li><a href="about">About</a></li>
             </ul>
 
-            <a class="btn-sign-in" href="signup.html" style="background-color: var(--bg-dark); color: var(--bg-light); border-color: var(--bg-dark);">Sign Up</a>
+            <a class="btn-sign-in" href="signup" style="background-color: var(--bg-dark); color: var(--bg-light); border-color: var(--bg-dark);">Sign Up</a>
         </nav>
     </header>
 
@@ -250,7 +250,7 @@
 
         // Check if user is already logged in, redirect to dashboard if so
         if (localStorage.getItem("openlearn-logged-in") === "true") {
-            window.location.href = "student-dashboard.html";
+            window.location.href = "student-dashboard";
         }
 
         function setAuthMode(mode) {
@@ -324,7 +324,7 @@
                 }
 
                 // Redirect
-                window.location.href = "student-dashboard.html";
+                window.location.href = "student-dashboard";
 
             } else {
                 // Sign In mode
@@ -343,7 +343,7 @@
 
                 // Successful login
                 localStorage.setItem("openlearn-logged-in", "true");
-                window.location.href = "student-dashboard.html";
+                window.location.href = "student-dashboard";
             }
         }
 

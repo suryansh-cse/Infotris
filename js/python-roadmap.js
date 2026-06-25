@@ -85,13 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentPage =
         window.location.pathname
         .split("/")
-        .pop();
+        .pop()
+        .replace(/\.html$/, "");
 
     nodes.forEach(node => {
 
+        const href = node.getAttribute("href");
         if (
             node.tagName === "A" &&
-            node.getAttribute("href") === currentPage
+            href &&
+            href.replace(/\.html$/, "") === currentPage
         ) {
 
             node.classList.add("current");

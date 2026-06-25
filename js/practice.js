@@ -6,7 +6,7 @@
   const STORAGE_PREFIX = "openlearn-practice-";
 
   function storageKey(panel) {
-    const page = window.location.pathname.replace(/^\//, "");
+    const page = window.location.pathname.replace(/\.html$/, "").replace(/^\//, "");
     const id = panel.dataset.practiceId || "default";
     return STORAGE_PREFIX + page + "-" + id;
   }
@@ -146,7 +146,7 @@
     const questions = quizEl.querySelectorAll(".quiz-question");
     const submitBtn = quizEl.querySelector(".quiz-btn-submit");
 
-    const storageKey = "openlearn-quiz-" + window.location.pathname.replace(/^\//, "") + "-" + (quizEl.dataset.quizId || "default");
+    const storageKey = "openlearn-quiz-" + window.location.pathname.replace(/\.html$/, "").replace(/^\//, "") + "-" + (quizEl.dataset.quizId || "default");
     let isQuizComplete = false;
 
     try {

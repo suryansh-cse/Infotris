@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Python Learning Trail",
       desc: "Foundational programming from syntax to core library integration.",
       ctaText: "Start Python Trail",
-      ctaUrl: "courses/python/index.html",
+      ctaUrl: "courses/python/",
       steps: [
         { node: "syntax", label: "Syntax & Basics", desc: "Variables, flow controls, loops, and lists." },
         { node: "oop", label: "Object-Oriented Programming", desc: "Modeling modular systems using classes." },
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "AI & Machine Learning Trail",
       desc: "Advanced neural networks and statistical models for predictive analytics.",
       ctaText: "Explore AI Courses",
-      ctaUrl: "courses.html#tools",
+      ctaUrl: "courses#tools",
       steps: [
         { node: "python", label: "Python Programming", desc: "Establishing core development logic." },
         { node: "pytorch", label: "PyTorch & Datasets", desc: "Configuring machine learning tensors." },
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Web Development Trail",
       desc: "Building client interfaces and querying backend database layers.",
       ctaText: "Explore Web Dev Courses",
-      ctaUrl: "courses.html#tools",
+      ctaUrl: "courses#tools",
       steps: [
         { node: "htmlcss", label: "HTML & CSS Layouts", desc: "Building responsive visual outlines." },
         { node: "react", label: "React Interfaces", desc: "Creating reactive browser components." },
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Data Science Trail",
       desc: "Applying statistics and scripting pipelines to analyze large-scale datasets.",
       ctaText: "Start Data Science Path",
-      ctaUrl: "courses.html",
+      ctaUrl: "courses",
       steps: [
         { node: "python", label: "Python Basics", desc: "Using Python for automation scripts." },
         { node: "pandas", label: "Pandas Aggregations", desc: "Processing data tables cleanly." },
