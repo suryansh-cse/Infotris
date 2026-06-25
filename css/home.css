@@ -450,8 +450,8 @@
 }
 
 .footer-social-icon:hover {
-  color: var(--bg-light);
-  background-color: var(--bg-dark);
+  color: #a8a8a800;
+  background-color:#a8a8a800;
   border-color: var(--bg-dark);
   transform: translateY(-2px);
 }
