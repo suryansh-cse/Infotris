@@ -385,6 +385,16 @@
   mix-blend-mode: multiply;
 }
 
+.footer-tagline {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  margin-top: -0.25rem;
+}
+
 .footer-mission {
   font-size: 0.9375rem;
   color: var(--text-secondary);
@@ -412,6 +422,38 @@
 
 .footer-links a:hover {
   color: var(--text-primary);
+}
+
+.footer-social-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.footer-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  background-color: transparent;
+  transition: border-color var(--transition), color var(--transition), background-color var(--transition), transform var(--transition);
+}
+
+.footer-social-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.footer-social-icon:hover {
+  color: var(--bg-light);
+  background-color: var(--bg-dark);
+  border-color: var(--bg-dark);
+  transform: translateY(-2px);
 }
 
 .footer-bottom {
