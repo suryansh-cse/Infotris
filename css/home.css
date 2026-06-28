@@ -1,123 +1,7 @@
 /* ==========================================================================
-   HOME.CSS â€” Styles for the Infotris homepage only
-   Loaded after global.css so we can use var(--bg-light), etc.
-   Organized top-to-bottom to match index.html structure.
+   HOME.CSS — Homepage-only sections (hero, showcase, TrisGraph, carousel)
+   Shared chrome (nav, footer, search, chips) lives in css/system/
    ========================================================================== */
-
-
-/* --------------------------------------------------------------------------
-   UTILITY: Visually hidden but available to screen readers
-   Used for search input labels.
-   -------------------------------------------------------------------------- */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-
-/* ==========================================================================
-   1. SITE HEADER (light background)
-   ========================================================================== */
-
-.site-header {
-  background-color: var(--bg-light);
-  border-bottom: 1px solid var(--border-color);
-}
-
-
-/* --------------------------------------------------------------------------
-   NAVBAR
-   Flex row: logo | links | sign-in button
-   -------------------------------------------------------------------------- */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-md);
-  max-width: var(--max-width);
-  margin: 0 auto;
-  min-height: var(--nav-height);
-  padding: var(--space-xs) var(--space-md);
-}
-
-/* Logo: assets/logo.png + wordmark */
-.navbar-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  transition: opacity var(--transition);
-}
-
-.navbar-logo:hover {
-  opacity: 0.85;
-}
-
-.navbar-logo img {
-  width: 3.5rem;
-  height: 3.5rem;
-  flex-shrink: 0;
-  object-fit: contain;
-  /* White PNG canvas blends into the light header */
-  mix-blend-mode: multiply;
-}
-
-.navbar-brand-text {
-  font-weight: 700;
-  font-size: 1.3125rem;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: var(--text-primary);
-}
-
-/* Center navigation list â€” horizontal on desktop */
-.navbar-links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-}
-
-.navbar-links a {
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  transition: color var(--transition);
-}
-
-/* Hover: darken link text (CSS-only interaction) */
-.navbar-links a:hover {
-  color: var(--text-primary);
-}
-
-/* Sign In â€” outlined pill button on the right */
-.btn-sign-in {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.55rem 1.25rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  background-color: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  transition: background-color var(--transition), border-color var(--transition);
-  flex-shrink: 0;
-}
-
-.btn-sign-in:hover {
-  background-color: var(--bg-dark);
-  border-color: var(--bg-dark);
-  color: var(--bg-light);
-}
-
 
 /* --------------------------------------------------------------------------
    HERO SECTION
@@ -159,75 +43,14 @@
   line-height: 1.7;
 }
 
-/* Search bar: flex row with large input + button */
-.search-bar {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-  max-width: 520px;
+.hero-content .search-bar {
   margin-bottom: var(--space-md);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background-color: var(--bg-light);
-  box-shadow: 0 2px 12px rgba(17, 17, 17, 0.06);
 }
 
-.search-bar-input {
-  flex: 1;
-  min-width: 0;
-  padding: 1rem 1.25rem;
-  font-size: 1rem;
-  font-family: inherit;
-  color: var(--text-primary);
-  background: transparent;
-  border: none;
-  outline: none;
-}
-
-.search-bar-input::placeholder {
-  color: var(--text-secondary);
-}
-
-.search-bar-button {
-  padding: 0 1.5rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  font-family: inherit;
-  color: var(--bg-light);
-  background-color: var(--bg-dark);
-  border: none;
-  cursor: pointer;
-  transition: opacity var(--transition);
-}
-
-.search-bar-button:hover {
-  opacity: 0.88;
-}
-
-/* Topic chips below the search bar */
 .category-chips {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-xs);
-}
-
-.chip {
-  display: inline-block;
-  padding: 0.4rem 0.9rem;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background-color: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  transition: color var(--transition), border-color var(--transition), background-color var(--transition);
-}
-
-.chip:hover {
-  color: var(--text-primary);
-  border-color: var(--text-primary);
-  background-color: rgba(17, 17, 17, 0.04);
 }
 
 /* --- Right column: animation placeholder box --- */
@@ -343,131 +166,6 @@
 }
 
 
-/* ==========================================================================
-   3. FOOTER (light background)
-   Four-column grid + copyright bar
-   ========================================================================== */
-
-.footer-section {
-  background-color: var(--bg-light);
-  border-top: 1px solid var(--border-color);
-  padding-top: var(--space-xl);
-}
-
-.footer-inner {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: var(--space-lg);
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-md) var(--space-lg);
-  text-align: left;
-}
-
-.footer-brand {
-  max-width: 280px;
-}
-
-.footer-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 700;
-  font-size: 1.0625rem;
-  margin-bottom: var(--space-sm);
-  color: var(--text-primary);
-}
-
-.footer-logo img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  mix-blend-mode: multiply;
-}
-
-.footer-tagline {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-  margin-top: -0.25rem;
-}
-
-.footer-mission {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
-  line-height: 1.65;
-}
-
-.footer-heading {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-primary);
-  margin-bottom: var(--space-sm);
-}
-
-.footer-links li {
-  margin-bottom: 0.5rem;
-}
-
-.footer-links a {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
-  transition: color var(--transition);
-}
-
-.footer-links a:hover {
-  color: var(--text-primary);
-}
-
-.footer-social-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-
-.footer-social-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  background-color: transparent;
-  transition: border-color var(--transition), color var(--transition), background-color var(--transition), transform var(--transition);
-}
-
-.footer-social-icon svg {
-  width: 1.125rem;
-  height: 1.125rem;
-}
-
-.footer-social-icon:hover {
-  
-  border-color: var(--bg-dark);
-  transform: translateY(-2px);
-}
-
-.footer-bottom {
-  border-top: 1px solid var(--border-color);
-  padding: var(--space-md);
-  text-align: center;
-}
-
-.footer-bottom p {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-}
-
-
-
 /* --------------------------------------------------------------------------
     LOGO CAROUSEL — True seamless infinite marquee loop
     Premium infinite scrolling with no visible resets
@@ -524,38 +222,8 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* True seamless marquee: animates through full set once, then resets invisibly */
-@keyframes marquee-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    /* Halfway: first set scrolled out, second set enters (invisible because duplicates) */
-    transform: translateX(calc(-112px * 8));
-  }
-  50.01% {
-    /* Instant reset is invisible because second set matches first set */
-    transform: translateX(0);
-  }
-  100% {
-    /* Complete the cycle back to start */
-    transform: translateX(0);
-  }
-}
-
-/* Smoother alternative: continuous scroll with longer duration */
-@keyframes marquee-continuous {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    /* Scroll through exactly one cycle (8 logos + gaps) */
-    transform: translateX(calc(-112px * 8));
-  }
-}
-
 /* ==========================================================================
-   4. TRISGRAPH SECTION — Interactive Visual Knowledge System
+   TRISGRAPH SECTION — Interactive Visual Knowledge System
    ========================================================================== */
 .trisgraph-section {
   background-color: #ffffff; /* Contrast white for premium redesign */
@@ -964,44 +632,9 @@
     width: 48px;
     height: 48px;
   }
-
-  .footer-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-md);
-  }
-
-  .footer-brand {
-    grid-column: 1 / -1;
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-top: var(--space-sm);
-    padding-bottom: var(--space-sm);
-  }
-
-  .navbar-logo {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .navbar-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-md);
-    order: 3;
-    width: 100%;
-  }
-
-  .btn-sign-in {
-    order: 2;
-    margin-left: auto;
-  }
-
   .hero-section {
     padding-top: var(--space-lg);
   }
@@ -1021,20 +654,10 @@
     padding: 1rem;
   }
 
-  .search-bar {
-    flex-direction: column;
-    max-width: 100%;
-  }
-
-  .search-bar-button {
-    padding: 0.85rem;
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
-  }
-
   .logo-carousel {
     max-width: 100%;
     height: 80px;
-    animation: carousel-scroll 40s linear infinite;
+    animation: marquee-scroll 40s linear infinite;
   }
 
   .logo-item {
@@ -1062,7 +685,7 @@
     max-width: 100%;
     height: 70px;
     gap: 8px;
-    animation: carousel-scroll 35s linear infinite;
+    animation: marquee-scroll 35s linear infinite;
   }
 
   .logo-item {
@@ -1073,10 +696,6 @@
   .logo-item img {
     width: 36px;
     height: 36px;
-  }
-
-  .footer-inner {
-    grid-template-columns: 1fr;
   }
 
   .category-chips {

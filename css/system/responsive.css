@@ -1,0 +1,119 @@
+/* ==========================================================================
+   RESPONSIVE.CSS — Mobile-first breakpoint system
+   Supports 320px–1920px via standardized breakpoints.
+   ========================================================================== */
+
+/* --- Layout grid collapse --- */
+@media (max-width: 992px) {
+  .grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid--sidebar {
+    grid-template-columns: 1fr;
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+  }
+
+  .navbar-logo {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navbar-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+    order: 3;
+    width: 100%;
+  }
+
+  .btn-sign-in {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .search-bar-button {
+    padding: 0.85rem;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+
+  .grid--2,
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: 1fr;
+  }
+
+  .hide-below-nav {
+    display: none;
+  }
+
+  .stack-on-nav {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-inline: var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Visibility utilities --- */
+@media (min-width: 769px) {
+  .show-below-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hide-below-nav {
+    display: none;
+  }
+}
+
+@media (min-width: 993px) {
+  .show-below-lg {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .hide-below-lg {
+    display: none;
+  }
+}

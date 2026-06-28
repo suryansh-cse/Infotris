@@ -1,0 +1,120 @@
+/* ==========================================================================
+   VARIABLES.CSS — Design tokens (single source of truth)
+   Legacy names (--bg-light, --text-primary, etc.) are preserved for compatibility.
+   ========================================================================== */
+
+:root {
+  /* --- Colors: brand --- */
+  --bg-light: #f7f7f5;
+  --bg-dark: #0d0d0d;
+  --text-primary: #111111;
+  --text-secondary: #666666;
+  --border-color: #d9d9d9;
+
+  /* --- Colors: semantic aliases --- */
+  --color-surface: #ffffff;
+  --color-muted: #a8a8a8;
+  --color-subtle: #888888;
+  --color-surface-muted: #fafafa;
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+  --color-border-faint: rgba(0, 0, 0, 0.05);
+  --color-overlay-light: rgba(17, 17, 17, 0.04);
+  --color-overlay-dark: rgba(13, 13, 13, 0.04);
+
+  /* --- Colors: feedback --- */
+  --color-success: #0d5c2e;
+  --color-warning: #8a5a00;
+  --color-error: #a30000;
+
+  /* --- Typography: families --- */
+  --font-family-base: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family-mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+
+  /* --- Typography: scale (fluid where noted) --- */
+  --font-size-xs: 0.6875rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.0625rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: clamp(1.5rem, 3vw, 2rem);
+  --font-size-2xl: clamp(1.75rem, 3.5vw, 2.5rem);
+  --font-size-3xl: clamp(2rem, 4vw, 3rem);
+  --font-size-4xl: clamp(2.5rem, 5.5vw, 4.5rem);
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.15;
+  --line-height-base: 1.6;
+  --line-height-relaxed: 1.75;
+
+  --letter-spacing-tight: -0.03em;
+  --letter-spacing-normal: -0.02em;
+  --letter-spacing-wide: 0.08em;
+
+  /* --- Spacing --- */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  /* --- Border radius --- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-button: 6px;
+  --radius-pill: 999px;
+  --radius-full: 999px;
+
+  /* --- Border width --- */
+  --border-width: 1px;
+  --border-width-thick: 2px;
+
+  /* --- Shadows --- */
+  --shadow-xs: 0 1px 3px rgba(17, 17, 17, 0.04);
+  --shadow-sm: 0 2px 12px rgba(17, 17, 17, 0.06);
+  --shadow-md: 0 4px 24px rgba(13, 13, 13, 0.06);
+  --shadow-lg: 0 8px 32px rgba(13, 13, 13, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(17, 17, 17, 0.07);
+
+  /* --- Transitions & animation --- */
+  --transition: 0.2s ease;
+  --duration-fast: 0.2s;
+  --duration-normal: 0.35s;
+  --duration-slow: 0.4s;
+  --ease-default: ease;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Opacity --- */
+  --opacity-hover: 0.88;
+  --opacity-muted: 0.75;
+
+  /* --- Layout --- */
+  --max-width: 1200px;
+  --content-narrow: 42rem;
+  --content-medium: 58rem;
+  --content-wide: var(--max-width);
+
+  --nav-height: 4.75rem;
+  --layout-inset: 0.75rem;
+  --layout-gap: 0.25rem;
+
+  /* --- Z-index --- */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-nav: 1001;
+  --z-dropdown: 1100;
+  --z-modal: 2000;
+  --z-tooltip: 10;
+
+  /* --- Breakpoints (for reference; used in responsive.css) --- */
+  --bp-sm: 480px;
+  --bp-md: 640px;
+  --bp-nav: 768px;
+  --bp-lg: 992px;
+  --bp-xl: 1100px;
+  --bp-2xl: 1920px;
+}

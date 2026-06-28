@@ -1,0 +1,42 @@
+/* ==========================================================================
+   THEME.CSS — Design system entry point
+   Load this file before page-specific CSS on every page.
+   ========================================================================== */
+
+@import url("variables.css");
+@import url("typography.css");
+@import url("spacing.css");
+@import url("layout.css");
+@import url("components.css");
+@import url("utilities.css");
+@import url("responsive.css");
+@import url("animations.css");
+
+/* Page-level theme overrides (preserve existing body class conventions) */
+body.page-about .site-header {
+  background-color: var(--color-surface);
+  border-bottom: var(--border-width) solid var(--color-border-faint);
+}
+
+body.page-about .navbar-links a[aria-current="page"] {
+  font-weight: 500;
+}
+
+body.page-about .footer-section {
+  background-color: var(--color-surface);
+  border-top: var(--border-width) solid var(--color-border-faint);
+}
+
+body.page-about .footer-bottom {
+  border-top: var(--border-width) solid var(--color-border-faint);
+}
+
+.page-careers {
+  scroll-padding-top: calc(var(--nav-height) + var(--space-sm));
+}
+
+.page-courses .site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+}

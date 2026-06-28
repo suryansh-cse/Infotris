@@ -252,17 +252,6 @@
   line-height: 1.55;
 }
 
-@keyframes practice-success-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 640px) {
   .practice-panel {
     padding: var(--space-md);

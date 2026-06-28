@@ -1,10 +1,5 @@
 /* Path syllabus pages — careers/python-developer/index.html */
 
-.navbar-links a[aria-current="page"] {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
 .path-breadcrumb {
   max-width: var(--max-width);
   margin: 0 auto;

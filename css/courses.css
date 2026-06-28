@@ -2,14 +2,6 @@
    COURSES.CSS — Courses page layout (sidebar + main catalog)
    ========================================================================== */
 
-.page-courses .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1001;
-  background-color: var(--bg-light);
-  border-bottom: 1px solid var(--border-color);
-}
-
 /* Page shell — sidebar + content sit side by side */
 .courses-layout {
   display: grid;

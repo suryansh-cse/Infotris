@@ -2,15 +2,6 @@
    CAREERS.CSS — Infotris careers page
    ========================================================================== */
 
-.page-careers {
-  scroll-padding-top: calc(var(--nav-height) + var(--space-sm));
-}
-
-.navbar-links a[aria-current="page"] {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
 /* Shared buttons */
 .careers-btn {
   display: inline-flex;
