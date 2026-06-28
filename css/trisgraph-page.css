@@ -5,7 +5,7 @@
 /* Full-height layout structure below header */
 .page-trisgraph {
   background-color: #ffffff;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .trisgraph-page-layout {
