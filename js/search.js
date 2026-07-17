@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const searchInput = document.getElementById("course-search");
     const resultsBox = document.querySelector(".search-results");
-
+    const searchButton = document.querySelector(".search-bar-button");
     if (!searchInput || !resultsBox) {
         console.error("Search elements not found.");
         return;
@@ -77,4 +77,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+    searchButton.addEventListener("click", () => {
+
+        const query = searchInput.value.trim().toLowerCase();
+    
+        if(query === "") return;
+    
+        const firstResult = INFOTRIS_INDEX.find(item =>
+    
+            item.title.toLowerCase().includes(query) ||
+    
+            item.keywords.some(keyword =>
+                keyword.toLowerCase().includes(query)
+            )
+    
+        );
+    
+        if(firstResult){
+    
+            window.location.href = firstResult.url;
+    
+        }
+    
+    });
+
 });
+
