@@ -48,9 +48,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 div.className = "search-item";
 
                 div.innerHTML = `
+
+                <div class="search-content">
+                
                     <strong>${item.title}</strong>
-                    <br>
-                    <small>${item.type}</small>
+                
+                    <small>${item.description}</small>
+                
+                </div>
+                
+                <span class="search-badge">
+                
+                    ${item.type}
+                
+                </span>
+                
                 `;
 
                 div.addEventListener("click", () => {
