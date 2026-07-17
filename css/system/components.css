@@ -210,10 +210,19 @@
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
+  position:relative;
   background-color: var(--bg-light);
   box-shadow: var(--shadow-sm);
 }
+.search-container{
 
+  position:relative;
+
+  width:100%;
+
+  max-width:520px;
+
+}
 .search-bar-input,
 .search-input {
   flex: 1;
@@ -267,7 +276,155 @@
   position: relative;
   width: 100%;
 }
+.search-results{
 
+  position:absolute;
+
+  top:calc(100% + 8px);
+
+  left:0;
+
+  width:100%;
+
+  background:var(--bg-light);
+
+  border:1px solid var(--border-color);
+
+  border-radius:var(--radius-md);
+
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+
+  z-index:9999;
+
+  display:none;
+
+  overflow:hidden;
+
+}
+.search-item{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:20px;
+
+  padding:16px 20px;
+
+  cursor:pointer;
+
+  transition:all .25s ease;
+
+  border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+.search-item:last-child{
+
+  border-bottom:none;
+
+}
+
+.search-item:hover{
+
+  border-radius: 15px;
+  border-color: rgb(8, 8, 8);
+  
+  transform:translateX(6px);
+
+}
+.search-item small{
+
+  color:#9ca3af;
+
+  font-size:13px;
+
+}
+.search-item strong{
+
+  display:block;
+
+  font-size:15px;
+
+  font-weight:700;
+
+  color:rgb(0, 0, 0);
+
+  margin-bottom:4px;
+
+}
+.search-results{
+
+  position:absolute;
+
+  top:calc(100% + 10px);
+
+  left:0;
+
+  width:100%;
+
+  background: white;
+
+  border: 10px solid rgba(255,255,255,.08);
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  display:none;
+
+  box-shadow:
+      0 20px 60px rgba(0,0,0,.45);
+
+  backdrop-filter:blur(18px);
+
+  animation:fadeSearch .18s ease;
+
+}
+
+.search-badge{
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  font-size:11px;
+
+  font-weight:700;
+
+  letter-spacing:.05em;
+
+  text-transform:uppercase;
+
+  background:rgb(0, 0, 0);
+
+  color:rgb(255, 255, 255);
+
+  flex-shrink:0;
+
+}
+
+@keyframes fadeSearch{
+
+  from{
+
+      opacity:0;
+
+      transform:translateY(-8px);
+
+  }
+
+  to{
+
+      opacity:1;
+
+      transform:translateY(0);
+
+  }
+
+}
 /* --------------------------------------------------------------------------
    CHIPS, BADGES & TAGS
    -------------------------------------------------------------------------- */

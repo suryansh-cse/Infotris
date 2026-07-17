@@ -1,5 +1,85 @@
 /* ==========================================================================
-   GLOBAL.CSS — Legacy compatibility layer
-   Design tokens, reset, and shared components live in css/system/theme.css.
-   Load theme.css before this file. Kept for backward-compatible load order.
+   GLOBAL.CSS — Shared design tokens and base styles for Infotris
+   This file loads on every page. It defines colors (CSS variables) and
+   resets default browser styling so layouts look consistent everywhere.
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS CUSTOM PROPERTIES (variables)
+   Store brand colors once; reference them as var(--name) in other files.
+   -------------------------------------------------------------------------- */
+:root {
+  --bg-light: #f7f7f5;       /* Soft off-white page background */
+  --bg-dark: #0d0d0d;        /* Deep charcoal for dark sections */
+
+  --text-primary: #111111;   /* Main headings and body text */
+  --text-secondary: #666666; /* Supporting text, descriptions */
+
+  --border-color: #d9d9d9;   /* Subtle dividers and outlines */
+
+  --radius-sm: 8px;          /* Small rounded corners (chips, buttons) */
+  --radius-md: 12px;         /* Medium corners (cards, search bar) */
+  --radius-lg: 20px;         /* Large corners (hero visual box) */
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  --max-width: 1200px;       /* Content never stretches too wide on desktop */
+  --transition: 0.2s ease;   /* Smooth hover states without JavaScript */
+
+  --nav-height: 4.75rem;     /* Navbar row height — keeps sidebar aligned below it */
+  --layout-inset: 0.75rem;   /* Page edge inset for fixed sidebar */
+  --layout-gap: 0.25rem;     /* Tight gap between navbar and sidebar */
+}
+
+/* --------------------------------------------------------------------------
+   UNIVERSAL BOX-SIZING RESET
+   padding and border are included inside width/height — easier layouts.
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   BASE BODY STYLES
+   Default font, color, and background for the whole site.
+   -------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove default underline from links; pages style links individually */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Images scale down on small screens instead of overflowing */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Lists in nav/footer are styled with flex; remove default bullets */
+ul {
+  list-style: none;
+}
+
+

@@ -81,13 +81,26 @@
                     </p>
 
                     <!-- Visual-only search UI (no JavaScript). type="button" prevents form submit. -->
-                    <div class="search-bar" role="search" aria-label="Search courses">
-                        <label class="visually-hidden" for="course-search">Search courses</label>
-                        <input type="search" id="course-search" class="search-bar-input"
-                            placeholder="Search courses, topics, or skills…" autocomplete="off">
-                        <button type="button" class="search-bar-button" aria-label="Search">
-                            Search
-                        </button>
+                    <div class="search-container">
+
+                        <div class="search-bar">
+                    
+                            <input
+                                id="course-search"
+                                class="search-bar-input"
+                                type="search"
+                                autocomplete="off"
+                                placeholder="Search courses, careers..."
+                            >
+                    
+                            <button class="search-bar-button">
+                                Search
+                            </button>
+                    
+                        </div>
+                    
+                        <div class="search-results"></div>
+                    
                     </div>
 
                     <!-- Quick topic filters — styled as chips, not functional yet -->
@@ -265,6 +278,8 @@
 
         <script src="js/anime.js" type="module"></script>
         <script src="js/trisgraph.js" type="module"></script>
+        <script src="js/infotris-index.js"></script>
+<script src="js/search.js"></script>
 </body>
 
 </html>
