@@ -169,6 +169,41 @@
         .auth-footer a:hover {
             opacity: 0.8;
         }
+        
+        .password-wrapper{
+    position:relative;
+}
+
+.password-toggle{
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    background:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+.password-strength{
+
+    margin-top:10px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
     </style>
 </head>
 <body class="signup-page">
@@ -265,15 +300,18 @@
                         Confirm Password
             
                     </label>
-            
+                     
                     <input
                         type="password"
                         id="authConfirmPassword"
                         class="form-input"
                         placeholder="Re-enter password">
+                        <div id="passwordStrength" class="password-strength">
+                            Password Strength: Weak
+                        </div>
             
                 </div>
-            
+                
                 <!-- Terms -->
             
                 <label class="form-checkbox-row" id="groupTerms">
@@ -391,36 +429,56 @@
             window.location.href = "student-dashboard";
         }
 
-        function setAuthMode(mode) {
-            currentMode = mode;
-            const tabSignup = document.getElementById('tabSignup');
-            const tabSignin = document.getElementById('tabSignin');
-            const groupName = document.getElementById('groupName');
-            const groupTerms = document.getElementById('groupTerms');
-            const authSubmitBtn = document.getElementById('authSubmitBtn');
-            const authFooter = document.getElementById('authFooter');
-            const errorMsg = document.getElementById('authErrorMsg');
+        const form = document.getElementById("authForm");
 
-            errorMsg.style.display = 'none';
+form.addEventListener("submit", handleAuthSubmit);
 
-            if (mode === 'signup') {
-                tabSignup.classList.add('active');
-                tabSignin.classList.remove('active');
-                groupName.style.display = 'flex';
-                groupTerms.style.display = 'flex';
-                authSubmitBtn.textContent = 'Create Account';
-                authFooter.innerHTML = `Already have an account? <a href="#" onclick="event.preventDefault(); setAuthMode('signin')">Sign In</a>`;
-                document.getElementById('authName').required = true;
-            } else {
-                tabSignup.classList.remove('active');
-                tabSignin.classList.add('active');
-                groupName.style.display = 'none';
-                groupTerms.style.display = 'none';
-                authSubmitBtn.textContent = 'Sign In';
-                authFooter.innerHTML = `Don't have an account yet? <a href="#" onclick="event.preventDefault(); setAuthMode('signup')">Sign Up</a>`;
-                document.getElementById('authName').required = false;
-            }
-        }
+async function handleAuthSubmit(event){
+
+    event.preventDefault();
+
+    console.log("Submit Clicked");
+
+}
+
+                     
+function setAuthMode(mode) {
+
+currentMode = mode;
+
+const tabSignup = document.getElementById('tabSignup');
+const tabSignin = document.getElementById('tabSignin');
+const groupName = document.getElementById('groupName');
+const groupTerms = document.getElementById('groupTerms');
+const authSubmitBtn = document.getElementById('authSubmitBtn');
+const authFooter = document.getElementById('authFooter');
+const errorMsg = document.getElementById('authErrorMsg');
+
+errorMsg.style.display = 'none';
+
+if (mode === 'signup') {
+
+    tabSignup.classList.add('active');
+    tabSignin.classList.remove('active');
+    groupName.style.display = 'flex';
+    groupTerms.style.display = 'flex';
+    authSubmitBtn.textContent = 'Create Account';
+    authFooter.innerHTML = `Already have an account? <a href="#" onclick="event.preventDefault(); setAuthMode('signin')">Sign In</a>`;
+    document.getElementById('authName').required = true;
+
+} else {
+
+    tabSignup.classList.remove('active');
+    tabSignin.classList.add('active');
+    groupName.style.display = 'none';
+    groupTerms.style.display = 'none';
+    authSubmitBtn.textContent = 'Sign In';
+    authFooter.innerHTML = `Don't have an account yet? <a href="#" onclick="event.preventDefault(); setAuthMode('signup')">Sign Up</a>`;
+    document.getElementById('authName').required = false;
+
+}
+
+}
 
         function handleAuthSubmit(event) {
             event.preventDefault();
@@ -511,6 +569,46 @@ togglePassword.addEventListener("click", () => {
     togglePassword.textContent = type === "password" ? "👁" : "🙈";
 
 });
+    
+const passwordStrength = document.getElementById("passwordStrength");
+
+passwordInput.addEventListener("input", () => {
+
+    const password = passwordInput.value;
+
+    let strength = "Weak";
+    let color = "#ef4444";
+
+    let score = 0;
+
+    if (password.length >= 8) score++;
+
+    if (/[A-Z]/.test(password)) score++;
+
+    if (/[a-z]/.test(password)) score++;
+
+    if (/[0-9]/.test(password)) score++;
+
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    if (score >= 5) {
+        strength = "Very Strong";
+        color = "#22c55e";
+    }
+    else if (score >= 4) {
+        strength = "Strong";
+        color = "#3b82f6";
+    }
+    else if (score >= 3) {
+        strength = "Medium";
+        color = "#f59e0b";
+    }
+
+    passwordStrength.textContent = `Password Strength: ${strength}`;
+    passwordStrength.style.color = color;
+
+});
+
     </script>
    <script type="module" src="js/firebase.js"></script>
    <script type="module" src="js/auth.js"></script>
