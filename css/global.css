@@ -82,4 +82,73 @@ ul {
   list-style: none;
 }
 
+/* nav bar css */
 
+.profile-menu{
+
+  position:relative;
+
+}
+
+.profile-btn{
+
+  background:black;
+  color:white;
+
+  border:none;
+
+  padding:12px 18px;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+}
+
+.profile-dropdown{
+
+  position:absolute;
+
+  right:0;
+
+  top:120%;
+
+  width:190px;
+
+  background:white;
+
+  border-radius:14px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+
+  display:none;
+
+  overflow:hidden;
+
+}
+
+.profile-menu:hover .profile-dropdown{
+
+  display:block;
+
+}
+
+.profile-dropdown a{
+
+  display:block;
+
+  padding:14px 18px;
+
+  color:black;
+
+  text-decoration:none;
+
+}
+
+.profile-dropdown a:hover{
+
+  background:#f5f5f5;
+
+}
