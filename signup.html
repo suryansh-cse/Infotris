@@ -204,33 +204,105 @@
 
             <div class="auth-error-msg" id="authErrorMsg"></div>
 
-            <form class="auth-form" id="authForm" onsubmit="handleAuthSubmit(event)">
-                <!-- Full Name Field -->
+            <form class="auth-form" id="authForm">
+
+                <!-- Full Name -->
                 <div class="form-group" id="groupName">
                     <label class="form-label" for="authName">Full Name</label>
-                    <input type="text" id="authName" class="form-input" placeholder="e.g. Suryansh Dev" autocomplete="name">
+                    <input
+                        type="text"
+                        id="authName"
+                        class="form-input"
+                        placeholder="e.g. Suryansh Dev"
+                        autocomplete="name">
                 </div>
-
-                <!-- Email Field -->
+            
+                <!-- Email -->
                 <div class="form-group">
                     <label class="form-label" for="authEmail">Email Address</label>
-                    <input type="email" id="authEmail" class="form-input" placeholder="e.g. suryansh@gmail.com" autocomplete="email" required>
+                    <input
+                        type="email"
+                        id="authEmail"
+                        class="form-input"
+                        placeholder="e.g. suryansh@gmail.com"
+                        autocomplete="email"
+                        required>
                 </div>
-
-                <!-- Password Field -->
+            
+                <!-- Password -->
                 <div class="form-group">
                     <label class="form-label" for="authPassword">Password</label>
-                    <input type="password" id="authPassword" class="form-input" placeholder="••••••••" autocomplete="current-password" required minlength="6">
+            
+                    <div class="password-wrapper">
+            
+                        <input
+                            type="password"
+                            id="authPassword"
+                            class="form-input"
+                            placeholder="••••••••"
+                            autocomplete="current-password"
+                            minlength="6"
+                            required>
+            
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword">
+            
+                            👁
+            
+                        </button>
+            
+                    </div>
+            
                 </div>
-
-                <!-- Terms checkbox (signup only) -->
+            
+                <!-- Confirm Password (Signup only) -->
+                <div class="form-group" id="groupConfirmPassword">
+            
+                    <label class="form-label" for="authConfirmPassword">
+            
+                        Confirm Password
+            
+                    </label>
+            
+                    <input
+                        type="password"
+                        id="authConfirmPassword"
+                        class="form-input"
+                        placeholder="Re-enter password">
+            
+                </div>
+            
+                <!-- Terms -->
+            
                 <label class="form-checkbox-row" id="groupTerms">
-                    <input type="checkbox" id="authTerms" checked>
-                    <span>I agree to Infotris's Terms of Service and Privacy Policy.</span>
+            
+                    <input type="checkbox" id="authTerms">
+            
+                    <span>
+            
+                        I agree to Infotris Terms & Privacy Policy
+            
+                    </span>
+            
                 </label>
-
-                <!-- Submit Button -->
-                <button type="submit" class="auth-submit-btn" id="authSubmitBtn">Create Account</button>
+            
+                <!-- Error -->
+            
+                <div class="auth-error-msg" id="authErrorMsg"></div>
+            
+                <!-- Button -->
+            
+                <button
+                    type="submit"
+                    class="auth-submit-btn"
+                    id="authSubmitBtn">
+            
+                    Create Account
+            
+                </button>
+            
             </form>
 
             <div class="auth-footer" id="authFooter">
@@ -309,7 +381,9 @@
     </footer>
 
     <!-- Form Logic -->
+     
     <script>
+
         let currentMode = 'signup';
 
         // Check if user is already logged in, redirect to dashboard if so
@@ -419,7 +493,26 @@
 
         // Initialize form mode requirement
         document.getElementById('authName').required = true;
+
+        const passwordInput = document.getElementById("authPassword");
+const confirmPasswordInput = document.getElementById("authConfirmPassword");
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", () => {
+
+    const type = passwordInput.type === "password" ? "text" : "password";
+
+    passwordInput.type = type;
+
+    if (confirmPasswordInput) {
+        confirmPasswordInput.type = type;
+    }
+
+    togglePassword.textContent = type === "password" ? "👁" : "🙈";
+
+});
     </script>
    <script type="module" src="js/firebase.js"></script>
+   <script type="module" src="js/auth.js"></script>
 </body>
 </html>

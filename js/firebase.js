@@ -1,5 +1,7 @@
 // Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -15,6 +17,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Initialize Authentication
+const auth = getAuth(app);
+
+// Initialize Firestore Database
+const db = getFirestore(app);
+
 console.log("🔥 Firebase Connected Successfully!");
 
-export { app };
+// Export for other JS files
+export { app, auth, db };
