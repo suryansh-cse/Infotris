@@ -22,35 +22,36 @@ async function handleAuthSubmit(event) {
     const password = document.getElementById("authPassword").value;
 
     try {
+         
+         if (window.currentMode === "signup") {
 
-        if (window.currentMode === "signup") {
-
+            console.log("🟢 SIGNUP MODE");
+        
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
-
-            console.log("✅ Account Created!");
-
-            alert("Account Created Successfully!");
-
-            window.location.href = "student-dashboard.html";
-
+        
+            console.log("Firebase UID:", userCredential.user.uid);
+            console.log("Firebase Email:", userCredential.user.email);
+        
+            alert("Signup Success");
+        
         } else {
-
+        
+            console.log("🔵 LOGIN MODE");
+        
             const userCredential = await signInWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
-
-            console.log("✅ Login Successful!");
-
-            alert("Welcome Back!");
-
-            window.location.href = "student-dashboard.html";
-
+        
+            console.log("Login UID:", userCredential.user.uid);
+        
+            alert("Login Success");
+        
         }
 
     } catch (error) {
