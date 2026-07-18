@@ -1,3 +1,4 @@
+import { db } from "./firebase.js";
 import { auth } from "./firebase.js";
 
 import {
@@ -22,30 +23,42 @@ async function handleAuthSubmit(event) {
 
     try {
 
-        const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+        if (window.currentMode === "signup") {
 
-        console.log("✅ Account Created!");
-
-        console.log(userCredential.user);
-
-        alert("Account Created Successfully!");
-
-        window.location.href = "student-dashboard";
-    }
-        catch(error) {
-
-            console.error("Firebase Error:", error);
-            console.error("Code:", error.code);
-            console.error("Message:", error.message);
-        
-            alert(
-                "Code: " + error.code +
-                "\n\nMessage: " + error.message
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
             );
-        
+
+            console.log("✅ Account Created!");
+
+            alert("Account Created Successfully!");
+
+            window.location.href = "student-dashboard.html";
+
+        } else {
+
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            console.log("✅ Login Successful!");
+
+            alert("Welcome Back!");
+
+            window.location.href = "student-dashboard.html";
+
         }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
+
 }

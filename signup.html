@@ -422,7 +422,7 @@
      
     <script>
 
-        let currentMode = 'signup';
+        window.currentMode = "signup";
 
 
         const form = document.getElementById("authForm");
@@ -440,7 +440,7 @@ async function handleAuthSubmit(event){
                      
 function setAuthMode(mode) {
 
-currentMode = mode;
+    window.currentMode = mode;
 
 const tabSignup = document.getElementById('tabSignup');
 const tabSignin = document.getElementById('tabSignin');
