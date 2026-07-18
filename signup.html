@@ -424,10 +424,6 @@
 
         let currentMode = 'signup';
 
-        // Check if user is already logged in, redirect to dashboard if so
-        if (localStorage.getItem("openlearn-logged-in") === "true") {
-            window.location.href = "student-dashboard";
-        }
 
         const form = document.getElementById("authForm");
 

@@ -17,6 +17,35 @@ async function handleAuthSubmit(event) {
 
     event.preventDefault();
 
-    console.log("Submit Clicked");
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
 
+    try {
+
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        console.log("✅ Account Created!");
+
+        console.log(userCredential.user);
+
+        alert("Account Created Successfully!");
+
+        window.location.href = "student-dashboard";
+    }
+        catch(error) {
+
+            console.error("Firebase Error:", error);
+            console.error("Code:", error.code);
+            console.error("Message:", error.message);
+        
+            alert(
+                "Code: " + error.code +
+                "\n\nMessage: " + error.message
+            );
+        
+        }
 }
