@@ -422,190 +422,141 @@
      
     <script>
 
-         window.currentMode = "signup";
-
-
-        const form = document.getElementById("authForm");
-
-form.addEventListener("submit", handleAuthSubmit);
-
-async function handleAuthSubmit(event){
-
-    event.preventDefault();
-
-    console.log("Submit Clicked");
-
-}
-
-                     
-function setAuthMode(mode) {
-
-    window.currentMode = mode;
-
-const tabSignup = document.getElementById('tabSignup');
-const tabSignin = document.getElementById('tabSignin');
-const groupName = document.getElementById('groupName');
-const groupTerms = document.getElementById('groupTerms');
-const authSubmitBtn = document.getElementById('authSubmitBtn');
-const authFooter = document.getElementById('authFooter');
-const errorMsg = document.getElementById('authErrorMsg');
-
-errorMsg.style.display = 'none';
-
-if (mode === 'signup') {
-
-    tabSignup.classList.add('active');
-    tabSignin.classList.remove('active');
-    groupName.style.display = 'flex';
-    groupTerms.style.display = 'flex';
-    authSubmitBtn.textContent = 'Create Account';
-    authFooter.innerHTML = `Already have an account? <a href="#" onclick="event.preventDefault(); setAuthMode('signin')">Sign In</a>`;
-    document.getElementById('authName').required = true;
-
-} else {
-
-    tabSignup.classList.remove('active');
-    tabSignin.classList.add('active');
-    groupName.style.display = 'none';
-    groupTerms.style.display = 'none';
-    authSubmitBtn.textContent = 'Sign In';
-    authFooter.innerHTML = `Don't have an account yet? <a href="#" onclick="event.preventDefault(); setAuthMode('signup')">Sign Up</a>`;
-    document.getElementById('authName').required = false;
-
-}
-
-}
-
-
-            event.preventDefault();
+        window.currentMode = "signup";
+        
+        function setAuthMode(mode) {
+        
+            window.currentMode = mode;
+        
+            const tabSignup = document.getElementById('tabSignup');
+            const tabSignin = document.getElementById('tabSignin');
+            const groupName = document.getElementById('groupName');
+            const groupTerms = document.getElementById('groupTerms');
+            const authSubmitBtn = document.getElementById('authSubmitBtn');
+            const authFooter = document.getElementById('authFooter');
             const errorMsg = document.getElementById('authErrorMsg');
-            errorMsg.style.display = 'none';
-
-            const email = document.getElementById('authEmail').value.trim();
-            const password = document.getElementById('authPassword').value;
-
-            if (currentMode === 'signup') {
-                const name = document.getElementById('authName').value.trim();
-                const terms = document.getElementById('authTerms').checked;
-
-                if (!name) {
-                    showError("Please enter your full name.");
-                    return;
-                }
-
-                if (!terms) {
-                    showError("You must agree to the Terms of Service.");
-                    return;
-                }
-
-                // Register user in localStorage
-                localStorage.setItem("openlearn-student-name", name);
-                localStorage.setItem("openlearn-student-email", email);
-                localStorage.setItem("openlearn-student-password", password); // Simple mock
-                localStorage.setItem("openlearn-logged-in", "true");
-                
-                // Initialize default stats if not already set
-                if (!localStorage.getItem("openlearn-streak")) {
-                    localStorage.setItem("openlearn-streak", "1");
-                }
-                if (!localStorage.getItem("openlearn-daily-goal")) {
-                    localStorage.setItem("openlearn-daily-goal", "30");
-                }
-                if (!localStorage.getItem("openlearn-daily-progress")) {
-                    localStorage.setItem("openlearn-daily-progress", "0");
-                }
-
-                // Redirect
-                window.location.href = "student-dashboard";
-
+        
+            errorMsg.style.display = "none";
+        
+            if (mode === "signup") {
+        
+                tabSignup.classList.add("active");
+                tabSignin.classList.remove("active");
+        
+                groupName.style.display = "flex";
+                groupTerms.style.display = "flex";
+        
+                authSubmitBtn.textContent = "Create Account";
+        
+                authFooter.innerHTML =
+                `Already have an account? <a href="#" onclick="event.preventDefault(); setAuthMode('signin')">Sign In</a>`;
+        
+                document.getElementById("authName").required = true;
+        
             } else {
-                // Sign In mode
-                const registeredEmail = localStorage.getItem("openlearn-student-email");
-                const registeredPassword = localStorage.getItem("openlearn-student-password");
-
-                if (!registeredEmail) {
-                    showError("No account found with this email. Please Sign Up first.");
-                    return;
-                }
-
-                if (email.toLowerCase() !== registeredEmail.toLowerCase() || password !== registeredPassword) {
-                    showError("Incorrect email address or password.");
-                    return;
-                }
-
-                // Successful login
-                localStorage.setItem("openlearn-logged-in", "true");
-                window.location.href = "student-dashboard";
+        
+                tabSignup.classList.remove("active");
+                tabSignin.classList.add("active");
+        
+                groupName.style.display = "none";
+                groupTerms.style.display = "none";
+        
+                authSubmitBtn.textContent = "Sign In";
+        
+                authFooter.innerHTML =
+                `Don't have an account yet? <a href="#" onclick="event.preventDefault(); setAuthMode('signup')">Sign Up</a>`;
+        
+                document.getElementById("authName").required = false;
+        
             }
+        
         }
-
-        function showError(message) {
-            const errorMsg = document.getElementById('authErrorMsg');
-            errorMsg.textContent = message;
-            errorMsg.style.display = 'block';
-        }
-
-        // Initialize form mode requirement
-        document.getElementById('authName').required = true;
-
+        
+        
+        // Password Toggle
+        
         const passwordInput = document.getElementById("authPassword");
-const confirmPasswordInput = document.getElementById("authConfirmPassword");
-const togglePassword = document.getElementById("togglePassword");
-
-togglePassword.addEventListener("click", () => {
-
-    const type = passwordInput.type === "password" ? "text" : "password";
-
-    passwordInput.type = type;
-
-    if (confirmPasswordInput) {
-        confirmPasswordInput.type = type;
-    }
-
-    togglePassword.textContent = type === "password" ? "👁" : "🙈";
-
-});
-    
-const passwordStrength = document.getElementById("passwordStrength");
-
-passwordInput.addEventListener("input", () => {
-
-    const password = passwordInput.value;
-
-    let strength = "Weak";
-    let color = "#ef4444";
-
-    let score = 0;
-
-    if (password.length >= 8) score++;
-
-    if (/[A-Z]/.test(password)) score++;
-
-    if (/[a-z]/.test(password)) score++;
-
-    if (/[0-9]/.test(password)) score++;
-
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-
-    if (score >= 5) {
-        strength = "Very Strong";
-        color = "#22c55e";
-    }
-    else if (score >= 4) {
-        strength = "Strong";
-        color = "#3b82f6";
-    }
-    else if (score >= 3) {
-        strength = "Medium";
-        color = "#f59e0b";
-    }
-
-    passwordStrength.textContent = `Password Strength: ${strength}`;
-    passwordStrength.style.color = color;
-
-});
+        const confirmPasswordInput = document.getElementById("authConfirmPassword");
+        const togglePassword = document.getElementById("togglePassword");
+        
+        if(togglePassword){
+        
+        togglePassword.addEventListener("click",()=>{
+        
+            const type=passwordInput.type==="password"?"text":"password";
+        
+            passwordInput.type=type;
+        
+            if(confirmPasswordInput){
+        
+                confirmPasswordInput.type=type;
+        
+            }
+        
+            togglePassword.textContent=type==="password"?"👁":"🙈";
+        
+        });
+        
+        }
+        
+        
+        // Password Strength
+        
+        const passwordStrength=document.getElementById("passwordStrength");
+        
+        passwordInput.addEventListener("input",()=>{
+        
+            const password=passwordInput.value;
+        
+            let strength="Weak";
+            let color="#ef4444";
+        
+            let score=0;
+        
+            if(password.length>=8) score++;
+        
+            if(/[A-Z]/.test(password)) score++;
+        
+            if(/[a-z]/.test(password)) score++;
+        
+            if(/[0-9]/.test(password)) score++;
+        
+            if(/[^A-Za-z0-9]/.test(password)) score++;
+        
+            if(score>=5){
+        
+                strength="Very Strong";
+                color="#22c55e";
+        
+            }
+        
+            else if(score>=4){
+        
+                strength="Strong";
+                color="#3b82f6";
+        
+            }
+        
+            else if(score>=3){
+        
+                strength="Medium";
+                color="#f59e0b";
+        
+            }
+        
+            if(passwordStrength){
+        
+                passwordStrength.textContent=`Password Strength: ${strength}`;
+                passwordStrength.style.color=color;
+        
+            }
+        
+        });
+        
+        
         setAuthMode("signup");
-    </script>
+        
+        </script>
    <script type="module" src="js/firebase.js"></script>
    <script type="module" src="js/auth.js"></script>
 </body>
