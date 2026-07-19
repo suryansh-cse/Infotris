@@ -101,21 +101,20 @@ ul {
 
   border-radius:12px;
 
-  cursor:pointer;
+  cursor:progress;
 
   font-weight:600;
-
 }
 
 .profile-dropdown{
 
   position:absolute;
 
-  right:0;
+  right: -100px;
 
   top:120%;
 
-  width:190px;
+  width:155px;
 
   background:white;
 
@@ -125,13 +124,15 @@ ul {
 
   display:none;
 
-  overflow:hidden;
+  overflow:unset ;
 
 }
 
 .profile-menu:hover .profile-dropdown{
 
   display:block;
+   
+  
 
 }
 
@@ -140,7 +141,7 @@ ul {
   display:block;
 
   padding:14px 18px;
-
+  min-width: 153px;
   color:black;
 
   text-decoration:none;
@@ -151,4 +152,48 @@ ul {
 
   background:#f5f5f5;
 
+}
+/* Base wrapper styling */
+.profile-menu {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hide the dropdown completely by default */
+.profile-dropdown {
+  display: none; 
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #111; /* Match your dark theme navigation */
+  border: 1px solid #333;
+  border-radius: 8px;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: 8px 0;
+}
+
+/* Show the dropdown ONLY when the JavaScript adds the .show class */
+.profile-dropdown.show {
+  display: block;
+}
+
+/* Links inside the dropdown */
+.profile-dropdown a {
+  color: #fff;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+}
+
+.profile-dropdown a:hover {
+  background-color: #222;
+}
+
+.profile-dropdown hr {
+  border: 0;
+  border-top: 1px solid #333;
+  margin: 4px 0;
 }

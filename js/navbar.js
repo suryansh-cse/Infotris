@@ -58,3 +58,23 @@ onAuthStateChanged(auth, (user) => {
     }
 
 });
+
+// Get references to elements
+const profileBtn = document.getElementById('profileBtn');
+const profileDropdown = document.getElementById('profileDropdown');
+
+// 1. Toggle dropdown when clicking the button
+profileBtn.addEventListener('click', function(event) {
+  profileDropdown.classList.toggle('show');
+  
+  // Stops the click event from bubbling up to the window immediately
+  event.stopPropagation(); 
+});
+
+// 2. Hide dropdown when clicking anywhere else on the screen
+window.addEventListener('click', function(event) {
+  // If the clicked target is NOT inside the profile menu container, close it
+  if (!event.target.closest('.profile-menu')) {
+    profileDropdown.classList.remove('show');
+  }
+});
