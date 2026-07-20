@@ -29,7 +29,7 @@ onAuthStateChanged(auth, (user) => {
                     Dashboard
                 </a>
 
-                <a href="profile.html">
+                <a href="courses/coming/profile-coming">
                     Profile
                 </a>
 
