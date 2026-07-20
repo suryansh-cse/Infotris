@@ -36,8 +36,7 @@
         const snapshot = await api.getDoc(userDocument);
         const learning = snapshot.data()?.learning || {};
         return { practice: learning.practice || {}, quizzes: learning.quizzes || {} };
-      })().catch(error => {
-        console.warn("Learning progress is unavailable.", error);
+      })().catch(() => {
         return { practice: {}, quizzes: {} };
       });
     }
@@ -61,8 +60,7 @@
           update.learning.progress = { completedItems: api.arrayUnion(...completedItems) };
         }
         await api.setDoc(userDocument, update, { merge: true });
-      } catch (error) {
-        console.warn("Practice progress could not be saved.", error);
+      } catch {
       }
     }, 400);
   }
@@ -74,7 +72,7 @@
         quizzes: { [key]: { complete: true } },
         progress: { completedItems: api.arrayUnion(key) }
       }
-    }, { merge: true })).catch(error => console.warn("Quiz progress could not be saved.", error));
+    }, { merge: true })).catch(() => {});
   }
 
   function normalizeOutput(text) {

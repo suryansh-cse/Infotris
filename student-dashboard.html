@@ -1759,8 +1759,7 @@
                     pendingDashboardWrite = null;
                     try {
                         await setDoc(userDocumentRef, update, { merge: true });
-                    } catch (error) {
-                        console.warn("Dashboard changes could not be saved.", error);
+                    } catch {
                         dom.welcomeMessage.textContent = "You are offline. Your latest dashboard changes will sync when you reconnect.";
                     }
                 }, 250);
@@ -2251,7 +2250,7 @@
             document.getElementById("simLogoutBtn").addEventListener("click", (e) => {
                 e.preventDefault();
                 signOut(auth)
-                    .catch(error => console.warn("Unable to sign out.", error))
+                    .catch(() => {})
                     .finally(() => window.location.replace("signup.html"));
             });
 
@@ -2272,8 +2271,7 @@
                 try {
                     state = await loadUserState(user);
                     updateDashboard();
-                } catch (error) {
-                    console.warn("Dashboard data is unavailable.", error);
+                } catch {
                     state = createDefaultState(user);
                     updateDashboard();
                     dom.welcomeMessage.textContent = "Your dashboard is available in offline mode. Changes will sync when Firestore reconnects.";

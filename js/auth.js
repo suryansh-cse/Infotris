@@ -70,10 +70,8 @@ async function handleAuthSubmit(event) {
 
             await setDoc(doc(db, "users", userCredential.user.uid), createUserProfile(userCredential.user), { merge: true });
         
-            console.log("Firebase UID:", userCredential.user.uid);
-            console.log("Firebase Email:", userCredential.user.email);
-        
             alert("Signup Success");
+            window.location.assign("student-dashboard.html");
         
         } else {
         
@@ -85,15 +83,12 @@ async function handleAuthSubmit(event) {
                 password
             );
         
-            console.log("Login UID:", userCredential.user.uid);
-        
             alert("Login Success");
+            window.location.assign("student-dashboard.html");
         
         }
 
     } catch (error) {
-
-        console.error(error);
 
         alert(error.message);
 

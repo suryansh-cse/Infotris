@@ -98,6 +98,32 @@ Correct in 6 tries!</pre>
                     </div>
                 </section>
 
+                <section class="quiz-panel" data-quiz-id="project-02" aria-labelledby="quiz-title">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 id="quiz-title" class="quiz-panel__title">Check Your Game Logic</h2>
+                    </div>
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which module provides <code>randint()</code> for the secret number?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="project-02-q1" data-correct="true" data-explanation="Correct! random.randint(a, b) chooses an integer in the inclusive range."><span class="quiz-option__indicator"></span><span class="quiz-option__text"><code>random</code></span></label>
+                            <label class="quiz-option"><input type="radio" name="project-02-q1" data-correct="false"><span class="quiz-option__indicator"></span><span class="quiz-option__text"><code>math</code></span></label>
+                            <label class="quiz-option"><input type="radio" name="project-02-q1" data-correct="false"><span class="quiz-option__indicator"></span><span class="quiz-option__text"><code>time</code></span></label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Why does the game use a <code>while True</code> loop?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="project-02-q2" data-correct="false"><span class="quiz-option__indicator"></span><span class="quiz-option__text">To make every guess correct</span></label>
+                            <label class="quiz-option"><input type="radio" name="project-02-q2" data-correct="true" data-explanation="Correct! The loop continues until break runs after a correct guess."><span class="quiz-option__indicator"></span><span class="quiz-option__text">To accept guesses until the correct one ends the loop</span></label>
+                            <label class="quiz-option"><input type="radio" name="project-02-q2" data-correct="false"><span class="quiz-option__indicator"></span><span class="quiz-option__text">To generate a new secret number every turn</span></label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
                 <nav class="lesson-nav">
                     <a href="05-lists">← Lesson 5</a>
                     <a class="lesson-nav__next" href="06-functions">Week 3: Functions →</a>
