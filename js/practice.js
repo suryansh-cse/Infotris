@@ -1,42 +1,87 @@
 /**
- * Infotris practice panels — checklists, progress, optional output check.
- * Works on static HTML lesson and project pages.
+ * Infotris practice panels and quizzes.
+ * Learning state is stored in the signed-in user's Firestore document.
  */
 (function () {
-  const STORAGE_PREFIX = "infotris-practice-";
+  let firebase;
+  let userDocument;
+  let learningStatePromise;
+  const pendingPanelStates = new Map();
+  let saveTimer;
 
-  function storageKey(panel) {
-    const page = window.location.pathname.replace(/\.html$/, "").replace(/^\//, "");
-    const id = panel.dataset.practiceId || "default";
-    return STORAGE_PREFIX + page + "-" + id;
+  function lessonKey(panel) {
+    const page = window.location.pathname.replace(/\.html$/, "").split("/").pop();
+    return `${page}-${panel.dataset.practiceId || panel.dataset.quizId || "default"}`;
   }
 
-  function loadState(panel) {
-    try {
-      const raw = localStorage.getItem(storageKey(panel));
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
+  async function getFirebase() {
+    if (firebase) return firebase;
+
+    const [{ auth, db }, authApi, firestoreApi] = await Promise.all([
+      import("./firebase.js"),
+      import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
+      import("https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js")
+    ]);
+    const user = await new Promise(resolve => authApi.onAuthStateChanged(auth, resolve));
+    firebase = { db, ...firestoreApi };
+    userDocument = user ? firestoreApi.doc(db, "users", user.uid) : null;
+    return firebase;
   }
 
-  function saveState(panel, state) {
-    try {
-      localStorage.setItem(storageKey(panel), JSON.stringify(state));
-    } catch {
-      /* ignore quota errors */
+  async function getLearningState() {
+    if (!learningStatePromise) {
+      learningStatePromise = (async () => {
+        const api = await getFirebase();
+        if (!userDocument) return { practice: {}, quizzes: {} };
+        const snapshot = await api.getDoc(userDocument);
+        const learning = snapshot.data()?.learning || {};
+        return { practice: learning.practice || {}, quizzes: learning.quizzes || {} };
+      })().catch(error => {
+        console.warn("Learning progress is unavailable.", error);
+        return { practice: {}, quizzes: {} };
+      });
     }
+    return learningStatePromise;
+  }
+
+  function queuePanelSave(key, state, completed) {
+    if (!userDocument) return;
+    pendingPanelStates.set(key, { state, completed });
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(async () => {
+      const entries = [...pendingPanelStates.entries()];
+      pendingPanelStates.clear();
+      const api = await getFirebase();
+      const practice = Object.fromEntries(entries.map(([itemKey, value]) => [itemKey, value.state]));
+      const completedItems = entries.filter(([, value]) => value.completed).map(([itemKey]) => itemKey);
+
+      try {
+        const update = { learning: { practice } };
+        if (completedItems.length) {
+          update.learning.progress = { completedItems: api.arrayUnion(...completedItems) };
+        }
+        await api.setDoc(userDocument, update, { merge: true });
+      } catch (error) {
+        console.warn("Practice progress could not be saved.", error);
+      }
+    }, 400);
+  }
+
+  function queueQuizCompletion(key) {
+    if (!userDocument) return;
+    getFirebase().then(api => api.setDoc(userDocument, {
+      learning: {
+        quizzes: { [key]: { complete: true } },
+        progress: { completedItems: api.arrayUnion(key) }
+      }
+    }, { merge: true })).catch(error => console.warn("Quiz progress could not be saved.", error));
   }
 
   function normalizeOutput(text) {
-    return text
-      .trim()
-      .replace(/\r\n/g, "\n")
-      .replace(/\s+/g, " ")
-      .toLowerCase();
+    return text.trim().replace(/\r\n/g, "\n").replace(/\s+/g, " ").toLowerCase();
   }
 
-  function initPanel(panel) {
+  async function initPanel(panel) {
     const checks = panel.querySelectorAll(".practice-check input[type='checkbox']");
     const progressBar = panel.querySelector(".practice-progress__bar");
     const progressLabel = panel.querySelector(".practice-progress__label");
@@ -46,211 +91,128 @@
     const verifyBtn = panel.querySelector("[data-output-verify]");
     const outputInput = panel.querySelector(".practice-output-input");
     const outputFeedback = panel.querySelector(".practice-output-feedback");
-    const isProject = panel.dataset.practiceType === "project";
+    const key = lessonKey(panel);
 
     if (!checks.length) return;
-
-    const saved = loadState(panel);
+    const saved = (await getLearningState()).practice[key];
     if (saved) {
-      checks.forEach((input, i) => {
-        if (saved.checks && saved.checks[i]) input.checked = true;
-      });
+      checks.forEach((input, index) => { input.checked = Boolean(saved.checks?.[index]); });
       if (codeArea && saved.code) codeArea.value = saved.code;
     }
 
-    function updateProgress() {
-      const total = checks.length;
-      const done = [...checks].filter((c) => c.checked).length;
-      const pct = total ? Math.round((done / total) * 100) : 0;
+    function updateProgress(shouldSave = true) {
+      const done = [...checks].filter(input => input.checked).length;
+      const percentage = Math.round((done / checks.length) * 100);
+      const complete = done === checks.length;
 
-      if (progressBar) progressBar.style.width = pct + "%";
-      if (progressLabel) progressLabel.textContent = pct + "% complete";
-      if (progressEl) {
-        progressEl.setAttribute("aria-valuenow", String(pct));
+      if (progressBar) progressBar.style.width = `${percentage}%`;
+      if (progressLabel) progressLabel.textContent = `${percentage}% complete`;
+      if (progressEl) progressEl.setAttribute("aria-valuenow", String(percentage));
+      if (successEl) successEl.hidden = !complete;
+
+      if (shouldSave) {
+        queuePanelSave(key, { checks: [...checks].map(input => input.checked), code: codeArea?.value || "" }, complete);
       }
-
-      const allDone = done === total && total > 0;
-      if (successEl) {
-        successEl.hidden = !allDone;
-      }
-
-      saveState(panel, {
-        checks: [...checks].map((c) => c.checked),
-        code: codeArea ? codeArea.value : "",
-      });
-
-      return allDone;
     }
 
-    checks.forEach((input) => {
-      input.addEventListener("change", updateProgress);
-    });
-
-    if (codeArea) {
-      codeArea.addEventListener("input", () => {
-        saveState(panel, {
-          checks: [...checks].map((c) => c.checked),
-          code: codeArea.value,
-        });
-      });
-    }
+    checks.forEach(input => input.addEventListener("change", updateProgress));
+    if (codeArea) codeArea.addEventListener("input", updateProgress);
 
     if (verifyBtn && outputInput && outputFeedback) {
-      const expected = panel.dataset.expectedOutput || "";
       verifyBtn.addEventListener("click", () => {
-        const user = normalizeOutput(outputInput.value);
-        const exp = normalizeOutput(expected);
-
-        if (!user) {
-          outputFeedback.hidden = false;
-          outputFeedback.className = "practice-feedback practice-feedback--warn";
-          outputFeedback.textContent = "Paste your terminal output first, then check again.";
-          return;
-        }
-
-        if (!exp) {
-          outputFeedback.hidden = false;
-          outputFeedback.className = "practice-feedback practice-feedback--ok";
-          outputFeedback.textContent = "Output saved. Confirm it matches the expected example above.";
-          return;
-        }
-
-        const match =
-          user === exp ||
-          user.includes(exp) ||
-          exp.split(" ").every((word) => word.length < 3 || user.includes(word));
+        const userOutput = normalizeOutput(outputInput.value);
+        const expected = normalizeOutput(panel.dataset.expectedOutput || "");
+        const matched = userOutput && (!expected || userOutput === expected || userOutput.includes(expected) || expected.split(" ").every(word => word.length < 3 || userOutput.includes(word)));
 
         outputFeedback.hidden = false;
-        if (match) {
-          outputFeedback.className = "practice-feedback practice-feedback--ok";
-          outputFeedback.textContent = isProject
-            ? "Output looks right! Check off the remaining steps if you haven't yet."
-            : "Nice — your output matches what we expected.";
+        outputFeedback.className = `practice-feedback ${matched ? "practice-feedback--ok" : "practice-feedback--warn"}`;
+        outputFeedback.textContent = matched ? "Nice — your output matches what we expected." : "Not quite yet. Compare your output with the expected example and try again.";
+        if (matched) {
           const outputCheck = panel.querySelector("[data-check='output']");
           if (outputCheck) {
             outputCheck.checked = true;
             updateProgress();
           }
-        } else {
-          outputFeedback.className = "practice-feedback practice-feedback--warn";
-          outputFeedback.textContent =
-            "Not quite yet. Compare line by line with the expected output, fix your code, and run again.";
         }
       });
     }
 
-    updateProgress();
+    updateProgress(false);
   }
 
-  function initQuiz(quizEl) {
+  async function initQuiz(quizEl) {
     const questions = quizEl.querySelectorAll(".quiz-question");
     const submitBtn = quizEl.querySelector(".quiz-btn-submit");
+    const key = lessonKey(quizEl);
+    let complete = Boolean((await getLearningState()).quizzes[key]?.complete);
 
-    const storageKey = "infotris-quiz-" + window.location.pathname.replace(/\.html$/, "").replace(/^\//, "") + "-" + (quizEl.dataset.quizId || "default");
-    let isQuizComplete = false;
-
-    try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved === "complete") {
-        isQuizComplete = true;
-      }
-    } catch (e) {}
-
-    questions.forEach((q) => {
-      const options = q.querySelectorAll(".quiz-option");
-      const feedback = q.querySelector(".quiz-feedback");
-
-      options.forEach((opt) => {
-        const radio = opt.querySelector("input[type='radio']");
+    questions.forEach(question => {
+      const options = question.querySelectorAll(".quiz-option");
+      const feedback = question.querySelector(".quiz-feedback");
+      options.forEach(option => {
+        const radio = option.querySelector("input[type='radio']");
         if (!radio) return;
-
-        const isCorrectOption = radio.dataset.correct === "true";
-        if (isQuizComplete && isCorrectOption) {
+        if (complete && radio.dataset.correct === "true") {
           radio.checked = true;
-          opt.classList.add("is-correct");
+          option.classList.add("is-correct");
           if (feedback) {
             feedback.style.display = "block";
             feedback.className = "quiz-feedback quiz-feedback--correct is-visible";
             feedback.textContent = radio.dataset.explanation || "Correct!";
           }
         }
-
         radio.addEventListener("change", () => {
-          if (isQuizComplete) return;
-          // Clear selected class from other options in this question
-          options.forEach((o) => o.classList.remove("is-selected"));
-          opt.classList.add("is-selected");
+          if (!complete) {
+            options.forEach(item => item.classList.remove("is-selected"));
+            option.classList.add("is-selected");
+          }
         });
       });
     });
 
-    if (isQuizComplete && submitBtn) {
+    if (complete && submitBtn) {
       submitBtn.disabled = true;
       submitBtn.textContent = "Quiz Complete";
     }
 
-    if (submitBtn) {
-      submitBtn.addEventListener("click", () => {
-        let allAnswered = true;
-        let allCorrect = true;
-
-        questions.forEach((q) => {
-          const selectedRadio = q.querySelector("input[type='radio']:checked");
-          const feedback = q.querySelector(".quiz-feedback");
-          const options = q.querySelectorAll(".quiz-option");
-
-          if (!selectedRadio) {
-            allAnswered = false;
-            return;
-          }
-
-          const isCorrect = selectedRadio.dataset.correct === "true";
-          options.forEach((opt) => {
-            const radio = opt.querySelector("input[type='radio']");
-            opt.classList.remove("is-selected", "is-correct", "is-incorrect");
-            if (radio.dataset.correct === "true") {
-              opt.classList.add("is-correct");
-            } else if (radio.checked) {
-              opt.classList.add("is-incorrect");
-            }
-          });
-
-          if (feedback) {
-            feedback.style.display = "block";
-            if (isCorrect) {
-              feedback.className = "quiz-feedback quiz-feedback--correct is-visible";
-              feedback.textContent = selectedRadio.dataset.explanation || "Correct!";
-            } else {
-              allCorrect = false;
-              feedback.className = "quiz-feedback quiz-feedback--incorrect is-visible";
-              feedback.textContent = selectedRadio.dataset.explanation || "Incorrect. Try again!";
-            }
-          } else {
-            if (!isCorrect) allCorrect = false;
-          }
-        });
-
-        if (!allAnswered) {
-          alert("Please answer all questions before submitting the quiz.");
+    submitBtn?.addEventListener("click", () => {
+      let answered = true;
+      let correct = true;
+      questions.forEach(question => {
+        const selected = question.querySelector("input[type='radio']:checked");
+        const feedback = question.querySelector(".quiz-feedback");
+        const options = question.querySelectorAll(".quiz-option");
+        if (!selected) {
+          answered = false;
           return;
         }
-
-        if (allCorrect) {
-          isQuizComplete = true;
-          try {
-            localStorage.setItem(storageKey, "complete");
-          } catch (e) {}
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Quiz Complete";
-          
-          const quizCheck = document.querySelector(".practice-check input[data-check='quiz']");
-          if (quizCheck) {
-            quizCheck.checked = true;
-            quizCheck.dispatchEvent(new Event('change'));
-          }
+        const isCorrect = selected.dataset.correct === "true";
+        correct &&= isCorrect;
+        options.forEach(option => {
+          const radio = option.querySelector("input[type='radio']");
+          option.classList.remove("is-selected", "is-correct", "is-incorrect");
+          option.classList.add(radio.dataset.correct === "true" ? "is-correct" : radio.checked ? "is-incorrect" : "");
+        });
+        if (feedback) {
+          feedback.style.display = "block";
+          feedback.className = `quiz-feedback ${isCorrect ? "quiz-feedback--correct" : "quiz-feedback--incorrect"} is-visible`;
+          feedback.textContent = selected.dataset.explanation || (isCorrect ? "Correct!" : "Incorrect. Try again!");
         }
       });
-    }
+
+      if (!answered) return alert("Please answer all questions before submitting the quiz.");
+      if (correct) {
+        complete = true;
+        queueQuizCompletion(key);
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Quiz Complete";
+        const quizCheck = document.querySelector(".practice-check input[data-check='quiz']");
+        if (quizCheck) {
+          quizCheck.checked = true;
+          quizCheck.dispatchEvent(new Event("change"));
+        }
+      }
+    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {

@@ -1565,7 +1565,11 @@
     </footer>
 
     <!-- ================= DASHBOARD LOGIC ================= -->
-    <script>
+    <script type="module">
+        import { auth, db } from "./js/firebase.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
         document.addEventListener("DOMContentLoaded", () => {
             // ================= COURSE DATA =================
             const COURSE_MODULES = [
@@ -1636,21 +1640,130 @@
             ];
 
             const ALL_ITEMS = COURSE_MODULES.flatMap(module => module.lessons);
-            const STORAGE_PREFIX = "infotris-";
             const DEFAULT_WEEKLY_GOALS = {
                 "python-lessons": false,
                 "build-project": false,
                 "github-page": false
             };
+            const dom = Object.freeze({
+                welcomeName: document.getElementById("welcomeStudentName"),
+                welcomeMessage: document.getElementById("welcomeMotivationText"),
+                avatar: document.getElementById("navbarAvatar"),
+                dropdownName: document.getElementById("dropdownName"),
+                dropdownEmail: document.getElementById("dropdownEmail"),
+                nameInput: document.getElementById("sandboxNameInput"),
+                progress: document.getElementById("kpiProgress"),
+                streak: document.getElementById("kpiStreak"),
+                hours: document.getElementById("kpiHours"),
+                certificates: document.getElementById("kpiCertificates"),
+                sidebarStreak: document.getElementById("sidebarStreakDays"),
+                streakIcon: document.getElementById("streakIcon"),
+                completeness: document.getElementById("pythonCompletenessStatus"),
+                modules: document.getElementById("pythonModulesContainer"),
+                goalSelector: document.getElementById("dailyGoalSelector"),
+                goalPercent: document.getElementById("goalPctText"),
+                goalMinutes: document.getElementById("goalMinText"),
+                goalBar: document.getElementById("goalCircularBar"),
+                heatmap: document.getElementById("heatmapGrid"),
+                timeline: document.getElementById("recentActivityTimeline")
+            });
             let lessonStateCache = new Map();
+            let userDocumentRef = null;
+            let pendingDashboardWrite = null;
+            let saveTimer = null;
 
-            // ================= LOCAL STATE =================
-            function getStoredObject(key, fallback) {
-                try {
-                    return JSON.parse(localStorage.getItem(key)) || fallback;
-                } catch {
-                    return fallback;
+            // ================= FIRESTORE =================
+            function createDefaultState(user) {
+                const displayName = user.displayName || user.email?.split("@")[0] || "Student";
+                return {
+                    studentName: displayName,
+                    email: user.email || "",
+                    avatar: user.photoURL || displayName.charAt(0).toUpperCase(),
+                    streak: 0,
+                    level: 1,
+                    xp: 0,
+                    coins: 0,
+                    certificateHash: "",
+                    dailyGoalMins: 30,
+                    dailyGoalProgress: 0,
+                    weeklyGoals: { ...DEFAULT_WEEKLY_GOALS },
+                    completedItems: []
+                };
+            }
+
+            function getMissingUserFields(data, defaults, prefix = "") {
+                return Object.entries(defaults).reduce((missing, [key, value]) => {
+                    const path = prefix ? `${prefix}.${key}` : key;
+                    if (data?.[key] === undefined) {
+                        missing[path] = value;
+                    } else if (value && typeof value === "object" && !Array.isArray(value)) {
+                        Object.assign(missing, getMissingUserFields(data[key], value, path));
+                    }
+                    return missing;
+                }, {});
+            }
+
+            async function loadUserState(user) {
+                userDocumentRef = doc(db, "users", user.uid);
+                const defaults = createDefaultState(user);
+                const documentDefaults = {
+                    profile: { displayName: defaults.studentName, email: defaults.email, joinedAt: serverTimestamp(), avatar: defaults.avatar },
+                    stats: { level: 1, xp: 0, streak: 0, coins: 0, dailyGoalMins: 30, dailyGoalProgress: 0 },
+                    learning: { currentTrail: "python", currentLesson: "01-intro", progress: { completedItems: [] }, practice: {}, quizzes: {} },
+                    missions: { weeklyGoals: { ...DEFAULT_WEEKLY_GOALS } },
+                    achievements: [],
+                    activity: []
+                };
+                const snapshot = await getDoc(userDocumentRef);
+                let data = snapshot.data();
+
+                if (!snapshot.exists()) {
+                    await setDoc(userDocumentRef, documentDefaults);
+                    data = documentDefaults;
+                } else {
+                    const missingFields = getMissingUserFields(data, documentDefaults);
+                    if (Object.keys(missingFields).length) {
+                        await updateDoc(userDocumentRef, missingFields);
+                        data = { ...documentDefaults, ...data, profile: { ...documentDefaults.profile, ...data.profile }, stats: { ...documentDefaults.stats, ...data.stats }, learning: { ...documentDefaults.learning, ...data.learning }, missions: { ...documentDefaults.missions, ...data.missions } };
+                    }
                 }
+
+                return {
+                    ...defaults,
+                    studentName: data.profile?.displayName || defaults.studentName,
+                    email: data.profile?.email || defaults.email,
+                    avatar: data.profile?.avatar || defaults.avatar,
+                    level: data.stats?.level ?? defaults.level,
+                    xp: data.stats?.xp ?? defaults.xp,
+                    coins: data.stats?.coins ?? defaults.coins,
+                    certificateHash: data.profile?.certificateHash || "",
+                    streak: data.stats?.streak ?? defaults.streak,
+                    dailyGoalMins: data.stats?.dailyGoalMins ?? defaults.dailyGoalMins,
+                    dailyGoalProgress: data.stats?.dailyGoalProgress ?? defaults.dailyGoalProgress,
+                    weeklyGoals: { ...DEFAULT_WEEKLY_GOALS, ...data.missions?.weeklyGoals },
+                    completedItems: Array.isArray(data.learning?.progress?.completedItems) ? data.learning.progress.completedItems : []
+                };
+            }
+
+            function queueDashboardSave() {
+                if (!userDocumentRef) return;
+                pendingDashboardWrite = {
+                    profile: { displayName: state.studentName, avatar: state.avatar, certificateHash: state.certificateHash },
+                    stats: { level: state.level, xp: state.xp, coins: state.coins, streak: state.streak, dailyGoalMins: state.dailyGoalMins, dailyGoalProgress: state.dailyGoalProgress },
+                    missions: { weeklyGoals: state.weeklyGoals },
+                    learning: { progress: { completedItems: state.completedItems } }
+                };
+                clearTimeout(saveTimer);
+                saveTimer = setTimeout(async () => {
+                    const update = pendingDashboardWrite;
+                    pendingDashboardWrite = null;
+                    try {
+                        await setDoc(userDocumentRef, update, { merge: true });
+                    } catch (error) {
+                        console.warn("Dashboard changes could not be saved.", error);
+                        dom.welcomeMessage.textContent = "You are offline. Your latest dashboard changes will sync when you reconnect.";
+                    }
+                }, 250);
             }
 
             function getLocalState(lesson) {
@@ -1658,50 +1771,13 @@
                 if (lessonStateCache.has(cacheKey)) {
                     return lessonStateCache.get(cacheKey);
                 }
-
-                let hasPractice = false;
-                let hasQuiz = false;
-
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key.includes(lesson.file)) {
-                        if (key.startsWith(`${STORAGE_PREFIX}quiz-`)) {
-                            if (localStorage.getItem(key) === "complete") {
-                                hasQuiz = true;
-                            }
-                        }
-                        if (key.startsWith(`${STORAGE_PREFIX}practice-`)) {
-                            try {
-                                const data = JSON.parse(localStorage.getItem(key));
-                                if (data && data.checks && data.checks.length > 0 && data.checks.every(c => c === true)) {
-                                    hasPractice = true;
-                                }
-                            } catch {}
-                        }
-                    }
-                }
-                const lessonState = { done: hasPractice || hasQuiz };
+                const lessonState = { done: state.completedItems.includes(cacheKey) };
                 lessonStateCache.set(cacheKey, lessonState);
                 return lessonState;
             }
 
             // ================= DASHBOARD STATE =================
-            let state = {
-                studentName: localStorage.getItem(`${STORAGE_PREFIX}student-name`) || "Alex Student",
-                streak: parseInt(localStorage.getItem(`${STORAGE_PREFIX}streak`), 10) || 9,
-                dailyGoalMins: parseInt(localStorage.getItem(`${STORAGE_PREFIX}daily-goal`), 10) || 30,
-                dailyGoalProgress: parseInt(localStorage.getItem(`${STORAGE_PREFIX}daily-progress`), 10) || 15,
-                weeklyGoals: getStoredObject(`${STORAGE_PREFIX}weekly-goals`, { ...DEFAULT_WEEKLY_GOALS })
-            };
-
-            // Save state updates
-            function saveStateToStorage() {
-                localStorage.setItem(`${STORAGE_PREFIX}student-name`, state.studentName);
-                localStorage.setItem(`${STORAGE_PREFIX}streak`, state.streak);
-                localStorage.setItem(`${STORAGE_PREFIX}daily-goal`, state.dailyGoalMins);
-                localStorage.setItem(`${STORAGE_PREFIX}daily-progress`, state.dailyGoalProgress);
-                localStorage.setItem(`${STORAGE_PREFIX}weekly-goals`, JSON.stringify(state.weeklyGoals));
-            }
+            let state = createDefaultState({ email: "" });
 
             // --- UI RENDER HANDLERS ---
             function updateDashboard() {
@@ -1726,11 +1802,11 @@
                     }
                 }
                 // 3. Update welcome banner & student name
-                document.getElementById("welcomeStudentName").textContent = state.studentName;
-                document.getElementById("navbarAvatar").textContent = state.studentName.charAt(0).toUpperCase();
-                document.getElementById("dropdownName").textContent = state.studentName;
-                document.getElementById("dropdownEmail").textContent = state.studentName.toLowerCase().replace(/\s+/g, "") + "@infotris.edu";
-                document.getElementById("sandboxNameInput").value = state.studentName;
+                dom.welcomeName.textContent = state.studentName;
+                dom.avatar.textContent = state.studentName.charAt(0).toUpperCase();
+                dom.dropdownName.textContent = state.studentName;
+                dom.dropdownEmail.textContent = state.email || `${state.studentName.toLowerCase().replace(/\s+/g, "")}@infotris.edu`;
+                dom.nameInput.value = state.studentName;
 
                 // Welcome message based on progress
                 let motTxt = "Consistency beats intensity. Review your pathway and build coding habits!";
@@ -1741,20 +1817,20 @@
                 } else if (state.streak >= 7) {
                     motTxt = `Outstanding! You are on a ${state.streak}-day streak! Keep compounding your skills. 🚀`;
                 }
-                document.getElementById("welcomeMotivationText").textContent = motTxt;
+                dom.welcomeMessage.textContent = motTxt;
 
                 // 4. Update Stats Row (KPIs)
-                document.getElementById("kpiProgress").textContent = `${completionPercentage}%`;
+                dom.progress.textContent = `${completionPercentage}%`;
                 document.getElementById("kpiStreak").textContent = `🔥 ${state.streak}`;
                 
                 // Study Time: estimate 45m per completed lesson/project + goal progress
                 const studyHours = ((completedCount * 45 + state.dailyGoalProgress) / 60).toFixed(1);
-                document.getElementById("kpiHours").textContent = `${studyHours}h`;
+                dom.hours.textContent = `${studyHours}h`;
                 
                 const certsUnlocked = completionPercentage === 100 ? "1 / 1" : "0 / 1";
-                document.getElementById("kpiCertificates").textContent = certsUnlocked;
+                dom.certificates.textContent = certsUnlocked;
                 
-                document.getElementById("sidebarStreakDays").textContent = `${state.streak} Days`;
+                dom.sidebarStreak.textContent = `${state.streak} Days`;
                 if (state.streak === 0) {
                     document.getElementById("streakIcon").textContent = "💤";
                 } else {
@@ -1775,10 +1851,10 @@
                 }
 
                 // 6. Python progress completeness badge
-                document.getElementById("pythonCompletenessStatus").textContent = `${completionPercentage}% Completed`;
+                dom.completeness.textContent = `${completionPercentage}% Completed`;
 
                 // 7. Render nested Syllabus Checklist
-                const syllabusContainer = document.getElementById("pythonModulesContainer");
+                const syllabusContainer = dom.modules;
                 syllabusContainer.innerHTML = ""; // Clear
 
                 let firstUncompletedFound = false;
@@ -1874,16 +1950,16 @@
                 const currentMins = state.dailyGoalProgress;
                 const goalPct = Math.min(100, Math.round((currentMins / targetMins) * 100));
                 
-                document.getElementById("goalPctText").textContent = `${goalPct}%`;
-                document.getElementById("goalMinText").textContent = `${currentMins}m / ${targetMins}m`;
+                dom.goalPercent.textContent = `${goalPct}%`;
+                dom.goalMinutes.textContent = `${currentMins}m / ${targetMins}m`;
 
                 // SVG offset calculation (radius 36 => circumference = 226.19)
                 const circ = 226.19;
                 const offset = circ - (Math.min(goalPct, 100) / 100) * circ;
-                document.getElementById("goalCircularBar").style.strokeDashoffset = offset;
+                dom.goalBar.style.strokeDashoffset = offset;
 
                 // Sync daily goal dropdown selector value
-                document.getElementById("dailyGoalSelector").value = state.dailyGoalMins;
+                dom.goalSelector.value = state.dailyGoalMins;
 
                 // Sync weekly checklist UI
                 const wGoalInputs = document.querySelectorAll(".weekly-goal-checkbox input");
@@ -1904,13 +1980,13 @@
                 input.addEventListener("change", (e) => {
                     const id = e.target.dataset.goalId;
                     state.weeklyGoals[id] = e.target.checked;
-                    saveStateToStorage();
+                    queueDashboardSave();
                 });
             });
 
             document.getElementById("dailyGoalSelector").addEventListener("change", (e) => {
                 state.dailyGoalMins = parseInt(e.target.value, 10);
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
             });
 
@@ -1919,13 +1995,13 @@
                 if (state.dailyGoalProgress > 120) {
                     state.dailyGoalProgress = 120; // Cap daily limit
                 }
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
             });
 
             // ================= HEATMAP =================
             function generateActivityHeatmap() {
-                const grid = document.getElementById("heatmapGrid");
+                const grid = dom.heatmap;
                 grid.innerHTML = ""; // Clear
 
                 // Generate last 14 days (2 weeks of 7 squares)
@@ -1974,7 +2050,7 @@
                     cell.addEventListener("click", () => {
                         if (idx === 13) {
                             state.dailyGoalProgress = Math.min(state.dailyGoalProgress + 15, 120);
-                            saveStateToStorage();
+                            queueDashboardSave();
                             updateDashboard();
                         } else {
                             alert(`Simulated Study Date: ${formattedDate} (${minLabel})`);
@@ -1987,7 +2063,7 @@
 
             // ================= ACHIEVEMENTS =================
             function generateRecentActivityTimeline(pct, count) {
-                const timeline = document.getElementById("recentActivityTimeline");
+                const timeline = dom.timeline;
                 timeline.innerHTML = "";
 
                 if (pct === 0) {
@@ -2041,14 +2117,7 @@
             });
 
             document.getElementById("btnSim0").addEventListener("click", () => {
-                // Remove all practice & quiz storage entries
-                for (let i = localStorage.length - 1; i >= 0; i--) {
-                    const key = localStorage.key(i);
-                    if (key.startsWith(`${STORAGE_PREFIX}practice-`) || key.startsWith(`${STORAGE_PREFIX}quiz-`)) {
-                        localStorage.removeItem(key);
-                    }
-                }
-                
+                state.completedItems = [];
                 state.streak = 0;
                 state.dailyGoalProgress = 0;
                 state.weeklyGoals = {
@@ -2057,7 +2126,7 @@
                     "github-page": false
                 };
                 
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#00875a");
             });
@@ -2066,21 +2135,9 @@
                 // Clear first
                 document.getElementById("btnSim0").click();
 
-                // Complete first 9 items
+                // Complete the first half of the trail.
                 const countToComplete = Math.floor(ALL_ITEMS.length / 2);
-                for (let i = 0; i < countToComplete; i++) {
-                    const lesson = ALL_ITEMS[i];
-                    // Simulate completed quiz key
-                    const quizKey = `${STORAGE_PREFIX}quiz-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(quizKey, "complete");
-                    
-                    // Simulate checks completed practice key
-                    const practiceKey = `${STORAGE_PREFIX}practice-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(practiceKey, JSON.stringify({
-                        checks: [true, true, true],
-                        code: "# Practice completed successfully\n"
-                    }));
-                }
+                state.completedItems = ALL_ITEMS.slice(0, countToComplete).map(lesson => `${lesson.file}-${lesson.id}`);
 
                 state.streak = 5;
                 state.dailyGoalProgress = 20;
@@ -2090,23 +2147,13 @@
                     "github-page": false
                 };
 
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#00875a");
             });
 
             document.getElementById("btnSim100").addEventListener("click", () => {
-                // Complete all 19 items
-                ALL_ITEMS.forEach(lesson => {
-                    const quizKey = `${STORAGE_PREFIX}quiz-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(quizKey, "complete");
-                    
-                    const practiceKey = `${STORAGE_PREFIX}practice-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(practiceKey, JSON.stringify({
-                        checks: [true, true, true, true],
-                        code: "# Practice completed successfully\n"
-                    }));
-                });
+                state.completedItems = ALL_ITEMS.map(lesson => `${lesson.file}-${lesson.id}`);
 
                 state.streak = 12;
                 state.dailyGoalProgress = 30;
@@ -2116,21 +2163,21 @@
                     "github-page": true
                 };
 
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#00875a");
             });
 
             document.getElementById("btnIncrementStreak").addEventListener("click", () => {
                 state.streak += 1;
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#d4af37");
             });
 
             document.getElementById("btnResetStreak").addEventListener("click", () => {
                 state.streak = 0;
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#a30000");
             });
@@ -2139,7 +2186,7 @@
                 const newName = document.getElementById("sandboxNameInput").value.trim();
                 if (newName) {
                     state.studentName = newName;
-                    saveStateToStorage();
+                    queueDashboardSave();
                     updateDashboard();
                     showSandboxFlash("#00875a");
                 }
@@ -2172,10 +2219,11 @@
                 document.getElementById("certIssueDate").textContent = issueDateText;
 
                 // Random Verification ID
-                let hash = localStorage.getItem(`${STORAGE_PREFIX}cert-hash`);
+                let hash = state.certificateHash;
                 if (!hash) {
                     hash = "IT-PY-" + Math.random().toString(16).substr(2, 8).toUpperCase();
-                    localStorage.setItem(`${STORAGE_PREFIX}cert-hash`, hash);
+                    state.certificateHash = hash;
+                    queueDashboardSave();
                 }
                 document.getElementById("certVerificationId").textContent = `VERIFICATION ID: ${hash}`;
 
@@ -2202,12 +2250,37 @@
             // ================= SESSION =================
             document.getElementById("simLogoutBtn").addEventListener("click", (e) => {
                 e.preventDefault();
-                alert("Simulating sign-out. Cleaning active session...");
-                window.location.href = "./";
+                signOut(auth)
+                    .catch(error => console.warn("Unable to sign out.", error))
+                    .finally(() => window.location.replace("signup.html"));
             });
 
             // ================= INITIALIZATION =================
-            updateDashboard();
+            function setLoadingState(message) {
+                document.body.setAttribute("aria-busy", "true");
+                dom.welcomeMessage.textContent = message;
+                dom.completeness.textContent = "Loading…";
+            }
+
+            onAuthStateChanged(auth, async user => {
+                if (!user) {
+                    window.location.replace("signup.html");
+                    return;
+                }
+
+                setLoadingState("Loading your learning dashboard…");
+                try {
+                    state = await loadUserState(user);
+                    updateDashboard();
+                } catch (error) {
+                    console.warn("Dashboard data is unavailable.", error);
+                    state = createDefaultState(user);
+                    updateDashboard();
+                    dom.welcomeMessage.textContent = "Your dashboard is available in offline mode. Changes will sync when Firestore reconnects.";
+                } finally {
+                    document.body.removeAttribute("aria-busy");
+                }
+            });
         });
     </script>
 </body>
