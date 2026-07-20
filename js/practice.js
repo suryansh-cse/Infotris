@@ -3,7 +3,7 @@
  * Works on static HTML lesson and project pages.
  */
 (function () {
-  const STORAGE_PREFIX = "openlearn-practice-";
+  const STORAGE_PREFIX = "infotris-practice-";
 
   function storageKey(panel) {
     const page = window.location.pathname.replace(/\.html$/, "").replace(/^\//, "");
@@ -146,7 +146,7 @@
     const questions = quizEl.querySelectorAll(".quiz-question");
     const submitBtn = quizEl.querySelector(".quiz-btn-submit");
 
-    const storageKey = "openlearn-quiz-" + window.location.pathname.replace(/\.html$/, "").replace(/^\//, "") + "-" + (quizEl.dataset.quizId || "default");
+    const storageKey = "infotris-quiz-" + window.location.pathname.replace(/\.html$/, "").replace(/^\//, "") + "-" + (quizEl.dataset.quizId || "default");
     let isQuizComplete = false;
 
     try {
