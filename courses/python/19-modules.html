@@ -34,139 +34,297 @@
         </header>
         <article class="lesson-content">
             <div class="lesson-content__inner">
-                <h2>1. Object-Oriented Programming (OOP)</h2>
-                <p>Object-Oriented Programming is a design paradigm used to structure software by grouping related data and behaviors into individual bundles called **objects**. In Python, you define a blueprint for these objects using the <code>class</code> keyword. Objects are instances of a class.</p>
-                <p>Classes contain a constructor method called <code>__init__</code> which initializes the object's properties (attributes) when a new instance is created. Every instance method inside a class must accept <code>self</code> as its first parameter, which refers to the specific object instance calling the method.</p>
-                <pre><code>class Student:
-    # Constructor method
-    def __init__(self, name, score):
-        self.name = name          # Instance attribute
-        self.score = score        # Instance attribute
+                <h2>1. OOP & Modules in Python</h2>
+                <p>As your Python programs grow from small scripts into full applications, organizing code becomes your most important job. <strong>Object-Oriented Programming (OOP)</strong> allows you to model real-world concepts into reusable components, while <strong>Modules</strong> let you break giant script files into clean, manageable, multi-file projects.</p>
 
-    # Instance method
-    def is_passing(self):
-        return self.score &gt;= 50
-
-# Instantiating an object
-s1 = Student("Aman", 78)
-print(s1.name)             # Prints: Aman
-print(s1.is_passing())     # Prints: True</code></pre>
-
-                <h2>2. Code Organization: Modules</h2>
-                <p>As applications grow, keeping all logic in a single file becomes unmanageable. A **module** is simply a Python file (e.g., <code>helpers.py</code>) containing functions, classes, or variables that can be imported and reused in another script (e.g., <code>main.py</code>).</p>
-                <p>Python also features a vast standard library of built-in modules that you can import directly:</p>
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
                 <ul>
-                    <li><code>import random</code>: Used for random numbers and shuffling sequences.</li>
-                    <li><code>import math</code>: Used for advanced mathematical operations (like square roots, trigonometric ratios).</li>
+                    <li>Understand the core principles of Object-Oriented Programming (OOP): Classes and Objects.</li>
+                    <li>Master the constructor <code>__init__()</code> method and the <code>self</code> parameter.</li>
+                    <li>Define custom instance attributes and methods.</li>
+                    <li>Create, import, and organize custom Python modules using <code>import</code> syntax.</li>
+                    <li>Protect executable code using the <code>if __name__ == "__main__":</code> idiom.</li>
                 </ul>
-                <pre><code>import random
-from math import sqrt
 
-print(random.randint(1, 10))  # Prints a random integer between 1 and 10
-print(sqrt(25))               # Prints: 5.0</code></pre>
+                <h2>2. Core OOP Concepts: Classes & Objects</h2>
+                <p>At its heart, Object-Oriented Programming is built around two key concepts:</p>
+                <ul>
+                    <li><strong>Class:</strong> A blueprint or template for creating objects. It defines what data an object holds (attributes) and what actions it can perform (methods).</li>
+                    <li><strong>Object (Instance):</strong> An individual, concrete instance created from a class blueprint.</li>
+                </ul>
 
-                <h2>3. Common Beginner Mistakes</h2>
+                <p>Think of a <strong>Class</strong> like an architectural blueprint for a house. The blueprint itself isn't a physical house, but it defines the structure (number of rooms, doors, color). An <strong>Object</strong> is the actual physical house built using that blueprint. You can build 50 different houses (objects) from a single blueprint (class)!</p>
+
+                <h2>3. Anatomy of a Class: <code>__init__</code> and <code>self</code></h2>
+                <p>In Python, classes are created using the <code>class</code> keyword. Inside a class, we use a special built-in method named <code>__init__()</code> (the <strong>constructor</strong>) to initialize an object's starting data when it is created.</p>
+
+                <p>The <strong><code>self</code> parameter</strong> represents the specific object instance currently being acted upon. Python passes <code>self</code> automatically under the hood whenever you call an instance method.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>class Dog:
+    # Constructor method runs automatically when creating a new object
+    def __init__(self, name, breed, age):
+        # Instance attributes
+        self.name = name
+        self.breed = breed
+        self.age = age
+
+    # Instance method (action the object can take)
+    def bark(self):
+        return f"{self.name} says Woof!"
+
+# Creating instances (objects) of the Dog class
+dog1 = Dog("Buddy", "Golden Retriever", 3)
+dog2 = Dog("Luna", "Husky", 2)
+
+# Accessing attributes and calling methods
+print(f"{dog1.name} is a {dog1.breed}.")  # Output: Buddy is a Golden Retriever.
+print(dog2.bark())                         # Output: Luna says Woof!</code></pre>
+
+                <h2>4. Working with Python Modules</h2>
+                <p>A <strong>Module</strong> in Python is simply a single file containing Python code (with a <code>.py</code> extension)—such as functions, classes, and variables. Modules allow you to divide large projects into separate files to keep your codebase clean and scalable.</p>
+
+                <p>You can import built-in Python modules (like <code>math</code>, <code>random</code>, or <code>datetime</code>) or create your own custom modules!</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Module Import Techniques</h3>
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Syntax Pattern</th>
+                            <th style="padding: 0.5rem;">Example</th>
+                            <th style="padding: 0.5rem;">How to Call Functions</th>
+                            <th style="padding: 0.5rem;">Best Practice Recommendation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Full Import</strong></td>
+                            <td style="padding: 0.5rem;"><code>import math</code></td>
+                            <td style="padding: 0.5rem;"><code>math.sqrt(16)</code></td>
+                            <td style="padding: 0.5rem;">Best for readability; avoids naming conflicts.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Specific Import</strong></td>
+                            <td style="padding: 0.5rem;"><code>from math import sqrt</code></td>
+                            <td style="padding: 0.5rem;"><code>sqrt(16)</code></td>
+                            <td style="padding: 0.5rem;">Great when you only need 1 or 2 specific items.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Aliased Import</strong></td>
+                            <td style="padding: 0.5rem;"><code>import random as rnd</code></td>
+                            <td style="padding: 0.5rem;"><code>rnd.randint(1, 10)</code></td>
+                            <td style="padding: 0.5rem;">Ideal for long module names or common aliases (e.g., <code>pd</code> for pandas).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>5. Creating & Guarding Custom Modules</h2>
+                <p>Suppose you create a file named <code>bank_utils.py</code> containing helper functions and classes. To prevent code inside <code>bank_utils.py</code> from running automatically when imported by another script, wrap test code inside <code>if __name__ == "__main__":</code>.</p>
+
+                <p><strong>File 1: <code>bank_utils.py</code> (Custom Module)</strong></p>
+                <pre><code>class BankAccount:
+    def __init__(self, owner, balance=0.0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            return True
+        return False
+
+# Execution Guard: Runs ONLY when this file is executed directly!
+if __name__ == "__main__":
+    test_acc = BankAccount("Test User", 100)
+    print("Testing module locally: Account created successfully!")</code></pre>
+
+                <p><strong>File 2: <code>main.py</code> (Main Application)</strong></p>
+                <pre><code># Importing custom class from our custom module
+from bank_utils import BankAccount
+
+account = BankAccount("Alice", 500.0)
+account.deposit(250.0)
+print(f"{account.owner}'s Balance: ${account.balance:.2f}")  # Output: Alice's Balance: $750.00</code></pre>
+
+                <h2>6. Real World Example: E-Commerce Shopping Cart</h2>
+                <p>Combining classes and objects allows you to easily model complex business logic like shopping carts, products, and checkout operations:</p>
+
+                <pre><code>class Product:
+    def __init__(self, product_id, name, price):
+        self.product_id = product_id
+        self.name = name
+        self.price = price
+
+class ShoppingCart:
+    def __init__(self, customer_name):
+        self.customer_name = customer_name
+        self.items = []  # List holding Product instances
+
+    def add_product(self, product):
+        self.items.append(product)
+        print(f"Added {product.name} to {self.customer_name}'s cart.")
+
+    def calculate_total(self):
+        return sum(product.price for product in self.items)
+
+# Usage Example
+p1 = Product(101, "Wireless Mouse", 29.99)
+p2 = Product(102, "Mechanical Keyboard", 89.99)
+
+cart = ShoppingCart("Sarah")
+cart.add_product(p1)
+cart.add_product(p2)
+
+print(f"Cart Total: ${cart.calculate_total():.2f}")  # Output: Cart Total: $119.98</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
                 <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
                     <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
                     <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
-                        <li><strong>Forgetting 'self'</strong>: Declaring a class method like <code>def get_name():</code>. When called on an object, Python will raise a <code>TypeError: takes 0 positional arguments but 1 was given</code>. Always write: <code>def get_name(self):</code>.</li>
-                        <li><strong>Forgetting parenthesis on instantiation</strong>: Writing <code>s1 = Student</code> instead of <code>s1 = Student("Aman", 78)</code>. The former assigns the class blueprint itself to the variable, rather than creating a new object.</li>
-                        <li><strong>Circular Imports</strong>: Importing file A inside file B, and file B inside file A. This creates an import loop and throws an <code>ImportError</code>. Keep imports linear.</li>
+                        <li><strong>Forgetting <code>self</code> as the First Parameter</strong>: Defining instance methods as <code>def bark():</code> instead of <code>def bark(self):</code> causes a <code>TypeError: bark() takes 0 positional arguments but 1 was given</code> when called.</li>
+                        <li><strong>Forgetting <code>self.</code> When Assigning Attributes</strong>: Writing <code>name = name</code> inside <code>__init__</code> creates a temporary local variable rather than storing an attribute on the object! Always use <code>self.name = name</code>.</li>
+                        <li><strong>Confusing Class Attributes vs. Instance Attributes</strong>: Defining variables directly under the <code>class</code> block creates a single variable shared across ALL instances, whereas instance attributes set inside <code>__init__</code> belong uniquely to each instance.</li>
+                        <li><strong>Circular Imports</strong>: Importing <code>moduleA</code> inside <code>moduleB</code> while simultaneously importing <code>moduleB</code> inside <code>moduleA</code> will cause an <code>ImportError</code>. Keep your module hierarchy linear.</li>
                     </ul>
                 </div>
 
-                <section class="practice-panel" data-practice-type="lesson" data-practice-id="09-modules" aria-labelledby="practice-title">
+                <h2>8. Code Examples</h2>
+                <p>Here are standard, production-ready OOP and module patterns in Python:</p>
+
+                <pre><code># 1. Standard Class Definition with Default Values
+class User:
+    def __init__(self, username, email, is_admin=False):
+        self.username = username
+        self.email = email
+        self.is_admin = is_admin
+
+    def promote(self):
+        self.is_admin = True
+        print(f"User {self.username} was promoted to Admin.")
+
+user1 = User("johndoe", "john@example.com")
+user1.promote()
+
+# 2. Importing Built-in Modules with Aliases
+import random as rnd
+
+dice_roll = rnd.randint(1, 6)
+print(f"You rolled a {dice_roll}!")</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="11-oop-modules" aria-labelledby="practice-title">
                     <div class="practice-panel__header">
                         <span class="practice-panel__eyebrow">Interactive Practice</span>
-                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Bank Account Simulator</h2>
-                        <p class="practice-panel__hint">Define a <code>BankAccount</code> class with attributes <code>owner</code> and <code>balance</code> (starting at 0). Write methods <code>deposit(amount)</code> (adds to balance) and <code>withdraw(amount)</code> (subtracts from balance). Put this class in a file named <code>bank.py</code>, then write a script in <code>main.py</code> to import it, create an account, perform transactions, and print the resulting balance.</p>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Book Class Builder</h2>
+                        <p class="practice-panel__hint">Create a class named <code>Book</code> with an <code>__init__()</code> method that accepts <code>title</code>, <code>author</code>, and <code>pages</code>. Add a method named <code>get_summary()</code> that returns a formatted string like: <code>"’Title’ by Author (Pages pages)"</code>.</p>
                         <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
                         <span class="practice-progress__label">0% complete</span>
                     </div>
                     <div class="practice-workspace">
                         <label for="practice-code">Your code</label>
-                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="# bank.py&#10;class BankAccount:&#10;    def __init__(self, owner):&#10;        self.owner = owner&#10;        self.balance = 0&#10;    def deposit(self, amount):&#10;        self.balance += amount&#10;    def withdraw(self, amount):&#10;        self.balance -= amount"></textarea>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="class Book:&#10;    def __init__(self, title, author, pages):&#10;        # Initialize attributes&#10;        pass&#10;&#10;    def get_summary(self):&#10;        # Return summary string&#10;        pass&#10;&#10;# Create instance&#10;my_book = Book('1984', 'George Orwell', 328)&#10;print(my_book.get_summary())&#10;"></textarea>
                     </div>
                     <fieldset class="practice-checklist">
                         <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>Class <code>BankAccount</code> defined with constructor and <code>self</code> attributes</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Methods update <code>self.balance</code> correctly</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Class is imported into an entry script, instantiated, and transactions are printed</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I defined <code>class Book:</code> and the <code>__init__(self, title, author, pages)</code> method</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I stored attributes using <code>self.title</code>, <code>self.author</code>, and <code>self.pages</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I created <code>get_summary(self)</code> and successfully instantiated a <code>Book</code> object</span></label>
                     </fieldset>
                     <div class="practice-success" hidden>
                         <span class="practice-success__icon" aria-hidden="true">✓</span>
                         <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Classes and modular structures are complete. Take the quiz to unlock Problem Solving.</p>
+                        <p class="practice-success__text">Awesome job! You've mastered defining classes, initializers, and instance methods in Python.</p>
                     </div>
                 </section>
 
-                <section class="quiz-panel" data-quiz-id="09-modules">
+                <section class="quiz-panel" data-quiz-id="11-oop-modules">
                     <div class="quiz-panel__header">
                         <span class="quiz-panel__eyebrow">Quiz</span>
                         <h2 class="quiz-panel__title">Test Your Understanding</h2>
                     </div>
                     
                     <div class="quiz-question">
-                        <p class="quiz-question__text">1. What is the purpose of the `self` parameter in Python class methods?</p>
+                        <p class="quiz-question__text">1. What role does the `self` parameter play in Python class methods?</p>
                         <div class="quiz-options">
                             <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not use 'self' to declare variables as global.">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. `self` is a parameter, not a keyword that imports libraries.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">It makes variables accessible globally across all modules</span>
+                                <span class="quiz-option__text">It imports external modules into the class scope.</span>
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! 'self' acts as a reference pointing to the specific instance of the object calling the method, allowing access to its attributes.">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! `self` refers to the specific object instance accessing the class method or attribute.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">It references the specific object instance calling the method</span>
+                                <span class="quiz-option__text">It represents the specific instance of the object being created or modified.</span>
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. It is standard parameter naming, not a system keyword for speed optimization.">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. `__init__()` acts as the constructor, not `self`.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">It optimizes execution speed by bypassing the interpreter</span>
+                                <span class="quiz-option__text">It forces the function to automatically return values without a return statement.</span>
                             </label>
                         </div>
                         <div class="quiz-feedback"></div>
                     </div>
 
                     <div class="quiz-question">
-                        <p class="quiz-question__text">2. Which special method is invoked automatically when you instantiate a new object from a class?</p>
+                        <p class="quiz-question__text">2. Which special method is automatically invoked when creating a new instance of a class?</p>
                         <div class="quiz-options">
                             <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. '__new__' exists for raw allocation but constructor logic goes in '__init__'.">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. `__create__()` is not a standard Python constructor method.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">__new__</span>
+                                <span class="quiz-option__text">__create__()</span>
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The '__init__' constructor runs immediately when a class object is created, initializing attributes.">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! `__init__()` is the class constructor that initializes object attributes when an instance is instantiated.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">__init__</span>
+                                <span class="quiz-option__text">__init__()</span>
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. '__str__' handles string representation of objects.">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. `__start__()` is not used for class initialization.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">__str__</span>
+                                <span class="quiz-option__text">__start__()</span>
                             </label>
                         </div>
                         <div class="quiz-feedback"></div>
                     </div>
 
                     <div class="quiz-question">
-                        <p class="quiz-question__text">3. How do you import a specific function `randint` from the `random` module?</p>
+                        <p class="quiz-question__text">3. Why do developers use `if __name__ == "__main__":` inside custom module files?</p>
                         <div class="quiz-options">
                             <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. This is incorrect syntax.">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Wrapping executable code in this guard prevents test code from auto-executing when imported by other files.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">import randint from random</span>
+                                <span class="quiz-option__text">To ensure code inside the block executes ONLY when the script is run directly, not when imported.</span>
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! In Python, specific functions are loaded using: 'from module import name'.">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. It does not speed up module compilation or execution.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">from random import randint</span>
+                                <span class="quiz-option__text">To double the execution speed of imported functions.</span>
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. This is invalid syntax.">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Syntax checking is done automatically by Python regardless of this check.">
                                 <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">from random load randint</span>
+                                <span class="quiz-option__text">To check if the module contains syntax errors before loading.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. What is a Python Module?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. A module is simply a Python source file, not a hardware requirement.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A special hardware chip required to run Python programs.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Any `.py` file containing functions, classes, or code is a module that can be imported.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A single `.py` file containing Python definitions and statements that can be imported.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Databases are external storage, while modules are `.py` source files.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A database table used to store permanent record entries.</span>
                             </label>
                         </div>
                         <div class="quiz-feedback"></div>
@@ -175,9 +333,25 @@ print(sqrt(25))               # Prints: 5.0</code></pre>
                     <button type="button" class="quiz-btn-submit">Submit Answers</button>
                 </section>
 
+                <h2>9. Challenge Project</h2>
+                <p><strong>Modular Library Inventory System:</strong> Create two Python files in the same directory:</p>
+                <ol>
+                    <li><code>library_item.py</code>: Defines a <code>LibraryItem</code> class with attributes <code>title</code>, <code>item_id</code>, and <code>is_checked_out</code> (default <code>False</code>). Include methods <code>check_out()</code> and <code>return_item()</code>.</li>
+                    <li><code>main.py</code>: Import the <code>LibraryItem</code> class, create three item instances (e.g. books/DVDs), simulate checking out two items, and print an updated inventory status summary!</li>
+                </ol>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>A <strong>Class</strong> serves as a blueprint; an <strong>Object</strong> is a unique instance built from that blueprint.</li>
+                    <li>Use the <strong><code>__init__()</code></strong> method to set up initial object attributes.</li>
+                    <li>The <strong><code>self</code></strong> keyword gives instance methods access to the object's own attributes and methods.</li>
+                    <li>Any Python file ending in <code>.py</code> can act as an importable <strong>Module</strong>.</li>
+                    <li>Guard module test code with <strong><code>if __name__ == "__main__":</code></strong> to prevent accidental code execution upon import.</li>
+                </ul>
+
                 <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
                     <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
-                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">OOP and modules are complete! You are ready to explore **Problem Solving and Debugging Strategies** in Lesson 10.</p>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Object-Oriented Programming and Modules! Next up, we will learn how to make our applications crash-proof with **Exception Handling in Python**!</p>
                 </div>
 
                 <nav class="lesson-nav">
