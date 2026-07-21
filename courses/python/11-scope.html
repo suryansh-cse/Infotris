@@ -1,0 +1,359 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Scopes </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+          
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 2</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="10-returns">← Previous</a>
+                <p class="lesson-header__label">Lesson 11 · Python</p>
+                <h1 class="lesson-header__title"> Scope</h1>
+                <p class="lesson-header__meta">~30 min</p>
+            </div>
+        </header>
+  <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Scope in Python</h2>
+                <p>Have you ever created a variable inside a function, tried to print it outside that function, and hit a frustrating <code>NameError</code>? That happens because of <strong>Scope</strong>. Variable scope is the fundamental rulebook that determines where variables live, where they can be accessed, and how long they stay in memory during your program's execution.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand what scope is and why Python enforces variable isolation.</li>
+                    <li>Master the <strong>LEGB Rule</strong> (Local, Enclosing, Global, Built-in).</li>
+                    <li>Safely modify outer variables using the <code>global</code> and <code>nonlocal</code> keywords.</li>
+                    <li>Avoid common scope pitfall errors like <code>UnboundLocalError</code> and variable shadowing.</li>
+                </ul>
+
+                <h2>2. What is Variable Scope?</h2>
+                <p>In Python, variables aren't automatically available everywhere. The region of a program where a variable is recognized and accessible is called its <strong>scope</strong>. If a variable is defined inside a function, it exists only while that function is running.</p>
+
+                <p>Think of scope like security clearances in a building. Anyone inside a private office (Local scope) can look out into the main hallway (Global scope), but people standing in the hallway cannot look inside a locked private office.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>def greet():
+    message = "Hello from inside!"  # Local variable
+    print(message)
+
+greet()  # Output: Hello from inside!
+
+# Trying to access 'message' outside the function will fail!
+# print(message)  # NameError: name 'message' is not defined</code></pre>
+
+                <h2>3. The LEGB Rule: How Python Looks Up Variables</h2>
+                <p>When you reference a variable name in Python, the interpreter searches for it in a specific, rigid order known as the <strong>LEGB Rule</strong>. It stops searching as soon as it finds the first match:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Letter</th>
+                            <th style="padding: 0.5rem;">Scope Level</th>
+                            <th style="padding: 0.5rem;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>L</strong></td>
+                            <td style="padding: 0.5rem;"><strong>Local</strong></td>
+                            <td style="padding: 0.5rem;">Names assigned inside a function or lambda expression.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>E</strong></td>
+                            <td style="padding: 0.5rem;"><strong>Enclosing</strong></td>
+                            <td style="padding: 0.5rem;">Names in the local scope of any and all outer/nested functions.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>G</strong></td>
+                            <td style="padding: 0.5rem;"><strong>Global</strong></td>
+                            <td style="padding: 0.5rem;">Names assigned at the top level of a module/file.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>B</strong></td>
+                            <td style="padding: 0.5rem;"><strong>Built-in</strong></td>
+                            <td style="padding: 0.5rem;">Names pre-loaded into Python (e.g., <code>print</code>, <code>len</code>, <code>range</code>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Python code example demonstrating LEGB:</strong></p>
+                <pre><code>x = "Global X"  # Global Scope
+
+def outer_function():
+    x = "Enclosing X"  # Enclosing Scope
+    
+    def inner_function():
+        x = "Local X"  # Local Scope
+        print(x)       # Python finds Local X first!
+        
+    inner_function()
+
+outer_function()  # Output: Local X</code></pre>
+
+                <h2>4. The <code>global</code> Keyword</h2>
+                <p>By default, you can <em>read</em> a global variable inside a function, but if you try to <em>assign</em> a new value to it, Python creates a new local variable instead. To explicitly tell Python that you want to modify a top-level global variable from inside a function, use the <code>global</code> keyword.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>score = 0  # Global variable
+
+def increase_score():
+    global score  # Informs Python to use the global 'score'
+    score += 10   # Modifies the global variable directly
+
+print(score)      # Output: 0
+increase_score()
+print(score)      # Output: 10</code></pre>
+
+                <h2>5. The <code>nonlocal</code> Keyword</h2>
+                <p>When working with nested functions (a function inside another function), the <code>global</code> keyword won't target the outer function's variable. To modify a variable in the <strong>enclosing</strong> function's scope, Python provides the <code>nonlocal</code> keyword.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>def make_counter():
+    count = 0  # Enclosing variable
+    
+    def increment():
+        nonlocal count  # Targets 'count' in the outer make_counter function
+        count += 1
+        return count
+        
+    return increment
+
+counter = make_counter()
+print(counter())  # Output: 1
+print(counter())  # Output: 2</code></pre>
+
+                <h2>6. Real World Example</h2>
+                <p>Consider a user authentication session manager in a web application. You want to track whether a user is logged in globally while allowing temporary local operations during login verification.</p>
+
+                <pre><code># Global application state
+CURRENT_USER = None
+IS_AUTHENTICATED = False
+
+def login_user(username, password):
+    global CURRENT_USER, IS_AUTHENTICATED
+    
+    # Local variables for validation
+    db_user = "alex_dev"
+    db_pass = "supersecret123"
+    
+    if username == db_user and password == db_pass:
+        CURRENT_USER = username
+        IS_AUTHENTICATED = True
+        print(f"Success: Welcome {CURRENT_USER}!")
+    else:
+        print("Error: Invalid credentials.")
+
+# Attempting login
+login_user("alex_dev", "supersecret123")
+
+print(f"App State -> User: {CURRENT_USER}, Authed: {IS_AUTHENTICATED}")
+# Output: App State -> User: alex_dev, Authed: True</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>UnboundLocalError</strong>: Modifying a global variable inside a function without declaring <code>global variable_name</code> first causes Python to crash because it treats the variable as local before assignment.</li>
+                        <li><strong>Variable Shadowing (Overwriting Built-ins)</strong>: Naming a local or global variable the same name as a Python built-in (e.g., <code>list = [1, 2, 3]</code> or <code>str = "text"</code>) breaks the built-in function for the rest of your script.</li>
+                        <li><strong>Overusing Global Variables</strong>: Relying heavily on global variables makes code fragile, difficult to debug, and prone to unintended side effects. Pass arguments to functions instead!</li>
+                        <li><strong>Expecting Function Variables to Persist</strong>: Assuming variables created inside a function can be accessed after the function finishes running.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are handy patterns when working with variable scopes in Python:</p>
+                <pre><code># 1. Variable Shadowing Warning
+# BAD: Overwriting the built-in len() function
+# len = 10 
+# print(len("hello"))  # TypeError: 'int' object is not callable
+
+# GOOD: Use descriptive variable names
+item_count = 10
+print(len("hello"))    # Output: 5
+
+# 2. Scope inside loops and conditionals
+# Note: In Python, 'if' blocks and 'for' loops DO NOT create new scopes!
+if True:
+    status_code = 200
+
+print(status_code)  # Output: 200 (Accessible globally!)</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="07-scope" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Fixed Global Score Tracker</h2>
+                        <p class="practice-panel__hint">Define a global variable <code>total_points = 100</code>. Create a function <code>add_bonus()</code> that uses the <code>global</code> keyword to add <code>50</code> to <code>total_points</code>. Call the function and print <code>total_points</code>.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="total_points = 100&#10;&#10;def add_bonus():&#10;    # Use global keyword here&#10;    pass&#10;&#10;# Call function and print total_points&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I defined a global variable <code>total_points = 100</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I used <code>global total_points</code> inside the function</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I called <code>add_bonus()</code> and printed <code>150</code></span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Great job! You successfully used the global keyword to modify outer variables safely.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="07-scope">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What order does Python follow when looking up variable names (LEGB rule)?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python starts with the narrowest local scope first.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Global → Enclosing → Local → Built-in</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Python looks up names in the order: Local, Enclosing, Global, and Built-in.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Local → Enclosing → Global → Built-in</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Built-in is the final fallback level, not the first.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Built-in → Local → Global → Enclosing</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which keyword allows a nested function to modify a variable in its outer (enclosing) function?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The global keyword targets the top-level module scope, not nested functions.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">global</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The nonlocal keyword targets variables in the enclosing (outer function) scope.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">nonlocal</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. 'outer' is not a valid Python scope keyword.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">outer</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What happens if you try to modify a global variable inside a function without using `global`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! If you try to reassign or increment a global variable locally, Python raises an UnboundLocalError.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python throws an UnboundLocalError when referenced before assignment.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python will not automatically update global variables without permission.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">The global variable is updated automatically.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python does not create a backup copy automatically.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python converts the variable into a list automatically.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. Do 'if' statements and 'for' loops create their own local scope in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Unlike languages like C++ or Java, Python block structures like loops and conditionals do not create scope.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Yes, all block statements create local scope.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Only functions, classes, and modules create new scopes in Python. Variables defined inside loops or if-blocks remain in the surrounding scope.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">No, only functions, classes, and modules create scope.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Bank Account Closure Tracker:</strong> Create a closure function <code>create_bank_account(initial_balance)</code>. Inside it, maintain a private <code>balance</code> variable. Define two inner functions: <code>deposit(amount)</code> and <code>withdraw(amount)</code> that use <code>nonlocal</code> to update and return the current balance. Return both functions so they can be called externally!</p>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li><strong>LEGB</strong> defines the exact lookup hierarchy: Local → Enclosing → Global → Built-in.</li>
+                    <li>Variables created inside a function are <strong>Local</strong> and destroyed when the function ends.</li>
+                    <li>Use <code>global</code> to modify top-level script variables from inside a function.</li>
+                    <li>Use <code>nonlocal</code> to modify variables in nested outer functions.</li>
+                    <li>Avoid naming your own variables after built-in Python functions like <code>list</code>, <code>dict</code>, or <code>str</code>.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Python Scope! Next up, we will explore key concept modules in **Dictionaries & Key-Value Storage**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="10-returns.html">← return </a>
+                    <a class="lesson-nav__next" href="12-lists.html">Dictionaries →</a>
+                </nav>
+            </div>
+        </article>
+  </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html
