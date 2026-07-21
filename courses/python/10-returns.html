@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Variables and data types</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+          
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 2</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="09-argument">← Previous</a>
+                <p class="lesson-header__label">Lesson 10 · Python</p>
+                <h1 class="lesson-header__title"> Returns</h1>
+                <p class="lesson-header__meta">~30 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Returns in Python</h2>
+                <p>Functions are workhorses in Python. They can take inputs (arguments), process data, and execute commands. However, a function's real superpower is its ability to send data <strong>back</strong> to the main program using the <code>return</code> statement. Mastering return values allows you to chain functions together, store output in variables, and build complex software systems.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand the purpose and behavior of the <code>return</code> statement in Python.</li>
+                    <li>Master the fundamental difference between <code>print()</code> and <code>return</code>.</li>
+                    <li>Learn how to return multiple values from a single function using tuple unpacking.</li>
+                    <li>Use early returns (guard clauses) to streamline function control flow.</li>
+                </ul>
+
+                <h2>2. What is the return Statement?</h2>
+                <p>The <code>return</code> statement is used inside a function to exit the function and hand a value back to the caller. When Python encounters a <code>return</code> keyword, execution of that function ends immediately. Whatever expression follows the <code>return</code> keyword is evaluated and sent back as the result of the function call.</p>
+                
+                <p>Think of calling a function like giving an assignment to a coworker. If you ask them to perform a calculation, you don't just want them to write the answer on a sticky note and throw it in the trash; you want them to hand the final report back to you so you can use it in your next meeting. The <code>return</code> statement is that handover.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>def square(number):
+    return number * number
+
+# The function returns 25, which gets stored in 'result'
+result = square(5)
+
+print(result)       # Output: 25
+print(result + 10)  # Output: 35 (we can use 'result' in further math!)</code></pre>
+
+                <h2>3. Print vs Return: The Golden Rule</h2>
+                <p>One of the most common hurdles for Python beginners is confusing <code>print()</code> with <code>return</code>. They may look like they do similar things when running code in a console, but they serve completely different purposes:</p>
+                <ul>
+                    <li><strong><code>print()</code>:</strong> Displays text on the screen for a human to see. It does <em>not</em> save or pass data anywhere. A function that only prints returns <code>None</code> by default.</li>
+                    <li><strong><code>return</code>:</strong> Passes data back to your code so it can be saved in a variable, passed into another function, or used in logical comparisons. It does <em>not</em> automatically display text on the screen.</li>
+                </ul>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># Example A: Using print()
+def add_with_print(a, b):
+    print(a + b)
+
+# Example B: Using return
+def add_with_return(a, b):
+    return a + b
+
+val1 = add_with_print(3, 4)   # Displays 7 on screen, but val1 holds None
+val2 = add_with_return(3, 4)  # Nothing displays on screen, but val2 holds 7
+
+print("val1 is:", val1)  # Output: val1 is: None
+print("val2 is:", val2)  # Output: val2 is: 7</code></pre>
+
+                <h2>4. Returning Multiple Values</h2>
+                <p>Unlike many other programming languages, Python allows a function to return multiple values at once. You simply separate the return values with commas. Under the hood, Python automatically packs these values into a single <strong>tuple</strong>, which you can easily unpack into separate variables.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>def get_user_stats():
+    name = "Alex"
+    level = 42
+    score = 9850
+    return name, level, score  # Returns a tuple of 3 items
+
+# Unpacking the returned values into three distinct variables
+player_name, player_level, player_score = get_user_stats()
+
+print(f"Player: {player_name}")    # Output: Player: Alex
+print(f"Level: {player_level}")    # Output: Level: 42
+print(f"Score: {player_score}")    # Output: Score: 9850</code></pre>
+
+                <h2>5. Early Returns & Control Flow</h2>
+                <p>Because the <code>return</code> statement immediately stops function execution, you can use it to exit a function early if certain conditions aren't met. This pattern is often called a <strong>guard clause</strong>, and it helps prevent deeply nested <code>if/else</code> blocks, making your code cleaner and easier to read.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>def divide_numbers(numerator, denominator):
+    # Guard clause: check for invalid input early
+    if denominator == 0:
+        return "Error: Cannot divide by zero!"
+    
+    # If denominator is not 0, execution continues here
+    return numerator / denominator
+
+print(divide_numbers(10, 2))  # Output: 5.0
+print(divide_numbers(10, 0))  # Output: Error: Cannot divide by zero!</code></pre>
+
+                <h2>6. Real World Example</h2>
+                <p>Imagine you are building a feature for a health app that calculates a user's Body Mass Index (BMI) and determines their health category based on the numerical result.</p>
+
+                <pre><code>def calculate_bmi(weight_kg, height_m):
+    # Calculate raw BMI score
+    bmi = weight_kg / (height_m ** 2)
+    
+    # Determine health category based on BMI score
+    if bmi < 18.5:
+        category = "Underweight"
+    elif 18.5 <= bmi < 25.0:
+        category = "Normal weight"
+    elif 25.0 <= bmi < 30.0:
+        category = "Overweight"
+    else:
+        category = "Obesity"
+        
+    # Return both the rounded score and the text category
+    return round(bmi, 2), category
+
+# User inputs
+user_weight = 70  # in kg
+user_height = 1.75 # in meters
+
+# Call function and capture returned values
+bmi_score, bmi_category = calculate_bmi(user_weight, user_height)
+
+print(f"Your BMI is {bmi_score}, which is classified as: {bmi_category}.")
+# Output: Your BMI is 22.86, which is classified as: Normal weight.</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Unreachable Code After Return</strong>: Any code written below a <code>return</code> statement inside the same block will never run.</li>
+                        <li><strong>Forgetting the return Keyword</strong>: If you perform calculations in a function but forget to write <code>return</code>, calling the function returns <code>None</code>.</li>
+                        <li><strong>Printing a Function That Uses print()</strong>: Writing <code>print(my_function())</code> when <code>my_function()</code> already uses <code>print()</code> instead of <code>return</code> will display your output followed by an unexpected <code>None</code>.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are a few common patterns involving return values in Python:</p>
+                <pre><code># 1. Returning a Boolean value directly
+def is_even(number):
+    return number % 2 == 0
+
+print(is_even(4))  # Output: True
+print(is_even(7))  # Output: False
+
+# 2. Returning None explicitly when no action is taken
+def find_first_negative(numbers):
+    for num in numbers:
+        if num < 0:
+            return num
+    return None  # Executed only if no negative number was found
+
+print(find_first_negative([3, 5, -2, 8]))  # Output: -2
+print(find_first_negative([1, 2, 3]))      # Output: None</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="05-returns" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Temperature Converter</h2>
+                        <p class="practice-panel__hint">Write a function named <code>celsius_to_fahrenheit(celsius)</code> that accepts a temperature in Celsius, converts it using the formula <code>(celsius * 9/5) + 32</code>, and <strong>returns</strong> the result. Call the function with <code>25</code>, store the output in a variable named <code>temp_f</code>, and print <code>temp_f</code>.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="def celsius_to_fahrenheit(celsius):&#10;    # Calculate and return Fahrenheit here&#10;    pass&#10;&#10;# Call function, store in temp_f, and print temp_f"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I defined <code>celsius_to_fahrenheit</code> with 1 parameter</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I used the <code>return</code> keyword instead of <code>print()</code> inside the function</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I assigned the function result to <code>temp_f</code> and printed it</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Great job! You now understand how return values hand data back to your program. Try the quiz below!</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="05-returns">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What value is returned by default if a Python function does NOT contain an explicit `return` statement?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not return 0 unless you explicitly specify return 0.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">0</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! In Python, if no return statement is specified (or an empty return is hit), the function returns None.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">None</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. False is not the default return value.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">False</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What happens to any code placed immediately AFTER a `return` statement in the same execution path?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! When return is executed, the function immediately terminates. Any code following it is unreachable.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It is ignored and never executed because return exits the function immediately.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python will not raise a SyntaxError, but it will skip the unreachable lines.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It causes a SyntaxError when the file is run.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The code does not wait; execution immediately leaves the function.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It runs after the returned value is printed to the console.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What is the output of the following code? <br><br><code>def show_sum(a, b):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(a + b)<br><br>result = show_sum(2, 3)<br>print(result)</code></p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. While 5 is printed by show_sum(2, 3), show_sum does not return anything, so result is None.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">5 followed by 5</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! The function prints 5 during execution, but since it lacks a return statement, it evaluates to None. Therefore, print(result) prints None.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">5 followed by None</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. The function runs without error and prints 5 first.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">None followed by 5</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. How does Python handle returning multiple values like `return x, y, z`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Python handles multiple returns naturally without throwing an error.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It triggers a TypeError because functions can only return one value.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Python packages multiple returned items separated by commas into a single tuple.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It packages the values into a tuple and returns that tuple.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Python packs them into a tuple, not a list.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It automatically converts the values into a list.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>E-Commerce Order Processor:</strong> Build a function named <code>process_order(price, quantity, discount_code)</code>. The function should calculate the subtotal (<code>price * quantity</code>). If <code>discount_code</code> is <code>"SAVE10"</code>, apply a 10% discount. If <code>discount_code</code> is <code>"SAVE20"</code>, apply a 20% discount. Finally, calculate 5% sales tax on the discounted total. <code>return</code> three values: <code>subtotal</code>, <code>discount_amount</code>, and <code>final_total</code>. Call your function with sample order data and print an itemized receipt summary!</p>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Use <strong><code>return</code></strong> to send output data back to the code that called the function.</li>
+                    <li><code>print()</code> is for human inspection; <code>return</code> is for code execution and data manipulation.</li>
+                    <li>Functions exit immediately once a <code>return</code> statement is reached.</li>
+                    <li>You can return multiple values separated by commas, which Python returns as a <strong>tuple</strong>.</li>
+                    <li>If a function ends without encountering a <code>return</code> statement, it returns <strong><code>None</code></strong>.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered arguments and return statements. Now it's time to understand where your variables live in the upcoming lesson on **Variable Scope**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="09-arguments">← Arguments</a>
+                    <a class="lesson-nav__next" href="06-scope">Variable Scope→</a>
+                </nav>
+            </div>
+        </article>
+        </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html

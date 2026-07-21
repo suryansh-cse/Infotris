@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Argument</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+          
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 9</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="06-functions">← Previous</a>
+                <p class="lesson-header__label">Lesson 9 · Python</p>
+                <h1 class="lesson-header__title">Argument</h1>
+                <p class="lesson-header__meta">~45 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Arguments in Python</h2>
+                <p>Welcome to the next level of Python functions! So far, you've learned how to create basic functions that perform the exact same action every time they run. But what if you want a function to behave differently depending on the situation? That's where <strong>arguments</strong> come in. By passing data into your functions, you can make them flexible, dynamic, and truly reusable.</p>
+                
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand how to pass data into a function.</li>
+                    <li>Clearly differentiate between <strong>parameters</strong> and <strong>arguments</strong>.</li>
+                    <li>Pass multiple arguments into a single function.</li>
+                    <li>Use the <code>return</code> keyword to capture values from functions.</li>
+                </ul>
+
+                <h2>2. What is an Argument?</h2>
+                <p>An argument is simply a piece of data (like a string, integer, or variable) that you hand over to a function when you call it. The function takes this data, processes it, and executes its code based on that specific input. Think of a function like a blender: the argument is the fruit you put inside. If you put in strawberries, you get a strawberry smoothie. If you put in bananas, you get a banana smoothie. The blender (the function) works the same way, but the output changes based on the input (the argument).</p>
+                
+                <h2>3. Parameters vs Arguments</h2>
+                <p>You will often hear programmers use the terms "parameter" and "argument" interchangeably, but there is an important technical difference between the two:</p>
+                <ul>
+                    <li><strong>Parameter:</strong> This is the variable listed inside the parentheses in the function <em>definition</em>. It acts as a placeholder for the data that will be passed in.</li>
+                    <li><strong>Argument:</strong> This is the actual value or data that is sent to the function when it is <em>called</em>.</li>
+                </ul>
+                <p><strong>Python code example:</strong></p>
+                <pre><code># 'username' is the PARAMETER (the placeholder)
+def greet_user(username):
+    print(f"Welcome back, {username}!")
+
+# "Alice" and "Bob" are the ARGUMENTS (the actual data)
+greet_user("Alice")  # Output: Welcome back, Alice!
+greet_user("Bob")    # Output: Welcome back, Bob!</code></pre>
+
+                <h2>4. Passing Multiple Arguments</h2>
+                <p>Functions aren't limited to just one argument. You can pass as many arguments as you need by separating them with commas. By default, Python matches arguments to parameters based on their <strong>position</strong> (order). The first argument goes to the first parameter, the second to the second, and so on. These are called positional arguments.</p>
+                <p><strong>Python code example:</strong></p>
+                <pre><code>def create_profile(name, age, city):
+    print(f"{name} is {age} years old and lives in {city}.")
+
+# Order matters! name="Sam", age=25, city="New York"
+create_profile("Sam", 25, "New York")
+# Output: Sam is 25 years old and lives in New York.
+
+# If you mess up the order, the output won't make sense:
+create_profile(25, "New York", "Sam")
+# Output: 25 is New York years old and lives in Sam.</code></pre>
+
+                <h2>5. Returning Values</h2>
+                <p>Until now, our functions have mostly printed text to the screen. But in real-world programming, you usually want a function to calculate a value and hand it back to you so you can store it in a variable or use it later. We do this using the <code>return</code> keyword.</p>
+                <p><strong>Important:</strong> When Python hits a <code>return</code> statement, the function immediately stops running and "returns" the specified value. <code>print()</code> just shows it on the screen; <code>return</code> actually gives the data back to the program.</p>
+                <p><strong>Python code example:</strong></p>
+                <pre><code>def add_numbers(num1, num2):
+    total = num1 + num2
+    return total  # Gives the result back to the caller
+
+# We can save the returned value into a variable
+result = add_numbers(10, 5)
+
+print(f"The result is {result}")  
+# Output: The result is 15
+
+# We can also use it in further calculations
+print(result * 2)  # Output: 30</code></pre>
+
+                <h2>6. Real World Example</h2>
+                <p>Let's look at a practical scenario. Imagine you are building an e-commerce checkout system. You need a function that takes a base price and a tax rate, calculates the final price, and returns it so the customer can be billed properly.</p>
+                <pre><code>def calculate_final_price(base_price, tax_rate):
+    tax_amount = base_price * tax_rate
+    final_price = base_price + tax_amount
+    return final_price
+
+cart_total = 100.00
+tax = 0.08  # 8% tax
+
+total_to_pay = calculate_final_price(cart_total, tax)
+print(f"Please pay: ${total_to_pay}")
+# Output: Please pay: $108.0</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Missing Arguments</strong>: If your function defines 2 parameters but you only pass 1 argument (e.g., <code>add_numbers(10)</code>), Python will crash with a <code>TypeError</code>.</li>
+                        <li><strong>Confusing Print with Return</strong>: If you use <code>print()</code> instead of <code>return</code> inside a function, and then try to save the function call to a variable, the variable will hold the value <code>None</code>.</li>
+                        <li><strong>Unreachable Code</strong>: Any code written <em>after</em> a <code>return</code> statement inside a function will never run. The function exits the moment it hits <code>return</code>.</li>
+                    </ul>
+                </div>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="04-arguments" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Student Profile</h2>
+                        <p class="practice-panel__hint">Create a function named <code>student()</code> that accepts three parameters: <code>name</code>, <code>course</code>, and <code>semester</code>. The function should use an f-string to print a summary like "Anna is studying Python in semester 2". Call the function with your own arguments.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="def student(name, course, semester):&#10;    # Print the summary here&#10;    pass&#10;&#10;# Call your function here"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I defined a function named <code>student</code> with 3 parameters</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I used <code>print()</code> and an f-string inside the function</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I called the function and passed 3 arguments to it</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Awesome work. You now know how to make your functions dynamic. Test your knowledge below!</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="04-arguments">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is the difference between a parameter and an argument?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Both terms are used in Python programming, but they represent different stages of a function's life.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">There is no difference; they are just two different words for the exact same thing.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! A parameter is the placeholder in the function definition, while an argument is the actual value passed during the call.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A parameter is the placeholder in the definition, and an argument is the actual value passed in the call.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. You have the definitions reversed!">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">An argument is the placeholder in the definition, and a parameter is the actual value passed.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What happens if you define a function with 2 parameters, but only pass 1 argument when calling it?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python does not automatically guess or assign zero to missing arguments.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">The second parameter is automatically set to 0.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python will not skip it; it will halt execution.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">The function runs normally but skips the second parameter.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Python will raise a TypeError stating that a required positional argument is missing.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python will crash and raise a TypeError.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. Why is the <code>return</code> keyword useful?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Return sends data back to where the function was called so you can store or use it later.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It allows a function to send a value back to the main program to be stored or used.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. To display text on the screen, you use the print() function.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It is the only way to display text on the user's screen.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. A function can be called multiple times without the return keyword.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It allows you to call the function multiple times in a row.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. What is the output of the following code? <br><br><code>def double(num):<br>&nbsp;&nbsp;&nbsp;&nbsp;return num * 2<br><br>result = double(4)<br>print(result + 2)</code></p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. The function returns 8, and then 2 is added to the result in the print statement.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">8</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! double(4) returns 8, which is stored in result. Then print(8 + 2) outputs 10.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">10</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. The function accurately returns an integer, which is then mathematically manipulated.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">TypeError</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+                
+                <h2>8. Challenge Project</h2>
+                <p><strong>The Calculator:</strong> Try building a function named <code>calculator()</code> that takes three arguments: a number, a mathematical operator (like "+", "-", "*", or "/"), and a second number. Use <code>if/elif</code> statements inside the function to check the operator, perform the correct math, and <code>return</code> the final answer. Call your function and print the result!</p>
+
+                <h2>9. Key Takeaways</h2>
+                <ul>
+                    <li><strong>Arguments</strong> make your functions dynamic by feeding them custom data.</li>
+                    <li><strong>Parameters</strong> are the placeholders in the definition; <strong>Arguments</strong> are the actual values passed during the call.</li>
+                    <li>Order matters! Always pass positional arguments in the exact sequence the parameters were defined.</li>
+                    <li>Use <code>return</code> instead of <code>print()</code> when you need the function to compute a value that your program will use later on.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered arguments and return statements. Now it's time to understand where your variables live in the upcoming lesson on **Variable Scope**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="08-functions">← Functions</a>
+                    <a class="lesson-nav__next" href="10-returns"> Returns →</a>
+                </nav>
+            </div>
+        </article>
+
+        </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Variables and data types</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+          
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 2</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="14-tuples">← Previous</a>
+                <p class="lesson-header__label">Lesson 15 · Python</p>
+                <h1 class="lesson-header__title"> Set </h1>
+                <p class="lesson-header__meta">~30 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Sets in Python</h2>
+                <p>When working with collections of data in Python, you're already familiar with lists and tuples. But what happens when you need to store items where <strong>order doesn't matter</strong>, and <strong>duplicates are strictly forbidden</strong>? Enter <strong>sets</strong>! Sets are an essential data structure in Python designed specifically for handling unique items and performing mathematical set operations like unions and intersections at high speed.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand what a set is and when to use it over lists or dictionaries.</li>
+                    <li>Create sets and automatically remove duplicate items from collections.</li>
+                    <li>Add and remove elements using set methods like <code>.add()</code>, <code>.remove()</code>, and <code>.discard()</code>.</li>
+                    <li>Perform powerful set operations: <strong>Union</strong>, <strong>Intersection</strong>, <strong>Difference</strong>, and <strong>Symmetric Difference</strong>.</li>
+                </ul>
+
+                <h2>2. What is a Set?</h2>
+                <p>A set in Python is an <strong>unordered</strong>, <strong>unindexed</strong>, and <strong>mutable</strong> collection of <strong>unique</strong> elements. You define a set by placing items inside curly braces <code>{}</code> separated by commas, or by using the built-in <code>set()</code> function.</p>
+
+                <p>Think of a set like a physical bag of lottery balls. The order of the balls inside the bag doesn't matter, you can't reach in to grab "ball number 0" by index, and you can never have two balls with the exact same identifier.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># Creating a set with curly braces
+fruits = {"apple", "banana", "cherry"}
+
+print(fruits)         # Output: {'apple', 'banana', 'cherry'} (order may vary!)
+print(type(fruits))   # Output: &lt;class 'set'&gt;
+
+# Sets automatically remove duplicates!
+numbers = {1, 2, 2, 3, 4, 4, 4, 5}
+print(numbers)        # Output: {1, 2, 3, 4, 5}</code></pre>
+
+                <h2>3. Unordered & Unindexed: What It Means</h2>
+                <p>Because sets are unordered, their elements do not have a fixed position or index. This leads to two critical behaviors you must remember:</p>
+                <ul>
+                    <li><strong>No indexing or slicing:</strong> Attempting to access an item with square brackets like <code>my_set[0]</code> will raise a <code>TypeError</code>.</li>
+                    <li><strong>Fast membership testing:</strong> Checking if an item exists inside a set using the <code>in</code> operator (e.g., <code>"apple" in fruits</code>) is blazingly fast—much faster than searching through a massive list.</li>
+                </ul>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>usernames = {"admin", "developer", "tester"}
+
+# Checking for existence is extremely fast
+if "admin" in usernames:
+    print("Access granted.")  # Output: Access granted.
+
+# This WILL cause an error:
+# print(usernames[0])  # TypeError: 'set' object is not subscriptable</code></pre>
+
+                <h2>4. Adding & Removing Set Elements</h2>
+                <p>While set elements themselves must be immutable (like strings, numbers, or tuples), the set container itself is mutable. You can add new items or remove existing ones using built-in methods:</p>
+
+                <ul>
+                    <li><strong><code>.add(item)</code>:</strong> Adds a single item to the set. If the item already exists, the set remains unchanged.</li>
+                    <li><strong><code>.remove(item)</code>:</strong> Removes an item. If the item is not found, Python raises a <code>KeyError</code>.</li>
+                    <li><strong><code>.discard(item)</code>:</strong> Safely removes an item. If the item is not found, it does nothing (no error!).</li>
+                    <li><strong><code>.clear()</code>:</strong> Empties all elements from the set.</li>
+                </ul>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>colors = {"red", "green"}
+
+# Add an element
+colors.add("blue")
+print(colors)  # Output: {'red', 'green', 'blue'}
+
+# Remove an element safely
+colors.discard("yellow")  # No error, even though 'yellow' wasn't there!
+colors.remove("red")      # Removes 'red'
+
+print(colors)  # Output: {'green', 'blue'}</code></pre>
+
+                <h2>5. Mathematical Set Operations</h2>
+                <p>Where sets really shine is in performing mathematical operations. Imagine you have two groups of data and you need to find overlap, combined items, or unique differences. Python provides both operators and methods for these:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Operation</th>
+                            <th style="padding: 0.5rem;">Operator</th>
+                            <th style="padding: 0.5rem;">Method</th>
+                            <th style="padding: 0.5rem;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Union</strong></td>
+                            <td style="padding: 0.5rem;"><code>a | b</code></td>
+                            <td style="padding: 0.5rem;"><code>a.union(b)</code></td>
+                            <td style="padding: 0.5rem;">All unique items from both sets.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Intersection</strong></td>
+                            <td style="padding: 0.5rem;"><code>a & b</code></td>
+                            <td style="padding: 0.5rem;"><code>a.intersection(b)</code></td>
+                            <td style="padding: 0.5rem;">Only items present in BOTH sets.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Difference</strong></td>
+                            <td style="padding: 0.5rem;"><code>a - b</code></td>
+                            <td style="padding: 0.5rem;"><code>a.difference(b)</code></td>
+                            <td style="padding: 0.5rem;">Items in `a` that are NOT in `b`.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Symmetric Difference</strong></td>
+                            <td style="padding: 0.5rem;"><code>a ^ b</code></td>
+                            <td style="padding: 0.5rem;"><code>a.symmetric_difference(b)</code></td>
+                            <td style="padding: 0.5rem;">Items in either set, but NOT in both.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>python_devs = {"Alice", "Bob", "Charlie"}
+java_devs = {"Charlie", "David", "Alice"}
+
+# 1. Union: Everyone who knows at least one language
+all_devs = python_devs | java_devs
+print(all_devs)  # Output: {'Alice', 'Bob', 'Charlie', 'David'}
+
+# 2. Intersection: Full-stack devs who know BOTH languages
+dual_devs = python_devs & java_devs
+print(dual_devs)  # Output: {'Alice', 'Charlie'}
+
+# 3. Difference: Devs who know Python but NOT Java
+pure_python = python_devs - java_devs
+print(pure_python)  # Output: {'Bob'}</code></pre>
+
+                <h2>6. Real World Example</h2>
+                <p>Imagine you run an online learning platform and want to quickly remove duplicate email sign-ups from a newsletter list, then find out which students signed up for both Course A and Course B.</p>
+
+                <pre><code># Raw email signups containing accidental duplicates
+raw_emails = ["sam@test.com", "alex@test.com", "sam@test.com", "jordan@test.com", "alex@test.com"]
+
+# 1. Deduplicate instantly by converting the list to a set
+unique_emails = set(raw_emails)
+print(f"Unique subscribers count: {len(unique_emails)}")
+# Output: Unique subscribers count: 3
+
+# Course enrollment sets
+course_a_students = {"sam@test.com", "alex@test.com", "taylor@test.com"}
+course_b_students = {"jordan@test.com", "alex@test.com", "taylor@test.com"}
+
+# 2. Find students enrolled in both courses
+enrolled_in_both = course_a_students.intersection(course_b_students)
+print("Students in both courses:", enrolled_in_both)
+# Output: Students in both courses: {'alex@test.com', 'taylor@test.com'}</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Creating an Empty Set with <code>{}</code></strong>: Writing <code>empty_set = {}</code> creates an empty <strong>dictionary</strong>, not a set! To create an empty set, you must use <code>empty_set = set()</code>.</li>
+                        <li><strong>Attempting to Access Items by Index</strong>: Trying <code>my_set[0]</code> will fail with a <code>TypeError</code> because sets have no order or index.</li>
+                        <li><strong>Using <code>.remove()</code> on Missing Items</strong>: Using <code>.remove()</code> on an item that doesn't exist will crash your program with a <code>KeyError</code>. Use <code>.discard()</code> when you aren't sure if the item exists.</li>
+                        <li><strong>Storing Mutable Types Inside a Set</strong>: You cannot put lists or dictionaries inside a set (e.g., <code>{[1, 2], [3, 4]}</code>) because sets require all contained elements to be hashable (immutable).</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are handy everyday patterns when working with Python sets:</p>
+                <pre><code># 1. One-liner list deduplication
+my_list = [1, 2, 2, 3, 3, 3, 4]
+clean_list = list(set(my_list))
+print(clean_list)  # Output: [1, 2, 3, 4]
+
+# 2. Iterating through a set
+tags = {"python", "coding", "tutorial"}
+for tag in tags:
+    print(f"Tag: #{tag}")
+
+# 3. Checking for sub-sets and super-sets
+small_set = {1, 2}
+big_set = {1, 2, 3, 4, 5}
+
+print(small_set.issubset(big_set))    # Output: True
+print(big_set.issuperset(small_set))  # Output: True</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="06-sets" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Unique Tag Manager</h2>
+                        <p class="practice-panel__hint">Create a set named <code>my_tags</code> with duplicate string entries (e.g., <code>"python", "code", "python", "tech"</code>). Add a new tag <code>"web"</code> using <code>.add()</code>, then print the set and its total count using <code>len()</code>.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="# Create my_tags set with duplicates&#10;my_tags = {'python', 'code', 'python', 'tech'}&#10;&#10;# Add 'web' and print summary&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I defined a set <code>my_tags</code> using curly braces</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I added <code>"web"</code> to the set using <code>.add()</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I printed the set and its length using <code>len(my_tags)</code></span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Awesome job! You've mastered set creation and deduplication. Test your knowledge in the quiz below!</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="06-sets">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. How do Python sets handle duplicate values when created?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Sets do not throw errors when given duplicate items; they handle them automatically.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python throws a ValueError.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Sets strictly store unique elements, so all duplicates are automatically ignored and discarded.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">All duplicate values are automatically removed.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Duplicates are never kept in a set.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Duplicates are stored at the end of the set.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What is the correct way to initialize an EMPTY set in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Writing {} creates an empty dictionary in Python, not a set!">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">empty_set = {}</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! You must use the set() function to create an empty set.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">empty_set = set()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. [] creates an empty list.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">empty_set = []</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. Which set method removes an element WITHOUT raising an error if the item does not exist?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. .remove() will raise a KeyError if the element is missing.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.remove()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! .discard() safely removes the element if present, and does nothing if missing.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.discard()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. .pop() removes a random element and raises KeyError on an empty set.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.pop()</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. What is the result of using the intersection operator `set1 & set2`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Combining all elements is the Union (|) operation.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A new set containing all items from both sets combined.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Intersection (&) returns a new set containing ONLY elements that exist in both sets.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A new set containing only elements common to both sets.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Items in set1 but not set2 is the Difference (-) operation.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A new set containing items in set1 that are not in set2.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Event Attendance Analyzer:</strong> Imagine you are organizing a developer conference. Create two sets representing attendees on <code>day_1 = {"Alice", "Bob", "Charlie", "David"}</code> and <code>day_2 = {"Charlie", "David", "Eve", "Frank"}</code>. Write a Python script that calculates and prints:</p>
+                <ul>
+                    <li>The total list of unique people who attended the conference overall (Union).</li>
+                    <li>The dedicated attendees who came on <strong>both</strong> days (Intersection).</li>
+                    <li>The attendees who came <strong>only on Day 1</strong> (Difference).</li>
+                </ul>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Sets are <strong>unordered collections</strong> of <strong>unique elements</strong>.</li>
+                    <li>Duplicates are automatically removed upon creation or insertion.</li>
+                    <li>Use <code>set()</code> to create an empty set (because <code>{}</code> creates an empty dictionary).</li>
+                    <li>Sets do not support indexing or slicing (<code>my_set[0]</code> causes an error).</li>
+                    <li>Use <strong>Union (<code>|</code>)</strong>, <strong>Intersection (<code>&</code>)</strong>, and <strong>Difference (<code>-</code>)</strong> to perform fast data analysis.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Python sets! Next up, we will bring together all data structures in the upcoming lesson on **Dictionaries in Python**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="10-returns.html">← Returns</a>
+                    <a class="lesson-nav__next" href="16-strings-files">Strinhs →</a>
+                </nav>
+            </div>
+        </article>
+        </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html
