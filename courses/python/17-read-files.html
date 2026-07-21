@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Strings and files</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
+            <ul class="navbar-links"><li><a href="../../courses" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="./">Python</a><span>/</span><span>Lesson 8</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="16-strings-files">← Previous</a>
+                <p class="lesson-header__label">Lesson 17</p>
+                <h1 class="lesson-header__title"> Read files</h1>
+                <p class="lesson-header__meta">~40 min</p>
+            </div>
+        </header>
+
+<article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Read Files in Python</h2>
+                <p>Whether you're analyzing sales data from a CSV, parsing application log files for bugs, or reading configuration settings, interacting with external files is a core skill for every Python developer. Python provides simple, built-in tools to open, read, and process files cleanly and safely without needing external libraries.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Open text files safely using Python's built-in <code>open()</code> function.</li>
+                    <li>Master the <code>with</code> statement (context managers) to prevent file resource leaks.</li>
+                    <li>Compare reading strategies: <code>.read()</code>, <code>.readline()</code>, <code>.readlines()</code>, and line-by-line iteration.</li>
+                    <li>Handle file paths and common errors like <code>FileNotFoundError</code>.</li>
+                </ul>
+
+                <h2>2. The Standard Way: Opening Files with <code>open()</code></h2>
+                <p>Python's built-in <code>open()</code> function opens a file and returns a <strong>file object</strong>. It takes two primary arguments: the file path and the mode. The default mode is <code>"r"</code> (read text mode).</p>
+
+                <p>While you can manually open and close a file using <code>.close()</code>, doing so manually is risky. If your program encounters an error before reaching <code>.close()</code>, the file remains open in memory, causing resource leaks.</p>
+
+                <p><strong>Manual open/close (Not Recommended):</strong></p>
+                <pre><code># RISKY: If an error happens before close(), the file stays locked!
+file = open("data.txt", "r")
+content = file.read()
+print(content)
+file.close()  # Easy to forget!</code></pre>
+
+                <h2>3. The Golden Standard: Context Managers (<code>with</code> Statement)</h2>
+                <p>The best practice in Python is to open files using the <strong><code>with</code> statement</strong>. This creates a context manager that <strong>automatically closes the file</strong> as soon as the indented block finishes executing—even if an unexpected crash or error occurs inside!</p>
+
+                <p>Think of the <code>with</code> statement like borrowing a book from a smart library locker. The locker opens while you need the book, and automatically locks itself securely the second you step away.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># RECOMMENDED: Clean, safe, and automatically closed
+with open("data.txt", "r") as file:
+    content = file.read()
+    print(content)
+
+# File is automatically closed here!
+print(f"Is file closed? {file.closed}")  # Output: True</code></pre>
+
+                <h2>4. Four Ways to Read File Contents</h2>
+                <p>Depending on the size of your file and what you want to do with the data, Python gives you four distinct ways to read content:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Method</th>
+                            <th style="padding: 0.5rem;">Return Type</th>
+                            <th style="padding: 0.5rem;">Memory Usage</th>
+                            <th style="padding: 0.5rem;">Best Used For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong><code>file.read()</code></strong></td>
+                            <td style="padding: 0.5rem;">Single String</td>
+                            <td style="padding: 0.5rem;">High (Loads entire file)</td>
+                            <td style="padding: 0.5rem;">Small files where you need all text at once.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong><code>for line in file:</code></strong></td>
+                            <td style="padding: 0.5rem;">String per loop iteration</td>
+                            <td style="padding: 0.5rem;"><strong>Extremely Low</strong> (Streamed)</td>
+                            <td style="padding: 0.5rem;"><strong>Large files</strong> / Log files of any size.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong><code>file.readline()</code></strong></td>
+                            <td style="padding: 0.5rem;">Single String (One line)</td>
+                            <td style="padding: 0.5rem;">Very Low</td>
+                            <td style="padding: 0.5rem;">Reading specific single lines (e.g., file headers).</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong><code>file.readlines()</code></strong></td>
+                            <td style="padding: 0.5rem;">List of Strings</td>
+                            <td style="padding: 0.5rem;">High (Loads all lines)</td>
+                            <td style="padding: 0.5rem;">Small files when you need list indexing/slicing.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Python code examples:</strong></p>
+                <pre><code># Option 1: Reading line-by-line (Most Memory-Efficient!)
+with open("quotes.txt", "r") as file:
+    for line in file:
+        # .strip() removes trailing newline characters (\n)
+        print(line.strip())
+
+# Option 2: Reading into a list of lines
+with open("quotes.txt", "r") as file:
+    lines = file.readlines()
+    print(f"Total lines: {len(lines)}")
+    print(f"First line: {lines[0].strip()}")</code></pre>
+
+                <h2>5. Handling File Newlines (<code>\n</code>)</h2>
+                <p>When Python reads lines from a file, it keeps the hidden newline character (<code>\n</code>) at the end of each line. If you print lines in a loop without removing <code>\n</code>, you will end up with extra blank spaces between output lines because Python's <code>print()</code> function adds its own newline as well.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>with open("items.txt", "r") as file:
+    for line in file:
+        # WITHOUT .strip(): Extra blank lines appear
+        # WITH .strip(): Removes leading/trailing whitespace & \n
+        clean_line = line.strip()
+        print(clean_line)</code></pre>
+
+                <h2>6. Real World Example: Server Log Error Parser</h2>
+                <p>Suppose you are a DevOps engineer analyzing a server log file (<code>app.log</code>). You want to scan through the file line by line, filter out critical error messages, and save their count.</p>
+
+                <pre><code>error_count = 0
+critical_issues = []
+
+# Processing a log file efficiently line by line
+with open("app.log", "r") as log_file:
+    for line in log_file:
+        if "ERROR" in line or "CRITICAL" in line:
+            error_count += 1
+            critical_issues.append(line.strip())
+
+print(f"--- Scan Complete ---")
+print(f"Found {error_count} errors/warnings:")
+for issue in critical_issues:
+    print(f" [!] {issue}")</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>FileNotFoundError</strong>: Trying to open a file that doesn't exist or providing the wrong relative file path. Wrap file operations in a <code>try-except FileNotFoundError</code> block to handle missing files gracefully.</li>
+                        <li><strong>Reading Giant Files with <code>.read()</code></strong>: Calling <code>.read()</code> or <code>.readlines()</code> on a 10 GB file will load the entire file into system RAM at once, causing your program to run out of memory and crash. Use a <code>for line in file:</code> loop instead!</li>
+                        <li><strong>Forgetting <code>.strip()</code></strong>: Leaving the trailing <code>\n</code> character when comparing strings (e.g., checking if <code>line == "admin"</code> will fail because <code>"admin\n" != "admin"</code>).</li>
+                        <li><strong>Not Using <code>with</code> Statements</strong>: Leaving files open manually can cause file lock errors on Windows or memory leaks in long-running applications.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are robust patterns for safely reading files in Python:</p>
+                <pre><code># 1. Safe File Reading with Exception Handling
+filename = "user_data.txt"
+
+try:
+    with open(filename, "r") as file:
+        content = file.read()
+        print("File read successfully!")
+except FileNotFoundError:
+    print(f"Error: The file '{filename}' was not found in this directory.")
+
+# 2. Reading specific line numbers with enumerate()
+with open("config.txt", "r") as file:
+    for line_num, content in enumerate(file, start=1):
+        if "PORT" in content:
+            print(f"Found setting on Line {line_num}: {content.strip()}")</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="09-read-files" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Line Counter</h2>
+                        <p class="practice-panel__hint">Write a script using a <code>with</code> statement that opens a file named <code>"sample.txt"</code> in read mode (<code>"r"</code>). Iterate through each line using a <code>for</code> loop, strip white spaces, and print the line along with a total line count at the end.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="count = 0&#10;&#10;with open('sample.txt', 'r') as file:&#10;    for line in file:&#10;        # Strip line and increment count&#10;        pass&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I used <code>with open("sample.txt", "r") as file:</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I iterated over lines and applied <code>.strip()</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I tracked and printed the total number of lines</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Great job! You've mastered safe file handling with context managers.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="09-read-files">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is the main advantage of using the `with` statement when opening files?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. It reads files with standard speed, but manages system resources safely.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It makes file reading twice as fast.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Context managers automatically handle closing the file stream, preventing leaks even if errors occur.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It automatically closes the file when the block finishes executing.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. It does not automatically create missing files when opening in read mode.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It creates missing files automatically if they don't exist.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which approach is best for processing a massive 10 GB log file without crashing your system RAM?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. .read() loads all 10 GB into memory at once, causing out-of-memory errors.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">data = file.read()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. .readlines() converts all lines into a list in memory at once.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">lines = file.readlines()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Iterating with a for loop streams one line at a time into memory, making memory usage extremely tiny.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">for line in file:</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What error does Python raise if you attempt to open a non-existent file in read mode ("r")?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Python raises a FileNotFoundError when the specified file path cannot be located.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">FileNotFoundError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. IOError was replaced by FileNotFoundError/OSError in modern Python.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">KeyError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. NullPointerError does not exist in standard Python.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">NullPointerError</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. Why should you use string `.strip()` when reading lines from a text file?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. .strip() does not convert string data types.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To convert string numbers into integers automatically.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Files include invisible trailing \n newline characters at the end of lines, which .strip() removes.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To remove trailing newline characters (\n) and surrounding whitespace.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. .strip() removes whitespace, not text content.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To delete blank lines from the file permanently.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Text File Word & Line Counter:</strong> Create a Python script that asks the user for a text file name. Use a <code>try-except</code> block to catch <code>FileNotFoundError</code>. If found, open the file, calculate the total line count, total word count (using <code>.split()</code>), and display a clean summary analysis!</p>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Always open files using <code>with open(filename, mode) as file:</code> to ensure automatic closing.</li>
+                    <li>Default mode for opening files is <strong><code>"r"</code></strong> (read text).</li>
+                    <li>Use <strong><code>for line in file:</code></strong> for memory-efficient processing of large files.</li>
+                    <li>Call <strong><code>.strip()</code></strong> on lines to remove hidden <code>\n</code> newline characters.</li>
+                    <li>Wrap file reading logic in <code>try-except FileNotFoundError</code> to build crash-resilient code.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered reading files in Python! Next up, we will complete file handling with **Writing & Appending Files in Python**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="16-strings-files">← Strings Files</a>
+                    <a class="lesson-nav__next" href="18-write-files">Write Files →</a>
+                </nav>
+            </div>
+        </article>
+
+
+         </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>

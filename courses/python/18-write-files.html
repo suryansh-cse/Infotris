@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Strings and files</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
+            <ul class="navbar-links"><li><a href="../../courses" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="./">Python</a><span>/</span><span>Lesson 8</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="17-read-files">← Previous</a>
+                <p class="lesson-header__label">Lesson 18</p>
+                <h1 class="lesson-header__title">  Write files</h1>
+                <p class="lesson-header__meta">~40 min</p>
+            </div>
+        </header>
+
+<article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Write Files in Python</h2>
+                <p>Reading files allows your application to consume data, but <strong>writing files</strong> gives your program persistence. Whether you are generating downloadable PDF/CSV reports, saving game progress, writing system logs, or caching database queries, knowing how to create and modify files safely is an indispensable skill for Python developers.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand Python's write file modes: <code>"w"</code>, <code>"a"</code>, and <code>"x"</code>.</li>
+                    <li>Write single text strings using <code>.write()</code> and lists of lines using <code>.writelines()</code>.</li>
+                    <li>Format multi-line outputs correctly with line breaks (<code>\n</code>) and f-strings.</li>
+                    <li>Prevent accidental data loss by selecting the correct opening mode.</li>
+                </ul>
+
+                <h2>2. Choosing the Right Opening Mode</h2>
+                <p>Just like reading files, writing files starts with Python's built-in <code>open()</code> function wrapped inside a <code>with</code> statement context manager. However, the second parameter—the <strong>mode</strong>—determines how Python handles existing content:</p>
+
+                <ul>
+                    <li><strong><code>"w"</code> (Write):</strong> Creates a new file if it doesn't exist. <strong>WARNING:</strong> If the file already exists, Python completely erases (truncates) its previous contents!</li>
+                    <li><strong><code>"a"</code> (Append):</strong> Creates a new file if it doesn't exist. If the file exists, new data is added to the <strong>very end</strong> without altering existing text.</li>
+                    <li><strong><code>"x"</code> (Exclusive Creation):</strong> Creates a new file, but <strong>fails with an error</strong> (<code>FileExistsError</code>) if the file already exists—preventing accidental overwrites.</li>
+                </ul>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># 1. Opening in "w" mode (Overwrites existing content)
+with open("notes.txt", "w") as file:
+    file.write("This is a fresh start!")
+
+# 2. Opening in "a" mode (Appends to the end)
+with open("notes.txt", "a") as file:
+    file.write("\nAdding a second line safely.")</code></pre>
+
+                <h2>3. File Modes Comparison</h2>
+                <p>Choosing the wrong file mode is one of the most common causes of accidental data loss. Use this reference table to pick the exact right mode for your task:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Mode</th>
+                            <th style="padding: 0.5rem;">Creates New File?</th>
+                            <th style="padding: 0.5rem;">Overwrites Existing Data?</th>
+                            <th style="padding: 0.5rem;">Cursor Position</th>
+                            <th style="padding: 0.5rem;">Primary Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong><code>"w"</code></strong></td>
+                            <td style="padding: 0.5rem;">Yes</td>
+                            <td style="padding: 0.5rem;"><strong style="color: #a30000;">YES (Erases all)</strong></td>
+                            <td style="padding: 0.5rem;">Start of file</td>
+                            <td style="padding: 0.5rem;">Creating fresh reports, saving configuration files from scratch.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong><code>"a"</code></strong></td>
+                            <td style="padding: 0.5rem;">Yes</td>
+                            <td style="padding: 0.5rem;">No (Appends)</td>
+                            <td style="padding: 0.5rem;">End of file</td>
+                            <td style="padding: 0.5rem;">System event logging, tracking user history over time.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong><code>"x"</code></strong></td>
+                            <td style="padding: 0.5rem;">Yes</td>
+                            <td style="padding: 0.5rem;">Fails with error if file exists</td>
+                            <td style="padding: 0.5rem;">Start of file</td>
+                            <td style="padding: 0.5rem;">Safety-critical file creation where overwriting is forbidden.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>4. Writing Data: <code>.write()</code> vs <code>.writelines()</code></h2>
+                <p>Python provides two primary methods for writing text streams to a file object:</p>
+
+                <h3>1. The <code>.write(string)</code> Method</h3>
+                <p>Writes a single string to the file. Note that <code>.write()</code> accepts <strong>only strings</strong>—passing integers, floats, or lists directly will cause a <code>TypeError</code>. Furthermore, unlike Python's <code>print()</code> function, <code>.write()</code> <strong>does not automatically add a newline</strong> character (<code>\n</code>).</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>with open("output.txt", "w") as file:
+    file.write("Line 1\n")  # Explicit \n required for new lines!
+    file.write("Line 2\n")
+    
+    # Writing numeric data requires string conversion str()
+    score = 95
+    file.write(f"Final Score: {score}\n")</code></pre>
+
+                <h3>2. The <code>.writelines(iterable)</code> Method</h3>
+                <p>Writes a list (or any iterable) of strings to the file at once. Crucially, <code>.writelines()</code> <strong>does NOT insert newline characters between list elements</strong> automatically. You must ensure each string inside your list ends with <code>\n</code>.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>items = ["Apple\n", "Banana\n", "Cherry\n"]
+
+with open("shopping_list.txt", "w") as file:
+    file.writelines(items)</code></pre>
+
+                <h2>5. Creating Structured Data (CSV Example)</h2>
+                <p>Combining f-strings with file writing allows you to export structured formats like Comma-Separated Values (CSV) that spreadsheet programs like Microsoft Excel or Google Sheets can open directly.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>users = [
+    {"name": "Alice", "role": "Admin", "score": 98},
+    {"name": "Bob", "role": "Developer", "score": 85},
+    {"name": "Charlie", "role": "Tester", "score": 91}
+]
+
+# Exporting data to a structured CSV file
+with open("report.csv", "w") as file:
+    # 1. Write Header Row
+    file.write("Name,Role,Score\n")
+    
+    # 2. Write Data Rows using f-strings
+    for user in users:
+        file.write(f"{user['name']},{user['role']},{user['score']}\n")
+
+print("Report exported successfully!")</code></pre>
+
+                <h2>6. Real World Example: Automated Application Logger</h2>
+                <p>In production applications, server events and errors are continuously recorded to an append-only log file so engineers can diagnose issues later without resetting system history.</p>
+
+                <pre><code>from datetime import datetime
+
+def log_event(event_message, level="INFO"):
+    """Appends a timestamped log entry to app.log."""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = f"[{timestamp}] [{level}] {event_message}\n"
+    
+    # Mode "a" ensures existing logs are preserved
+    with open("app.log", "a") as log_file:
+        log_file.write(log_entry)
+
+# Simulating log entries
+log_event("Application service started")
+log_event("Database connection established")
+log_event("Failed login attempt detected for user 'root'", level="WARNING")
+
+# Reading back the log file to verify
+with open("app.log", "r") as log_file:
+    print(log_file.read())</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Accidental Overwriting with Mode <code>"w"</code></strong>: Using <code>"w"</code> when you meant to append (<code>"a"</code>) instantly deletes all previous content in the target file without warning!</li>
+                        <li><strong>Forgetting Newline Characters (<code>\n</code>)</strong>: Writing multiple lines with <code>.write("Line 1")</code> and <code>.write("Line 2")</code> results in <code>Line 1Line 2</code> on a single long line.</li>
+                        <li><strong>Passing Non-String Types to <code>.write()</code></strong>: Calling <code>file.write(100)</code> or <code>file.write(my_list)</code> raises a <code>TypeError: write() argument must be str, not int</code>. Convert non-strings using <code>str()</code> or f-strings.</li>
+                        <li><strong>Assuming <code>.writelines()</code> Adds Newlines</strong>: <code>.writelines(["A", "B", "C"])</code> writes <code>ABC</code> as a single line unless you explicitly add <code>\n</code> to each string item.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are essential patterns for safely creating and writing files in Python:</p>
+                <pre><code># 1. Safe File Creation using Exclusive Mode ("x")
+try:
+    with open("config.json", "x") as file:
+        file.write('{"theme": "dark", "version": "1.0"}')
+    print("Configuration file created!")
+except FileExistsError:
+    print("Warning: 'config.json' already exists! Operation skipped to prevent overwrite.")
+
+# 2. Writing clean list data with a single join operation
+tags = ["python", "coding", "webdev", "tutorial"]
+
+with open("tags.txt", "w") as file:
+    # Pythonic shortcut: join items with newlines!
+    file.write("\n".join(tags) + "\n")</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="10-write-files" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Daily Journal Entry</h2>
+                        <p class="practice-panel__hint">Write a script using a <code>with</code> statement that opens a file named <code>"journal.txt"</code> in append mode (<code>"a"</code>). Write a new entry string ending with <code>\n</code>, then print a confirmation message.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="# Open journal.txt in append mode&#10;with open('journal.txt', 'a') as file:&#10;    # Write your entry here&#10;    pass&#10;&#10;print('Journal updated!')&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I used <code>with open("journal.txt", "a") as file:</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I wrote a string containing a trailing <code>\n</code> newline</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I confirmed the file was updated without overwriting existing entries</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Excellent job! You've mastered append mode and safe file updating in Python.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="10-write-files">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What happens when you open an existing text file in mode "w"?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Mode 'a' appends data to the end without deleting existing text.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">New text is appended to the end of the existing file.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Mode 'w' overwrites and truncates the existing file content completely.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">The entire existing content of the file is erased/overwritten.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python will not raise an error; mode 'x' raises FileExistsError.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python raises a FileExistsError.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which opening mode should you use to create a file safely ONLY if it does not already exist?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Mode 'w' will silently overwrite an existing file.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"w"</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Mode 'a' will silently append to an existing file.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"a"</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Mode 'x' (Exclusive Creation) raises a FileExistsError if the file already exists.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">"x"</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What error occurs if you pass an integer directly into `file.write(42)`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! .write() requires a string argument. You must convert numbers using str(42) or f'{42}'.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">TypeError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. ValueError is not raised here.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">ValueError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. SyntaxError applies to invalid Python syntax, not invalid argument types.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">SyntaxError</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. Does the `.writelines()` method automatically add line breaks (\n) between items in a list?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. .writelines() does NOT add newlines automatically.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Yes, it formats each list item onto a new line automatically.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! .writelines() outputs items exactly as they appear in the iterable. You must include \n inside your strings.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">No, you must explicitly include \n at the end of each string item.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Interactive Note Manager:</strong> Create a Python program that prompts the user to type a note from the command line. Ask if they want to <code>1. Overwrite</code> or <code>2. Append</code>. Based on their choice, open <code>"my_notes.txt"</code> in mode <code>"w"</code> or <code>"a"</code>, save their input with a timestamp, and display the full updated contents of the file!</p>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Use <strong><code>"w"</code></strong> to overwrite files, <strong><code>"a"</code></strong> to append data, and <strong><code>"x"</code></strong> to prevent accidental overwrites.</li>
+                    <li>Always manage file handles using the <strong><code>with</code> statement</strong> to ensure safe closing.</li>
+                    <li>The <code>.write()</code> method takes <strong>only string arguments</strong> and does not add line breaks automatically.</li>
+                    <li>Use explicit <strong><code>\n</code></strong> newline characters or f-strings to format multi-line files and CSV exports.</li>
+                    <li>Remember that <code>.writelines()</code> requires pre-formatted string elements containing their own <code>\n</code> characters.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Reading and Writing files in Python! Next up, we will dive into handling unexpected crashes with **Exception Handling in Python**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="17-read-files">← Read Files</a>
+                    <a class="lesson-nav__next" href="19-modules">Next: Modules →</a>
+                </nav>
+            </div>
+        </article>
+
+        </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
