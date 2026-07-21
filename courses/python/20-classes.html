@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Classes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
+            <ul class="navbar-links"><li><a href="../../courses" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="./">Python</a><span>/</span><span>Lesson 9</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="19-modules">← Previous</a>
+                <p class="lesson-header__label">Lesson 20</p>
+                <h1 class="lesson-header__title">Classes</h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Classes in Python</h2>
+                <p>Python is an object-oriented programming language at its core. While functions allow you to group reusable actions together, <strong>Classes</strong> allow you to group both data (attributes) and behaviors (methods) into a single, cohesive unit. Mastering classes allows you to build sophisticated, structured applications like web frameworks, game engines, and data models.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand the syntax for creating and instantiating custom Python classes.</li>
+                    <li>Distinguish clearly between <strong>Instance Attributes</strong> and <strong>Class Attributes</strong>.</li>
+                    <li>Master special "Dunder" (double underscore) methods like <code>__init__()</code> and <code>__str__()</code>.</li>
+                    <li>Implement custom instance methods to modify an object's internal state.</li>
+                    <li>Follow Pythonic conventions like PascalCase naming for class definitions.</li>
+                </ul>
+
+                <h2>2. Understanding Classes: The Architectural Blueprint</h2>
+                <p>A <strong>Class</strong> serves as a blueprint or template for creating objects. An <strong>Instance</strong> (or Object) is the actual physical item built using that blueprint.</p>
+
+                <p>Imagine a blueprint for a Smartphone. The blueprint defines that every phone will have a <code>brand</code>, a <code>model</code>, and a <code>battery_level</code> (attributes), and that every phone can <code>make_call()</code> or <code>charge()</code> (methods). However, your personal iPhone and your friend's Samsung Galaxy are two distinct <strong>instances</strong> created from that concept, each holding its own battery percentage and unique data.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># Defining a class using PascalCase convention
+class Smartphone:
+    # Class Attribute (shared across ALL instances)
+    category = "Mobile Electronics"
+
+    # Constructor method for setting Instance Attributes (unique per object)
+    def __init__(self, brand, model, battery_level=100):
+        self.brand = brand
+        self.model = model
+        self.battery_level = battery_level
+
+# Instantiating (creating) two distinct objects
+phone1 = Smartphone("Apple", "iPhone 15", 85)
+phone2 = Smartphone("Samsung", "Galaxy S24", 92)
+
+print(f"Phone 1: {phone1.brand} {phone1.model} ({phone1.battery_level}%)")
+print(f"Phone 2: {phone2.brand} {phone2.model} ({phone2.battery_level}%)")</code></pre>
+
+                <h2>3. Instance Attributes vs. Class Attributes</h2>
+                <p>Understanding where a variable lives inside a class is critical for avoiding unexpected bugs:</p>
+
+                <ul>
+                    <li><strong>Instance Attributes:</strong> Variables attached to <code>self</code> inside <code>__init__()</code>. Every single object gets its own independent copy of these values.</li>
+                    <li><strong>Class Attributes:</strong> Variables defined directly inside the class block (outside any method). They are shared across <strong>every instance</strong> of that class to conserve memory.</li>
+                </ul>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Attribute Type</th>
+                            <th style="padding: 0.5rem;">Where Defined</th>
+                            <th style="padding: 0.5rem;">Scope & Ownership</th>
+                            <th style="padding: 0.5rem;">Best Used For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Instance Attribute</strong></td>
+                            <td style="padding: 0.5rem;">Inside <code>__init__()</code> using <code>self.attr</code></td>
+                            <td style="padding: 0.5rem;">Unique to each individual object.</td>
+                            <td style="padding: 0.5rem;">Data that varies per object (e.g., username, balance, ID).</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Class Attribute</strong></td>
+                            <td style="padding: 0.5rem;">Directly under <code>class ClassName:</code></td>
+                            <td style="padding: 0.5rem;">Shared across all instances of the class.</td>
+                            <td style="padding: 0.5rem;">Constants, global counters, or shared configurations.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>4. Special Dunder Methods: <code>__init__</code> and <code>__str__</code></h2>
+                <p>Python classes feature special methods surrounded by double underscores, often referred to as <strong>Dunder Methods</strong> or magic methods:</p>
+
+                <h3>1. The <code>__init__()</code> Method</h3>
+                <p>The constructor method that Python calls automatically whenever a new instance is instantiated. It sets up the object's initial state.</p>
+
+                <h3>2. The <code>__str__()</code> Method</h3>
+                <p>Determines how the object is represented as a string when passed to <code>print()</code> or <code>str()</code>. Without <code>__str__()</code>, printing an object outputs an unhelpful memory address like <code>&lt;__main__.Smartphone object at 0x7f8a&gt;</code>.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>class Laptop:
+    def __init__(self, brand, ram_gb):
+        self.brand = brand
+        self.ram_gb = ram_gb
+
+    # Custom string representation for human-readable output
+    def __str__(self):
+        return f"{self.brand} Laptop with {self.ram_gb}GB RAM"
+
+my_laptop = Laptop("Dell", 16)
+
+# Automatically triggers __str__()!
+print(my_laptop)  # Output: Dell Laptop with 16GB RAM</code></pre>
+
+                <h2>5. Adding Custom Instance Methods</h2>
+                <p>Methods are functions defined inside a class that operate on the instance's data. They can read or modify <code>self</code> attributes to update the object's state over time.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>class BankAccount:
+    def __init__(self, account_holder, balance=0.0):
+        self.account_holder = account_holder
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            print(f"Deposited ${amount:.2f}. New Balance: ${self.balance:.2f}")
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.balance:
+            self.balance -= amount
+            print(f"Withdrew ${amount:.2f}. Remaining Balance: ${self.balance:.2f}")
+        else:
+            print("Transaction declined: Insufficient funds or invalid amount.")
+
+# Usage
+account = BankAccount("Alex", 150.00)
+account.deposit(50.00)    # Deposited $50.00. New Balance: $200.00
+account.withdraw(75.00)   # Withdrew $75.00. Remaining Balance: $125.00</code></pre>
+
+                <h2>6. Real World Example: RPG Video Game Character</h2>
+                <p>Classes shine when building game characters, UI elements, or database entities where each entity needs independent state tracking:</p>
+
+                <pre><code>class Hero:
+    # Class attribute to track total created heroes
+    total_heroes = 0
+
+    def __init__(self, name, hero_class, health=100):
+        self.name = name
+        self.hero_class = hero_class
+        self.health = health
+        self.inventory = []
+        Hero.total_heroes += 1  # Increment global class counter
+
+    def take_damage(self, damage):
+        self.health = max(0, self.health - damage)
+        print(f"🛡️ {self.name} took {damage} damage! Health is now {self.health}.")
+
+    def heal(self, amount):
+        self.health += amount
+        print(f"✨ {self.name} healed for {amount} HP! Health is now {self.health}.")
+
+    def add_item(self, item_name):
+        self.inventory.append(item_name)
+        print(f"🎒 {self.name} found: {item_name}")
+
+# Simulating gameplay
+knight = Hero("Arthur", "Paladin", health=120)
+mage = Hero("Merlin", "Wizard", health=80)
+
+knight.take_damage(30)
+knight.add_item("Excalibur")
+mage.heal(15)
+
+print(f"Total active heroes in world: {Hero.total_heroes}")</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Forgetting <code>self</code> in Method Declarations</strong>: Writing <code>def show_details():</code> inside a class raises <code>TypeError: show_details() takes 0 positional arguments but 1 was given</code> when called on an instance.</li>
+                        <li><strong>Mutating Mutable Class Attributes</strong>: Defining a list as a class attribute (e.g., <code>items = []</code> outside <code>__init__</code>) shares that exact same list across ALL instances, leading to corrupted data!</li>
+                        <li><strong>Not Returning a String from <code>__str__()</code></strong>: The <code>__str__()</code> method <strong>must return a string</strong>. Returning an integer or <code>None</code> will raise a <code>TypeError</code>.</li>
+                        <li><strong>Not Using PascalCase for Class Names</strong>: Naming classes in lower_snake_case (e.g., <code>class bank_account:</code>) violates Python PEP 8 conventions. Use <code>class BankAccount:</code> instead.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are production-ready patterns for defining and working with classes in Python:</p>
+
+                <pre><code># 1. Class tracking object counts with class attributes
+class Employee:
+    emp_count = 0
+
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+        Employee.emp_count += 1
+
+    def __str__(self):
+        return f"Employee: {self.name} | Salary: ${self.salary:,}"
+
+e1 = Employee("Sarah", 85000)
+e2 = Employee("David", 92000)
+
+print(e1)
+print(f"Total Employees: {Employee.emp_count}")
+
+# 2. Encapsulating state modifications cleanly
+class Thermostat:
+    def __init__(self, temp_celsius=20.0):
+        self.temp_celsius = temp_celsius
+
+    def set_temp(self, new_temp):
+        if -10.0 <= new_temp <= 45.0:
+            self.temp_celsius = new_temp
+        else:
+            print("Temperature out of safe operating range!")</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="12-classes" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Car Class Builder</h2>
+                        <p class="practice-panel__hint">Create a class named <code>Car</code> with an <code>__init__()</code> method that initializes <code>make</code>, <code>model</code>, and <code>speed</code> (default <code>0</code>). Add an <code>accelerate(amount)</code> method that increases speed and a <code>__str__()</code> method that returns <code>"Make Model running at Speed km/h"</code>.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="class Car:&#10;    def __init__(self, make, model, speed=0):&#10;        # Initialize instance attributes&#10;        pass&#10;&#10;    def accelerate(self, amount):&#10;        # Increase speed&#10;        pass&#10;&#10;    def __str__(self):&#10;        # Return string representation&#10;        pass&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I defined <code>class Car:</code> and initialized attributes with <code>self</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I created <code>accelerate(self, amount)</code> to modify <code>self.speed</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I implemented <code>__str__(self)</code> to return a clean string representation</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Fantastic! You've mastered writing custom classes, instance methods, and dunder methods in Python.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="12-classes">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is the difference between a Class and an Instance (Object)?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. A class is the blueprint, while an instance is the actual object created from it.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A Class is an active object, while an Instance is a function blueprint.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! A Class defines the structure and behavior (blueprint), whereas an Instance is a concrete object built from that blueprint.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A Class is the blueprint/template, while an Instance is a concrete object created from it.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Both classes and instances are supported in Python.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Classes store data, while Instances store only functions.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What happens when you print an object that has a custom `__str__()` method defined?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Python automatically invokes __str__() when print() or str() is called on an instance.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python automatically calls __str__() and prints the custom returned string.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python prints the output returned by __str__(), not the raw memory address.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python prints the raw hex memory address of the object.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Defining __str__() does not raise errors.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python raises a TypeError unless you call __str__() explicitly.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What is the scope of a Class Attribute defined directly under `class Student:`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Class attributes are shared across all instances, not private to one.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It belongs uniquely to a single instance and cannot be shared.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Class attributes are shared across every instance created from that class.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It is shared across all instances of that class.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Attributes defined inside classes can be accessed outside if public.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It can only be accessed inside the __init__() method.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. According to PEP 8 naming conventions, how should Python classes be named?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. lower_snake_case is used for functions and variable names.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">lower_snake_case (e.g., bank_account)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Python PEP 8 style guide recommends PascalCase (UpperCamelCase) for class names.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">PascalCase / UpperCamelCase (e.g., BankAccount)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. SCREAMING_SNAKE_CASE is reserved for constants.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">SCREAMING_SNAKE_CASE (e.g., BANK_ACCOUNT)</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Student Grade Tracker:</strong> Build a <code>Student</code> class that tracks academic performance:</p>
+                <ol>
+                    <li>Include attributes for <code>name</code>, <code>student_id</code>, and a list of <code>grades</code> (starts empty).</li>
+                    <li>Add an <code>add_grade(score)</code> method that appends valid scores (0-100) to the list.</li>
+                    <li>Add a <code>get_average()</code> method that calculates and returns the student's average test score.</li>
+                    <li>Implement a <code>__str__()</code> method that displays the student name, ID, and average score rounded to 1 decimal place!</li>
+                </ol>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Classes group state (attributes) and behavior (methods) into reusable blueprints.</li>
+                    <li>Instantiate objects by calling the class name like a function: <code>obj = ClassName()</code>.</li>
+                    <li>Use <strong><code>__init__()</code></strong> to define instance attributes unique to each object.</li>
+                    <li>Implement <strong><code>__str__()</code></strong> to provide clean, human-readable string representations.</li>
+                    <li>Instance attributes belong to specific objects; Class attributes are shared across all instances.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Python Classes! Next up, we will explore code reuse and hierarchy with **Inheritance & Polymorphism in Python**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="19-oop-modules">← OOP & Modules</a>
+                    <a class="lesson-nav__next" href="21-oblects">Objects →</a>
+                </nav>
+            </div>
+        </article>
+        </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
