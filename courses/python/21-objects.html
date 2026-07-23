@@ -1,0 +1,360 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Objects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon"  type="image/png" href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
+            <ul class="navbar-links"><li><a href="../../courses" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="./">Python</a><span>/</span><span>Lesson 9</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="20-classes">← Previous</a>
+                <p class="lesson-header__label">Lesson 21</p>
+                <h1 class="lesson-header__title">Objects</h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+  <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Objects in Python</h2>
+                <p>In Python, there is a famous phrase: <strong>"Everything is an object."</strong> Integers, strings, lists, functions, modules, and custom class instances are all objects under the hood. Understanding how Python handles objects in memory—and how object identity, mutability, and attributes work—is key to writing bug-free, efficient code.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand what an object is in memory and why "everything is an object" in Python.</li>
+                    <li>Master the 3 pillars of any Python object: <strong>Identity</strong>, <strong>Type</strong>, and <strong>Value (State)</strong>.</li>
+                    <li>Differentiate between <strong>Value Equality (<code>==</code>)</strong> and <strong>Identity Equality (<code>is</code>)</strong>.</li>
+                    <li>Explore object mutability, pass-by-object-reference behavior, and memory aliasing.</li>
+                    <li>Inspect object capabilities dynamically using <code>id()</code>, <code>type()</code>, <code>isinstance()</code>, and <code>dir()</code>.</li>
+                </ul>
+
+                <h2>2. What is an Object?</h2>
+                <p>An <strong>Object</strong> is a container in system memory that holds data (state/attributes) and code (methods/behavior). When you assign a variable in Python, you are not placing data directly inside a box labeled with the variable's name. Instead, Python creates an object in memory and attaches a <strong>reference name</strong> (the variable) that points to that object's memory address.</p>
+
+                <p>Think of an object like a house on a street, and a variable like a sticky note with the house's address written on it. You can stick multiple address notes pointing to the same physical house!</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># Standard data types are objects
+x = 42              # 'x' references an Integer Object with value 42
+msg = "Hello"       # 'msg' references a String Object
+numbers = [1, 2, 3] # 'numbers' references a List Object
+
+# Checking types using the built-in type() function
+print(type(x))        # Output: &lt;class 'int'&gt;
+print(type(numbers))  # Output: &lt;class 'list'&gt;</code></pre>
+
+                <h2>3. The Anatomy of an Object</h2>
+                <p>Every single object created in Python possesses three distinct characteristics:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Property</th>
+                            <th style="padding: 0.5rem;">What It Represents</th>
+                            <th style="padding: 0.5rem;">How to Inspect It</th>
+                            <th style="padding: 0.5rem;">Can It Change?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Identity</strong></td>
+                            <td style="padding: 0.5rem;">The unique memory address where the object lives.</td>
+                            <td style="padding: 0.5rem;"><code>id(obj)</code> or <code>a is b</code></td>
+                            <td style="padding: 0.5rem;"><strong>No</strong> (Constant for object lifetime)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Type</strong></td>
+                            <td style="padding: 0.5rem;">The class blueprint that defines what the object can do.</td>
+                            <td style="padding: 0.5rem;"><code>type(obj)</code> or <code>isinstance()</code></td>
+                            <td style="padding: 0.5rem;"><strong>No</strong> (Cannot change type after creation)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Value (State)</strong></td>
+                            <td style="padding: 0.5rem;">The actual data payload held inside the object.</td>
+                            <td style="padding: 0.5rem;"><code>print(obj)</code> or attribute access</td>
+                            <td style="padding: 0.5rem;"><strong>Yes</strong> (If object is mutable)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>4. Equality: Value (<code>==</code>) vs Identity (<code>is</code>)</h2>
+                <p>One of the most essential concepts when dealing with objects is distinguishing between checking if two objects hold the <em>same contents</em> versus checking if they are the <em>exact same memory object</em>.</p>
+
+                <ul>
+                    <li><strong><code>==</code> (Value Equality):</strong> Asks "Do these two objects contain equal data?"</li>
+                    <li><strong><code>is</code> (Identity Equality):</strong> Asks "Do these two variables point to the exact same physical memory location?" (i.e., <code>id(a) == id(b)</code>).</li>
+                </ul>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>list_a = [10, 20, 30]
+list_b = [10, 20, 30]
+list_c = list_a  # Copying reference! Both point to same object
+
+# Comparing Contents (Value Equality)
+print(list_a == list_b)  # Output: True (Identical numbers inside)
+
+# Comparing Memory Locations (Identity Equality)
+print(list_a is list_b)  # Output: False (Two separate list objects in RAM!)
+print(list_a is list_c)  # Output: True (Both point to the exact same memory address!)
+
+# Inspecting actual memory address IDs
+print(id(list_a))  # e.g., 1402394820392
+print(id(list_b))  # e.g., 1402394820544 (Different ID!)
+print(id(list_c))  # e.g., 1402394820392 (Same ID as list_a!)</code></pre>
+
+                <h2>5. Object Mutability & References</h2>
+                <p>When you pass an object into a function, Python uses a mechanism called <strong>Pass-by-Object-Reference</strong>. If the object passed is <strong>mutable</strong> (like a list, dictionary, or custom class instance), modifications made inside a function directly alter the original object outside!</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>class Player:
+    def __init__(self, username, score=0):
+        self.username = username
+        self.score = score
+
+def award_bonus_points(player_obj, points):
+    # Mutates the object state directly in memory
+    player_obj.score += points
+
+p1 = Player("Gamer123", score=100)
+award_bonus_points(p1, 50)
+
+# The original object state changed!
+print(f"{p1.username} Score: {p1.score}")  # Output: Gamer123 Score: 150</code></pre>
+
+                <h2>6. Dynamic Attribute Inspection & Manipulation</h2>
+                <p>Because Python objects are dynamic, you can inspect their internal methods or dynamically read, set, and delete attributes at runtime using built-in functions:</p>
+
+                <ul>
+                    <li><strong><code>dir(obj)</code>:</strong> Returns a list of all attributes and methods available on the object.</li>
+                    <li><strong><code>hasattr(obj, 'attr_name')</code>:</strong> Checks if an attribute exists on the object.</li>
+                    <li><strong><code>getattr(obj, 'attr_name', default)</code>:</strong> Dynamically reads an attribute value.</li>
+                    <li><strong><code>setattr(obj, 'attr_name', value)</code>:</strong> Dynamically sets or creates a new attribute on an object.</li>
+                </ul>
+
+                <pre><code>class Car:
+    def __init__(self, brand):
+        self.brand = brand
+
+my_car = Car("Toyota")
+
+# Dynamically checking and setting attributes
+if hasattr(my_car, "brand"):
+    print(f"Brand is: {getattr(my_car, 'brand')}")
+
+# Dynamically adding a new attribute to this specific instance!
+setattr(my_car, "color", "Red")
+print(my_car.color)  # Output: Red</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Using <code>is</code> for Value Comparison</strong>: Writing <code>if name is "Alice":</code> can cause mysterious bugs because Python may optimize small strings/integers in memory while treating larger ones as separate objects. Always use <code>==</code> for content checks!</li>
+                        <li><strong>Accidental Object Aliasing</strong>: Writing <code>list_b = list_a</code> does NOT duplicate the list. Modifying <code>list_b.append(99)</code> will unintentionally modify <code>list_a</code> as well! Use <code>list_b = list_a.copy()</code> instead.</li>
+                        <li><strong>Attempting to Set Attributes on Immutable Built-in Types</strong>: Trying to dynamically attach an attribute to built-in immutable types like numbers or strings (e.g., <code>x = 5; x.name = "five"</code>) raises an <code>AttributeError</code>.</li>
+                        <li><strong>Forgetting that None is an Object</strong>: In Python, <code>None</code> is a singleton object of class <code>NoneType</code>. The standard way to check for <code>None</code> is using identity equality: <code>if value is None:</code>.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are essential patterns for inspecting and cloning objects safely in Python:</p>
+
+                <pre><code>import copy
+
+# 1. Shallow Copy vs. Deep Copying Objects
+original_data = {"user": "Alice", "skills": ["Python", "SQL"]}
+
+# Shallow copy shares nested objects (lists/dicts inside)
+shallow_copy = original_data.copy()
+
+# Deep copy duplicates the main object AND all nested objects recursively
+deep_copy = copy.deepcopy(original_data)
+
+original_data["skills"].append("Docker")
+
+print(shallow_copy["skills"]) # Output: ['Python', 'SQL', 'Docker'] (Mutated!)
+print(deep_copy["skills"])    # Output: ['Python', 'SQL'] (Preserved original!)
+
+# 2. Verifying object types cleanly with isinstance()
+def process_data(data_obj):
+    if isinstance(data_obj, list):
+        print(f"Processing list of {len(data_obj)} items.")
+    elif isinstance(data_obj, dict):
+        print(f"Processing dictionary with keys: {list(data_obj.keys())}")
+
+process_data([1, 2, 3])
+process_data({"a": 1, "b": 2})</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="13-objects" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Object Inspector</h2>
+                        <p class="practice-panel__hint">Define a custom class named <code>Gadget</code> with attributes <code>name</code> and <code>price</code>. Create two separate instances with identical values. Print whether their values are equal (<code>==</code>) and whether their memory identities are equal (<code>is</code>).</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="class Gadget:&#10;    def __init__(self, name, price):&#10;        self.name = name&#10;        self.price = price&#10;&#10;# Create g1 and g2 with same values&#10;g1 = Gadget('Phone', 699)&#10;g2 = Gadget('Phone', 699)&#10;&#10;# Compare using == and is&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I created class <code>Gadget</code> and instantiated two separate objects <code>g1</code> and <code>g2</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I checked identity comparison using <code>g1 is g2</code> (returns <code>False</code>)</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I inspected unique memory address locations using <code>id(g1)</code> and <code>id(g2)</code></span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Awesome job! You've mastered memory identity and object comparisons in Python.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="13-objects">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What does the `is` operator evaluate in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. The == operator checks whether contents/values are equal.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Whether the values stored inside two variables are equal.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! The `is` operator checks memory identity—whether two references point to the exact same memory location (id).">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Whether two variables point to the exact same physical memory address.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Data type checks are performed using type() or isinstance().">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Whether two objects share the same data type.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. What function returns the unique integer representing an object's memory address in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. type() returns the class blueprint of the object.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">type(obj)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! id(obj) returns the unique memory address identifier for an object during its lifetime.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">id(obj)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. dir() returns a list of attributes and methods available on the object.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">dir(obj)</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What happens when you pass a mutable object (like a list or custom object) into a function and modify it inside?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Python passes references to objects, so mutating a mutable object inside a function modifies the original object in place.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">The original object outside the function is modified directly.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python does not create a copy automatically when passing objects to functions.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python creates a temporary local copy, so the original remains unchanged.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Modifying objects inside functions is standard Python behavior and does not raise an error.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python raises a ReferenceError.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. Which built-in function allows you to safely check if an object has a specific attribute before accessing it?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. checkattr() does not exist in standard Python.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">checkattr(obj, "attr_name")</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! hasattr(obj, 'attr_name') returns True if the attribute exists, preventing AttributeError exceptions.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">hasattr(obj, "attr_name")</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. getattr() reads the attribute value, but raises an error if it doesn't exist unless a default is given.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">isinstance(obj, "attr_name")</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Object Memory & Clone Analyzer:</strong> Write a Python program that creates a custom <code>BankAccount</code> object with <code>owner</code> and <code>balance</code> attributes. Implement three operations:</p>
+                <ol>
+                    <li>Create an <strong>alias reference</strong> (<code>acc_alias = acc1</code>) and modify the balance. Print both variables to observe shared memory!</li>
+                    <li>Use the <code>copy</code> module to create a <strong>shallow copy</strong>, modify the copy's balance, and verify that the original object remains untouched.</li>
+                    <li>Use <code>id()</code> and <code>is</code> statements to output a clear memory inspection report comparing all three instances!</li>
+                </ol>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>In Python, everything is an object (integers, strings, lists, functions, classes).</li>
+                    <li>Every object has three core pillars: an <strong>Identity</strong> (memory address), a <strong>Type</strong>, and a <strong>Value</strong>.</li>
+                    <li>Use <strong><code>==</code></strong> to test content equality and <strong><code>is</code></strong> to test memory identity.</li>
+                    <li>Variables store <strong>references</strong> to objects in memory, not the raw data values themselves.</li>
+                    <li>Dynamically inspect object capabilities using <strong><code>id()</code></strong>, <strong><code>isinstance()</code></strong>, <strong><code>dir()</code></strong>, and <strong><code>hasattr()</code></strong>.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Objects and Memory Concepts! Next up, we will explore code reusability and class relationships with **Inheritance & Polymorphism in Python**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="20-classes">← Classes</a>
+                    <a class="lesson-nav__next" href="22-inheritance">Inheritance →</a>
+                </nav>
+            </div>
+        </article>
+
+  
+  </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
