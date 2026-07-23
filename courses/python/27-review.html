@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 10</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="26-file-handling">← Lesson 26</a>
+                <p class="lesson-header__label">Lesson 27 · Python</p>
+                <h1 class="lesson-header__title">  Review </h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+<article class="lesson-content">
+    <div class="lesson-content__inner">
+        <h2>1. File Handling in Python</h2>
+        <p><strong>File Handling</strong> allows Python programs to interact directly with the computer's storage system to read, write, append, and manage external files. Whether you are parsing server logs, saving application configuration settings, processing CSV datasets, or persisting user state, mastering file input/output (I/O) is a core skill for building production-grade software.</p>
+
+        <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+        <ul>
+            <li>Understand file modes (<code>r</code>, <code>w</code>, <code>a</code>, <code>x</code>, <code>b</code>) and text encoding principles.</li>
+            <li>Use the <code>with</code> context manager to guarantee safe file opening and automatic resource cleanup.</li>
+            <li>Master efficient file reading patterns (line-by-line streaming vs. full buffer reading).</li>
+            <li>Perform modern path manipulations safely using Python’s standard <code>pathlib</code> module.</li>
+            <li>Safely handle I/O exceptions such as <code>FileNotFoundError</code> and <code>PermissionError</code>.</li>
+        </ul>
+
+        <h2>2. Opening and Closing Files Safely</h2>
+        <p>Python provides the built-in <code>open()</code> function to establish a stream connection between your program and a target file. Historically, developers manually called <code>open()</code> and later <code>close()</code>. However, if an error occurred before reaching <code>close()</code>, the file handle remained open in memory, causing potential data loss or memory leaks.</p>
+
+        <p>The modern, Pythonic standard is using the <code>with</code> statement—known as a <strong>Context Manager</strong>. It automatically handles closing the file context as soon as execution exits the block, even if an exception is raised inside.</p>
+
+        <p><strong>Manual vs. Context Manager Approach:</strong></p>
+        <pre><code># ❌ BAD: Manual file handling (Prone to resource leaks if errors occur)
+file = open("data.txt", "r", encoding="utf-8")
+content = file.read()
+# If an exception happens here, file.close() never runs!
+file.close()
+
+
+# ✅ GOOD: Pythonic Context Manager (Auto-closes file upon exit)
+with open("data.txt", "r", encoding="utf-8") as file:
+    content = file.read()
+    # File is automatically closed when exiting this indented block!</code></pre>
+
+        <h2>3. File Operations &amp; Modes Matrix</h2>
+        <p>When calling <code>open(filename, mode, encoding)</code>, the <code>mode</code> argument determines what operations are permitted and how Python treats existing data:</p>
+
+        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                    <th style="padding: 0.5rem;">Mode</th>
+                    <th style="padding: 0.5rem;">Operation</th>
+                    <th style="padding: 0.5rem;">If File Exists?</th>
+                    <th style="padding: 0.5rem;">If File Missing?</th>
+                    <th style="padding: 0.5rem;">Primary Use Case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>'r'</code></td>
+                    <td style="padding: 0.5rem;">Read Only</td>
+                    <td style="padding: 0.5rem;">Opens at start</td>
+                    <td style="padding: 0.5rem;">Raises <code>FileNotFoundError</code></td>
+                    <td style="padding: 0.5rem;">Reading text content without modifying.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>'w'</code></td>
+                    <td style="padding: 0.5rem;">Write Only</td>
+                    <td style="padding: 0.5rem;"><strong>Truncates (Overwrites completely!)</strong></td>
+                    <td style="padding: 0.5rem;">Creates new file</td>
+                    <td style="padding: 0.5rem;">Creating new files or overwriting existing contents.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>'a'</code></td>
+                    <td style="padding: 0.5rem;">Append Only</td>
+                    <td style="padding: 0.5rem;">Appends to end of file</td>
+                    <td style="padding: 0.5rem;">Creates new file</td>
+                    <td style="padding: 0.5rem;">Adding log lines or activity history without overwriting.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>'x'</code></td>
+                    <td style="padding: 0.5rem;">Exclusive Creation</td>
+                    <td style="padding: 0.5rem;">Raises <code>FileExistsError</code></td>
+                    <td style="padding: 0.5rem;">Creates new file</td>
+                    <td style="padding: 0.5rem;">Preventing accidental overwrite of critical files.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>'b'</code></td>
+                    <td style="padding: 0.5rem;">Binary Mode</td>
+                    <td style="padding: 0.5rem;">Appended to modes (e.g., <code>'rb'</code>, <code>'wb'</code>)</td>
+                    <td style="padding: 0.5rem;">Depends on base mode</td>
+                    <td style="padding: 0.5rem;">Handling images, PDFs, audio, or compiled binaries.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Reading and Writing Strategies</h2>
+
+        <h3>Reading Large Files Efficiently</h3>
+        <p>While <code>.read()</code> loads the entire file contents into memory as a single string, doing this on multi-gigabyte log files will crash your application. Instead, use Python file objects as <strong>iterators</strong> to stream content line by line with minimal memory consumption.</p>
+
+        <pre><code># ❌ Memory Inefficient (Loads entire 2GB file into RAM at once)
+with open("huge_system.log", "r", encoding="utf-8") as file:
+    lines = file.readlines()  # Creates a massive list in memory
+    for line in lines:
+        print(line.strip())
+
+# ✅ Memory Efficient Streaming (Loads ONE line into RAM at a time)
+with open("huge_system.log", "r", encoding="utf-8") as file:
+    for line in file:  # Iterates line by line
+        if "ERROR" in line:
+            print(f"Log Alert: {line.strip()}")</code></pre>
+
+        <h3>Writing and Appending Content</h3>
+        <p>Use <code>.write()</code> for individual strings or <code>.writelines()</code> to output a list of pre-formatted string entries.</p>
+
+        <pre><code>log_entries = [
+    "2026-07-23 10:00:01 INFO User logged in\n",
+    "2026-07-23 10:02:15 WARNING High CPU usage detected\n",
+    "2026-07-23 10:05:30 ERROR Database connection timeout\n"
+]
+
+# Write mode overwrites file
+with open("app.log", "w", encoding="utf-8") as file:
+    file.writelines(log_entries)
+
+# Append mode adds to existing content
+with open("app.log", "a", encoding="utf-8") as file:
+    file.write("2026-07-23 10:10:00 INFO Service restored\n")</code></pre>
+
+        <h2>5. Modern File Handling with <code>pathlib</code></h2>
+        <p>While the traditional <code>os.path</code> module relies on raw string operations, standard Python modern code uses <strong><code>pathlib.Path</code></strong>. It provides object-oriented path manipulation that works cross-platform seamlessly (handling Windows <code>\</code> vs Unix <code>/</code> differences automatically).</p>
+
+        <pre><code>from pathlib import Path
+
+# Create a Path object
+data_dir = Path("data")
+config_file = data_dir / "config.json"  # Overloaded / operator for paths!
+
+# Create directory if it doesn't exist
+data_dir.mkdir(parents=True, exist_ok=True)
+
+# Quick read/write helper methods without explicit open context managers!
+config_file.write_text('{"theme": "dark", "version": "1.2"}', encoding="utf-8")
+
+if config_file.exists():
+    content = config_file.read_text(encoding="utf-8")
+    print(f"File Contents:\n{content}")</code></pre>
+
+        <h2>6. Common Beginner Mistakes</h2>
+        <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+            <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+            <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <li><strong>Omitting <code>encoding="utf-8"</code></strong>: Relying on OS default encodings (like Windows CP1252) leads to unexpected <code>UnicodeDecodeError</code> crashes when reading non-ASCII text on different operating systems.</li>
+                <li><strong>Accidentally Wiping Files with <code>'w'</code> Mode</strong>: Opening an existing file in <code>'w'</code> mode immediately truncates it to 0 bytes before you even perform a write! Use <code>'a'</code> for appending or <code>'x'</code> for safe creation.</li>
+                <li><strong>Forgetting Newline Characters (<code>\n</code>)</strong>: The <code>.write()</code> method does not automatically append newline characters like <code>print()</code> does. You must explicitly include <code>\n</code>.</li>
+                <li><strong>Forgetting to Handle Missing Files</strong>: Assuming a file always exists. Always wrap file operations in a <code>try-except FileNotFoundError</code> block or check <code>path.exists()</code> first.</li>
+            </ul>
+        </div>
+
+        <h2>7. Code Examples</h2>
+        <p>Here are practical production patterns for working with structured files and exception-safe file operations:</p>
+
+        <pre><code>import json
+from pathlib import Path
+
+# 1. Safe JSON Data Storage Pattern
+def save_user_profile(user_data, filepath):
+    path = Path(filepath)
+    
+    # Ensure parent directory exists
+    path.parent.mkdir(parents=True, exist_ok=True)
+    
+    try:
+        with open(path, "w", encoding="utf-8") as file:
+            json.dump(user_data, file, indent=4)
+        print(f"Successfully saved profile to {path}")
+    except PermissionError:
+        print(f"Error: Insufficient permission to write to {path}")
+
+# 2. Robust File Reading with Exception Handling
+def load_configuration(filepath):
+    path = Path(filepath)
+    
+    try:
+        with open(path, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"Config file '{filepath}' missing! Returning default configuration.")
+        return {"theme": "default", "notifications": True}
+    except json.JSONDecodeError:
+        print(f"Config file '{filepath}' is corrupted! Failed to parse JSON.")
+        return {}
+
+# Executing code
+profile = {"name": "Alex", "role": "Developer", "level": 5}
+save_user_profile(profile, "settings/user_profile.json")
+
+config = load_configuration("settings/user_profile.json")
+print("Loaded Profile:", config)</code></pre>
+
+        <section class="practice-panel" data-practice-type="lesson" data-practice-id="17-practice-file-handling" aria-labelledby="practice-title">
+            <div class="practice-panel__header">
+                <span class="practice-panel__eyebrow">Interactive Practice</span>
+                <h2 id="practice-title" class="practice-panel__title">Mini Practice: Exception-Safe Log Counter</h2>
+                <p class="practice-panel__hint">Write a Python function <code>count_log_errors(filename)</code> that opens a log file using a context manager, iterates line by line, counts how many lines contain <code>"ERROR"</code>, and returns the total. Handle <code>FileNotFoundError</code> by returning <code>0</code>.</p>
+                <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                <span class="practice-progress__label">0% complete</span>
+            </div>
+            <div class="practice-workspace">
+                <label for="practice-code">Your code</label>
+                <textarea id="practice-code" class="practice-code" rows="11" spellcheck="false" placeholder="def count_log_errors(filename):&#10;    error_count = 0&#10;    try:&#10;        with open(filename, 'r', encoding='utf-8') as file:&#10;            for line in file:&#10;                if 'ERROR' in line:&#10;                    error_count += 1&#10;        return error_count&#10;    except FileNotFoundError:&#10;        print(f'File {filename} not found.')&#10;        return 0&#10;&#10;print(count_log_errors('app.log'))&#10;"></textarea>
+            </div>
+            <fieldset class="practice-checklist">
+                <legend>Check when done</legend>
+                <label class="practice-check"><input type="checkbox"><span>I used a <code>with open(..., encoding='utf-8')</code> context manager</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I iterated over lines efficiently without loading the entire file at once</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I caught <code>FileNotFoundError</code> to prevent runtime crashes</span></label>
+            </fieldset>
+            <div class="practice-success" hidden>
+                <span class="practice-success__icon" aria-hidden="true">✓</span>
+                <p class="practice-success__title">Practice complete!</p>
+                <p class="practice-success__text">Excellent! You've mastered clean, memory-efficient, and exception-safe file handling in Python.</p>
+            </div>
+        </section>
+
+        <section class="quiz-panel" data-quiz-id="17-quiz-file-handling">
+            <div class="quiz-panel__header">
+                <span class="quiz-panel__eyebrow">Quiz</span>
+                <h2 class="quiz-panel__title">Test Your Understanding</h2>
+            </div>
+            
+            <div class="quiz-question">
+                <p class="quiz-question__text">1. What is the primary advantage of opening files using the `with open(...)` statement?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Mode 'r' or 'w' dictates write permission, not the context manager.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It automatically converts all written text to uppercase string format.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Context managers guarantee that file handles are properly closed upon exiting the block, even if runtime exceptions occur.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It guarantees the file is automatically closed when execution leaves the block, preventing resource leaks.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. While pathlib is object-oriented, with open() returns standard file stream objects.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It prevents any exception from ever being raised inside the block.</span>
+                    </label>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="quiz-question__text">2. What happens if you open an existing text file with mode `'w'`?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Appending is performed by 'a' mode.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">New content is appended to the bottom without altering existing text.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The 'x' mode raises FileExistsError if the file already exists.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">Python raises a FileExistsError exception immediately.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Opening in 'w' mode truncates (completely clears) any existing file contents immediately upon opening.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">The existing file contents are instantly erased (truncated to 0 bytes).</span>
+                    </label>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="quiz-question__text">3. Which method is most memory-efficient for processing a multi-gigabyte log file?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. .read() loads the entire multi-gigabyte file into memory at once, potentially causing MemoryError.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">Calling file.read() and splitting by newline characters.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Iterating directly over the file object ('for line in file:') streams one line into memory at a time.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">Iterating directly over the file object in a loop (`for line in file:`).</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. .readlines() loads all lines into a Python list in RAM at once.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">Calling file.readlines() to parse a list of strings.</span>
+                    </label>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="quiz-question__text">4. Why is explicitly passing `encoding='utf-8'` strongly recommended when opening text files?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Without specifying encoding='utf-8', Python defaults to platform-specific encodings, which leads to bugs across Windows, macOS, and Linux.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It ensures consistent cross-platform behavior and avoids OS-dependent decoding errors.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Encoding specifies character mapping, not binary/text file distinction.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It allows Python to automatically compress text files on disk.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. 'utf-8' is a parameter string, not a module import requirement.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It is required by Python syntax or a SyntaxError is raised.</span>
+                    </label>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <button type="button" class="quiz-btn-submit">Submit Answers</button>
+        </section>
+
+        <h2>8. Challenge Project</h2>
+        <p><strong>Log File Audit &amp; Summary Generator:</strong> Build a command-line script that analyzes a system log file and writes a summary report:</p>
+        <ol>
+            <li>Prompt the user or accept a file path using <code>pathlib.Path</code>.</li>
+            <li>Safely open the target log file using exception handling for missing files.</li>
+            <li>Stream through the file line by line to count occurrences of <code>"INFO"</code>, <code>"WARNING"</code>, and <code>"ERROR"</code> log levels.</li>
+            <li>Extract all <code>"ERROR"</code> lines and write them into a separate report file named <code>error_summary.txt</code>.</li>
+            <li>Append a timestamped execution log to an <code>audit.log</code> file using append mode (<code>'a'</code>).</li>
+        </ol>
+
+        <h2>9. Key Takeaways</h2>
+        <ul>
+            <li>Always use the <strong><code>with open(...)</code></strong> context manager to ensure files are safely closed.</li>
+            <li>Specify <strong><code>encoding="utf-8"</code></strong> explicitly for cross-platform compatibility.</li>
+            <li>Stream large files line by line using <code>for line in file:</code> to maintain low memory usage.</li>
+            <li>Use <strong><code>pathlib.Path</code></strong> for clean, cross-platform path creation and management.</li>
+            <li>Differentiate between write mode (<code>'w'</code> - truncates) and append mode (<code>'a'</code> - preserves).</li>
+        </ul>
+
+        <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+            <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered File Handling! Next up, we will cover **Modules &amp; Packages in Python** to organize code into reusable components!</p>
+        </div>
+
+        <nav class="lesson-nav">
+            <a href="26-file-handling">← Practice Flow</a>
+            <a class="lesson-nav__next" href="index">Back to Python →</a>
+        </nav>
+    </div>
+</article>
+
+
+<footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris. All rights reserved.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
