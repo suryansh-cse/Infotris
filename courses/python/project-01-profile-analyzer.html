@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | Project-01-profile-analyzer</title>
+    <title>Infotris | Interactive Terminal Game / Quiz Engine.</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../../css/system/theme.css">
 
@@ -25,547 +25,225 @@
     <main>
         <header class="lesson-header">
             <div class="lesson-header__inner">
-                <a class="lesson-header__back" href="02-variables">← Lesson 2</a>
+                
                 <p class="lesson-header__label">Project 1 · Week 1</p>
-                <h1 class="lesson-header__title">Personal greeting script</h1>
+                <h1 class="lesson-header__title">Interactive Terminal Game / Quiz Engine</h1>
                 <p class="lesson-header__meta">~45 min · Learn + build + verify</p>
             </div>
         </header>
-        <section class="practice-panel" data-practice-type="lesson" data-practice-id="03-operators" aria-labelledby="practice-title">
-    <div class="practice-panel__header">
-        <span class="practice-panel__eyebrow">Interactive Practice</span>
-        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Smart Calculator</h2>
-
-        <p class="practice-panel__hint">
-            Create a Python program that asks the user for two numbers and prints:
-            addition, subtraction, multiplication, division, remainder, and whether
-            the first number is greater than the second number.
-        </p>
-
-        <div class="practice-progress" role="progressbar"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0">
-            <div class="practice-progress__bar"></div>
-        </div>
-
-        <span class="practice-progress__label">0% complete</span>
-    </div>
-
-    <div class="practice-workspace">
-        <label for="practice-code">Your code</label>
-
-        <textarea
-            id="practice-code"
-            class="practice-code"
-            rows="10"
-            spellcheck="false"
-            placeholder="num1 = float(input('Enter first number: '))&#10;num2 = float(input('Enter second number: '))&#10;&#10;print('Addition:', num1 + num2)&#10;print('Subtraction:', num1 - num2)&#10;print('Multiplication:', num1 * num2)&#10;print('Division:', num1 / num2)&#10;print('Remainder:', num1 % num2)&#10;print(num1 > num2)">
-        </textarea>
-    </div>
-
-    <fieldset class="practice-checklist">
-        <legend>Check when done</legend>
-
-        <label class="practice-check">
-            <input type="checkbox">
-            <span>I used <code>input()</code> at least twice</span>
-        </label>
-
-        <label class="practice-check">
-            <input type="checkbox">
-            <span>I used arithmetic operators like <code>+</code>, <code>-</code>, <code>*</code>, or <code>/</code></span>
-        </label>
-
-        <label class="practice-check">
-            <input type="checkbox">
-            <span>I used a comparison operator (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>)</span>
-        </label>
-
-        <label class="practice-check">
-            <input type="checkbox">
-            <span>I printed all outputs correctly</span>
-        </label>
-    </fieldset>
-
-    <div class="practice-success" hidden>
-        <span class="practice-success__icon" aria-hidden="true">✓</span>
-        <p class="practice-success__title">Practice complete!</p>
-        <p class="practice-success__text">
-            Awesome! You now understand Python operators and how they work in calculations and conditions.
-        </p>
-    </div>
-</section>
-
-
-<section class="quiz-panel" data-quiz-id="03-operators">
-
-    <div class="quiz-panel__header">
-        <span class="quiz-panel__eyebrow">Quiz</span>
-        <h2 class="quiz-panel__title">Test Your Understanding</h2>
-    </div>
-
-    <div class="quiz-question">
-        <p class="quiz-question__text">
-            1. What will be the output of <code>10 % 3</code>?
-        </p>
-
-        <div class="quiz-options">
-
-            <label class="quiz-option">
-                <input type="radio" name="q1"
-                    data-correct="false"
-                    data-explanation="Incorrect. % gives the remainder, not division result.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">3</span>
-            </label>
-
-            <label class="quiz-option">
-                <input type="radio" name="q1"
-                    data-correct="true"
-                    data-explanation="Correct! 10 divided by 3 leaves remainder 1.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">1</span>
-            </label>
-
-            <label class="quiz-option">
-                <input type="radio" name="q1"
-                    data-correct="false"
-                    data-explanation="Incorrect. That's floor division.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">4</span>
-            </label>
-
-        </div>
-
-        <div class="quiz-feedback"></div>
-    </div>
-
-
-    <div class="quiz-question">
-        <p class="quiz-question__text">
-            2. Which operator checks if two values are equal?
-        </p>
-
-        <div class="quiz-options">
-
-            <label class="quiz-option">
-                <input type="radio" name="q2"
-                    data-correct="false"
-                    data-explanation="Incorrect. = is used for assignment.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">=</span>
-            </label>
-
-            <label class="quiz-option">
-                <input type="radio" name="q2"
-                    data-correct="true"
-                    data-explanation="Correct! == checks equality between two values.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">==</span>
-            </label>
-
-            <label class="quiz-option">
-                <input type="radio" name="q2"
-                    data-correct="false"
-                    data-explanation="Incorrect. != means not equal to.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">!=</span>
-            </label>
-
-        </div>
-
-        <div class="quiz-feedback"></div>
-    </div>
-
-
-    <div class="quiz-question">
-        <p class="quiz-question__text">
-            3. What will this return?
-            <code>True and False</code>
-        </p>
-
-        <div class="quiz-options">
-
-            <label class="quiz-option">
-                <input type="radio" name="q3"
-                    data-correct="false"
-                    data-explanation="Incorrect. Both conditions must be true with AND.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">True</span>
-            </label>
-
-            <label class="quiz-option">
-                <input type="radio" name="q3"
-                    data-correct="true"
-                    data-explanation="Correct! AND only returns True if both are True.">
-                <span class="quiz-option__indicator"></span>
-                <span class="quiz-option__text">False</span>
-            </label>
-
-        </div>
-
-        <div class="quiz-feedback"></div>
-    </div>
-
-
-    <button type="button" class="quiz-btn-submit">
-        Submit Answers
-    </button>
-
-</section>
-
-
-<div class="lesson-placeholder"
-    style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
-
-    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">
-        🚀 Progression
-    </h3>
-
-    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">
-        Great work. You now understand how Python makes calculations and decisions.
-        Next, you will learn one of the most powerful concepts in programming:
-        <strong>Conditional Statements (if, else, elif)</strong>.
-    </p>
-
-</div>
-<article class="lesson-content">
+     <article class="lesson-content">
     <div class="lesson-content__inner">
+        <h2>1. Project Overview &amp; Architecture</h2>
+        <p>Welcome to <strong>Major Project 1: Interactive Terminal Game / Quiz Engine</strong>! You have reached your first major milestone in Python. Up to this point, you have mastered variables, input/output, conditional logic, loops, custom functions, data structures, and input validation. Now, it's time to pull all these concepts together into a cohesive, production-grade terminal application.</p>
 
-        <section class="project-intro">
-            <p class="lesson-header__label">Project 1 · Python</p>
-            <h1 class="lesson-header__title">Personal Greeting Script</h1>
+        <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Project Core Objectives</h3>
+        <ul>
+            <li><strong>State Management:</strong> Track total score, high score, and consecutive correct answer streaks.</li>
+            <li><strong>Modular Functions:</strong> Organize application responsibilities into dedicated functions (menu display, question prompt, score calculation).</li>
+            <li><strong>Input Validation Loop:</strong> Ensure the user cannot crash the program by typing invalid options or empty strings.</li>
+            <li><strong>Control Flow:</strong> Implement interactive menu loops using <code>while</code> loops and structural pattern matching (<code>match-case</code>) or <code>if-elif-else</code> branches.</li>
+        </ul>
 
-            <p>
-                Congratulations — you've completed the foundations of Python:
-                variables, data types, inputs, and operators.
-                Now it's time to combine everything and build your
-                <strong>first real mini project</strong>.
-            </p>
+        <h2>2. Functional Requirements &amp; Feature Specifications</h2>
+        <p>Your Quiz Engine must implement the following four mandatory feature modules:</p>
 
-            <div class="lesson-placeholder" style="margin-top: 1.5rem;">
-                <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">
-                    🎯 Project Goal
-                </h3>
-                <p style="margin: 0;">
-                    Build a Python program that asks the user for:
-                    <strong>their name</strong>,
-                    <strong>birth year</strong>,
-                    and <strong>favorite programming language</strong>.
-                    Then calculate their age and print a clean,
-                    personalized message.
-                </p>
-            </div>
-        </section>
+        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                    <th style="padding: 0.5rem;">Feature Module</th>
+                    <th style="padding: 0.5rem;">Functional Specification</th>
+                    <th style="padding: 0.5rem;">Python Mechanism</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Question Bank</strong></td>
+                    <td style="padding: 0.5rem;">Stores questions, options (A-D), and correct answers.</td>
+                    <td style="padding: 0.5rem;">List of Dictionaries containing key-value pairs.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Robust Validation</strong></td>
+                    <td style="padding: 0.5rem;">Re-prompts user until a valid choice (A, B, C, D) is supplied.</td>
+                    <td style="padding: 0.5rem;"><code>while True</code> loop with <code>.strip().upper()</code>.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Streak Multiplier</strong></td>
+                    <td style="padding: 0.5rem;">Consecutive correct answers increase point yields (e.g., +10, +20, +30).</td>
+                    <td style="padding: 0.5rem;">Streak counter integer tracking correct answers.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Persistent High Score</strong></td>
+                    <td style="padding: 0.5rem;">Maintains the top score achieved during the session across replays.</td>
+                    <td style="padding: 0.5rem;">Main outer loop with high-score state tracking.</td>
+                </tr>
+            </tbody>
+        </table>
 
-        <section style="margin-top: 2rem;">
-            <h2>📋 Requirements</h2>
+        <h2>3. Complete Reference Implementation</h2>
+        <p>Review the full Python reference implementation below to understand how the components fit together into a modular architecture:</p>
 
-            <p>Your program must do the following:</p>
+        <pre><code>import random
 
-            <ul>
-                <li>Ask the user for their <strong>name</strong>.</li>
-                <li>Ask for their <strong>birth year</strong>.</li>
-                <li>Ask for their <strong>favorite programming language</strong>.</li>
-                <li>Calculate the user's age using the year <strong>2026</strong>.</li>
-                <li>Print a clean summary message.</li>
+# Question Bank Data Structure
+QUESTION_BANK = [
+    {
+        "question": "What is the correct file extension for Python scripts?",
+        "options": ["A) .pyt", "B) .pt", "C) .py", "D) .python"],
+        "answer": "C"
+    },
+    {
+        "question": "Which keyword is used to define a custom function in Python?",
+        "options": ["A) function", "B) def", "C) fun", "D) create"],
+        "answer": "B"
+    },
+    {
+        "question": "What data type is returned by the standard input() function?",
+        "options": ["A) Integer", "B) Float", "C) String", "D) Boolean"],
+        "answer": "C"
+    },
+    {
+        "question": "Which operator is used for integer floor division?",
+        "options": ["A) /", "B) //", "C) %", "D) **"],
+        "answer": "B"
+    }
+]
+
+def display_banner():
+    print("=" * 45)
+    print("      🎮 PYTHON TERMINAL QUIZ ENGINE 🎮     ")
+    print("=" * 45)
+
+def get_validated_choice():
+    """Loops until the user enters a valid choice: A, B, C, or D."""
+    valid_answers = {"A", "B", "C", "D"}
+    while True:
+        user_choice = input("\nYour answer (A/B/C/D): ").strip().upper()
+        if user_choice in valid_answers:
+            return user_choice
+        print("⚠️ Invalid input! Please enter A, B, C, or D.")
+
+def run_quiz_round():
+    """Executes a single round of the quiz and returns total points earned."""
+    print("\nStarting a new round! Answer correctly to build your point streak.\n")
+    score = 0
+    streak = 0
+    
+    # Shuffle questions to keep replay value high
+    questions = QUESTION_BANK.copy()
+    random.shuffle(questions)
+
+    for idx, q in enumerate(questions, start=1):
+        print(f"--- Question {idx} of {len(questions)} ---")
+        print(q["question"])
+        for option in q["options"]:
+            print(f"  {option}")
+        
+        user_answer = get_validated_choice()
+        
+        if user_answer == q["answer"]:
+            streak += 1
+            points = 10 * streak
+            score += points
+            print(f"✅ Correct! Streak: {streak}x | Earned +{points} pts")
+        else:
+            streak = 0
+            print(f"❌ Incorrect. The correct answer was {q['answer']}. Streak reset!")
+        print()
+
+    print("=" * 45)
+    print(f"🎉 Round Completed! Final Score: {score} pts")
+    print("=" * 45)
+    return score
+
+def main():
+    """Main CLI driver and state controller."""
+    display_banner()
+    high_score = 0
+
+    while True:
+        print("\nMAIN MENU:")
+        print("1) Start Quiz Game")
+        print("2) View Session High Score")
+        print("3) Exit Game")
+
+        choice = input("\nSelect an option (1-3): ").strip()
+
+        match choice:
+            case "1":
+                current_score = run_quiz_round()
+                if current_score > high_score:
+                    high_score = current_score
+                    print(f"🏆 NEW HIGH SCORE RECORD: {high_score} pts!")
+            case "2":
+                print(f"\n🏆 Current Session High Score: {high_score} pts")
+            case "3":
+                print("\nThanks for playing! Keep practicing Python!")
+                break
+            case _:
+                print("⚠️ Invalid selection. Please choose 1, 2, or 3.")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+        <h2>4. Common Project Pitfalls</h2>
+        <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+            <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Project Watchlist:</p>
+            <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <li><strong>Mutating the Original Question List</strong>: Using <code>random.shuffle(QUESTION_BANK)</code> directly modifies the global list permanently. Always copy it first using <code>QUESTION_BANK.copy()</code>.</li>
+                <li><strong>Unbounded Input Loops</strong>: Ensure that every validation loop has a clear exit pathway when valid input is supplied.</li>
+                <li><strong>Global Variable Scope Contamination</strong>: Avoid modifying global state variables inside nested functions without passing them explicitly as return values or parameters.</li>
             </ul>
+        </div>
 
-            <div class="lesson-placeholder"
-                style="border-left: 3px solid #0066ff;
-                background: rgba(0,102,255,0.04);">
-
-                <p style="font-weight:600; margin-bottom:0.5rem;">
-                    ✅ Example Output
-                </p>
-
-<pre><code>Hello Suryansh!
-You are 19 years old.
-Your favorite programming language is Python.
-Keep learning and building 🚀</code></pre>
-
-            </div>
-        </section>
-
-        <section style="margin-top: 2rem;">
-            <h2>💡 Hints</h2>
-
-            <div class="lesson-placeholder">
-
-                <ul style="margin-left: 1rem;">
-                    <li>Use <code>input()</code> to take user input.</li>
-                    <li>Remember: <code>input()</code> returns a string.</li>
-                    <li>Convert the birth year using <code>int()</code>.</li>
-                    <li>Use variables to store values.</li>
-                    <li>You can print output using
-                        <code>print()</code> or
-                        <code>f-strings</code>.
-                    </li>
-                </ul>
-
-            </div>
-        </section>
-
-        <section style="margin-top: 2rem;">
-            <h2>🧠 Before You Start</h2>
-
-            <p>
-                Try solving this by yourself first.
-                Don't scroll to the solution immediately.
-                The goal is to <strong>practice thinking like a programmer</strong>.
-            </p>
-
-            <div class="lesson-placeholder"
-                style="border-left: 3px solid #00b894;
-                background: rgba(0,184,148,0.05);">
-
-                <p style="font-weight:600; margin-bottom:0.5rem;">
-                    Pro Tip
-                </p>
-
-                <p style="margin:0;">
-                    Getting stuck is normal.
-                    Real programmers also get stuck.
-                    The important thing is learning how to solve problems.
-                </p>
-
-            </div>
-        </section>
-
-        <!-- CODE WORKSPACE -->
-        <section class="practice-panel"
-            style="margin-top: 2.5rem;">
-
+        <h2>5. Interactive Project Workspace</h2>
+        <section class="practice-panel" data-practice-type="project" data-practice-id="project-1-quiz-engine" aria-labelledby="practice-title">
             <div class="practice-panel__header">
-                <span class="practice-panel__eyebrow">
-                    Project Workspace
-                </span>
-
-                <h2 class="practice-panel__title">
-                    Write Your Code
-                </h2>
-
-                <p class="practice-panel__hint">
-                    Build the project below.
-                    Write your Python code exactly like you would
-                    in VS Code or GitHub.
-                </p>
+                <span class="practice-panel__eyebrow">Project Workspace</span>
+                <h2 id="practice-title" class="practice-panel__title">Build &amp; Test: Quiz Engine</h2>
+                <p class="practice-panel__hint">Use the code editor below to customize or build your own quiz engine. Try adding a custom difficulty system or additional questions to the question bank!</p>
+                <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                <span class="practice-progress__label">0% complete</span>
             </div>
-
             <div class="practice-workspace">
-
-                <label for="practice-code">
-                    main.py
-                </label>
-
-                <textarea
-                    id="practice-code"
-                    class="practice-code"
-                    rows="18"
-                    spellcheck="false"
-                    placeholder="Start coding here...
-
-name = input('Enter your name: ')
-birth_year = int(input('Enter your birth year: '))
-language = input('Favorite programming language: ')
-
-# Your logic here...
-"></textarea>
-
+                <label for="practice-code">Your Project Code</label>
+                <textarea id="practice-code" class="practice-code" rows="16" spellcheck="false" placeholder="# Build your custom Terminal Quiz Engine here!&#10;import random&#10;&#10;def main():&#10;    print('Welcome to my Python Quiz Game!')&#10;&#10;if __name__ == '__main__':&#10;    main()"></textarea>
             </div>
-
-        </section>
-
-                <!-- PROJECT CHECKLIST -->
-        <section class="practice-panel"
-            style="margin-top: 2rem;">
-
-            <div class="practice-panel__header">
-                <span class="practice-panel__eyebrow">
-                    Progress Tracker
-                </span>
-
-                <h2 class="practice-panel__title">
-                    Complete the Requirements
-                </h2>
-
-                <p class="practice-panel__hint">
-                    Check the boxes once you finish each task.
-                </p>
-            </div>
-
             <fieldset class="practice-checklist">
-                <legend>Project Checklist</legend>
-
-                <label class="practice-check">
-                    <input type="checkbox">
-                    <span>
-                        I used <code>input()</code> at least 3 times
-                    </span>
-                </label>
-
-                <label class="practice-check">
-                    <input type="checkbox">
-                    <span>
-                        I converted the birth year using
-                        <code>int()</code>
-                    </span>
-                </label>
-
-                <label class="practice-check">
-                    <input type="checkbox">
-                    <span>
-                        I calculated the user's age
-                    </span>
-                </label>
-
-                <label class="practice-check">
-                    <input type="checkbox">
-                    <span>
-                        I printed a personalized message
-                    </span>
-                </label>
+                <legend>Project Feature Checklist</legend>
+                <label class="practice-check"><input type="checkbox"><span>I built a structured list of question dictionaries</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I implemented input validation with <code>.strip().upper()</code></span></label>
+                <label class="practice-check"><input type="checkbox"><span>I added scoring logic with streak multipliers</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I added a replay loop with persistent high score tracking</span></label>
             </fieldset>
-
-        </section>
-
-
-        <!-- REVEAL HINT -->
-        <section style="margin-top: 2rem;">
-
-            <div class="lesson-placeholder">
-
-                <h3 style="margin-bottom:1rem;">
-                    🧩 Stuck?
-                </h3>
-
-                <p>
-                    Try solving it yourself first.
-                    If you're stuck, click below for a small hint.
-                </p>
-
-                <details style="margin-top:1rem;">
-                    <summary style="cursor:pointer; font-weight:600;">
-                        Reveal Hint
-                    </summary>
-
-                    <div style="margin-top:1rem;">
-
-<pre><code># Think step by step
-
-1. Ask for name
-2. Ask for birth year
-3. Convert year into int
-4. Calculate age
-5. Print result</code></pre>
-
-                    </div>
-                </details>
-
+            <div class="practice-success" hidden>
+                <span class="practice-success__icon" aria-hidden="true">✓</span>
+                <p class="practice-success__title">Major Project 1 Completed!</p>
+                <p class="practice-success__text">Awesome work! You've successfully built a complete interactive terminal application combining core Python fundamentals.</p>
             </div>
-
         </section>
 
+        <h2>6. Key Takeaways &amp; Milestone Achievement</h2>
+        <ul>
+            <li>Structuring code into modular functions keeps applications maintainable and readable.</li>
+            <li>Input validation loops protect programs against crashing due to unexpected user interaction.</li>
+            <li>In-memory state management enables rich user features like high scores and streak multipliers.</li>
+        </ul>
 
-        <!-- SHOW SOLUTION -->
-        <section style="margin-top: 2rem;">
+        <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🏆 Milestone 1 Complete</h3>
+            <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Congratulations on completing Major Project 1! Up next: **Major Project 2: File-Backed Expense & Task Tracker** where you will learn to add permanent disk storage to your programs!</p>
+        </div>
 
-            <div class="lesson-placeholder"
-                style="border-left:3px solid #ff9800;">
-
-                <h3 style="margin-bottom:1rem;">
-                    🔓 Need the Solution?
-                </h3>
-
-                <p>
-                    Only check the solution after trying by yourself.
-                    Struggling is part of learning programming.
-                </p>
-
-                <details style="margin-top:1rem;">
-                    <summary style="cursor:pointer; font-weight:600;">
-                        Show Solution
-                    </summary>
-
-                    <div style="margin-top:1rem;">
-
-<pre><code>name = input("Enter your name: ")
-
-birth_year = int(
-    input("Enter your birth year: ")
-)
-
-language = input(
-    "Favorite programming language: "
-)
-
-age = 2026 - birth_year
-
-print(f"Hello {name}!")
-print(f"You are {age} years old.")
-print(
-f"Your favorite programming language is {language}."
-)
-print("Keep learning and building 🚀")</code></pre>
-
-                    </div>
-                </details>
-
-            </div>
-
-        </section>
-
-
-        <!-- PROJECT COMPLETE -->
-        <section style="margin-top: 2rem;">
-
-            <div class="lesson-placeholder"
-                style="
-                border-left:4px solid #00b894;
-                background: rgba(0,184,148,0.06);
-                ">
-
-                <h3 style="margin-bottom:0.75rem;">
-                    🎉 Project Complete
-                </h3>
-
-                <p style="margin-bottom:0.5rem;">
-                    Great job — you just built your
-                    <strong>first real Python project</strong>.
-                </p>
-
-                <p style="margin:0;">
-                    You used variables, inputs,
-                    data types, and operators together.
-                    This is exactly how real coding works:
-                    combining small concepts into
-                    something useful.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- NAVIGATION -->
-        <nav class="lesson-nav"
-            style="margin-top: 3rem;">
-
-            <a href="05-operators">
-                ← Operators
-            </a>
-
-            <a class="lesson-nav__next"
-                href="06-conditionals">
-
-                Module 2: Conditions →
-            </a>
-
+        <nav class="lesson-nav">
+            <a href="28-api-web">← Web APIs &amp; Data</a>
+            <a class="lesson-nav__next" href="project-2-expense-tracker">Major Project 2: Expense Tracker →</a>
         </nav>
-
     </div>
 </article>
+    </main>
+
+      
            
     <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
     <script src="../../js/practice.js" defer></script>
