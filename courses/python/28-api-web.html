@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 10</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="26-file-handling">← Lesson 26</a>
+                <p class="lesson-header__label">Lesson 27 · Python</p>
+                <h1 class="lesson-header__title">  Review </h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+        <article class="lesson-content">
+    <div class="lesson-content__inner">
+        <h2>1. Connecting Python to the Web with APIs</h2>
+        <p>Welcome to <strong>Working with Web APIs &amp; Data</strong>! An <strong>API (Application Programming Interface)</strong> allows your Python scripts to communicate directly with external web servers—fetching live weather data, financial rates, sports scores, or news feeds. In this lesson, you will learn how to use Python's community-standard <code>requests</code> package to fetch, parse, and handle structured JSON data safely over HTTP.</p>
+
+        <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Lesson Objectives</h3>
+        <ul>
+            <li>Understand fundamental web concepts: HTTP verbs (<code>GET</code>, <code>POST</code>) and JSON data formats.</li>
+            <li>Send HTTP requests using the third-party <code>requests</code> library.</li>
+            <li>Parse incoming JSON HTTP response bodies into native Python dictionaries and lists.</li>
+            <li>Evaluate HTTP response status codes and handle network failure gracefully.</li>
+        </ul>
+
+        <h2>2. HTTP Request &amp; Status Code Matrix</h2>
+        <p>When Python requests data from an API, the remote server returns a numerical <strong>Status Code</strong> indicating the outcome of the request:</p>
+
+        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                    <th style="padding: 0.5rem;">Status Code</th>
+                    <th style="padding: 0.5rem;">Category</th>
+                    <th style="padding: 0.5rem;">Meaning</th>
+                    <th style="padding: 0.5rem;">Python Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>200 OK</code></td>
+                    <td style="padding: 0.5rem;">Success</td>
+                    <td style="padding: 0.5rem;">Request succeeded and data is returned</td>
+                    <td style="padding: 0.5rem;">Safe to parse JSON response via <code>response.json()</code>.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>400 Bad Request</code></td>
+                    <td style="padding: 0.5rem;">Client Error</td>
+                    <td style="padding: 0.5rem;">Invalid request parameter or missing query input</td>
+                    <td style="padding: 0.5rem;">Check query parameters and request payload.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>401 / 403</code></td>
+                    <td style="padding: 0.5rem;">Auth Error</td>
+                    <td style="padding: 0.5rem;">Unauthorized / Invalid or missing API key</td>
+                    <td style="padding: 0.5rem;">Verify authorization headers or query API keys.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>404 Not Found</code></td>
+                    <td style="padding: 0.5rem;">Client Error</td>
+                    <td style="padding: 0.5rem;">Requested endpoint URL does not exist</td>
+                    <td style="padding: 0.5rem;">Verify the base URL and API resource path.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>500 Internal Error</code></td>
+                    <td style="padding: 0.5rem;">Server Error</td>
+                    <td style="padding: 0.5rem;">The remote API server crashed or is offline</td>
+                    <td style="padding: 0.5rem;">Retry request after delay or notify user gracefully.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Production Pattern: Fetching Live JSON Data</h2>
+        <p>The code below demonstrates how to query a REST API, convert JSON output into a Python dictionary, and wrap execution in exception safety checks using <code>raise_for_status()</code>:</p>
+
+        <pre><code>import requests
+
+def fetch_crypto_price(coin_id="bitcoin"):
+    url = f"https://api.coingecko.com/api/v3/simple/price"
+    params = {
+        "ids": coin_id,
+        "vs_currencies": "usd"
+    }
+
+    try:
+        # 1. Send GET request with a 5-second connection timeout
+        response = requests.get(url, params=params, timeout=5)
+        
+        # 2. Check for HTTP errors (4xx / 5xx triggers exception)
+        response.raise_for_status()
+        
+        # 3. Parse JSON response into a native Python dictionary
+        data = response.json()
+        
+        # Guard clause: Verify coin key exists in output
+        if coin_id not in data:
+            print(f"Error: Coin '{coin_id}' not found.")
+            return None
+
+        price = data[coin_id]["usd"]
+        return price
+
+    except requests.exceptions.Timeout:
+        print("Error: The request timed out. Please try again later.")
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+    except requests.exceptions.RequestException as err:
+        print(f"Network error: {err}")
+        
+    return None
+
+# Usage example:
+current_price = fetch_crypto_price("bitcoin")
+if current_price:
+    print(f"Current Bitcoin Price: ${current_price:,.2f}")
+</code></pre>
+
+        <h2>4. Common Pitfalls Checklist</h2>
+        <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+            <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ API &amp; Web Data Pitfalls:</p>
+            <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <li><strong>Forgetting <code>timeout</code> Parameters</strong>: By default, <code>requests.get()</code> can hang indefinitely if a remote server stops responding! Always set a explicit timeout (e.g., <code>timeout=5</code>).</li>
+                <li><strong>Hardcoding Secret API Keys</strong>: Never upload scripts containing raw private API keys to GitHub. Use environment variables or configuration files.</li>
+                <li><strong>Assuming Every Response is Valid JSON</strong>: Server crashes often return HTML error pages instead of JSON, causing <code>response.json()</code> to throw a <code>JSONDecodeError</code>. Always check status codes first!</li>
+            </ul>
+        </div>
+
+        <h2>5. Interactive Practice</h2>
+        <section class="practice-panel" data-practice-type="lesson" data-practice-id="21-practice-apis" aria-labelledby="practice-title">
+            <div class="practice-panel__header">
+                <span class="practice-panel__eyebrow">Interactive Practice</span>
+                <h2 id="practice-title" class="practice-panel__title">Mini Practice: Parsing API Weather Payload</h2>
+                <p class="practice-panel__hint">Write a utility function <code>extract_temperature(api_data)</code> that takes a nested dictionary response from an API (e.g., <code>{"main": {"temp": 72.5}, "name": "London"}</code>) and uses safe dict access to return a formatted string <code>"London: 72.5°F"</code>. Return <code>"Data unavailable"</code> if keys are missing.</p>
+                <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                <span class="practice-progress__label">0% complete</span>
+            </div>
+            <div class="practice-workspace">
+                <label for="practice-code">Your code</label>
+                <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="def extract_temperature(api_data):&#10;    # Extract nested city and temperature safely&#10;    city = api_data.get('name')&#10;    main = api_data.get('main', {})&#10;    temp = main.get('temp')&#10;    &#10;    if city and temp is not None:&#10;        return f'{city}: {temp}°F'&#10;    return 'Data unavailable'&#10;&#10;# Test data payload:&#10;mock_response = {'name': 'New York', 'main': {'temp': 68.4}}&#10;print(extract_temperature(mock_response))&#10;"></textarea>
+            </div>
+            <fieldset class="practice-checklist">
+                <legend>Check when done</legend>
+                <label class="practice-check"><input type="checkbox"><span>I extracted data safely using <code>.get()</code> to avoid KeyErrors</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I handled missing keys by returning a fallback message</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I returned a clean string output</span></label>
+            </fieldset>
+            <div class="practice-success" hidden>
+                <span class="practice-success__icon" aria-hidden="true">✓</span>
+                <p class="practice-success__title">API Practice Complete!</p>
+                <p class="practice-success__text">Excellent work! You now know how to navigate nested JSON payloads and protect your scripts from missing fields.</p>
+            </div>
+        </section>
+
+        <h2>6. Knowledge Check Quiz</h2>
+        <section class="quiz-panel" data-quiz-id="21-quiz-apis">
+            <div class="quiz-panel__header">
+                <span class="quiz-panel__eyebrow">Lesson Quiz</span>
+                <h2 class="quiz-panel__title">Test Your Web API Knowledge</h2>
+            </div>
+            
+            <div class="quiz-question">
+                <p class="quiz-question__text">1. Which HTTP status code represents a successfully completed request that returned data?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" data-correct="true" data-explanation="Correct! 200 OK means the HTTP request succeeded and the server returned the requested data.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">200 OK</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. 404 indicates that the resource URL was not found on the server.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">404 Not Found</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. 500 represents an internal server crash on the API host.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">500 Server Error</span>
+                    </label>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="quiz-question__text">2. Why should you always specify a `timeout` parameter in `requests.get()` calls?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Timeouts do not change how fast the server processes data.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It accelerates network download speeds from remote servers.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Without a timeout, Python can hang forever waiting for a server that has stopped responding.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It prevents your script from freezing indefinitely if a server becomes unresponsive.</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. API keys or headers handle authorization, not timeout options.">
+                        <span class="quiz-option__indicator"></span>
+                        <span class="quiz-option__text">It automatically bypasses API key authorization requirements.</span>
+                    </label>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+
+            <button type="button" class="quiz-btn-submit">Submit Answers</button>
+        </section>
+
+        <h2>7. Key Takeaways</h2>
+        <ul>
+            <li>APIs allow Python programs to interact with external web data streams over standard HTTP requests.</li>
+            <li>Use <code>requests.get()</code> with parameters, timeouts, and <code>response.raise_for_status()</code> for safe fetching.</li>
+            <li>Convert JSON web data into Python dicts/lists using <code>response.json()</code>.</li>
+            <li>Always wrap web network calls inside <code>try-except</code> blocks catching <code>requests.exceptions.RequestException</code>.</li>
+        </ul>
+
+        <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🎓 Core Curriculum Complete!</h3>
+            <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Congratulations on finishing the core Python theory lessons! You are now ready to put your knowledge to work by building the **Major Capstone Projects**.</p>
+        </div>
+
+        <nav class="lesson-nav">
+            <a href="27-review.html">← Review</a>
+            <a class="lesson-nav__next" href="project-1-terminal-game">Major Project 1: Terminal Game →</a>
+        </nav>
+    </div>
+</article>
+        <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris. All rights reserved.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
