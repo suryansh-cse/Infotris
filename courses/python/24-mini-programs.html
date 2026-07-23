@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Mini Programs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 10</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="09-modules">← Lesson 9</a>
+                <p class="lesson-header__label">Lesson 10 · Python</p>
+                <h1 class="lesson-header__title">Problem Solving &amp; Debugging</h1>
+                <p class="lesson-header__meta">~40 min</p>
+            </div>
+        </header>
+
+
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Mini Programs in Python</h2>
+                <p>Building <strong>Mini Programs</strong> is the single best way to bridge the gap between learning Python syntax and becoming a confident software developer. A mini program combines core language concepts—variables, loops, conditional statements, functions, OOP, error handling, and file persistence—into a complete, working utility that solves a real-world problem.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand the core architectural loop of interactive command-line interface (CLI) applications.</li>
+                    <li>Master modular program structure using the <code>if __name__ == '__main__':</code> entry point.</li>
+                    <li>Handle user input cleanly and build crash-resilient code using <code>try-except</code> blocks.</li>
+                    <li>Persist mini program data locally using built-in modules like <code>json</code> and <code>csv</code>.</li>
+                    <li>Leverage standard library modules like <code>random</code>, <code>math</code>, and <code>datetime</code> to build useful utilities.</li>
+                </ul>
+
+                <h2>2. Anatomy of a Python Mini Program</h2>
+                <p>Every interactive mini program follows a predictable life cycle pattern: <strong>Initialize → Main Loop (Input/Process/Output) → Exit & Persist</strong>. Structuring your script around this loop ensures your application runs smoothly without crashing on invalid user input.</p>
+
+                <p><strong>The Core Application Loop Architecture:</strong></p>
+                <pre><code>import sys
+
+def display_menu():
+    print("\n=== MINI PROGRAM MENU ===")
+    print("1. Perform Action")
+    print("2. Exit Program")
+
+def main():
+    # 1. State Initialization
+    running = True
+
+    # 2. Main Application Loop
+    while running:
+        display_menu()
+        choice = input("Enter your choice (1-2): ").strip()
+
+        if choice == "1":
+            print("Action executed successfully!")
+        elif choice == "2":
+            print("Thank you for using the program. Goodbye!")
+            running = False  # Break loop
+        else:
+            print("Invalid choice! Please select 1 or 2.")
+
+# Standard Python Execution Guard
+if __name__ == "__main__":
+    main()</code></pre>
+
+                <h2>3. Common Categories of Mini Programs</h2>
+                <p>Depending on what task you want to solve, Python mini programs generally fall into four practical archetypes:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Category</th>
+                            <th style="padding: 0.5rem;">Core Features</th>
+                            <th style="padding: 0.5rem;">Key Python Modules Used</th>
+                            <th style="padding: 0.5rem;">Real-World Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>CLI Utilities</strong></td>
+                            <td style="padding: 0.5rem;">Menu loops, state storage, text formatting</td>
+                            <td style="padding: 0.5rem;"><code>json</code>, <code>sys</code>, <code>dataclasses</code></td>
+                            <td style="padding: 0.5rem;">Task Manager, Expense Tracker</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Generators & Tools</strong></td>
+                            <td style="padding: 0.5rem;">Algorithmic logic, string manipulation, randomness</td>
+                            <td style="padding: 0.5rem;"><code>random</code>, <code>string</code>, <code>secrets</code></td>
+                            <td style="padding: 0.5rem;">Password Generator, QR Code Maker</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Interactive Games</strong></td>
+                            <td style="padding: 0.5rem;">Randomized state, score tracking, win/loss logic</td>
+                            <td style="padding: 0.5rem;"><code>random</code>, <code>time</code></td>
+                            <td style="padding: 0.5rem;">Number Guessing Game, Tic-Tac-Toe</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>System Automation</strong></td>
+                            <td style="padding: 0.5rem;">File system reading/writing, batch processing</td>
+                            <td style="padding: 0.5rem;"><code>os</code>, <code>shutil</code>, <code>pathlib</code></td>
+                            <td style="padding: 0.5rem;">File Organizer, Batch File Renamer</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>4. Essential Pattern 1: Secure Password Generator</h2>
+                <p>This utility demonstrates using Python's built-in <code>random</code> and <code>string</code> modules to generate cryptographically random passwords tailored to user constraints.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>import random
+import string
+
+def generate_password(length=12, use_digits=True, use_special=True):
+    # Base character set: lowercase and uppercase letters
+    characters = string.ascii_letters
+    
+    if use_digits:
+        characters += string.digits
+    if use_special:
+        characters += string.punctuation
+
+    # Randomly select characters from the combined pool
+    password = "".join(random.choice(characters) for _ in range(length))
+    return password
+
+# Main execution loop
+print("=== Secure Password Generator ===")
+try:
+    user_length = int(input("Enter desired password length (min 6): "))
+    if user_length &lt; 6:
+        print("Length too short! Defaulting to 12 characters.")
+        user_length = 12
+
+    pwd = generate_password(length=user_length)
+    print(f"\nGenerated Password: {pwd}")
+except ValueError:
+    print("Invalid input! Please enter a valid numerical integer.")</code></pre>
+
+                <h2>5. Essential Pattern 2: Interactive To-Do List with JSON Storage</h2>
+                <p>A complete, crash-resilient CLI application that allows users to create, view, complete, and save tasks locally to a JSON file on disk.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>import json
+import os
+
+DATA_FILE = "tasks.json"
+
+def load_tasks():
+    """Load tasks from disk if file exists."""
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as file:
+            try:
+                return json.load(file)
+            except json.JSONDecodeError:
+                return []
+    return []
+
+def save_tasks(tasks):
+    """Save tasks to disk as JSON format."""
+    with open(DATA_FILE, "w") as file:
+        json.dump(tasks, file, indent=4)
+
+def run_todo_app():
+    tasks = load_tasks()
+
+    while True:
+        print("\n--- TO-DO MANAGER ---")
+        print("1. View Tasks")
+        print("2. Add Task")
+        print("3. Mark Task Complete")
+        print("4. Save & Exit")
+
+        choice = input("Select an option (1-4): ").strip()
+
+        if choice == "1":
+            if not tasks:
+                print("Your task list is empty!")
+            else:
+                for idx, task in enumerate(tasks, start=1):
+                    status = "✓" if task["done"] else "✗"
+                    print(f"{idx}. [{status}] {task['title']}")
+
+        elif choice == "2":
+            title = input("Enter task title: ").strip()
+            if title:
+                tasks.append({"title": title, "done": False})
+                print(f"Task '{title}' added!")
+
+        elif choice == "3":
+            if not tasks:
+                print("No tasks available to mark complete.")
+                continue
+            try:
+                task_num = int(input("Enter task number to complete: "))
+                if 1 &lt;= task_num &lt;= len(tasks):
+                    tasks[task_num - 1]["done"] = True
+                    print("Task marked as completed!")
+                else:
+                    print("Invalid task number.")
+            except ValueError:
+                print("Please enter a valid integer!")
+
+        elif choice == "4":
+            save_tasks(tasks)
+            print("Tasks saved. Goodbye!")
+            break
+
+        else:
+            print("Invalid selection. Try again.")
+
+if __name__ == "__main__":
+    run_todo_app()</code></pre>
+
+                <h2>6. Essential Pattern 3: Automated File Organizer Script</h2>
+                <p>This script uses Python's standard library <code>pathlib</code> module to scan a directory and automatically sort files into categorized folders based on their file extension.</p>
+
+                <pre><code>from pathlib import Path
+import shutil
+
+def organize_folder(folder_path):
+    target_dir = Path(folder_path)
+    
+    if not target_dir.exists():
+        print(f"Error: Path '{folder_path}' does not exist.")
+        return
+
+    # Categorization mapping based on file extension
+    CATEGORIES = {
+        "Images": [".jpg", ".jpeg", ".png", ".gif", ".svg"],
+        "Documents": [".pdf", ".docx", ".txt", ".xlsx", ".pptx"],
+        "Code": [".py", ".html", ".css", ".js", ".json"],
+        "Archives": [".zip", ".tar", ".gz", ".7z"]
+    }
+
+    # Iterate over all files in target folder
+    for file in target_dir.iterdir():
+        if file.is_file():
+            ext = file.suffix.lower()
+            moved = False
+
+            for category, extensions in CATEGORIES.items():
+                if ext in extensions:
+                    dest_dir = target_dir / category
+                    dest_dir.mkdir(exist_ok=True)  # Create category folder if missing
+                    shutil.move(str(file), str(dest_dir / file.name))
+                    print(f"Moved: {file.name} -> {category}/")
+                    moved = True
+                    break
+
+            # Unrecognized files go to an 'Others' folder
+            if not moved:
+                dest_dir = target_dir / "Others"
+                dest_dir.mkdir(exist_ok=True)
+                shutil.move(str(file), str(dest_dir / file.name))
+
+# Example invocation:
+# organize_folder("./Downloads")</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Unchecked User Input (Crashing on Type Conversion)</strong>: Calling <code>int(input())</code> directly without wrapping it in a <code>try-except ValueError</code> block will instantly crash your CLI program if a user types text instead of digits!</li>
+                        <li><strong>Creating Infinite Loops Without Exit Paths</strong>: Writing <code>while True:</code> without clear <code>break</code> statements or loop termination flags makes programs lock up indefinitely.</li>
+                        <li><strong>Hardcoding File Paths</strong>: Hardcoding absolute paths like <code>C:\Users\Alice\Documents\file.txt</code> prevents your mini program from working on other machines or operating systems. Use relative paths or <code>pathlib.Path</code>.</li>
+                        <li><strong>Forgetting to Save File Changes On Exit</strong>: Always ensure write operations (like saving JSON data) occur when the user explicitly chooses to exit or after major state updates.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here is an example of an interactive <strong>Unit & Temperature Converter</strong> built with clean input validation functions:</p>
+
+                <pre><code># Unit Converter Mini Program
+
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5/9
+
+def get_float_input(prompt):
+    """Helper function to guarantee valid numeric input."""
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Invalid input! Please enter a valid number.")
+
+def main_converter():
+    print("=== Temperature Converter ===")
+    print("1. Celsius to Fahrenheit")
+    print("2. Fahrenheit to Celsius")
+    
+    choice = input("Choose conversion type (1 or 2): ").strip()
+
+    if choice == "1":
+        c = get_float_input("Enter temperature in °C: ")
+        f = celsius_to_fahrenheit(c)
+        print(f"Result: {c:.2f}°C = {f:.2f}°F")
+    elif choice == "2":
+        f = get_float_input("Enter temperature in °F: ")
+        c = fahrenheit_to_celsius(f)
+        print(f"Result: {f:.2f}°F = {c:.2f}°C")
+    else:
+        print("Invalid conversion choice selected.")
+
+if __name__ == "__main__":
+    main_converter()</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="15-mini-programs" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Number Guessing Game</h2>
+                        <p class="practice-panel__hint">Create a mini guessing game using <code>random.randint(1, 100)</code>. Use a <code>while</code> loop to ask the user for guesses and give feedback ("Too high!", "Too low!") until they guess correctly.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="import random&#10;&#10;secret_num = random.randint(1, 100)&#10;attempts = 0&#10;&#10;while True:&#10;    guess = int(input('Guess a number between 1 and 100: '))&#10;    attempts += 1&#10;    if guess < secret_num:&#10;        print('Too low!')&#10;    elif guess > secret_num:&#10;        print('Too high!')&#10;    else:&#10;        print(f'Correct! You won in {attempts} attempts.')&#10;        break&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I imported <code>random</code> and generated a secret number using <code>random.randint()</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I built a <code>while</code> loop to keep prompting the user for input</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I added conditional checks for high, low, and correct guesses with a loop break</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Great job! You've successfully built an interactive CLI game loop in Python.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="15-mini-programs">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is the main benefit of wrapping top-level execution code inside `if __name__ == "__main__":`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not compile code faster based on name guard statements.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It makes the program run twice as fast in memory.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! It prevents main program logic from executing automatically when the file is imported as a module into another script.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It ensures code only runs when executed directly as a script, not when imported as a module.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Variable privacy in Python is handled via scoping or name mangling conventions.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It hides all global variables from being modified by users.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which built-in Python module is commonly used to save structured application data (like tasks or user profiles) directly to a text file?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The math module provides standard mathematical functions.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">math</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The json module converts Python dictionaries/lists to JSON strings for easy saving and loading on disk.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">json</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The random module generates random selections and numbers.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">random</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What exception is raised when calling `int("abc")` on invalid user string input?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Passing non-numeric text to int() raises a ValueError, which should be caught with a try-except block.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">ValueError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. TypeError occurs when an operation is applied to an object of inappropriate type.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">TypeError</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. KeyError occurs when looking up a dictionary key that does not exist.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">KeyError</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. How do you prevent a program from crashing when opening a file that might not exist on disk?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. File open errors occur at runtime, not syntax check time.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">By removing all file opening operations.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Checking file existence using os.path.exists() or handling FileNotFoundError inside try-except keeps your program crash-free.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">By checking `os.path.exists()` or catching `FileNotFoundError` in a try-except block.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Using while loops does not catch or handle missing file errors.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">By wrapping the file opening statement inside an infinite while loop.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Personal Expense Tracker CLI:</strong> Build an interactive CLI program to track daily finances:</p>
+                <ol>
+                    <li>Create a menu system with choices: <strong>Add Expense</strong>, <strong>View Summary</strong>, <strong>Filter by Category</strong>, and <strong>Save & Exit</strong>.</li>
+                    <li>Store expenses as dictionaries inside a list: <code>{"amount": 15.50, "category": "Food", "description": "Lunch"}</code>.</li>
+                    <li>Implement a function to calculate total money spent across all recorded expenses.</li>
+                    <li>Save all expense records to a file named <code>expenses.json</code> using the <code>json</code> module so data persists between runs!</li>
+                </ol>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Mini programs integrate all Python basics (loops, logic, functions, OOP) into functional software.</li>
+                    <li>Build resilient application loops using <code>while</code> loops and input validation with <code>try-except</code>.</li>
+                    <li>Structure your code cleanly using functions and protect entry points with <code>if __name__ == '__main__':</code>.</li>
+                    <li>Persist data locally on disk using built-in format modules like <code>json</code> or <code>csv</code>.</li>
+                    <li>Leverage Python standard library modules like <code>random</code>, <code>pathlib</code>, and <code>os</code> for real-world automation.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Mini Programs! Next up, we will explore **File Handling & Modules in Python** to scale up your application development!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="23-problem-solving">← Problem-Solving</a>
+                    <a class="lesson-nav__next" href="16-file-handling">File Handling →</a>
+                </nav>
+            </div>
+        </article>
+<footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris. All rights reserved.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
+        
