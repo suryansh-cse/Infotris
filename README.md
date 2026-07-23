@@ -1,3 +1,4 @@
 # Infotris
 Infotris
-devlop, build and founded by Suryansh
+# Founder 
+Devlop, build and founded by Suryansh
