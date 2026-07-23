@@ -30,7 +30,369 @@
                 <p class="lesson-header__meta">~35 min</p>
             </div>
         </header> 
- 
+ <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Inheritance in Python</h2>
+                <p><strong>Inheritance</strong> is one of the core pillars of Object-Oriented Programming (OOP). It allows a new class (known as the <strong>child</strong> or <strong>derived class</strong>) to inherit attributes and methods from an existing class (known as the <strong>parent</strong> or <strong>base class</strong>). This promotes code reusability, reduces redundancy, and allows you to establish natural hierarchical relationships in software.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand the relationship between Parent (Base) and Child (Derived) classes.</li>
+                    <li>Master method overriding and calling parent constructors using <code>super()</code>.</li>
+                    <li>Explore different forms of inheritance: <strong>Single</strong>, <strong>Multilevel</strong>, <strong>Hierarchical</strong>, and <strong>Multiple Inheritance</strong>.</li>
+                    <li>Understand Python's <strong>Method Resolution Order (MRO)</strong> and how to inspect it.</li>
+                    <li>Enforce structural blueprints across child classes using <strong>Abstract Base Classes (ABCs)</strong>.</li>
+                </ul>
+
+                <h2>2. What is Inheritance?</h2>
+                <p>Inheritance allows you to create a general base class containing common functionality, and then specialize it into child classes without rewriting identical logic. In Python, passing the parent class name inside parentheses during child class definition establishes the inheritance link.</p>
+
+                <p><strong>Syntax:</strong></p>
+                <pre><code>class ParentClass:
+    # Common attributes and methods
+    pass
+
+class ChildClass(ParentClass):
+    # Specialized attributes and methods
+    pass</code></pre>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># Parent (Base) Class
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def make_sound(self):
+        print(f"{self.name} makes a generic sound.")
+
+# Child (Derived) Class inheriting from Animal
+class Dog(Animal):
+    def fetch(self):
+        print(f"{self.name} is fetching the ball!")
+
+# Instantiating Dog
+my_dog = Dog("Buddy")
+
+# Dog inherits attributes and methods from Animal automatically!
+my_dog.make_sound()  # Output: Buddy makes a generic sound.
+my_dog.fetch()       # Output: Buddy is fetching the ball!</code></pre>
+
+                <h2>3. Types of Inheritance in Python</h2>
+                <p>Python supports multiple forms of inheritance structure depending on how classes interact:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Type</th>
+                            <th style="padding: 0.5rem;">Structure</th>
+                            <th style="padding: 0.5rem;">Description</th>
+                            <th style="padding: 0.5rem;">Code Pattern</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Single</strong></td>
+                            <td style="padding: 0.5rem;">A → B</td>
+                            <td style="padding: 0.5rem;">One child class inherits from one parent class.</td>
+                            <td style="padding: 0.5rem;"><code>class B(A):</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Multilevel</strong></td>
+                            <td style="padding: 0.5rem;">A → B → C</td>
+                            <td style="padding: 0.5rem;">A child class acts as a parent for another child class.</td>
+                            <td style="padding: 0.5rem;"><code>class C(B):</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Hierarchical</strong></td>
+                            <td style="padding: 0.5rem;">A → B, A → C</td>
+                            <td style="padding: 0.5rem;">Multiple child classes inherit from the same parent.</td>
+                            <td style="padding: 0.5rem;"><code>class B(A):</code> and <code>class C(A):</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Multiple</strong></td>
+                            <td style="padding: 0.5rem;">(A, B) → C</td>
+                            <td style="padding: 0.5rem;">A single child class inherits from two or more parent classes.</td>
+                            <td style="padding: 0.5rem;"><code>class C(A, B):</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>4. The <code>super()</code> Function & Method Overriding</h2>
+                <p><strong>Method Overriding</strong> happens when a child class provides its own implementation of a method that is already defined in its parent class.</p>
+                <p>When overriding constructors or methods, you frequently want to extend the parent behavior rather than completely replace it. The <strong><code>super()</code></strong> function gives you access to the parent class methods directly from within the child class.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>class Vehicle:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def start_engine(self):
+        print(f"The engine of {self.brand} {self.model} is starting...")
+
+class ElectricCar(Vehicle):
+    def __init__(self, brand, model, battery_capacity):
+        # Call the parent constructor using super() to initialize brand & model
+        super().__init__(brand, model)
+        self.battery_capacity = battery_capacity  # New child-specific attribute
+
+    # Overriding method from Vehicle
+    def start_engine(self):
+        super().start_engine()  # Run parent engine setup first
+        print(f"Silent electric power engaged ({self.battery_capacity} kWh battery ready)!")
+
+tesla = ElectricCar("Tesla", "Model 3", 75)
+tesla.start_engine()
+# Output:
+# The engine of Tesla Model 3 is starting...
+# Silent electric power engaged (75 kWh battery ready)!</code></pre>
+
+                <h2>5. Method Resolution Order (MRO)</h2>
+                <p>When using <strong>Multiple Inheritance</strong> (a class inheriting from two or more parents), Python needs a clear rule to decide which parent method to execute first if both parents share the same method name. This rule is called the <strong>Method Resolution Order (MRO)</strong>, calculated using the <strong>C3 Linearization algorithm</strong>.</p>
+
+                <p>You can inspect the exact method lookup order of any class using <code>ClassName.mro()</code> or <code>ClassName.__mro__</code>.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>class Camera:
+    def click_photo(self):
+        print("Photo taken!")
+
+class Phone:
+    def make_call(self):
+        print("Calling...")
+
+# Smartphone inherits from both Camera and Phone
+class Smartphone(Camera, Phone):
+    pass
+
+sp = Smartphone()
+sp.click_photo()
+sp.make_call()
+
+# Inspecting Method Resolution Order (MRO)
+print(Smartphone.mro())
+# Output: [&lt;class '__main__.Smartphone'&gt;, &lt;class '__main__.Camera'&gt;, &lt;class '__main__.Phone'&gt;, &lt;class 'object'&gt;]</code></pre>
+
+                <h2>6. Abstract Base Classes (ABCs)</h2>
+                <p>Sometimes you want to create a parent class that serves <em>strictly</em> as a blueprint and should never be instantiated directly. An <strong>Abstract Base Class (ABC)</strong> forces child classes to implement specific methods using the <code>@abstractmethod</code> decorator from Python's built-in <code>abc</code> module.</p>
+
+                <pre><code>from abc import ABC, abstractmethod
+
+# Abstract Base Class
+class PaymentProcessor(ABC):
+    @abstractmethod
+    def process_payment(self, amount):
+        """Must be implemented by all concrete subclasses!"""
+        pass
+
+class CreditCardProcessor(PaymentProcessor):
+    def process_payment(self, amount):
+        print(f"Processing ${amount} via Credit Card.")
+
+# Attempting to instantiate the Abstract class directly raises an error!
+# error_obj = PaymentProcessor() # TypeError: Can't instantiate abstract class
+
+card = CreditCardProcessor()
+card.process_payment(100)  # Output: Processing $100 via Credit Card.</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Forgetting to call <code>super().__init__()</code></strong>: If you define an <code>__init__</code> method in a child class, it completely overrides the parent's constructor. If you don't invoke <code>super().__init__()</code>, parent attributes won't be initialized, causing <code>AttributeError</code> later!</li>
+                        <li><strong>Deep Inheritance Hierarchies</strong>: Creating complex chains of 5+ nested inherited classes makes code fragile and unmaintainable. Favor composition ("has-a" relationships) over inheritance ("is-a" relationships) when possible.</li>
+                        <li><strong>The Diamond Problem in Multiple Inheritance</strong>: Inheriting from multiple classes that share a common ancestor can cause unexpected method execution orders. Always check <code>ClassName.mro()</code> if behavior seems strange!</li>
+                        <li><strong>Using Type Checks Instead of <code>isinstance()</code> / <code>issubclass()</code></strong>: Avoid using <code>type(obj) == ParentClass</code> because it ignores child class inheritance! Always use <code>isinstance(obj, ParentClass)</code> or <code>issubclass(Child, Parent)</code>.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are practical code patterns demonstrating inheritance verification and hierarchical employee structures:</p>
+
+                <pre><code># 1. Type Verification with isinstance() and issubclass()
+class Employee:
+    pass
+
+class Manager(Employee):
+    pass
+
+m = Manager()
+
+print(isinstance(m, Manager))   # Output: True
+print(isinstance(m, Employee))  # Output: True (Manager is an Employee!)
+print(issubclass(Manager, Employee)) # Output: True
+
+# 2. Complete Multilevel Inheritance Example
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+class Staff(Person):
+    def __init__(self, name, staff_id):
+        super().__init__(name)
+        self.staff_id = staff_id
+
+class Developer(Staff):
+    def __init__(self, name, staff_id, tech_stack):
+        super().__init__(name, staff_id)
+        self.tech_stack = tech_stack
+
+dev = Developer("Alex", "E104", ["Python", "Django", "PostgreSQL"])
+print(f"Dev: {dev.name} | ID: {dev.staff_id} | Stack: {', '.join(dev.tech_stack)}")
+# Output: Dev: Alex | ID: E104 | Stack: Python, Django, PostgreSQL</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="14-inheritance" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Inheritance & super()</h2>
+                        <p class="practice-panel__hint">Define a parent class <code>Shape</code> with an attribute <code>color</code>. Then create a subclass <code>Circle</code> that inherits from <code>Shape</code>, calls <code>super().__init__()</code> to assign <code>color</code>, and adds its own <code>radius</code> attribute.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="class Shape:&#10;    def __init__(self, color):&#10;        self.color = color&#10;&#10;class Circle(Shape):&#10;    def __init__(self, color, radius):&#10;        # Call parent constructor&#10;        super().__init__(color)&#10;        self.radius = radius&#10;&#10;c = Circle('Red', 5)&#10;print(c.color, c.radius)&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I defined base class <code>Shape</code> with attribute <code>color</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I created child class <code>Circle</code> inheriting from <code>Shape</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I used <code>super().__init__(color)</code> to set up the inherited attribute</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Awesome job! You've successfully built a parent-child class hierarchy with super().</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="14-inheritance">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. What is the primary purpose of the `super()` function in a Python child class?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. super() does not prevent method overriding; it provides access to the superclass.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To prevent child classes from overriding parent methods.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! super() gives child classes direct access to call methods and constructors defined in parent classes.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To invoke methods and constructors from the parent (superclass).</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Deleting instances is handled by 'del' or Python's garbage collector.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">To delete parent class attributes after instantiation.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. Which built-in function checks whether a class is a subclass of another class in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. isinstance() checks if an object instance belongs to a class or its subclasses.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">isinstance(child_obj, ParentClass)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! issubclass(ChildClass, ParentClass) evaluates whether ChildClass inherits from ParentClass.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">issubclass(ChildClass, ParentClass)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. type() returns the exact type of an object, ignoring inheritance.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">type(ChildClass) == ParentClass</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What does MRO stand for in Python's multiple inheritance system?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! MRO stands for Method Resolution Order, which determines the order in which Python searches parent classes for a method.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Method Resolution Order</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. MRO stands for Method Resolution Order.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Main Reference Object</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. MRO stands for Method Resolution Order.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Module Overriding Routine</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. Which decorator enforces that concrete child classes MUST implement a method from an Abstract Base Class (ABC)?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. @staticmethod is used to define static utility methods.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">@staticmethod</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. @classmethod is used to bind methods to the class rather than instances.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">@classmethod</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Decorating a method with @abstractmethod inside an ABC raises a TypeError if a subclass tries to instantiate without overriding it.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">@abstractmethod</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Employee Management System:</strong> Create a mini hierarchy to represent workplace staff:</p>
+                <ol>
+                    <li>Create a base class <code>Employee</code> with attributes <code>name</code> and <code>salary</code>, and a method <code>calculate_bonus()</code> returning 10% of salary.</li>
+                    <li>Create a subclass <code>Manager</code> that inherits from <code>Employee</code>, adds a <code>department</code> attribute using <code>super()</code>, and overrides <code>calculate_bonus()</code> to return 20% of salary + a fixed $5,000 bonus.</li>
+                    <li>Create a subclass <code>Developer</code> that adds a <code>programming_language</code> attribute and overrides <code>calculate_bonus()</code> to add a $2,000 tech bonus.</li>
+                    <li>Instantiate a Manager and Developer, call their bonus methods, and print out their details!</li>
+                </ol>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Inheritance lets child classes reuse and extend attributes and methods from parent classes.</li>
+                    <li>Use <strong><code>super().__init__()</code></strong> inside child constructors to properly initialize base attributes.</li>
+                    <li><strong>Method Overriding</strong> allows subclasses to customize or replace parent method implementations.</li>
+                    <li>Python supports <strong>Single, Multilevel, Hierarchical, and Multiple Inheritance</strong>.</li>
+                    <li>Use <strong><code>ClassName.mro()</code></strong> to inspect the resolution order Python uses for method lookups.</li>
+                    <li>Use <strong>Abstract Base Classes (ABCs)</strong> to enforce mandatory method contracts on child classes.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Inheritance & Method Resolution Order! Next up, we will explore **Polymorphism & Encapsulation in Python**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="21-objects">← Objects</a>
+                    <a class="lesson-nav__next" href="23-problem-solving">Next: Problem Solving →</a>
+                </nav>
+            </div>
+        </article>
  
  </main>
     <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
