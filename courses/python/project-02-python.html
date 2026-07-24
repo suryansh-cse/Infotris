@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Project 2 — Number guesser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="../../careers/python-developer/">Python Developer</a><span>/</span><span>Project 2</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <p class="lesson-header__label">Project 2</p>
+                <h1 class="lesson-header__title">File-Backed Expense &amp; Task Tracker</h1>
+                <p class="lesson-header__meta">~1 hour</p>
+            </div>
+        </header>
+       <article class="lesson-content">
+    <div class="lesson-content__inner">
+        <h2>1. Project Overview &amp; Architecture</h2>
+        <p>Welcome to <strong>Major Project 2: File-Backed Expense &amp; Task Tracker</strong>! In this project, you will elevate your Python applications from temporary in-memory programs to persistent software that saves and loads real data from the file system. You will apply key concepts from Modules 4–7: structured data (lists of dictionaries), JSON file handling, string manipulation, and comprehensive <code>try-except</code> exception management.</p>
+
+        <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Project Core Objectives</h3>
+        <ul>
+            <li><strong>Persistent Storage:</strong> Load existing data on startup and automatically save changes to a local <code>.json</code> file on disk.</li>
+            <li><strong>CRUD Operations:</strong> Implement full Create, Read, and Summary operations for financial transactions.</li>
+            <li><strong>Robust Error Recovery:</strong> Catch file corruption, missing files, and invalid numeric conversions without crashing the application.</li>
+            <li><strong>Data Aggregation:</strong> Calculate total spending, category breakdowns, and average transaction costs using Python loops and list comprehension techniques.</li>
+        </ul>
+
+        <h2>2. Functional Requirements &amp; Feature Specifications</h2>
+        <p>Your Expense Tracker must implement the following mandatory components:</p>
+
+        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                    <th style="padding: 0.5rem;">Feature Component</th>
+                    <th style="padding: 0.5rem;">Functional Specification</th>
+                    <th style="padding: 0.5rem;">Python Mechanism</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>File I/O Engine</strong></td>
+                    <td style="padding: 0.5rem;">Reads/writes standard JSON data files safely.</td>
+                    <td style="padding: 0.5rem;"><code>json.dump()</code>, <code>json.load()</code>, <code>pathlib.Path</code></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Numeric Sanitization</strong></td>
+                    <td style="padding: 0.5rem;">Guarantees expenses are valid positive floating-point numbers.</td>
+                    <td style="padding: 0.5rem;"><code>try-except ValueError</code> inside input loops.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Category Summary</strong></td>
+                    <td style="padding: 0.5rem;">Group expenses by category (Food, Utilities, Entertainment) with totals.</td>
+                    <td style="padding: 0.5rem;">Dictionary aggregation (<code>dict.get()</code> logic).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Corrupted File Protection</strong></td>
+                    <td style="padding: 0.5rem;">Recovers cleanly if the local JSON file is unreadable or malformed.</td>
+                    <td style="padding: 0.5rem;"><code>json.JSONDecodeError</code> catch blocks.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Complete Reference Implementation</h2>
+        <p>Review the complete Python implementation below to see how persistent JSON storage and input error handling work together:</p>
+
+        <pre><code>import json
+from pathlib import Path
+from datetime import datetime
+
+# Persistent storage file path
+DATA_FILE = Path("expenses.json")
+
+def load_expenses():
+    """Loads expenses from JSON file. Returns an empty list if file doesn't exist or is corrupted."""
+    if not DATA_FILE.exists():
+        return []
+    
+    try:
+        with open(DATA_FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, IOError) as err:
+        print(f"⚠️ Warning: Could not read '{DATA_FILE}' ({err}). Starting with fresh data.")
+        return []
+
+def save_expenses(expenses):
+    """Saves current expense list to JSON storage with clean formatting."""
+    try:
+        with open(DATA_FILE, "w", encoding="utf-8") as file:
+            json.dump(expenses, file, indent=4)
+        print("💾 Data saved successfully.")
+    except IOError as err:
+        print(f"❌ Critical Error: Unable to save data ({err}).")
+
+def get_positive_float(prompt):
+    """Prompts until a valid positive float is provided."""
+    while True:
+        try:
+            val = float(input(prompt).strip())
+            if val &gt; 0:
+                return val
+            print("⚠️ Amount must be greater than $0.00.")
+        except ValueError:
+            print("⚠️ Invalid number format! Please enter a numeric value (e.g., 12.50).")
+
+def add_expense(expenses):
+    """Collects user details and appends a new expense record."""
+    print("\n--- ➕ Add New Expense ---")
+    title = input("Enter description/title: ").strip()
+    while not title:
+        print("⚠️ Title cannot be empty.")
+        title = input("Enter description/title: ").strip()
+
+    category = input("Enter category (e.g., Food, Transport, Utilities): ").strip().title()
+    if not category:
+        category = "General"
+
+    amount = get_positive_float("Enter amount ($): ")
+    date_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+
+    record = {
+        "title": title,
+        "category": category,
+        "amount": round(amount, 2),
+        "date": date_str
+    }
+
+    expenses.append(record)
+    save_expenses(expenses)
+    print(f"✅ Added: '${title}' (${amount:.2f}) under [{category}]")
+
+def view_expenses(expenses):
+    """Displays all recorded expenses in a clean formatted table."""
+    print("\n--- 📝 All Recorded Expenses ---")
+    if not expenses:
+        print("No expenses recorded yet!")
+        return
+
+    print(f"{'#':&lt;4} {'Date':&lt;17} {'Category':&lt;15} {'Title':&lt;20} {'Amount':&gt;10}")
+    print("-" * 70)
+    for idx, item in enumerate(expenses, start=1):
+        print(f"{idx:&lt;4} {item['date']:&lt;17} {item['category']:&lt;15} {item['title']:&lt;20} ${item['amount']:&gt;9.2f}")
+    print("-" * 70)
+
+def view_summary(expenses):
+    """Calculates and displays financial summaries and category totals."""
+    print("\n--- 📊 Expense Summary &amp; Analytics ---")
+    if not expenses:
+        print("No data available for summary calculation.")
+        return
+
+    total_spent = sum(item["amount"] for item in expenses)
+    avg_spent = total_spent / len(expenses)
+
+    # Aggregate by category
+    by_category = {}
+    for item in expenses:
+        cat = item["category"]
+        by_category[cat] = by_category.get(cat, 0.0) + item["amount"]
+
+    print(f"Total Transactions: {len(expenses)}")
+    print(f"Total Expenditure:  ${total_spent:,.2f}")
+    print(f"Average Expense:    ${avg_spent:,.2f}\n")
+    print("Spending by Category:")
+    for cat, cat_total in by_category.items():
+        percentage = (cat_total / total_spent) * 100
+        print(f"  • {cat:&lt;15}: ${cat_total:&gt;8.2f} ({percentage:&gt;5.1f}%)")
+
+def main():
+    expenses = load_expenses()
+
+    while True:
+        print("\n==================================")
+        print("    💰 FILE-BACKED EXPENSE TRACKER")
+        print("==================================")
+        print("1) Add New Expense")
+        print("2) View All Expenses")
+        print("3) View Summary & Category Stats")
+        print("4) Exit Program")
+
+        choice = input("\nSelect choice (1-4): ").strip()
+
+        if choice == "1":
+            add_expense(expenses)
+        elif choice == "2":
+            view_expenses(expenses)
+        elif choice == "3":
+            view_summary(expenses)
+        elif choice == "4":
+            print("\nExiting Expense Tracker. Goodbye!")
+            break
+        else:
+            print("⚠️ Invalid choice. Please select 1, 2, 3, or 4.")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+        <h2>4. Common Project Pitfalls</h2>
+        <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+            <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Project Watchlist:</p>
+            <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <li><strong>Forgetting File Encoding</strong>: Always specify <code>encoding="utf-8"</code> when opening files to avoid platform-dependent character encoding issues between Windows and Mac/Linux.</li>
+                <li><strong>Unsafe Float Conversion</strong>: Direct call to <code>float(input())</code> without a <code>try-except</code> block will crash the entire program if a user types currency symbols like <code>"$15"</code>.</li>
+                <li><strong>In-Memory Memory Disconnect</strong>: Modifying the <code>expenses</code> list in memory without calling <code>save_expenses()</code> causes data loss if the terminal exits abruptly.</li>
+            </ul>
+        </div>
+
+        <h2>5. Interactive Project Workspace</h2>
+        <section class="practice-panel" data-practice-type="project" data-practice-id="project-2-expense-tracker" aria-labelledby="practice-title">
+            <div class="practice-panel__header">
+                <span class="practice-panel__eyebrow">Project Workspace</span>
+                <h2 id="practice-title" class="practice-panel__title">Build &amp; Test: Expense Tracker</h2>
+                <p class="practice-panel__hint">Use the code editor below to customize your expense tracker. Try adding a feature to filter expenses by category or export a text receipt!</p>
+                <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                <span class="practice-progress__label">0% complete</span>
+            </div>
+            <div class="practice-workspace">
+                <label for="practice-code">Your Project Code</label>
+                <textarea id="practice-code" class="practice-code" rows="16" spellcheck="false" placeholder="# Build your custom Expense &amp; Task Tracker here!&#10;import json&#10;from pathlib import Path&#10;&#10;DATA_FILE = Path('expenses.json')&#10;&#10;def main():&#10;    print('Expense Tracker Initialized')&#10;&#10;if __name__ == '__main__':&#10;    main()"></textarea>
+            </div>
+            <fieldset class="practice-checklist">
+                <legend>Project Feature Checklist</legend>
+                <label class="practice-check"><input type="checkbox"><span>I implemented <code>load_expenses()</code> and <code>save_expenses()</code> using JSON</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I built input validation to catch <code>ValueError</code> on numeric amounts</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I created category-based spending aggregations</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I handled file I/O errors and corrupted file recovery gracefully</span></label>
+            </fieldset>
+            <div class="practice-success" hidden>
+                <span class="practice-success__icon" aria-hidden="true">✓</span>
+                <p class="practice-success__title">Major Project 2 Completed!</p>
+                <p class="practice-success__text">Fantastic work! Your Python scripts now possess persistent memory and file handling resilience.</p>
+            </div>
+        </section>
+
+        <h2>6. Key Takeaways &amp; Milestone Achievement</h2>
+        <ul>
+            <li>JSON provides a human-readable, highly compatible structure for storing dictionary and list data permanently on disk.</li>
+            <li>Wrap file reads inside <code>try-except</code> blocks to safeguard against missing or corrupted storage files.</li>
+            <li>Input sanitization prevents string conversion crashes before bad data reaches your state storage.</li>
+        </ul>
+
+        <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🏆 Milestone 2 Complete</h3>
+            <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Congratulations on completing Major Project 2! Up next: **Major Project 3: Desktop Automated File & System Organizer** where you will write automation scripts to interact with your operating system!</p>
+        </div>
+
+        <nav class="lesson-nav">
+            <a href="project-1-terminal-game">← Major Project 1: Terminal Game</a>
+            <a class="lesson-nav__next" href="project-3-file-organizer">Major Project 3: File Organizer →</a>
+        </nav>
+    </div>
+</article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
