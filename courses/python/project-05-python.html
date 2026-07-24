@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | Web Scraper &amp; Data Pipeline </title>
+    <title>Infotris | Full-Stack REST API &amp; Web Dashboard </title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../../css/system/theme.css">
 
@@ -33,11 +33,308 @@
             <div class="lesson-header__inner">
              
                 <p class="lesson-header__label"> Week 4</p>
-                <h1 class="lesson-header__title">Web Scraper &amp; Data Pipeline</h1>
-                <p class="lesson-header__meta">~3–5 hours </p>
+                <h1 class="lesson-header__title">Full-Stack REST API &amp; Web Dashboard</h1>
+                <p class="lesson-header__meta">4~7 hours </p>
             </div>
         </header>
-        
+        <article class="lesson-content">
+    <div class="lesson-content__inner">
+        <h2>1. Project Overview &amp; Architecture</h2>
+        <p>Welcome to <strong>Major Project 5: Full-Stack REST API &amp; Web Dashboard</strong>! In this final major project, you will bridge back-end Python logic with modern web architecture. You will construct a complete, lightweight RESTful backend server using Flask that handles resource management over HTTP (<code>GET</code>, <code>POST</code>, <code>DELETE</code>), enforces payload validation, manages status codes, and serves an interactive real-time web dashboard.</p>
+
+        <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Project Core Objectives</h3>
+        <ul>
+            <li><strong>RESTful Architecture:</strong> Build routes corresponding to standard HTTP verbs (<code>GET</code> for retrieval, <code>POST</code> for creation, <code>DELETE</code> for removal).</li>
+            <li><strong>JSON Payload Validation:</strong> Inspect incoming HTTP headers and body data, returning explicit HTTP error codes (<code>400 Bad Request</code>, <code>404 Not Found</code>) when payloads fail schema checks.</li>
+            <li><strong>State Synchronization:</strong> Maintain an in-memory data store with unique primary key generation and dynamic state updating.</li>
+            <li><strong>Frontend Integration:</strong> Serve an embedded Single-Page Application (SPA) dashboard that uses asynchronous JavaScript (<code>fetch</code>) to update the UI without reloading the page.</li>
+        </ul>
+
+        <h2>2. Functional Requirements &amp; Feature Specifications</h2>
+        <p>Your REST API &amp; Web Dashboard must fulfill the following technical endpoints and specifications:</p>
+
+        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                    <th style="padding: 0.5rem;">Endpoint / Route</th>
+                    <th style="padding: 0.5rem;">HTTP Verb</th>
+                    <th style="padding: 0.5rem;">Functional Purpose</th>
+                    <th style="padding: 0.5rem;">Success / Error Codes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>/</code></td>
+                    <td style="padding: 0.5rem;"><code>GET</code></td>
+                    <td style="padding: 0.5rem;">Serves the HTML/JS Web Dashboard UI.</td>
+                    <td style="padding: 0.5rem;"><code>200 OK</code></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>/api/items</code></td>
+                    <td style="padding: 0.5rem;"><code>GET</code></td>
+                    <td style="padding: 0.5rem;">Returns array of all recorded inventory items as JSON.</td>
+                    <td style="padding: 0.5rem;"><code>200 OK</code></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>/api/items</code></td>
+                    <td style="padding: 0.5rem;"><code>POST</code></td>
+                    <td style="padding: 0.5rem;">Accepts JSON payload and appends a new resource record.</td>
+                    <td style="padding: 0.5rem;"><code>201 Created</code>, <code>400 Bad Request</code></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><code>/api/items/&lt;id&gt;</code></td>
+                    <td style="padding: 0.5rem;"><code>DELETE</code></td>
+                    <td style="padding: 0.5rem;">Removes a specific resource item by unique integer ID.</td>
+                    <td style="padding: 0.5rem;"><code>200 OK</code>, <code>404 Not Found</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Complete Reference Implementation</h2>
+        <p>Study the self-contained Flask REST API server and embedded dashboard application below:</p>
+
+        <pre><code>from flask import Flask, jsonify, request, render_template_string
+
+app = Flask(__name__)
+
+# In-memory database datastore
+inventory = [
+    {"id": 1, "name": "Developer Laptop", "category": "Electronics", "qty": 12, "price": 1299.99},
+    {"id": 2, "name": "Ergonomic Desk", "category": "Furniture", "qty": 8, "price": 349.50}
+]
+next_id = 3
+
+# Single-Page Web Dashboard UI (HTML/JS)
+HTML_DASHBOARD = """
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;REST API Dashboard&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem; background: #f8f9fa; color: #212529; }
+        h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .card { background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #dee2e6; margin-bottom: 1.5rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; margin-bottom: 1rem; }
+        input, button { padding: 0.5rem; border: 1px solid #ced4da; border-radius: 4px; font-size: 0.9rem; }
+        button { background: #0d6efd; color: white; border: none; cursor: pointer; font-weight: 600; }
+        button:hover { background: #0b5ed7; }
+        button.delete-btn { background: #dc3545; padding: 0.25rem 0.5rem; font-size: 0.8rem; }
+        button.delete-btn:hover { background: #bb2d3b; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #dee2e6; font-size: 0.9rem; }
+        th { background: #e9ecef; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;📦 Inventory REST API &amp; Dashboard&lt;/h1&gt;
+    
+    &lt;div class="card"&gt;
+        &lt;h3 style="margin-top:0;"&gt;Add New Item (POST /api/items)&lt;/h3&gt;
+        &lt;div class="form-grid"&gt;
+            &lt;input type="text" id="itemName" placeholder="Item Name" /&gt;
+            &lt;input type="text" id="itemCategory" placeholder="Category" /&gt;
+            &lt;input type="number" id="itemQty" placeholder="Quantity" /&gt;
+            &lt;input type="number" step="0.01" id="itemPrice" placeholder="Price ($)" /&gt;
+        &lt;/div&gt;
+        &lt;button onclick="addItem()"&gt;Submit item via API&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+        &lt;h3 style="margin-top:0;"&gt;Live Inventory State (GET /api/items)&lt;/h3&gt;
+        &lt;table&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;ID&lt;/th&gt;
+                    &lt;th&gt;Name&lt;/th&gt;
+                    &lt;th&gt;Category&lt;/th&gt;
+                    &lt;th&gt;Quantity&lt;/th&gt;
+                    &lt;th&gt;Price&lt;/th&gt;
+                    &lt;th&gt;Action&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody id="inventoryTable"&gt;&lt;/tbody&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        async function loadInventory() {
+            const res = await fetch('/api/items');
+            const data = await res.json();
+            const tbody = document.getElementById('inventoryTable');
+            tbody.innerHTML = '';
+            
+            data.forEach(item =&gt; {
+                tbody.innerHTML += `
+                    &lt;tr&gt;
+                        &lt;td&gt;#${item.id}&lt;/td&gt;
+                        &lt;td&gt;&lt;strong&gt;${item.name}&lt;/strong&gt;&lt;/td&gt;
+                        &lt;td&gt;${item.category}&lt;/td&gt;
+                        &lt;td&gt;${item.qty}&lt;/td&gt;
+                        &lt;td&gt;$${item.price.toFixed(2)}&lt;/td&gt;
+                        &lt;td&gt;&lt;button class="delete-btn" onclick="deleteItem(${item.id})"&gt;Delete&lt;/button&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                `;
+            });
+        }
+
+        async function addItem() {
+            const name = document.getElementById('itemName').value.trim();
+            const category = document.getElementById('itemCategory').value.trim();
+            const qty = parseInt(document.getElementById('itemQty').value);
+            const price = parseFloat(document.getElementById('itemPrice').value);
+
+            if (!name || !category || isNaN(qty) || isNaN(price)) {
+                alert('Please fill out all input fields accurately.');
+                return;
+            }
+
+            const response = await fetch('/api/items', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, category, qty, price })
+            });
+
+            if (response.ok) {
+                document.getElementById('itemName').value = '';
+                document.getElementById('itemCategory').value = '';
+                document.getElementById('itemQty').value = '';
+                document.getElementById('itemPrice').value = '';
+                loadInventory();
+            } else {
+                const err = await response.json();
+                alert('API Error: ' + err.error);
+            }
+        }
+
+        async function deleteItem(id) {
+            const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                loadInventory();
+            } else {
+                alert('Failed to delete item.');
+            }
+        }
+
+        // Initial fetch on view mount
+        loadInventory();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"""
+
+@app.route("/")
+def index():
+    """Serves the Single-Page Web Dashboard."""
+    return render_template_string(HTML_DASHBOARD)
+
+@app.route("/api/items", methods=["GET"])
+def get_all_items():
+    """Returns the current list of inventory records as JSON."""
+    return jsonify(inventory), 200
+
+@app.route("/api/items", methods=["POST"])
+def create_new_item():
+    """Validates payload and inserts a new inventory record."""
+    global next_id
+    payload = request.get_json()
+
+    # Payload validation checks
+    if not payload:
+        return jsonify({"error": "Missing or invalid JSON payload"}), 400
+
+    required_fields = ["name", "category", "qty", "price"]
+    for field in required_fields:
+        if field not in payload:
+            return jsonify({"error": f"Missing required field: '{field}'"}), 400
+
+    try:
+        new_record = {
+            "id": next_id,
+            "name": str(payload["name"]).strip(),
+            "category": str(payload["category"]).strip(),
+            "qty": int(payload["qty"]),
+            "price": float(payload["price"])
+        }
+    except (ValueError, TypeError):
+        return jsonify({"error": "Data type mismatch for qty or price"}), 400
+
+    inventory.append(new_record)
+    next_id += 1
+    return jsonify(new_record), 201
+
+@app.route("/api/items/&lt;int:item_id&gt;", methods=["DELETE"])
+def remove_item(item_id):
+    """Deletes an item record by ID if it exists."""
+    global inventory
+    target_item = next((item for item in inventory if item["id"] == item_id), None)
+
+    if not target_item:
+        return jsonify({"error": f"Item with ID #{item_id} not found"}), 404
+
+    inventory = [item for item in inventory if item["id"] != item_id]
+    return jsonify({"message": f"Successfully deleted item #{item_id}"}), 200
+
+if __name__ == "__main__":
+    print("🚀 REST API Server running at http://127.0.0.1:5000")
+    app.run(debug=True, port=5000)
+</code></pre>
+
+        <h2>4. Common Project Pitfalls</h2>
+        <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+            <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Project Watchlist:</p>
+            <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <li><strong>Incorrect HTTP Status Codes</strong>: Always return specific status codes (e.g., <code>201 Created</code> on POST success, <code>400 Bad Request</code> for invalid input, and <code>404 Not Found</code> for missing resources) instead of generic 200 codes for everything.</li>
+                <li><strong>Unvalidated Request Payloads</strong>: Accessing key names like <code>payload["name"]</code> without verifying their presence will crash the backend server with an unhandled <code>KeyError</code>.</li>
+                <li><strong>Cross-Origin Resource Sharing (CORS)</strong>: If your web dashboard is hosted on a different domain or port than your API server, browsers will block network calls unless CORS headers are configured.</li>
+            </ul>
+        </div>
+
+        <h2>5. Interactive Project Workspace</h2>
+        <section class="practice-panel" data-practice-type="project" data-practice-id="project-5-rest-api" aria-labelledby="practice-title">
+            <div class="practice-panel__header">
+                <span class="practice-panel__eyebrow">Project Workspace</span>
+                <h2 id="practice-title" class="practice-panel__title">Build &amp; Test: REST API &amp; Web Dashboard</h2>
+                <p class="practice-panel__hint">Use the editor below to craft your REST API endpoints. Try adding a <code>PUT</code> endpoint to support updating existing inventory quantities!</p>
+                <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                <span class="practice-progress__label">0% complete</span>
+            </div>
+            <div class="practice-workspace">
+                <label for="practice-code">Your Project Code</label>
+                <textarea id="practice-code" class="practice-code" rows="16" spellcheck="false" placeholder="# Build your custom REST API &amp; Web Dashboard here!&#10;from flask import Flask, jsonify, request&#10;&#10;app = Flask(__name__)&#10;&#10;@app.route('/')&#10;def index():&#10;    return 'API Server Active'&#10;&#10;if __name__ == '__main__':&#10;    app.run()"></textarea>
+            </div>
+            <fieldset class="practice-checklist">
+                <legend>Project Feature Checklist</legend>
+                <label class="practice-check"><input type="checkbox"><span>I implemented GET, POST, and DELETE HTTP endpoints</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I added error handling returning 400 and 404 JSON responses</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I validated incoming payload schemas before state updates</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I connected the API to an interactive web dashboard interface</span></label>
+            </fieldset>
+            <div class="practice-success" hidden>
+                <span class="practice-success__icon" aria-hidden="true">✓</span>
+                <p class="practice-success__title">Major Project 5 Completed!</p>
+                <p class="practice-success__text">Outstanding achievement! You have mastered full-stack Python development by building a production-grade REST API and web interface.</p>
+            </div>
+        </section>
+
+        <h2>6. Key Takeaways &amp; Graduation Achievement</h2>
+        <ul>
+            <li>REST APIs provide structured web interfaces for interacting with application resources over HTTP.</li>
+            <li>Using proper HTTP status codes makes back-end services predictable and easy to integrate with front-end applications.</li>
+            <li>Input validation protects servers from malformed data payloads and runtime exceptions.</li>
+        </ul>
+
+        <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🎓 Python Course Completed!</h3>
+            <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Congratulations on finishing all lessons and major projects! You have built a solid, real-world practical understanding of modern Python development.</p>
+        </div>
+
+        <nav class="lesson-nav">
+            <a href="project-4-web-scraper">← Major Project 4: Web Scraper</a>
+            <a class="lesson-nav__next" href="course-completion">Course Completion &amp; Review →</a>
+        </nav>
+    </div>
+</article>
         </main>
     <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
     <script src="../../js/practice.js" defer></script>
