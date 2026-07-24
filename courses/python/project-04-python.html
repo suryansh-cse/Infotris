@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Web Scraper &amp; Data Pipeline </title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Capstone Project</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+             
+                <p class="lesson-header__label"> Week 4</p>
+                <h1 class="lesson-header__title">Web Scraper &amp; Data Pipeline</h1>
+                <p class="lesson-header__meta">~3–5 hours </p>
+            </div>
+        </header>
+       <article class="lesson-content">
+    <div class="lesson-content__inner">
+        <h2>1. Project Overview &amp; Architecture</h2>
+        <p>Welcome to <strong>Major Project 4: Web Scraper &amp; Data Pipeline</strong>! In this major project, you will build an automated web scraper and data processing pipeline. You will harvest structured information from web pages, transform raw HTML text into clean Python datasets, apply rate-limiting, handle network resilience, and export structured data into standard CSV and JSON formats.</p>
+
+        <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Project Core Objectives</h3>
+        <ul>
+            <li><strong>HTTP Interaction &amp; Rate-Limiting:</strong> Request web content politely using custom User-Agent headers and artificial delays (politeness policy) to avoid triggering IP blocks.</li>
+            <li><strong>DOM Parsing &amp; Extraction:</strong> Navigate complex HTML elements using <code>BeautifulSoup</code> to target, extract, and clean text, tags, and attribute values.</li>
+            <li><strong>Data Pipeline &amp; Transformation:</strong> Clean raw strings (removing whitespace, parsing numerical values, standardizing dates) into strongly typed dictionaries.</li>
+            <li><strong>Multi-Format Export:</strong> Output sanitized data into standard flat formats (CSV) and nested hierarchical formats (JSON).</li>
+        </ul>
+
+        <h2>2. Functional Requirements &amp; Feature Specifications</h2>
+        <p>Your Web Scraper &amp; Data Pipeline must implement the following technical specs:</p>
+
+        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                    <th style="padding: 0.5rem;">Feature Component</th>
+                    <th style="padding: 0.5rem;">Functional Specification</th>
+                    <th style="padding: 0.5rem;">Python Mechanism</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>HTTP Request Engine</strong></td>
+                    <td style="padding: 0.5rem;">Fetches web pages with custom request headers and timeout handling.</td>
+                    <td style="padding: 0.5rem;"><code>requests.get()</code>, <code>headers</code>, <code>timeout</code> parameters</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>HTML Parsing</strong></td>
+                    <td style="padding: 0.5rem;">Parses page HTML and extracts specific tags via CSS selectors or class names.</td>
+                    <td style="padding: 0.5rem;"><code>bs4.BeautifulSoup</code>, <code>select()</code>, <code>find_all()</code></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Data Sanitization Pipeline</strong></td>
+                    <td style="padding: 0.5rem;">Strips whitespace, converts price strings to floats, and filters missing values.</td>
+                    <td style="padding: 0.5rem;">String manipulation, List comprehensions, RegEx (<code>re</code>)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Export Subsystem</strong></td>
+                    <td style="padding: 0.5rem;">Saves cleaned records to target files dynamically based on user preference.</td>
+                    <td style="padding: 0.5rem;"><code>csv.DictWriter</code>, <code>json.dump()</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Complete Reference Implementation</h2>
+        <p>Study the reference implementation below. It demonstrates a resilient web scraper and data pipeline targeting a sample scraping endpoint (<code>quotes.toscrape.com</code>):</p>
+
+        <pre><code>import csv
+import json
+import time
+import logging
+from pathlib import Path
+import requests
+from bs4 import BeautifulSoup
+
+# Setup Logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+# Configuration Constants
+BASE_URL = "http://quotes.toscrape.com"
+HEADERS = {
+    "User-Agent": "DataPipelineBot/1.0 (Educational Scraping Script; contact@example.com)"
+}
+OUTPUT_DIR = Path("scraped_data")
+
+def fetch_page(url):
+    """Fetches HTML content from a URL with robust error handling."""
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        return response.text
+    except requests.exceptions.RequestException as err:
+        logging.error(f"Failed to fetch {url}: {err}")
+        return None
+
+def parse_quotes(html_content):
+    """Parses raw HTML and extracts raw quote records."""
+    soup = BeautifulSoup(html_content, "html.parser")
+    quote_elements = soup.select("div.quote")
+    extracted_records = []
+
+    for element in quote_elements:
+        text_el = element.select_one("span.text")
+        author_el = element.select_one("small.author")
+        tags_els = element.select("div.tags a.tag")
+
+        raw_text = text_el.get_text() if text_el else ""
+        raw_author = author_el.get_text() if author_el else ""
+        raw_tags = [tag.get_text() for tag in tags_els]
+
+        extracted_records.append({
+            "quote": raw_text,
+            "author": raw_author,
+            "tags": raw_tags
+        })
+
+    return extracted_records
+
+def clean_record(record):
+    """Data Pipeline Stage: Sanitizes and transforms a single record."""
+    cleaned_quote = record["quote"].strip("“”\"' \t\n")
+    cleaned_author = record["author"].strip().title()
+    cleaned_tags = [tag.strip().lower() for tag in record["tags"]]
+
+    return {
+        "quote": cleaned_quote,
+        "author": cleaned_author,
+        "tag_count": len(cleaned_tags),
+        "tags_csv": ", ".join(cleaned_tags)
+    }
+
+def export_to_csv(data, filename="quotes.csv"):
+    """Exports processed records to a CSV file."""
+    if not data:
+        print("⚠️ No data to export to CSV.")
+        return
+
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    file_path = OUTPUT_DIR / filename
+    
+    fieldnames = ["quote", "author", "tag_count", "tags_csv"]
+    try:
+        with open(file_path, "w", newline="", encoding="utf-8") as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(data)
+        print(f"📄 Saved CSV data to '{file_path}'")
+    except IOError as err:
+        logging.error(f"Failed to write CSV: {err}")
+
+def export_to_json(data, filename="quotes.json"):
+    """Exports processed records to a JSON file."""
+    if not data:
+        print("⚠️ No data to export to JSON.")
+        return
+
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    file_path = OUTPUT_DIR / filename
+
+    try:
+        with open(file_path, "w", encoding="utf-8") as jsonfile:
+            json.dump(data, jsonfile, indent=4, ensure_ascii=False)
+        print(f"📦 Saved JSON data to '{file_path}'")
+    except IOError as err:
+        logging.error(f"Failed to write JSON: {err}")
+
+def run_pipeline(max_pages=2):
+    """Main execution pipeline: fetch -> parse -> transform -> export."""
+    all_cleaned_data = []
+
+    print(f"\n🚀 Starting Data Pipeline (Targeting up to {max_pages} pages)...")
+    for page_num in range(1, max_pages + 1):
+        target_url = f"{BASE_URL}/page/{page_num}/"
+        logging.info(f"Scraping Page {page_num}: {target_url}")
+
+        html = fetch_page(target_url)
+        if not html:
+            break
+
+        raw_records = parse_quotes(html)
+        if not raw_records:
+            logging.warning(f"No records found on page {page_num}.")
+            break
+
+        # Transform records through pipeline
+        for record in raw_records:
+            cleaned = clean_record(record)
+            all_cleaned_data.append(cleaned)
+
+        # Politeness delay between requests
+        time.sleep(1.0)
+
+    print(f"\n✅ Extracted and cleaned {len(all_cleaned_data)} total records.")
+    
+    # Export results
+    export_to_csv(all_cleaned_data)
+    export_to_json(all_cleaned_data)
+
+def main():
+    """Terminal Menu interface."""
+    while True:
+        print("\n==================================")
+        print("   🕸️ WEB SCRAPER &amp; DATA PIPELINE")
+        print("==================================")
+        print("1) Run Pipeline (2 Pages)")
+        print("2) Custom Page Depth Run")
+        print("3) Exit")
+
+        choice = input("\nSelect choice (1-3): ").strip()
+
+        if choice == "1":
+            run_pipeline(max_pages=2)
+        elif choice == "2":
+            try:
+                pages = int(input("Enter max pages to scrape (1-5): "))
+                if 1 &lt;= pages &lt;= 5:
+                    run_pipeline(max_pages=pages)
+                else:
+                    print("⚠️ Please enter a number between 1 and 5.")
+            except ValueError:
+                print("⚠️ Invalid number entry.")
+        elif choice == "3":
+            print("\nExiting Data Pipeline tool. Happy scraping!")
+            break
+        else:
+            print("⚠️ Invalid option.")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+        <h2>4. Common Project Pitfalls</h2>
+        <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+            <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Project Watchlist:</p>
+            <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <li><strong>Missing User-Agent Header</strong>: Many web servers automatically block HTTP requests made with default Python headers (e.g., <code>Python-requests/x.x</code>). Always set a descriptive <code>User-Agent</code>.</li>
+                <li><strong>Omitting Timeouts</strong>: Calling <code>requests.get()</code> without a <code>timeout</code> value can cause your script to freeze indefinitely if a server stops responding.</li>
+                <li><strong>Brittle Selectors</strong>: Relying on long, hardcoded HTML paths like <code>html &gt; body &gt; div &gt; div &gt; table &gt; tr</code> will break whenever the target site changes layout. Use class names or standard CSS selectors.</li>
+            </ul>
+        </div>
+
+        <h2>5. Interactive Project Workspace</h2>
+        <section class="practice-panel" data-practice-type="project" data-practice-id="project-4-web-scraper" aria-labelledby="practice-title">
+            <div class="practice-panel__header">
+                <span class="practice-panel__eyebrow">Project Workspace</span>
+                <h2 id="practice-title" class="practice-panel__title">Build &amp; Test: Web Scraper &amp; Data Pipeline</h2>
+                <p class="practice-panel__hint">Use the editor below to craft your data scraper. Try adding extra sanitization logic, like stripping special characters or extracting author URL links!</p>
+                <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                <span class="practice-progress__label">0% complete</span>
+            </div>
+            <div class="practice-workspace">
+                <label for="practice-code">Your Project Code</label>
+                <textarea id="practice-code" class="practice-code" rows="16" spellcheck="false" placeholder="# Build your custom Web Scraper &amp; Data Pipeline here!&#10;import requests&#10;from bs4 import BeautifulSoup&#10;import csv&#10;&#10;def main():&#10;    print('Scraper Pipeline Initialized')&#10;&#10;if __name__ == '__main__':&#10;    main()"></textarea>
+            </div>
+            <fieldset class="practice-checklist">
+                <legend>Project Feature Checklist</legend>
+                <label class="practice-check"><input type="checkbox"><span>I included a standard User-Agent header and timeout handling</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I extracted targeted tags clean using <code>BeautifulSoup</code> selectors</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I implemented a data cleaning transformation step</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I exported the final dataset to CSV and JSON formats</span></label>
+            </fieldset>
+            <div class="practice-success" hidden>
+                <span class="practice-success__icon" aria-hidden="true">✓</span>
+                <p class="practice-success__title">Major Project 4 Completed!</p>
+                <p class="practice-success__text">Fantastic work! You can now automated web collection pipelines and ingest online datasets cleanly into Python applications.</p>
+            </div>
+        </section>
+
+        <h2>6. Key Takeaways &amp; Milestone Achievement</h2>
+        <ul>
+            <li>Scraping pipelines require clear isolation between fetching, parsing, cleaning, and storing data.</li>
+            <li>Always follow web politeness guidelines (rate limiting, standard headers, respecting site terms).</li>
+            <li>Storing data in both flat (CSV) and semi-structured (JSON) formats ensures high compatibility for downstream data analysis tools.</li>
+        </ul>
+
+        <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🏆 Milestone 4 Complete</h3>
+            <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Congratulations on completing Major Project 4! Up next: **Major Project 5: Full-Stack REST API & Web Dashboard** where you will tie together back-end services and real-time user interfaces!</p>
+        </div>
+
+        <nav class="lesson-nav">
+            <a href="project-03-python">← Major Project 3: File Organizer</a>
+            <a class="lesson-nav__next" href="project-05-python">Major Project 5: REST API →</a>
+        </nav>
+    </div>
+</article>
+    </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>
