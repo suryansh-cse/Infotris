@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | Project 3 — Contact book</title>
+    <title>Infotris | Project 3 — Desktop Automated File &amp; System Organizer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../../css/system/theme.css">
 
@@ -31,89 +31,244 @@
     <main>
         <header class="lesson-header">
             <div class="lesson-header__inner">
-                <a class="lesson-header__back" href="07-dictionaries">← Lesson 7</a>
+               
                 <p class="lesson-header__label">Project 3 · Week 3</p>
-                <h1 class="lesson-header__title">Interactive CLI To-Do &amp; Quiz App</h1>
-                <p class="lesson-header__meta">~2 hours · Core structures &amp; files</p>
+                <h1 class="lesson-header__title">Desktop Automated File &amp; System Organizer</h1>
+                <p class="lesson-header__meta">~2 hours </p>
             </div>
         </header>
-        <article class="lesson-content">
-            <div class="lesson-content__inner">
-                <h2>Milestone 3 Goal</h2>
-                <p>Synthesize functions, collections (lists and dictionaries), string manipulation, and file I/O. You will build a multi-purpose command-line utility offering a menu-driven interface for: (1) managing a To-Do list saved to disk, (2) taking a mock programming quiz, and (3) generating secure random passwords.</p>
-                
-                <h2>Requirements</h2>
-                <ul>
-                    <li><strong>Main Menu Loop</strong>: A loop that displays options: <code>1. To-Do List</code>, <code>2. Take Quiz</code>, <code>3. Password Generator</code>, <code>4. Exit</code>.</li>
-                    <li><strong>To-Do Manager</strong>: Adds and lists tasks. Save the tasks to a text file (<code>todo.txt</code>) so they persist when the script is closed, and load them back on launch.</li>
-                    <li><strong>Quiz Taker</strong>: Loops over a dictionary of questions and answers. Checks user responses, shows correct options, and prints a final score (e.g. 2/3 correct).</li>
-                    <li><strong>Password Generator</strong>: Prompts for a password length and uses the standard library (<code>random</code> module) to assemble a secure random string of letters, numbers, and symbols.</li>
-                </ul>
+       <article class="lesson-content">
+    <div class="lesson-content__inner">
+        <h2>1. Project Overview &amp; Architecture</h2>
+        <p>Welcome to <strong>Major Project 3: Desktop Automated File &amp; System Organizer</strong>! In this major project, you will build an automated operating system utility that interacts directly with your computer's file system. You will combine file system operations (using <code>pathlib</code> and <code>shutil</code>), safe path resolution, dry-run simulation modes, and system logging to create a production-grade utility for decluttering directories like Downloads or Desktop.</p>
 
-                <h2>Data Structures Example</h2>
-                <pre><code># Quiz questions dictionary
-quiz_data = {
-    "What is the keyword to define a function?": "def",
-    "Which data type is immutable? (list/tuple/set)": "tuple",
-    "What character starts comments in Python?": "#"
-}</code></pre>
+        <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Project Core Objectives</h3>
+        <ul>
+            <li><strong>Automated Directory Classification:</strong> Inspect file extensions dynamically and map files to dedicated category folders (Images, Documents, Archives, Audio, etc.).</li>
+            <li><strong>Dry-Run Safety Mode:</strong> Allow users to preview actions before making any permanent file system modifications on disk.</li>
+            <li><strong>Collision Resolution:</strong> Prevent file overwrites by appending timestamps or numbers when destination files already exist.</li>
+            <li><strong>System Activity Logging:</strong> Maintain an audit trail of all file movements using Python's standard <code>logging</code> module.</li>
+        </ul>
 
-                <section class="practice-panel practice-panel--project" data-practice-type="project" data-practice-id="project-03" data-expected-output="quiz score password generated" aria-labelledby="practice-title">
-                    <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Build &amp; verify</span>
-                        <h2 id="practice-title" class="practice-panel__title">Project Workspace</h2>
-                        <p class="practice-panel__hint">Code locally in <code>multitool.py</code>. Run in your terminal, test each menu feature, and verify requirements. Copy your run results below.</p>
-                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
-                        <span class="practice-progress__label">0% complete</span>
-                    </div>
-                    <div class="practice-workspace">
-                        <label for="practice-code">Your code (paste here to keep notes)</label>
-                        <textarea id="practice-code" class="practice-code" rows="12" spellcheck="false" placeholder="# Paste your multitool.py script here..."></textarea>
-                    </div>
-                    <div class="practice-expected">
-                        <p class="practice-expected__title">Example run sequence (generating password &amp; taking quiz)</p>
-                        <pre>--- CLI MULTI-TOOL ---
-1. To-Do Manager
-2. Take Quiz
-3. Password Generator
-4. Exit
-Select Option: 3
-Enter length: 8
-Generated Password: xR7$kP2q
+        <h2>2. Functional Requirements &amp; Feature Specifications</h2>
+        <p>Your File Organizer must fulfill the following technical standards:</p>
 
-Select Option: 2
-Q: What is the keyword to define a function? def
-Correct!
-...
-Quiz complete. Score: 3/3</pre>
-                    </div>
-                    <div class="practice-output-check">
-                        <label for="practice-output">Paste what your terminal printed</label>
-                        <textarea id="practice-output" class="practice-output-input" rows="6" placeholder="Paste your terminal run logs here..."></textarea>
-                        <button type="button" class="practice-btn" data-output-verify>Check my output</button>
-                        <p class="practice-feedback" hidden></p>
-                    </div>
-                    <fieldset class="practice-checklist">
-                        <legend>Project requirements</legend>
-                        <label class="practice-check"><input type="checkbox"><span>Main loop renders menu and handles exits cleanly</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>To-Do tasks read from and write to <code>todo.txt</code></span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Quiz accesses questions via dictionary key-value lookups</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>Password generator produces strings with mixed characters</span></label>
-                        <label class="practice-check"><input type="checkbox" data-check="output"><span>The script runs and verifies output validation tests</span></label>
-                    </fieldset>
-                    <div class="practice-success" hidden>
-                        <span class="practice-success__icon" aria-hidden="true">✓</span>
-                        <p class="practice-success__title">You built the right project!</p>
-                        <p class="practice-success__text">Project 3 complete. Your multi-tool utility compiles successfully — continue to Strings &amp; Files.</p>
-                    </div>
-                </section>
+        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                    <th style="padding: 0.5rem;">Feature Component</th>
+                    <th style="padding: 0.5rem;">Functional Specification</th>
+                    <th style="padding: 0.5rem;">Python Mechanism</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Path Resolution</strong></td>
+                    <td style="padding: 0.5rem;">Handles relative and absolute pathing cross-platform (Mac, Windows, Linux).</td>
+                    <td style="padding: 0.5rem;"><code>pathlib.Path</code> with <code>.resolve()</code>.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>File Operations</strong></td>
+                    <td style="padding: 0.5rem;">Creates category folders on demand and transfers files cleanly.</td>
+                    <td style="padding: 0.5rem;"><code>Path.mkdir(exist_ok=True)</code>, <code>shutil.move()</code>.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Duplicate Protection</strong></td>
+                    <td style="padding: 0.5rem;">Renames files dynamically if a file with the same name exists at destination.</td>
+                    <td style="padding: 0.5rem;">Custom path collision checker with <code>datetime</code> suffixes.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 0.5rem;"><strong>Audit Logging</strong></td>
+                    <td style="padding: 0.5rem;">Records date, time, and move details to <code>organizer.log</code>.</td>
+                    <td style="padding: 0.5rem;"><code>logging.basicConfig()</code> and <code>logging.info()</code>.</td>
+                </tr>
+            </tbody>
+        </table>
 
-                <nav class="lesson-nav">
-                    <a href="07-dictionaries">← Lesson 7</a>
-                    <a class="lesson-nav__next" href="08-strings-files">Next: Strings &amp; Files →</a>
-                </nav>
+        <h2>3. Complete Reference Implementation</h2>
+        <p>Examine the full, modular Python script below to understand how file system operations, logging, and collision safety combine:</p>
+
+        <pre><code>import shutil
+import logging
+from pathlib import Path
+from datetime import datetime
+
+# Set up audit logging
+logging.basicConfig(
+    filename="organizer.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+# Extension mapping dictionary
+CATEGORY_MAP = {
+    "Images": [".jpg", ".jpeg", ".png", ".gif", ".svg", ".bmp", ".webp"],
+    "Documents": [".pdf", ".docx", ".doc", ".txt", ".xlsx", ".pptx", ".csv"],
+    "Audio": [".mp3", ".wav", ".aac", ".flac", ".ogg"],
+    "Videos": [".mp4", ".mkv", ".mov", ".avi"],
+    "Archives": [".zip", ".tar", ".gz", ".7z", ".rar"],
+    "Code": [".py", ".js", ".html", ".css", ".json", ".sql"]
+}
+
+def get_category(file_path):
+    """Returns the matching category string for a file based on its extension."""
+    ext = file_path.suffix.lower()
+    for category, extensions in CATEGORY_MAP.items():
+        if ext in extensions:
+            return category
+    return "Others"
+
+def resolve_duplicate(destination_path):
+    """If destination file exists, appends a timestamp to prevent overwriting."""
+    if not destination_path.exists():
+        return destination_path
+    
+    stem = destination_path.stem
+    suffix = destination_path.suffix
+    parent = destination_path.parent
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    return parent / f"{stem}_{timestamp}{suffix}"
+
+def organize_directory(target_path_str, dry_run=True):
+    """Scans and organizes files in the target directory."""
+    target = Path(target_path_str).resolve()
+    
+    if not target.exists() or not target.is_dir():
+        print(f"❌ Error: '{target}' is not a valid directory.")
+        return
+
+    mode_label = "🔍 [DRY RUN PREVIEW]" if dry_run else "🚀 [EXECUTING ORGANIZATION]"
+    print(f"\n{mode_label} Target: {target}")
+    
+    # Reserved category folders to avoid moving newly created category directories
+    protected_folders = set(CATEGORY_MAP.keys()) | {"Others"}
+    moved_count = 0
+
+    for item in target.iterdir():
+        # Skip subdirectories, protected folders, and the log file
+        if item.is_dir() or item.name in protected_folders or item.name == "organizer.log":
+            continue
+
+        category = get_category(item)
+        dest_folder = target / category
+        dest_file_path = resolve_duplicate(dest_folder / item.name)
+
+        if dry_run:
+            print(f"  • [PREVIEW] Would move: '{item.name}' ➔ '{category}/'")
+        else:
+            dest_folder.mkdir(exist_ok=True)
+            shutil.move(str(item), str(dest_file_path))
+            log_msg = f"Moved: '{item.name}' ➔ '{category}/{dest_file_path.name}'"
+            print(f"  ✅ {log_msg}")
+            logging.info(log_msg)
+            moved_count += 1
+
+    if not dry_run:
+        print(f"\n🎉 Finished! Successfully organized {moved_count} files.")
+        logging.info(f"Directory organization completed for {target}. Total files moved: {moved_count}")
+    else:
+        print("\nℹ️ Preview complete. Choose option 2 from the main menu to perform actual changes.")
+
+def main():
+    """Main terminal driver menu."""
+    print("==================================================")
+    print("   📁 AUTOMATED FILE &amp; SYSTEM ORGANIZER          ")
+    print("==================================================")
+    
+    target_dir = input("Enter directory path to organize (Press Enter for current directory): ").strip()
+    if not target_dir:
+        target_dir = "."
+
+    while True:
+        print("\nORGANIZER MAIN MENU:")
+        print("1) Preview Changes (Dry-Run)")
+        print("2) Execute File Organization")
+        print("3) View Activity Log")
+        print("4) Exit Program")
+
+        choice = input("\nSelect choice (1-4): ").strip()
+
+        if choice == "1":
+            organize_directory(target_dir, dry_run=True)
+        elif choice == "2":
+            confirm = input("⚠️ Are you sure you want to organize files on disk? (y/N): ").strip().lower()
+            if confirm == "y":
+                organize_directory(target_dir, dry_run=False)
+            else:
+                print("Operation cancelled.")
+        elif choice == "3":
+            log_file = Path("organizer.log")
+            if log_file.exists():
+                print("\n--- 📋 Recent Activity Log ---")
+                print(log_file.read_text(encoding="utf-8"))
+            else:
+                print("\nNo log file found yet.")
+        elif choice == "4":
+            print("\nExiting File Organizer. Stay organized!")
+            break
+        else:
+            print("⚠️ Invalid selection. Please choose 1, 2, 3, or 4.")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+        <h2>4. Common Project Pitfalls</h2>
+        <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+            <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Project Watchlist:</p>
+            <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <li><strong>Infinite Subfolder Traversal</strong>: If you do not skip existing category subdirectories during iteration (<code>item.is_dir()</code>), your script might try to move subfolders into themselves.</li>
+                <li><strong>Silent Overwriting</strong>: Using <code>shutil.move()</code> without checking if the destination file exists will overwrite files with matching names. Always resolve duplicate names first.</li>
+                <li><strong>Hardcoded Slash Separators</strong>: Avoid string concatenations like <code>folder + "/" + filename</code>. Use <code>pathlib.Path</code> slash operators (<code>folder / filename</code>) for cross-platform compatibility.</li>
+            </ul>
+        </div>
+
+        <h2>5. Interactive Project Workspace</h2>
+        <section class="practice-panel" data-practice-type="project" data-practice-id="project-3-file-organizer" aria-labelledby="practice-title">
+            <div class="practice-panel__header">
+                <span class="practice-panel__eyebrow">Project Workspace</span>
+                <h2 id="practice-title" class="practice-panel__title">Build &amp; Test: File &amp; System Organizer</h2>
+                <p class="practice-panel__hint">Use the workspace below to customize your organizer script. Try extending the category mapping with custom file extensions or adding an undo option!</p>
+                <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                <span class="practice-progress__label">0% complete</span>
             </div>
-        </article>
+            <div class="practice-workspace">
+                <label for="practice-code">Your Project Code</label>
+                <textarea id="practice-code" class="practice-code" rows="16" spellcheck="false" placeholder="# Build your custom Desktop Automated File Organizer here!&#10;import shutil&#10;import logging&#10;from pathlib import Path&#10;&#10;def main():&#10;    print('File Organizer Initialized')&#10;&#10;if __name__ == '__main__':&#10;    main()"></textarea>
+            </div>
+            <fieldset class="practice-checklist">
+                <legend>Project Feature Checklist</legend>
+                <label class="practice-check"><input type="checkbox"><span>I implemented file extension parsing with <code>pathlib.Path</code></span></label>
+                <label class="practice-check"><input type="checkbox"><span>I added a dry-run preview mode before moving actual files</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I built dynamic filename collision resolution to prevent overwrites</span></label>
+                <label class="practice-check"><input type="checkbox"><span>I integrated persistent logging using Python's standard <code>logging</code> module</span></label>
+            </fieldset>
+            <div class="practice-success" hidden>
+                <span class="practice-success__icon" aria-hidden="true">✓</span>
+                <p class="practice-success__title">Major Project 3 Completed!</p>
+                <p class="practice-success__text">Awesome job! You have built a practical, system-level automation tool for managing file systems cleanly and safely.</p>
+            </div>
+        </section>
+
+        <h2>6. Key Takeaways &amp; Milestone Achievement</h2>
+        <ul>
+            <li>The <code>pathlib</code> library simplifies cross-platform file path management and metadata inspection.</li>
+            <li>Always implement a dry-run or preview mode when writing scripts that modify or move local files.</li>
+            <li>System logging produces audit trails essential for troubleshooting and verifying automation runs.</li>
+        </ul>
+
+        <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🏆 Milestone 3 Complete</h3>
+            <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">Congratulations on completing Major Project 3! Up next: **Major Project 4: Web Scraper & Data Pipeline** where you will gather and process real-time data from the web!</p>
+        </div>
+
+        <nav class="lesson-nav">
+            <a href="project-02-python">← Major Project 2: Expense Tracker</a>
+            <a class="lesson-nav__next" href="project-4-python">Major Project 4: Web Scraper →</a>
+        </nav>
+    </div>
+</article>
     </main>
     <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
     <script src="../../js/practice.js" defer></script>
