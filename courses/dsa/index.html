@@ -3,494 +3,1275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn Data Structures & Algorithms (DSA). Foundations for technical growth, covering arrays, Big O notation, searching, and sorting.">
-    <title>Data Structures & Algorithms | Infotris</title>
-    
-    <!-- Google Fonts -->
+    <meta name="description" content="Data Structures & Algorithms course overview, TrisGraph map, study planner, and technical challenges.">
+    <title>Infotris | DSA Course</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/global.css">
-    
-    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
-
-    <!-- Embedded Responsive CSS -->
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/path.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <style>
-        :root {
-            /* Color Palette */
-            --primary: var(--bg-main);
-             --bg-dark: #0d0d0d
-            
-            --text-main: --te;
-            --text-secondary: #4B5563;
-            --text-muted: #6B7280;
-            --bg-main: #F9FAFB;
-            --bg-surface: #FFFFFF;
-            --border: #E5E7EB;
-            --border-hover: #C7D2FE;
-            
-            /* Layout & Spacing */
-            --container-width: 900px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --transition: all 0.2s ease;
-        }
+    .dsa-course {
+    --course-card-bg: #ffffff;
+    --course-muted-bg: rgba(13, 13, 13, 0.035);
+}
 
-        /* Basic Resets */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+.dsa-course .path-hero {
+    padding: var(--space-lg) var(--space-md) var(--space-xl);
+    border-bottom: 1px solid var(--border-color);
+}
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+.dsa-course .path-hero__inner{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 450px;
+    align-items:center;
+    justify-content:space-between;
+    gap:3rem;
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+}
 
-        a {
-            text-decoration: none;
-            color: var(--bg dark);
-            transition: var(--transition);
-        }
+.path-hero__content {
+    max-width: 42rem;
+}
 
-        a:hover {
-            color: var(--primary-hover);
-        }
+.path-hero__badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin: 0 0 var(--space-md);
+}
 
-        ul, ol {
-            list-style: none;
-        }
+.course-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
 
-        /* Container for centering */
-        .container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
+.course-badge--dark {
+    color: var(--bg-light);
+    background-color: var(--bg-dark);
+    border-color: var(--bg-dark);
+}
 
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
+.path-hero__duration {
+    margin-bottom: var(--space-md);
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+}
 
-        /* Navbar */
-        .site-header {
-            background-color: var(--bg-surface);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+.path-hero__duration strong {
+    color: var(--text-primary);
+}
 
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
+.path-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+.path-hero__content{
+    min-width:0;
+}
 
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--text-main);
-        }
+.path-hero__secondary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: color var(--transition);
+}
 
-        .navbar-logo img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            /* Fallback style if image is missing */
-            background: var(--primary);
-            border-radius: 4px;
-        }
+.path-hero__secondary:hover {
+    color: var(--text-primary);
+}
 
-        .navbar-links a {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
+.course-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 34rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: rgba(255, 255, 255, 0.72);
+    overflow: hidden;
+}
 
-        .navbar-links a:hover {
-            color: var(--text-main);
-        }
+.course-stat {
+    padding: var(--space-sm);
+    border-right: 1px solid var(--border-color);
+}
 
-        /* Breadcrumb */
-        .path-breadcrumb {
-            max-width: var(--container-width);
-            margin: 1.5rem auto 0;
-            padding: 0 1.5rem;
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
+.course-stat:last-child {
+    border-right: none;
+}
 
-        /* Hero Section */
-        .path-hero {
-            padding: 3rem 0;
-        }
+.course-stat strong,
+.course-stat span {
+    display: block;
+}
 
-        .path-hero__back {
-            display: inline-block;
-            margin-bottom: 2rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
+.course-stat strong {
+    font-size: 1.25rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
 
-        .path-hero__meta {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+.course-stat span {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
 
-        .path-hero__eyebrow {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
+/* DSA Specific Visual Container */
+.dsa-course-visual{
+    position:relative;
+    width:450px;
+    height:460px;
+    background:
+        linear-gradient(180deg,rgba(255,255,255,.92),rgba(247,247,245,.95)),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(13,13,13,.03) 39px,
+            rgba(13,13,13,.03) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(13,13,13,.03) 39px,
+            rgba(13,13,13,.03) 40px
+        );
+    border:1px solid rgba(13,13,13,.08);
+    border-radius:24px;
+    box-shadow:0 18px 55px rgba(13,13,13,.05);
+    overflow:hidden;
+    flex-shrink:0;
+}
 
-        .path-hero__badge {
-            background-color: var(--primary-light);
-            color: var(--primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
+/* SVG Connecting Lines */
+.dsa-edges {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
 
-        .path-hero__title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
+.dsa-edge-line {
+    stroke: rgba(13, 13, 13, 0.12);
+    stroke-width: 2;
+    stroke-dasharray: 6 6;
+}
 
-        .path-hero__lead {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
+.hero-visual{
+    width:100%;
+    max-width:450px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    justify-self:end;
+}
 
-        /* Buttons */
-        .button-primary, .button-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            transition: var(--transition);
-        }
+/* The Animated Data Packets */
+.dsa-edge-glow {
+    fill: none;
+    stroke: #0d0d0d;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 15 85;
+    stroke-dashoffset: 100;
+    animation: dsa-traverse 3s ease-in-out infinite;
+}
 
-        .button-primary {
-            background-color: var(--bg-dark);
-            
-        }
+.dsa-edge-glow.route-1 { animation-delay: 0s; }
+.dsa-edge-glow.route-2 { animation-delay: 0.75s; }
+.dsa-edge-glow.route-3 { animation-delay: 1.5s; }
+.dsa-edge-glow.route-4 { animation-delay: 2.25s; }
 
-        .button-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
-        }
+/* The Graph Nodes */
+.dsa-node {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 110px;
+    height: 80px;
+    background-color: #ffffff;
+    border: 1px solid rgba(13, 13, 13, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(13, 13, 13, 0.06);
+    animation: dsa-float 5s ease-in-out infinite;
+}
 
-        .button-secondary {
-            background-color: transparent;
-            
-            border: 1px solid var(--primary);
-        }
+.dsa-node:nth-of-type(2) { animation-delay: -1.2s; }
+.dsa-node:nth-of-type(3) { animation-delay: -2.5s; }
+.dsa-node:nth-of-type(4) { animation-delay: -3.8s; }
 
-        .button-secondary:hover {
-            background-color: var(--primary-light);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
-        }
+.dsa-node__icon {
+    font-family: monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0d0d0d;
+    background: rgba(13, 13, 13, 0.04);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+}
 
-        /* Lesson Grid Layout */
-        .path-body {
-            padding-bottom: 5rem;
-        }
+.dsa-node__title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #595959;
+}
 
-        .path-lessons-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
+.dsa-node--highlight {
+    background-color: #0d0d0d;
+    border-color: #0d0d0d;
+}
 
-        /* Lesson Cards */
-        .lesson-card__link {
-            display: flex;
-            align-items: flex-start;
-            padding: 1.5rem;
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            color: inherit;
-            position: relative;
-        }
+.dsa-node--highlight .dsa-node__icon {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+}
 
-        .lesson-card__link:hover {
-            border-color: var(--border-hover);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-            transform: translateY(-2px);
-        }
+.dsa-node--highlight .dsa-node__title {
+    color: rgba(255, 255, 255, 0.85);
+}
 
-        .lesson-card__number {
-            flex-shrink: 0;
-            width: 40px;
-            height: 40px;
-            background-color: var(--bg-main);
-            color: var(--text-muted);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.875rem;
-            margin-right: 1.25rem;
-            transition: var(--transition);
-        }
+/* Animations */
+@keyframes dsa-float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-6px); }
+}
 
-        .lesson-card__link:hover .lesson-card__number {
-            background-color: var(--primary-light);
-            
-        }
+@keyframes dsa-traverse {
+    0% { stroke-dashoffset: 100; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { stroke-dashoffset: -15; opacity: 0; }
+}
 
-        .lesson-card__content {
-            flex-grow: 1;
-            padding-right: 1rem;
-        }
+@media (max-width:1024px){
 
-        .lesson-card__title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--text-main);
-        }
+.dsa-course .path-hero__inner{
+    grid-template-columns:1fr;
+}
 
-        .lesson-card__desc {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin: 0;
-        }
+.hero-visual{
+    justify-self:center;
+}
 
-        .lesson-card__duration {
-            flex-shrink: 0;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            background: var(--bg-main);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-        }
+.dsa-course-visual{
+    width:100%;
+    max-width:450px;
+}
 
-        /* Project Banner */
-        .path-project-banner {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: linear-gradient(to right bottom, #F8FAFC, #EEF2FF);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-hover);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
+}
 
-        .path-project-banner__info h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin: 0.5rem 0;
-        }
+@media (max-width: 640px) {
+    .dsa-course-visual {
+        height: 380px;
+    }
+    .dsa-node {
+        width: 90px;
+        height: 70px;
+    }
+    .dsa-node__icon { font-size: 1rem; }
+    .dsa-node__title { font-size: 0.6rem; }
+}
 
-        .path-project-banner__info p {
-            color: var(--text-secondary);
-            margin: 0;
-        }
+.course-section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
 
-        /* Footer */
-        .footer-section {
-            border-top: 1px solid var(--border);
-            padding: 2rem 0;
-            text-align: center;
-            background-color: var(--bg-surface);
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
+.course-section + .course-section {
+    padding-top: 0;
+}
 
-        /* Responsive Media Queries */
-        @media (min-width: 768px) {
-            .path-hero__title {
-                font-size: 3rem;
-            }
-            
-            .path-lessons-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+.course-section__header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
 
-            .path-project-banner {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
+.section-heading {
+    font-size: clamp(1.35rem, 2.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+}
 
-            .path-project-banner__info {
-                max-width: 60%;
-            }
-            
-            .path-project-banner .button-secondary {
-                white-space: nowrap;
-            }
-        }
-    </style>
+.section-kicker {
+    max-width: 32rem;
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.cards-grid,
+.planner-grid,
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+}
+
+.learn-card,
+.planner-week,
+.project-card,
+.roadmap-card {
+    background-color: var(--course-card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 30px rgba(13, 13, 13, 0.035);
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.learn-card:hover,
+.planner-week:hover,
+.project-card:hover,
+.roadmap-card:hover {
+    border-color: rgba(17, 17, 17, 0.42);
+    box-shadow: 0 14px 38px rgba(13, 13, 13, 0.065);
+    transform: translateY(-2px);
+}
+
+.learn-card {
+    min-height: 9.25rem;
+    padding: var(--space-md);
+}
+
+.learn-card__number,
+.project-card__level {
+    display: block;
+    margin-bottom: var(--space-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.learn-card h3,
+.planner-week h3,
+.project-card h3 {
+    margin-bottom: var(--space-xs);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.project-card h3 a {
+    transition: opacity var(--transition);
+}
+
+.project-card h3 a:hover {
+    opacity: 0.72;
+}
+
+.learn-card p,
+.planner-week p,
+.project-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.roadmap-list {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.roadmap-card {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1fr);
+    gap: var(--space-md);
+    padding: var(--space-md);
+}
+
+.roadmap-card__index {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.roadmap-card__tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.roadmap-card__meta {
+    width: fit-content;
+    padding: 0.22rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--course-muted-bg);
+    border: 1px solid rgba(217, 217, 217, 0.75);
+    border-radius: 999px;
+}
+
+.roadmap-card__title {
+    margin-bottom: 0.35rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.roadmap-card__topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.roadmap-card__topics span,
+.roadmap-card__topics a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: var(--course-muted-bg);
+    border: 1px solid rgba(217, 217, 217, 0.75);
+    border-radius: 999px;
+}
+
+.roadmap-card__topics a {
+    color: var(--text-primary);
+}
+
+.roadmap-card__topics a:hover {
+    border-color: var(--text-primary);
+    background-color: rgba(13, 13, 13, 0.07);
+}
+
+.planner-week {
+    position: relative;
+    padding: var(--space-md);
+    border-style: dashed;
+    background-color: rgba(255, 255, 255, 0.72);
+    overflow: hidden;
+}
+
+.planner-week::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background-color: var(--bg-dark);
+}
+
+.planner-week__meta {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.projects-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.project-card {
+    padding: var(--space-md);
+}
+
+.project-card__cta {
+    display: inline-flex;
+    margin-top: var(--space-md);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    transition: opacity var(--transition);
+}
+
+.project-card__cta:hover {
+    opacity: 0.7;
+}
+
+.project-card--featured {
+    color: var(--bg-light);
+    background-color: var(--bg-dark);
+    border-color: var(--bg-dark);
+}
+
+.project-card--featured p,
+.project-card--featured .project-card__level {
+    color: #c8c8c8;
+}
+
+.project-card--featured .project-card__cta {
+    color: var(--bg-light);
+}
+
+.final-cta {
+    padding: 0 var(--space-md) var(--space-xl);
+}
+
+.final-cta__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    color: var(--bg-light);
+    background-color: var(--bg-dark);
+    border-radius: var(--radius-lg);
+}
+
+.final-cta h2 {
+    margin-bottom: 0.25rem;
+    font-size: clamp(1.35rem, 2.4vw, 2rem);
+    letter-spacing: -0.025em;
+}
+
+.final-cta p {
+    max-width: 34rem;
+    color: #c8c8c8;
+}
+
+.final-cta .path-hero__cta {
+    color: var(--text-primary);
+    background-color: var(--bg-light);
+}
+
+@media (max-width: 992px) {
+    .dsa-course .path-hero__inner,
+    .roadmap-card {
+        grid-template-columns: 1fr;
+    }
+
+    .cards-grid,
+    .planner-grid,
+    .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .course-section__header,
+    .final-cta__inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 640px) {
+    .cards-grid,
+    .planner-grid,
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dsa-course .path-hero {
+        padding-top: var(--space-md);
+    }
+
+    .course-section {
+        padding-bottom: var(--space-lg);
+    }
+
+    .learn-card {
+        min-height: auto;
+    }
+
+    .dsa-course-visual {
+        min-height: 420px;
+    }
+
+    .course-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .course-stat {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .course-stat:last-child {
+        border-bottom: none;
+    }
+}
+
+/* OpenGraph Card — Infotris Premium Style */
+.opengraph-card {
+    margin: var(--space-xl) 0;
+}
+
+.opengraph-card__content {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    background: linear-gradient(135deg, #0b0b0b 0%, #121212 45%, #1a1a1a 100%);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.opengraph-card__content::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.opengraph-card__content:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+}
+
+.opengraph-card__body {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.opengraph-card__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.opengraph-card__title {
+    margin-top: 1rem;
+    margin-bottom: 0.55rem;
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.opengraph-card__text {
+    max-width: 560px;
+    color: rgba(255,255,255,0.72);
+    font-size: 0.96rem;
+    line-height: 1.75;
+}
+
+.opengraph-card__button {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 1rem 1.35rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.opengraph-card__button:hover {
+    transform: translateX(4px);
+    border-color: rgba(255,255,255,0.22);
+    background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.08));
+}
+
+.opengraph-card__content::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 45%;
+    width: 300px;
+    height: 120px;
+    opacity: 0.08;
+    background-image: radial-gradient(circle, white 2px, transparent 2px);
+    background-size: 22px 22px;
+    transform: rotate(-12deg);
+}
+
+@media (max-width: 768px) {
+    .opengraph-card__content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.4rem;
+    }
+
+    .opengraph-card__button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .opengraph-card__title {
+        font-size: 1.2rem;
+    }
+}
+
+/* Core Navigation Styles */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.navbar-logo img {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #595959;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: color 0.2s ease;
+}
+
+.navbar-links a:hover,
+.navbar-links a[aria-current="page"] {
+    color: #0d0d0d;
+}
+
+.btn-sign-in {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.25rem;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-sign-in:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Breadcrumb Navigation */
+.path-breadcrumb {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #595959;
+}
+
+.path-breadcrumb a {
+    color: #0d0d0d;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.path-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none;
+    }
+}
+</style>
 </head>
-<body class="page-course-index">
-    
-    <!-- Navbar -->
-    <header class="site-header">
-        <nav class="navbar" aria-label="Main navigation">
-            <a class="navbar-logo" href="../../">
-                <!-- Replace src with your actual logo path -->
-                <img src="../../assets/logo.png" alt="Infotris" width="32" height="32">
-                <span class="navbar-brand-text">Infotris</span>
-            </a>
-            <ul class="navbar-links">
-                <li><a href="../../courses" aria-current="page">Courses</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Breadcrumb -->
-    <nav class="path-breadcrumb" aria-label="Breadcrumb">
-        <a href="../../careers/python-developer/">Python Developer</a>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page" style="color: var(--text-main); font-weight: 500;">DSA</span>
+<header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+        <a class="navbar-logo" href="/" aria-label="Infotris home">
+            <!-- Replace src with your actual logo path -->
+            <img src="../../assets/logo.png" alt="Infotris Logo" width="40" height="40">
+            <span class="navbar-brand-text">Infotris</span>
+        </a>
+        <ul class="navbar-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/courses" aria-current="page">Courses</a></li>
+            <li><a href="/careers">Careers</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
     </nav>
+</header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <header class="path-hero">
-            <div class="container">
-                <a class="path-hero__back" href="../../careers/python-developer/">← Back to Syllabus</a>
-                
-                <div class="path-hero__meta">
-                    <p class="path-hero__eyebrow">Course · Weeks 7–8</p>
-                    <span class="path-hero__badge">5 Lessons</span>
-                </div>
-                
-                <h1 class="path-hero__title">Data Structures &amp; Algorithms</h1>
-                <p class="path-hero__lead">Foundations for technical growth — master memory management, algorithmic complexity, searching, and sorting techniques in Python.</p>
-                
-                <div class="path-hero__actions">
-                    <a class="button-primary" href="01-why-dsa.html">Start lesson 1</a>
-                </div>
-            </div>
-        </header>
+<nav class="path-breadcrumb" aria-label="Breadcrumb">
+    <a href="/courses">Courses</a>
+    <span aria-hidden="true">/</span>
+    <span>Data Structures & Algorithms</span>
+</nav>
 
-        <!-- Course Body -->
-        <section class="path-body">
-            <div class="container">
-                <h2 class="sr-only">Course Lessons</h2>
-                
-                <!-- Lesson Grid -->
-                <ol class="path-lessons-grid">
-                    <li class="lesson-card">
-                        <a href="01-why-dsa.html" class="lesson-card__link">
-                            <span class="lesson-card__number">01</span>
-                            <div class="lesson-card__content">
-                                <h3 class="lesson-card__title">Why DSA matters</h3>
-                                <p class="lesson-card__desc">Understand how data structures and algorithms optimize code performance and problem-solving.</p>
-                            </div>
-                            <span class="lesson-card__duration">⏳ 15 min</span>
-                        </a>
-                    </li>
-                    
-                    <li class="lesson-card">
-                        <a href="02-arrays.html" class="lesson-card__link">
-                            <span class="lesson-card__number">02</span>
-                            <div class="lesson-card__content">
-                                <h3 class="lesson-card__title">Arrays in depth</h3>
-                                <p class="lesson-card__desc">Explore memory allocation, indexing, and the hidden costs of array operations.</p>
-                            </div>
-                            <span class="lesson-card__duration">⏳ 25 min</span>
-                        </a>
-                    </li>
-                    
-                    <li class="lesson-card">
-                        <a href="03-big-o.html" class="lesson-card__link">
-                            <span class="lesson-card__number">03</span>
-                            <div class="lesson-card__content">
-                                <h3 class="lesson-card__title">Big O notation</h3>
-                                <p class="lesson-card__desc">Learn to evaluate and communicate the time and space complexity of your code.</p>
-                            </div>
-                            <span class="lesson-card__duration">⏳ 30 min</span>
-                        </a>
-                    </li>
-                    
-                    <li class="lesson-card">
-                        <a href="04-searching.html" class="lesson-card__link">
-                            <span class="lesson-card__number">04</span>
-                            <div class="lesson-card__content">
-                                <h3 class="lesson-card__title">Searching algorithms</h3>
-                                <p class="lesson-card__desc">Implement Linear and Binary search, and understand when to use each approach.</p>
-                            </div>
-                            <span class="lesson-card__duration">⏳ 20 min</span>
-                        </a>
-                    </li>
-                    
-                    <li class="lesson-card">
-                        <a href="05-sorting.html" class="lesson-card__link">
-                            <span class="lesson-card__number">05</span>
-                            <div class="lesson-card__content">
-                                <h3 class="lesson-card__title">Sorting intro</h3>
-                                <p class="lesson-card__desc">A practical introduction to Bubble, Selection, and Insertion sorts.</p>
-                            </div>
-                            <span class="lesson-card__duration">⏳ 35 min</span>
-                        </a>
-                    </li>
-                </ol>
-
-                <!-- Up Next / Capstone Banner -->
-                <div class="path-project-banner">
-                    <div class="path-project-banner__info">
-                        <span class="path-hero__eyebrow">Up Next</span>
-                        <h3>Capstone CLI project</h3>
-                        <p>Apply your Python logic and algorithmic thinking to build a real-world command-line tool.</p>
+    <main class="dsa-course">
+        <section class="path-hero" aria-labelledby="dsa-course-heading">
+            <div class="path-hero__inner">
+                <div class="path-hero__content">
+                    <a class="path-hero__back" href="../../courses">Back to courses</a>
+                    <div class="path-hero__badge-row" aria-label="Course details">
+                        <span class="course-badge course-badge--dark">Intermediate to Advanced</span>
+                        <span class="course-badge">8 weeks</span>
+                        <span class="course-badge">30 hours</span>
                     </div>
-                    <a href="../python/project-capstone-cli" class="button-secondary">View Project Details →</a>
+                    <p class="path-hero__eyebrow">Course overview</p>
+                    <h1 id="dsa-course-heading" class="path-hero__title">Data Structures & Algorithms</h1>
+                    <p class="path-hero__lead">
+                        Master the core foundations of computer science. Learn to write optimized, efficient code, recognize patterns, and ace technical interviews with confidence.
+                    </p>
+                    <p class="path-hero__duration"><strong>Estimated duration:</strong> 8 focused weeks combining theory, visualization, and challenging logic puzzles.</p>
+                    <div class="path-hero__actions">
+                        <a class="path-hero__cta button-primary" href="01-big-o">Start Learning</a>
+                        <a class="path-hero__secondary" href="#roadmap-heading">View TrisGraph</a>
+                    </div>
+                    <div class="course-stats" aria-label="Course snapshot">
+                        <div class="course-stat">
+                            <strong>24</strong>
+                            <span>Lessons</span>
+                        </div>
+                        <div class="course-stat">
+                            <strong>8</strong>
+                            <span>Modules</span>
+                        </div>
+                        <div class="course-stat">
+                            <strong>50+</strong>
+                            <span>Challenges</span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="hero-visual" aria-label="DSA Graph Traversal Animation">
+    <div class="dsa-course-visual">
+        
+        <!-- Connecting Lines (Background) -->
+        <svg class="dsa-edges" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <!-- Root to Left -->
+            <line x1="50%" y1="18%" x2="25%" y2="50%" class="dsa-edge-line" />
+            <line x1="50%" y1="18%" x2="25%" y2="50%" class="dsa-edge-glow route-1" pathLength="100" />
+            
+            <!-- Root to Right -->
+            <line x1="50%" y1="18%" x2="75%" y2="50%" class="dsa-edge-line" />
+            <line x1="50%" y1="18%" x2="75%" y2="50%" class="dsa-edge-glow route-2" pathLength="100" />
+            
+            <!-- Left to Bottom -->
+            <line x1="25%" y1="50%" x2="50%" y2="82%" class="dsa-edge-line" />
+            <line x1="25%" y1="50%" x2="50%" y2="82%" class="dsa-edge-glow route-3" pathLength="100" />
+            
+            <!-- Right to Bottom -->
+            <line x1="75%" y1="50%" x2="50%" y2="82%" class="dsa-edge-line" />
+            <line x1="75%" y1="50%" x2="50%" y2="82%" class="dsa-edge-glow route-4" pathLength="100" />
+        </svg>
+
+        <!-- The Data Nodes (Foreground) -->
+        <div class="dsa-node" style="top: 18%; left: 50%;">
+            <span class="dsa-node__icon">O(n²)</span>
+            <span class="dsa-node__title">Array Input</span>
+        </div>
+        
+        <div class="dsa-node" style="top: 50%; left: 25%;">
+            <span class="dsa-node__icon">{ }</span>
+            <span class="dsa-node__title">Hash Map</span>
+        </div>
+        
+        <div class="dsa-node" style="top: 50%; left: 75%;">
+            <span class="dsa-node__icon">/ \</span>
+            <span class="dsa-node__title">Tree Sort</span>
+        </div>
+        
+        <div class="dsa-node dsa-node--highlight" style="top: 82%; left: 50%;">
+            <span class="dsa-node__icon">⚡</span>
+            <span class="dsa-node__title">O(1) Output</span>
+        </div>
+        
+    </div>
+</div>
+            </div>
+        </section>
+
+        <section class="course-section" aria-labelledby="learn-heading">
+            <div class="course-section__header">
+                <h2 id="learn-heading" class="section-heading">What You'll Learn</h2>
+                <p class="section-kicker">Six essential computer science pillars designed to transform the way you approach complex code.</p>
+            </div>
+            <div class="cards-grid">
+                <article class="learn-card">
+                    <span class="learn-card__number">01</span>
+                    <h3>Big O Notation</h3>
+                    <p>Master time and space complexity to mathematically prove why your solution is efficient.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">02</span>
+                    <h3>Linear Structures</h3>
+                    <p>Understand how Arrays, Linked Lists, Stacks, and Queues handle data sequentially in memory.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">03</span>
+                    <h3>Hash Maps & Sets</h3>
+                    <p>Unlock the power of O(1) constant time lookups to massively speed up brute-force solutions.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">04</span>
+                    <h3>Trees & Graphs</h3>
+                    <p>Traverse hierarchical and networked data using Breadth-First and Depth-First Search algorithms.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">05</span>
+                    <h3>Sorting & Searching</h3>
+                    <p>Implement Binary Search and understand the mechanics behind Merge Sort and Quick Sort.</p>
+                </article>
+                <article class="learn-card">
+                    <span class="learn-card__number">06</span>
+                    <h3>Dynamic Programming</h3>
+                    <p>Break down overlapping subproblems using memoization and tabulation to optimize recursive calls.</p>
+                </article>
+            </div>
+        </section>
+        
+        <section class="opengraph-card">
+            <div class="opengraph-card__content">
+                <div class="opengraph-card__top">
+                    <span class="opengraph-card__badge">
+                        🌐 OpenGraph
+                    </span>
+                </div>
+                <div class="opengraph-card__body">
+                    <h3 class="opengraph-card__title">
+                        Explore the Full DSA Learning Map
+                    </h3>
+                    <p class="opengraph-card__text">
+                        Discover advanced system design concepts, technical interview prep guides, and what comes next.
+                    </p>
+                </div>
+                <a href="dsa-roadmap" class="opengraph-card__button">
+                    Open →
+                </a>
+            </div>
+        </section>
+
+        <section class="course-section" aria-labelledby="roadmap-heading">
+            <div class="course-section__header">
+                <h2 id="roadmap-heading" class="section-heading">Course TrisGraph</h2>
+                <p class="section-kicker">A structured, scannable roadmap showing exactly how the data structures and algorithms interlock.</p>
+            </div>
+            <div class="roadmap-list">
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 1</span>
+                        <span class="roadmap-card__meta">3 lessons</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Complexity & Arrays</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="01-big-o">Big O Notation</a>
+                            <a href="02-memory">Memory Allocation</a>
+                            <a href="03-arrays">Static & Dynamic Arrays</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 2</span>
+                        <span class="roadmap-card__meta">3 lessons</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Linked Lists & Pointers</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="04-singly-linked">Singly Linked Lists</a>
+                            <a href="05-doubly-linked">Doubly Linked Lists</a>
+                            <a href="06-fast-slow">Fast & Slow Pointers</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 3</span>
+                        <span class="roadmap-card__meta">2 lessons</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Stacks & Queues</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="07-stacks">LIFO Stacks</a>
+                            <a href="08-queues">FIFO Queues</a>
+                            <a href="#">Deques</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 4</span>
+                        <span class="roadmap-card__meta">3 lessons</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Hashing & Sorting</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="09-hash-maps">Hash Maps</a>
+                            <a href="10-hash-sets">Hash Sets</a>
+                            <a href="#">Binary Search</a>
+                            <a href="#">Merge Sort</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 5</span>
+                        <span class="roadmap-card__meta">4 lessons</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Trees & BSTs</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="11-binary-trees">Binary Trees</a>
+                            <span>Binary Search Trees</span>
+                            <span>DFS Traversals</span>
+                            <span>BFS Level Order</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 6</span>
+                        <span class="roadmap-card__meta">3 lessons</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Graphs</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="12-graphs-intro">Adjacency Lists</a>
+                            <span>Matrix Representation</span>
+                            <span>Graph Traversals</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="roadmap-card">
+                    <div class="roadmap-card__index">
+                        <span class="roadmap-card__tag">Module 7</span>
+                        <span class="roadmap-card__meta">2 lessons</span>
+                    </div>
+                    <div>
+                        <h3 class="roadmap-card__title">Advanced Algorithms</h3>
+                        <div class="roadmap-card__topics">
+                            <a href="13-heaps">Heaps & Priority Queues</a>
+                            <span>Dynamic Programming</span>
+                            <span>Memoization</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="course-section" aria-labelledby="planner-heading">
+            <div class="course-section__header">
+                <h2 id="planner-heading" class="section-heading">8-Week Study Planner</h2>
+                <p class="section-kicker">A structured pacing model to build muscle memory without algorithmic burnout.</p>
+            </div>
+            <div class="planner-grid">
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 1-2</span>
+                    <h3>Foundations</h3>
+                    <p>Internalize Big O Notation, master Array manipulations, and learn String algorithms.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 3-4</span>
+                    <h3>Pointers & Maps</h3>
+                    <p>Trade space for time using Hash Maps, and learn pattern recognition with Linked Lists and Two-Pointers.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 5-6</span>
+                    <h3>Trees & Recursion</h3>
+                    <p>Shift to non-linear data. Understand recursion deeply by navigating Binary Search Trees and Heaps.</p>
+                </article>
+                <article class="planner-week">
+                    <span class="planner-week__meta">Weeks 7-8</span>
+                    <h3>Graphs & DP</h3>
+                    <p>Tackle the hardest interview concepts: navigating Graphs and optimizing overlapping subproblems with DP.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="course-section" aria-labelledby="projects-heading">
+            <div class="course-section__header">
+                <h2 id="projects-heading" class="section-heading">Milestone Challenges</h2>
+                <p class="section-kicker">Apply your theoretical knowledge by writing algorithms to solve these standard technical problems.</p>
+            </div>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <span class="project-card__level">Beginner</span>
+                    <h3><a href="challenge-01-two-sum">Two Sum Visualizer</a></h3>
+                    <p>Optimize an O(n^2) nested loop into an elegant O(n) Hash Map solution.</p>
+                    <a class="project-card__cta" href="challenge-01-two-sum">Open Challenge</a>
+                </article>
+                <article class="project-card">
+                    <span class="project-card__level">Beginner+</span>
+                    <h3><a href="challenge-02-valid-parentheses">Valid Parentheses</a></h3>
+                    <p>Implement a LIFO Stack to parse and validate structural string groupings.</p>
+                    <a class="project-card__cta" href="challenge-02-valid-parentheses">Open Challenge</a>
+                </article>
+                <article class="project-card">
+                    <span class="project-card__level">Intermediate</span>
+                    <h3><a href="challenge-03-maze-solver">Maze Solver</a></h3>
+                    <p>Use Breadth-First Search (BFS) to find the shortest path through a 2D matrix.</p>
+                    <a class="project-card__cta" href="challenge-03-maze-solver">Open Challenge</a>
+                </article>
+                <article class="project-card project-card--featured">
+                    <span class="project-card__level">Advanced</span>
+                    <h3><a href="challenge-capstone-dijkstra">Route Optimizer</a></h3>
+                    <p>Build an engine using Dijkstra's Algorithm and a Priority Queue to calculate the cheapest network route.</p>
+                    <a class="project-card__cta" href="challenge-capstone-dijkstra">Open Capstone</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="final-cta" aria-labelledby="final-cta-heading">
+            <div class="final-cta__inner">
+                <div>
+                    <h2 id="final-cta-heading">Ready to master Algorithms?</h2>
+                    <p>Start with Big O Notation and progressively build up your problem-solving toolkit.</p>
+                </div>
+                <a class="path-hero__cta" href="01-big-o">Start Learning</a>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer-section">
-        <div class="container">
+        <div class="footer-inner">
+            <div class="footer-column footer-brand">
+                <a class="footer-logo" href="../../" aria-label="Infotris home">
+                    <img src="../../assets/logo.png" alt="Infotris logo" width="36" height="36">
+                    <span>Infotris</span>
+                </a>
+                <p class="footer-tagline">Learn &bull; Build &bull; Grow</p>
+                <p class="footer-mission">
+                    Infotris doesn't create knowledge—it organizes the world's knowledge into structured trails so anyone can learn, build, and grow.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-heading">Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="../../">Home</a></li>
+                    <li><a href="../../about">About</a></li>
+                    <li><a href="../../careers">Career Paths</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-heading">Community</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.instagram.com/infotrishq" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                    <li><a href="https://x.com/Infotrishq" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+                    <li><a href="https://www.reddit.com/user/Infotris/" target="_blank" rel="noopener noreferrer">Reddit</a></li>
+                    <li><a href="https://www.youtube.com/@Infotrishq" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-heading">Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello.infotris@gmail.com" target="_blank" rel="noopener noreferrer">Email</a></li>
+                    <li class="footer-social-row">
+                        <a href="https://www.instagram.com/infotrishq" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="https://x.com/Infotrishq" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-icon"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                        </a>
+                        <a href="https://www.reddit.com/user/Infotris/" target="_blank" rel="noopener noreferrer" aria-label="Reddit" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-icon"><path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.29-1.72l1.32-4.17 3.61.77c.01.94.78 1.7 1.73 1.7 1.05 0 1.9-.85 1.9-1.9s-.85-1.9-1.9-1.9c-.83 0-1.53.55-1.79 1.3l-3.99-.85c-.09-.02-.18.02-.24.08-.06.06-.09.15-.07.24l-1.48 4.67c-2.49.04-4.75.68-6.42 1.7-.56-.75-1.46-1.22-2.4-1.22-1.65 0-3 1.35-3 3 0 1.11.61 2.08 1.51 2.59-.05.29-.08.59-.08.9 0 3.86 4.7 7 10.5 7s10.5-3.14 10.5-7c0-.31-.03-.61-.08-.9.9-.51 1.51-1.48 1.51-2.59zm-16.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11.23 3.4c-1.11 1.11-3.21 1.2-3.73 1.2s-2.62-.09-3.73-1.2c-.1-.1-.1-.26 0-.36.1-.1.26-.1.36 0 .91.91 2.76 1.01 3.37 1.01s2.46-.1 3.37-1.01c.1-.1.26-.1.36 0 .1.1.1.26 0 .36zm-.73-3.4c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/@Infotrishq" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-icon"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.507 9.388.507 9.388.507s7.518 0 9.388-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="mailto:hello.infotris@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
             <p>&copy; 2026 Infotris. All rights reserved.</p>
         </div>
     </footer>
-    
-    <!-- Optional External JS -->
     <script src="../../js/practice.js" defer></script>
 </body>
 </html>

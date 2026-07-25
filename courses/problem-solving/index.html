@@ -3,45 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | Problem Solving</title>
+    <meta name="description" content="Learn Problem Solving for Python. Master breaking down complex requirements, writing pseudocode, and debugging logic.">
+    <title>Problem Solving | Infotris</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../../css/system/theme.css">
+    
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
 
-    <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/home.css">
-    <link rel="stylesheet" href="../../css/path.css">
+    <!-- Embedded Responsive CSS (Same Theme as DSA) -->
+    <style>
+        :root {
+            /* Core Theme Colors */
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --primary-light: #EEF2FF;
+            --text-main: #111827;
+            --text-secondary: #4B5563;
+            --text-muted: #6B7280;
+            --bg-main: #F9FAFB;
+            --bg-surface: #FFFFFF;
+            --border: #E5E7EB;
+            --border-hover: #C7D2FE;
+            
+            /* Layout & Spacing */
+            --container-width: 900px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.2s ease;
+        }
+
+        /* Basic Resets */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: var(--primary); transition: var(--transition); }
+        a:hover { color: var(--primary-hover); }
+        ul, ol { list-style: none; }
+
+        /* Container & Utilities */
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 1.5rem; }
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+        }
+
+        /* Navbar */
+        .site-header {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .navbar {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 4rem; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+        }
+        .navbar-logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.25rem; color: var(--text-main); }
+        .navbar-logo img { width: 32px; height: 32px; object-fit: contain; background: var(--primary); border-radius: 4px; }
+        .navbar-links { display: flex; gap: 1.5rem; }
+        .navbar-links a { color: var(--text-secondary); font-weight: 500; }
+        .navbar-links a:hover { color: var(--text-main); }
+
+        /* Breadcrumb */
+        .path-breadcrumb {
+            max-width: var(--container-width); margin: 1.5rem auto 0; padding: 0 1.5rem;
+            font-size: 0.875rem; color: var(--text-muted); display: flex; gap: 0.5rem; align-items: center;
+        }
+
+        /* Hero Section */
+        .path-hero { padding: 3rem 0; }
+        .path-hero__back { display: inline-block; margin-bottom: 2rem; font-size: 0.875rem; font-weight: 500; }
+        .path-hero__meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .path-hero__eyebrow { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-weight: 600; }
+        .path-hero__badge {
+            background-color: var(--primary-light); color: var(--primary);
+            padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+        }
+        .path-hero__title { font-size: 2.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .path-hero__lead { font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem; }
+
+        /* Buttons */
+        .button-primary {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.75rem 1.5rem; font-weight: 600; border-radius: var(--radius-md);
+            background-color: var(--primary); color: white; transition: var(--transition);
+        }
+        .button-primary:hover {
+            background-color: var(--primary-hover); color: white;
+            transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Lesson Grid Layout */
+        .path-body { padding-bottom: 5rem; }
+        .path-lessons-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+
+        /* Modified Lesson Cards for Problem Solving */
+        .lesson-card__link {
+            display: flex; align-items: flex-start; padding: 1.5rem;
+            background: var(--bg-surface); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); color: inherit; position: relative;
+        }
+        .lesson-card__link:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); transform: translateY(-2px);
+        }
+
+        /* Square block number to look like "building blocks/logic" */
+        .lesson-card__number {
+            flex-shrink: 0; width: 44px; height: 44px;
+            background-color: var(--bg-main); color: var(--text-muted);
+            border-radius: 10px; /* Square instead of circle */
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.875rem; margin-right: 1.25rem;
+            transition: var(--transition); border: 1px solid var(--border);
+        }
+        .lesson-card__link:hover .lesson-card__number {
+            background-color: var(--primary-light); color: var(--primary); border-color: var(--primary-light);
+        }
+        .lesson-card__content { flex-grow: 1; padding-right: 1rem; }
+        .lesson-card__title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem; color: var(--text-main); }
+        .lesson-card__desc { font-size: 0.875rem; color: var(--text-secondary); margin: 0; }
+        
+        /* Integrated Project Card (Full Width) */
+        .project-card {
+            grid-column: 1 / -1; /* Spans full width of the grid */
+            margin-top: 1rem;
+        }
+        .project-card__link {
+            display: flex; flex-direction: column; padding: 2rem;
+            background: var(--text-main); /* Dark theme for contrast */
+            color: white; border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+        .project-card__link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(17, 24, 39, 0.2);
+        }
+        .project-card__eyebrow {
+            color: #9CA3AF; font-size: 0.875rem; text-transform: uppercase;
+            letter-spacing: 0.05em; font-weight: 600; margin-bottom: 0.5rem;
+        }
+        .project-card__title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white; }
+        .project-card__desc { color: #D1D5DB; margin-bottom: 1.5rem; max-width: 600px; }
+        .project-card__action {
+            display: inline-flex; font-weight: 600; color: var(--primary-light);
+            align-items: center; gap: 0.5rem;
+        }
+        .project-card__link:hover .project-card__action { color: white; }
+
+        /* Footer */
+        .footer-section {
+            border-top: 1px solid var(--border); padding: 2rem 0;
+            text-align: center; background-color: var(--bg-surface);
+            color: var(--text-muted); font-size: 0.875rem;
+        }
+
+        /* Responsive Media Queries */
+        @media (min-width: 768px) {
+            .path-hero__title { font-size: 3rem; }
+            .path-lessons-grid { grid-template-columns: repeat(2, 1fr); }
+            .project-card__link { flex-direction: row; align-items: center; justify-content: space-between; }
+            .project-card__desc { margin-bottom: 0; }
+        }
+    </style>
 </head>
 <body class="page-course-index">
+    
+    <!-- Navbar -->
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
-            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
-            <ul class="navbar-links"><li><a href="../../courses" aria-current="page">Courses</a></li><li><a href="../../careers">Careers</a></li></ul>
+            <a class="navbar-logo" href="../../">
+                <img src="../../assets/logo.png" alt="Infotris" width="32" height="32">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
         </nav>
     </header>
-    <nav class="path-breadcrumb"><a href="../../careers/python-developer/">Python Developer</a><span>/</span><span>Problem Solving</span></nav>
+
+    <!-- Breadcrumb -->
+    <nav class="path-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page" style="color: var(--text-main); font-weight: 500;">Problem Solving</span>
+    </nav>
+
+    <!-- Main Content -->
     <main>
+        <!-- Hero Section -->
         <header class="path-hero">
-            <div class="path-hero__inner">
-                <a class="path-hero__back" href="../../careers/python-developer/">← Syllabus</a>
-                <p class="path-hero__eyebrow">Course · Weeks 5–6</p>
+            <div class="container">
+                <a class="path-hero__back" href="../../careers/python-developer/">← Back to Syllabus</a>
+                
+                <div class="path-hero__meta">
+                    <p class="path-hero__eyebrow">Course · Weeks 5–6</p>
+                    <span class="path-hero__badge">4 Lessons + 1 Project</span>
+                </div>
+                
                 <h1 class="path-hero__title">Problem Solving</h1>
-                <p class="path-hero__lead">Learn how to think before you code — then practice with challenges.</p>
-                <a class="path-hero__cta" href="01-break-down-problems">Start lesson 1</a>
+                <p class="path-hero__lead">Learn how to think before you code — master breaking down complex requirements, writing pseudocode, and systematically debugging your logic.</p>
+                
+                <div class="path-hero__actions">
+                    <a class="button-primary" href="01-break-down-problems.html">Start lesson 1</a>
+                </div>
             </div>
         </header>
+
+        <!-- Course Body -->
         <section class="path-body">
-            <div class="path-body__inner">
-                <ol class="path-lessons">
-                    <li><a href="01-break-down-problems">01 — Breaking down problems</a></li>
-                    <li><a href="02-pseudocode">02 — Pseudocode</a></li>
-                    <li><a href="03-debugging">03 — Debugging</a></li>
-                    <li><a href="04-practice-patterns">04 — Patterns &amp; practice</a></li>
-                    <li><a href="project-challenges">Project — Five challenges</a></li>
+            <div class="container">
+                <h2 class="sr-only">Course Curriculum</h2>
+                
+                <!-- Lesson Grid -->
+                <ol class="path-lessons-grid">
+                    <li class="lesson-card">
+                        <a href="01-break-down-problems.html" class="lesson-card__link">
+                            <span class="lesson-card__number">01</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Breaking down problems</h3>
+                                <p class="lesson-card__desc">Learn to dissect large, intimidating requirements into small, actionable steps.</p>
+                            </div>
+                        </a>
+                    </li>
+                    
+                    <li class="lesson-card">
+                        <a href="02-pseudocode.html" class="lesson-card__link">
+                            <span class="lesson-card__number">02</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Pseudocode</h3>
+                                <p class="lesson-card__desc">Bridge the gap between human language and Python syntax without worrying about typos.</p>
+                            </div>
+                        </a>
+                    </li>
+                    
+                    <li class="lesson-card">
+                        <a href="03-debugging.html" class="lesson-card__link">
+                            <span class="lesson-card__number">03</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Debugging</h3>
+                                <p class="lesson-card__desc">Read stack traces, use print statements strategically, and isolate logic bugs.</p>
+                            </div>
+                        </a>
+                    </li>
+                    
+                    <li class="lesson-card">
+                        <a href="04-practice-patterns.html" class="lesson-card__link">
+                            <span class="lesson-card__number">04</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Patterns &amp; practice</h3>
+                                <p class="lesson-card__desc">Recognize common algorithmic patterns to solve new problems significantly faster.</p>
+                            </div>
+                        </a>
+                    </li>
+
+                    <!-- Featured Project Card (Full Width) -->
+                    <li class="project-card">
+                        <a href="project-challenges.html" class="project-card__link">
+                            <div>
+                                <span class="project-card__eyebrow">Milestone Project</span>
+                                <h3 class="project-card__title">Five Logic Challenges</h3>
+                                <p class="project-card__desc">Put your new mindset to the test. You will be given five real-world scenarios to break down, pseudocode, and solve entirely on your own.</p>
+                            </div>
+                            <span class="project-card__action">Start Project &rarr;</span>
+                        </a>
+                    </li>
                 </ol>
             </div>
         </section>
     </main>
-    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <p>&copy; 2026 Infotris. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Optional External JS -->
     <script src="../../js/practice.js" defer></script>
 </body>
 </html>
