@@ -3,49 +3,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | DSA</title>
+    <meta name="description" content="Learn Data Structures & Algorithms (DSA). Foundations for technical growth, covering arrays, Big O notation, searching, and sorting.">
+    <title>Data Structures & Algorithms | Infotris</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../../css/system/theme.css">
-
     <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/home.css">
-    <link rel="stylesheet" href="../../css/path.css">
-    <link rel="icon" 
-    type="image/png" 
-    href="../../assets/logo-infotris.png">
+    
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
+
+    <!-- Embedded Responsive CSS -->
+    <style>
+        :root {
+            /* Color Palette */
+            --primary: var(--bg-main);
+            
+            --primary-light: var(--bg dark);
+            --text-main: --te;
+            --text-secondary: #4B5563;
+            --text-muted: #6B7280;
+            --bg-main: #F9FAFB;
+            --bg-surface: #FFFFFF;
+            --border: #E5E7EB;
+            --border-hover: #C7D2FE;
+            
+            /* Layout & Spacing */
+            --container-width: 900px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.2s ease;
+        }
+
+        /* Basic Resets */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--bg dark);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-hover);
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        /* Container for centering */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Navbar */
+        .site-header {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .navbar-logo img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            /* Fallback style if image is missing */
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .navbar-links a {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .navbar-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Breadcrumb */
+        .path-breadcrumb {
+            max-width: var(--container-width);
+            margin: 1.5rem auto 0;
+            padding: 0 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .path-hero {
+            padding: 3rem 0;
+        }
+
+        .path-hero__back {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .path-hero__meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .path-hero__eyebrow {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .path-hero__badge {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .path-hero__title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .path-hero__lead {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        /* Buttons */
+        .button-primary, .button-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .button-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: var(--primary-hover);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+
+        .button-secondary {
+            background-color: transparent;
+            
+            border: 1px solid var(--primary);
+        }
+
+        .button-secondary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Lesson Grid Layout */
+        .path-body {
+            padding-bottom: 5rem;
+        }
+
+        .path-lessons-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        /* Lesson Cards */
+        .lesson-card__link {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.5rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            color: inherit;
+            position: relative;
+        }
+
+        .lesson-card__link:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            transform: translateY(-2px);
+        }
+
+        .lesson-card__number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background-color: var(--bg-main);
+            color: var(--text-muted);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-right: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .lesson-card__link:hover .lesson-card__number {
+            background-color: var(--primary-light);
+            
+        }
+
+        .lesson-card__content {
+            flex-grow: 1;
+            padding-right: 1rem;
+        }
+
+        .lesson-card__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-main);
+        }
+
+        .lesson-card__desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .lesson-card__duration {
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: var(--bg-main);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Project Banner */
+        .path-project-banner {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(to right bottom, #F8FAFC, #EEF2FF);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-hover);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .path-project-banner__info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .path-project-banner__info p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer-section {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Media Queries */
+        @media (min-width: 768px) {
+            .path-hero__title {
+                font-size: 3rem;
+            }
+            
+            .path-lessons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .path-project-banner {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .path-project-banner__info {
+                max-width: 60%;
+            }
+            
+            .path-project-banner .button-secondary {
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 <body class="page-course-index">
+    
+    <!-- Navbar -->
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
-            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
-            <ul class="navbar-links"><li><a href="../../courses" aria-current="page">Courses</a></li></ul>
+            <a class="navbar-logo" href="../../">
+                <!-- Replace src with your actual logo path -->
+                <img src="../../assets/logo.png" alt="Infotris" width="32" height="32">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+            </ul>
         </nav>
     </header>
-    <nav class="path-breadcrumb"><a href="../../careers/python-developer/">Python Developer</a><span>/</span><span>DSA</span></nav>
+
+    <!-- Breadcrumb -->
+    <nav class="path-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page" style="color: var(--text-main); font-weight: 500;">DSA</span>
+    </nav>
+
+    <!-- Main Content -->
     <main>
+        <!-- Hero Section -->
         <header class="path-hero">
-            <div class="path-hero__inner">
-                <a class="path-hero__back" href="../../careers/python-developer/">← Syllabus</a>
-                <p class="path-hero__eyebrow">Course · Weeks 7–8</p>
+            <div class="container">
+                <a class="path-hero__back" href="../../careers/python-developer/">← Back to Syllabus</a>
+                
+                <div class="path-hero__meta">
+                    <p class="path-hero__eyebrow">Course · Weeks 7–8</p>
+                    <span class="path-hero__badge">5 Lessons</span>
+                </div>
+                
                 <h1 class="path-hero__title">Data Structures &amp; Algorithms</h1>
-                <p class="path-hero__lead">Foundations for technical growth — arrays, complexity, search, and sort.</p>
-                <a class="path-hero__cta" href="01-why-dsa">Start lesson 1</a>
+                <p class="path-hero__lead">Foundations for technical growth — master memory management, algorithmic complexity, searching, and sorting techniques in Python.</p>
+                
+                <div class="path-hero__actions">
+                    <a class="button-primary" href="01-why-dsa.html">Start lesson 1</a>
+                </div>
             </div>
         </header>
+
+        <!-- Course Body -->
         <section class="path-body">
-            <div class="path-body__inner">
-                <ol class="path-lessons">
-                    <li><a href="courses/dsa/01-why-dsa.html">01 — Why DSA matters</a></li>
-                    <li><a href="courses/dsa/02-arrays.html">02 — Arrays in depth</a></li>
-                    <li><a href="courses/dsa/03-big-o.html">03 — Big O notation</a></li>
-                    <li><a href="courses/dsa/04-searching.html">04 — Searching</a></li>
-                    <li><a href="courses/dsa/05-sorting.html">05 — Sorting intro</a></li>
+            <div class="container">
+                <h2 class="sr-only">Course Lessons</h2>
+                
+                <!-- Lesson Grid -->
+                <ol class="path-lessons-grid">
+                    <li class="lesson-card">
+                        <a href="01-why-dsa.html" class="lesson-card__link">
+                            <span class="lesson-card__number">01</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Why DSA matters</h3>
+                                <p class="lesson-card__desc">Understand how data structures and algorithms optimize code performance and problem-solving.</p>
+                            </div>
+                            <span class="lesson-card__duration">⏳ 15 min</span>
+                        </a>
+                    </li>
+                    
+                    <li class="lesson-card">
+                        <a href="02-arrays.html" class="lesson-card__link">
+                            <span class="lesson-card__number">02</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Arrays in depth</h3>
+                                <p class="lesson-card__desc">Explore memory allocation, indexing, and the hidden costs of array operations.</p>
+                            </div>
+                            <span class="lesson-card__duration">⏳ 25 min</span>
+                        </a>
+                    </li>
+                    
+                    <li class="lesson-card">
+                        <a href="03-big-o.html" class="lesson-card__link">
+                            <span class="lesson-card__number">03</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Big O notation</h3>
+                                <p class="lesson-card__desc">Learn to evaluate and communicate the time and space complexity of your code.</p>
+                            </div>
+                            <span class="lesson-card__duration">⏳ 30 min</span>
+                        </a>
+                    </li>
+                    
+                    <li class="lesson-card">
+                        <a href="04-searching.html" class="lesson-card__link">
+                            <span class="lesson-card__number">04</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Searching algorithms</h3>
+                                <p class="lesson-card__desc">Implement Linear and Binary search, and understand when to use each approach.</p>
+                            </div>
+                            <span class="lesson-card__duration">⏳ 20 min</span>
+                        </a>
+                    </li>
+                    
+                    <li class="lesson-card">
+                        <a href="05-sorting.html" class="lesson-card__link">
+                            <span class="lesson-card__number">05</span>
+                            <div class="lesson-card__content">
+                                <h3 class="lesson-card__title">Sorting intro</h3>
+                                <p class="lesson-card__desc">A practical introduction to Bubble, Selection, and Insertion sorts.</p>
+                            </div>
+                            <span class="lesson-card__duration">⏳ 35 min</span>
+                        </a>
+                    </li>
                 </ol>
-                <p class="path-project" style="margin-top:1rem;"><strong>Next:</strong> <a href="../python/project-capstone-cli">Capstone CLI project</a></p>
+
+                <!-- Up Next / Capstone Banner -->
+                <div class="path-project-banner">
+                    <div class="path-project-banner__info">
+                        <span class="path-hero__eyebrow">Up Next</span>
+                        <h3>Capstone CLI project</h3>
+                        <p>Apply your Python logic and algorithmic thinking to build a real-world command-line tool.</p>
+                    </div>
+                    <a href="../python/project-capstone-cli" class="button-secondary">View Project Details →</a>
+                </div>
             </div>
         </section>
     </main>
-    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <p>&copy; 2026 Infotris. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Optional External JS -->
     <script src="../../js/practice.js" defer></script>
 </body>
 </html>
