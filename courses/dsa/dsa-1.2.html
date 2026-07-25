@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1.2: Asymptotic Analysis & Big O | Infotris DSA</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Segoe UI, sans-serif;
+    background: #f6f7f9;
+    color: #111827;
+    line-height: 1.6;
+}
+
+/* Header Navbar */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-logo {
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.btn-dashboard {
+    padding: 0.5rem 1.25rem;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-dashboard:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Main Layout */
+.lesson-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb & Meta */
+.lesson-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.module-badge {
+    background: #111827;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.time-badge {
+    background: rgba(17, 24, 39, 0.06);
+    color: #4b5563;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Lesson Content Card */
+.lesson-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.lesson-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 32px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Multi-language code snippet tabs block */
+.code-section {
+    margin: 24px 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+.code-tabs {
+    display: flex;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 12px;
+}
+
+.code-tab {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.code-tab.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.code-content {
+    display: none;
+    padding: 24px;
+    color: #f3f4f6;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.code-content.active {
+    display: block;
+}
+
+.code-box .comment { color: #9ca3af; }
+.code-box .keyword { color: #f472b6; }
+.code-box .function { color: #60a5fa; }
+
+/* Interactive Quiz / Homework Box */
+.interactive-section {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.interactive-section h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.quiz-option {
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #111827;
+    background: #f1f5f9;
+}
+
+.quiz-option.correct {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #166534 !important;
+}
+
+.quiz-option.wrong {
+    background: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #991b1b !important;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 24px;
+}
+
+/* Footer Action Buttons */
+.lesson-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: #111827;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+    border: 2px solid #d1d5db;
+    color: #374151;
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    border-color: #111827;
+    color: #111827;
+}
+
+@media(max-width: 768px) {
+    .lesson-card {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .lesson-footer-nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../../index.html" class="navbar-logo">Infotris</a>
+        <a href="../../courses.html" class="btn-dashboard">Back to Courses</a>
+    </nav>
+</header>
+
+<main class="lesson-container">
+    <div class="lesson-meta-bar">
+        <span class="module-badge">Module 1.2</span>
+        <span class="time-badge">⏱ 25 min read</span>
+        <span class="time-badge">⚡ Core Concept</span>
+    </div>
+
+    <div class="lesson-card">
+        <h1>Asymptotic Analysis & Big O Demystified</h1>
+        <p class="lesson-subtitle">Learn how to measure code performance mathematically. Stop depending on hardware speeds and start evaluating algorithmic scalability as input data approaches infinity.</p>
+
+        <div class="divider"></div>
+
+        <h2>1. Why Timing Code with Clocks Fails</h2>
+        <p>If you measure how long a script takes using a standard clock (like measuring milliseconds), your results will vary based on CPU architecture, background apps, and garbage collection. Asymptotic analysis ignores constant hardware factors to see how execution time scales relative to input size ($n$).</p>
+
+        <h2>2. Breaking Down the Growth Classes</h2>
+        <p>When analyzing code across any language (Python, C++, Java), we drop constant multipliers and lower-order terms to focus on the dominant growth rate:</p>
+        <p><strong>$O(1)$ - Constant Time:</strong> Execution time remains identical regardless of array size or data length (e.g., direct index lookup).</p>
+        <p><strong>$O(\log n)$ - Logarithmic Time:</strong> The problem space is cut in half with every step, characteristic of Binary Search.</p>
+        <p><strong>$O(n)$ - Linear Time:</strong> Single loops traversing data elements one by one.</p>
+        <p><strong>$O(n \log n)$ - Linearithmic Time:</strong> Common in efficient comparison sorting algorithms like Merge Sort.</p>
+        <p><strong>$O(n^2)$ - Quadratic Time:</strong> Nested loops inspecting combinations or pairs of elements.</p>
+
+        <!-- Multi-language code view -->
+        <div class="code-section code-box">
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab(event, 'cpp-code')">C++</button>
+                <button class="code-tab" onclick="switchTab(event, 'python-code')">Python</button>
+                <button class="code-tab" onclick="switchTab(event, 'java-code')">Java</button>
+            </div>
+            <div id="cpp-code" class="code-content active">
+<span class="comment">// O(n^2) Nested Loop Code Example</span>
+<span class="keyword">void</span> <span class="function">printPairs</span>(vector&lt;<span class="keyword">int</span>&gt;& arr) {
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; arr.size(); i++) {
+        <span class="keyword">for</span> (<span class="keyword">int</span> j = 0; j &lt; arr.size(); j++) {
+            cout &lt;&lt; arr[i] &lt;&lt; ", " &lt;&lt; arr[j] &lt;&lt; endl;
+        }
+    }
+}
+            </div>
+            <div id="python-code" class="code-content">
+<span class="comment"># O(n^2) Nested Loop Code Example</span>
+<span class="keyword">def</span> <span class="function">print_pairs</span>(arr):
+    <span class="keyword">for</span> x <span class="keyword">in</span> arr:
+        <span class="keyword">for</span> y <span class="keyword">in</span> arr:
+            print(x, y)
+            </div>
+            <div id="java-code" class="code-content">
+<span class="comment">// O(n^2) Nested Loop Code Example</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="function">printPairs</span>(int[] arr) {
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; arr.length; i++) {
+        <span class="keyword">for</span> (<span class="keyword">int</span> j = 0; j &lt; arr.length; j++) {
+            System.out.println(arr[i] + ", " + arr[j]);
+        }
+    }
+}
+            </div>
+        </div>
+
+        <h2>3. Rules of Thumb for Big O Evaluation</h2>
+        <p>1. <strong>Drop Constants:</strong> $O(2n)$ simplifies to $O(n)$ because constants become irrelevant as $n$ scales massively.</p>
+        <p>2. <strong>Drop Non-Dominant Terms:</strong> $O(n^2 + n)$ simplifies to $O(n^2)$ because the squared growth rate completely overshadows linear operations.</p>
+
+        <!-- Interactive Quiz Section -->
+        <div class="interactive-section">
+            <h3>Quick Check: Test Your Intuition</h3>
+            <p>What is the time complexity of a loop that cuts the remaining working dataset size in half during every iteration?</p>
+            
+            <div class="quiz-options">
+                <button class="quiz-option" onclick="checkAnswer(this, false)">A) O(n) Linear Time</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">B) O(n^2) Quadratic Time</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true)">C) O(log n) Logarithmic Time</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">D) O(1) Constant Time</button>
+            </div>
+            <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="lesson-footer-nav">
+            <a href="lesson-1-1.html" class="btn btn-secondary">← Previous: Memory Architecture</a>
+            <a href="lesson-1-3.html" class="btn btn-primary">Next: Space Complexity →</a>
+        </div>
+    </div>
+</main>
+
+<script>
+function switchTab(evt, tabId) {
+    const contents = document.querySelectorAll('.code-content');
+    contents.forEach(c => c.classList.remove('active'));
+
+    const tabs = document.querySelectorAll('.code-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+function checkAnswer(button, isCorrect) {
+    const options = button.parentElement.querySelectorAll('.quiz-option');
+    options.forEach(opt => {
+        opt.disabled = true;
+        if(opt.getAttribute('onclick').includes('true')) {
+            opt.classList.add('correct');
+        }
+    });
+
+    const feedback = document.getElementById('quizFeedback');
+    if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.color = '#166534';
+        feedback.textContent = 'Correct! Halving the problem set every step results in logarithmic O(log n) efficiency.';
+    } else {
+        button.classList.add('wrong');
+        feedback.style.color = '#991b1b';
+        feedback.textContent = 'Not quite! The correct option is highlighted in light green above.';
+    }
+}
+</script>
+
+</body>
+</html>
