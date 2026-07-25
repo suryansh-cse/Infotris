@@ -8,11 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="../../css/system/theme.css">
+
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/path.css">
     <link rel="stylesheet" href="../../css/practice.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="icon"  type="image/png"  href="../../assets/logo.png">
     <style>
     .dsa-course {
     --course-card-bg: #ffffff;
@@ -864,6 +866,17 @@
         display: none;
     }
 }
+footer {
+    display: block;
+    unicode-bidi: isolate;
+}
+.footer-section
+Specificity: (0,1,0)
+ {
+    background-color: var(--bg-light);
+    border-top: var(--border-width) solid var(--border-color);
+    padding-top: var(--space-xl);
+}
 </style>
 </head>
 <header class="site-header">
@@ -1214,8 +1227,9 @@
         </section>
     </main>
 
-    <footer class="footer-section">
+          <footer class="footer-section">
         <div class="footer-inner">
+            <!-- Brand Block -->
             <div class="footer-column footer-brand">
                 <a class="footer-logo" href="../../" aria-label="Infotris home">
                     <img src="../../assets/logo.png" alt="Infotris logo" width="36" height="36">
@@ -1226,6 +1240,8 @@
                     Infotris doesn't create knowledge—it organizes the world's knowledge into structured trails so anyone can learn, build, and grow.
                 </p>
             </div>
+
+            <!-- Navigation Column -->
             <div class="footer-column">
                 <h3 class="footer-heading">Navigation</h3>
                 <ul class="footer-links">
@@ -1235,6 +1251,8 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
+
+            <!-- Community Column -->
             <div class="footer-column">
                 <h3 class="footer-heading">Community</h3>
                 <ul class="footer-links">
@@ -1244,6 +1262,8 @@
                     <li><a href="https://www.youtube.com/@Infotrishq" target="_blank" rel="noopener noreferrer">YouTube</a></li>
                 </ul>
             </div>
+
+            <!-- Contact Column -->
             <div class="footer-column">
                 <h3 class="footer-heading">Contact</h3>
                 <ul class="footer-links">
@@ -1268,6 +1288,7 @@
                 </ul>
             </div>
         </div>
+
         <div class="footer-bottom">
             <p>&copy; 2026 Infotris. All rights reserved.</p>
         </div>
