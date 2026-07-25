@@ -100,7 +100,27 @@ const INFOTRIS_INDEX = [
 
         url: "courses/javascript/"
     },
+     
+    {
 
+        id:"DSA",
+
+        type:"course",
+
+        title:"Data Structures & Algorithms",
+
+        description:
+        "Master data structures and algorithms.",
+
+        keywords:[
+            "data structures",
+            "algorithms",
+            "programming"
+        ],
+
+            url:"courses/dsa/"
+
+    }
 
 
     // =========================
