@@ -112,12 +112,15 @@ const INFOTRIS_INDEX = [
         description:
         "Master data structures and algorithms.",
 
-        keywords:[
-            "data structures",
-            "algorithms",
-            "programming"
+         keywords: [
+        "dsa",
+        "algorithm",
+        "algorithms",
+        "data structures",
+        "tree",
+        "graph",
+        "linked list"
         ],
-
             url:"courses/dsa/"
 
     }
