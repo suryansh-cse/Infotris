@@ -85,7 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
     statistics: {
       title: "Applied Probability & Stats",
       desc: "Validating mathematical hypotheses, distributions, significance criteria, and standard deviations."
+    },
+    dsa: {
+      title: "DSA Trail",
+      desc: "Data structures & algorithms for efficient problem-solving and software design."
     }
+
   };
 
   // Learning trail metadata

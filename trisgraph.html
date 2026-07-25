@@ -101,6 +101,16 @@
                         </div>
                         <a href="courses/coming/trisgraph-soon" class="btn-sidebar-cta" style="width:70px; height: 25px;padding: 0 10px;">Start-></a>
                     </button>
+
+                    <!-- DSA Card -->
+                    <button class="trail-selector-btn" data-path="dsa">
+                        <span class="btn-bullet"></span>
+                        <div class="btn-content">
+                            <h3>DSA Trail</h3>
+                            <p>Data structures & algorithms</p>
+                        </div>
+                        <a href="courses/dsa/dsa-tris" class="btn-sidebar-cta" style="width:70px; height: 25px;padding: 0 10px;">Start-></a>
+                    </button>
                 </div>
             </div>
 
@@ -180,6 +190,15 @@
                     <line x1="480" y1="330" x2="590" y2="400" class="trisgraph-line path-datascience" data-from="datascience" data-to="pandas" />
                     <line x1="480" y1="330" x2="350" y2="410" class="trisgraph-line path-datascience" data-from="datascience" data-to="sql" />
                     <line x1="480" y1="330" x2="490" y2="440" class="trisgraph-line path-datascience" data-from="datascience" data-to="statistics" />
+                     
+                    <!-- DSA Connections -->
+                    <line x1="350" y1="250" x2="350" y2="410" class="trisgraph-line path-dsa" data-from="infotris" data-to="dsa" />
+                    <line x1="350" y1="410" x2="350" y2="440" class="trisgraph-line path-dsa" data-from="dsa" data-to="dsa-subnode" />
+                    <line x1="350" y1="440" x2="350" y2="470" class="trisgraph-line path-dsa" data-from="dsa-subnode" data-to="dsa-subnode2" />
+                    <line x1="350" y1="470" x2="350" y2="500" class="trisgraph-line path-dsa" data-from="dsa-subnode2" data-to="dsa-subnode3" />
+                    <line x1="350" y1="500" x2="350" y2="530" class="trisgraph-line path-dsa" data-from="dsa-subnode3" data-to="dsa-subnode4" />
+
+
 
                     <!-- Nodes Layer (Groups of Circles + Text) -->
                     <!-- Center: Infotris -->
@@ -250,6 +269,19 @@
                     <g class="trisgraph-node-group node-datascience" data-node="statistics">
                         <circle cx="490" cy="440" r="6" class="trisgraph-node-circle" />
                         <text x="490" y="458" text-anchor="middle" class="trisgraph-node-text">Statistics</text>
+                    </g>
+                    <!-- DSA Core -->
+                    <g class="trisgraph-node-group node-dsa" data-node="dsa">
+                        <circle cx="350" cy="410" r="8" class="trisgraph-node-circle" />
+                        <text x="350" y="428" text-anchor="middle" class="trisgraph-node-text">DSA</text>
+                    </g>    
+                     <g class="trisgraph-node-group node-infotris" data-node="infotris">
+                        <circle cx="350" cy="250" r="11" class="trisgraph-node-circle" />
+                        <text x="350" y="228" text-anchor="middle" class="trisgraph-node-text">Infotris</text>
+                    </g>
+                     <g class="trisgraph-node-group node-python" data-node="python">
+                        <circle cx="220" cy="170" r="8" class="trisgraph-node-circle" />
+                        <text x="220" y="152" text-anchor="middle" class="trisgraph-node-text">Python</text>
                     </g>
                 </svg>
             </div>
