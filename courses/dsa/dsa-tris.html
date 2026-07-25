@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | Data Structures & Algorithms TrisGraph Roadmap</title>
+    <title>Infotris | DSA Curriculum TrisGraph</title>
 
     <!-- Google Fonts & Modern Styling Assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -144,7 +144,7 @@
 
         .roadmap-container {
             position: relative;
-            min-height: 8200px; /* Generous spacing to eliminate any card overlapping */
+            min-height: 9500px; /* Extended height for full 7-module curriculum */
         }
 
         /* SVG BACKGROUND PATHS */
@@ -169,7 +169,7 @@
         /* NODE BASE STYLING & SIZING */
         .roadmap-node {
             position: absolute;
-            width: 420px; /* Enhanced card size for perfect proportions */
+            width: 420px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 24px;
@@ -451,12 +451,6 @@
             transform: translateY(-2px);
         }
 
-        .resource-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
         .resource-icon {
             width: 42px;
             height: 42px;
@@ -468,94 +462,12 @@
             justify-content: center;
             font-size: 1.15rem;
             flex-shrink: 0;
+            margin-right: 14px;
         }
-
-        /* VIDEO LIST CARDS */
-        .video-list-container {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .video-card {
+        
+        .resource-info {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: var(--transition);
-        }
-
-        .video-card:hover:not(.locked-video) {
-            background: #eff6ff;
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .video-card.locked-video {
-            background: #f8fafc;
-            opacity: 0.8;
-            cursor: not-allowed;
-            border-style: dashed;
-        }
-
-        .video-meta {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .video-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: #e0f2fe;
-            color: #0284c7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.15rem;
-            flex-shrink: 0;
-        }
-
-        .video-card.locked-video .video-icon {
-            background: var(--locked-bg);
-            color: var(--locked);
-        }
-
-        .video-creator {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin-bottom: 2px;
-        }
-
-        .video-card.locked-video .video-creator {
-            color: var(--locked);
-        }
-
-        .video-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .lock-badge {
-            background: var(--premium-bg);
-            color: var(--premium);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         /* RESPONSIVE MEDIA QUERIES */
@@ -591,13 +503,13 @@
     <!-- HEADER -->
     <header class="site-header">
         <nav class="navbar">
-            <a class="navbar-logo" href="../../">
-                <img src="../../assets/logo.png" alt="Infotris Logo">
+            <a class="navbar-logo" href="../../index.html">
+                <img src="../../assets/logo.png" alt="Infotris logo" width="56" height="56">
                 <span>Infotris</span>
             </a>
             <ul class="navbar-links">
-                <li><a href="../../courses">Courses</a></li>
-                <li><a href="../../careers">Careers</a></li>
+                <li><a href="../../courses.html">Courses</a></li>
+                <li><a href="../../careers.html">Careers</a></li>
             </ul>
         </nav>
     </header>
@@ -607,7 +519,7 @@
         <span class="roadmap-badge">DSA Developer Track</span>
         <h1 class="roadmap-title">Data Structures & Algorithms TrisGraph</h1>
         <p class="roadmap-subtitle">
-            An elite interactive roadmap mastering computer science fundamentals and algorithmic problem-solving. Click any lesson or milestone to explore in-depth notes and curated multi-creator video tutorials.
+            An elite interactive roadmap mastering computer science fundamentals and algorithmic problem-solving. Click any lesson or milestone to explore in-depth notes and curated tutorials.
         </p>
     </section>
 
@@ -616,679 +528,347 @@
         <div class="roadmap-container">
 
             <!-- SVG CURVED CONNECTIONS (Desktop View) -->
-            <svg class="roadmap-svg" width="100%" height="8200" viewBox="0 0 1320 8200" preserveAspectRatio="xMidYMin meet">
+            <svg class="roadmap-svg" width="100%" height="9500" viewBox="0 0 1320 9500" preserveAspectRatio="xMidYMin meet">
                 <!-- Main Central Spine -->
-                <path d="M660 100 L660 8050" class="roadmap-line" />
-
-                <!-- Module 1 Branch (Left Side Zig-Zag) -->
-                <path d="M660 260 C530 260, 280 220, 280 340 L280 1160 C280 1220, 530 1220, 660 1220" class="roadmap-line" />
-
-                <!-- Module 2 Branch (Right Side Zig-Zag) -->
-                <path d="M660 1520 C790 1520, 1040 1480, 1040 1600 L1040 2420 C1040 2480, 790 2480, 660 2480" class="roadmap-line" />
-
-                <!-- Module 3 Branch (Left Side Zig-Zag) -->
-                <path d="M660 2760 C530 2760, 280 2720, 280 2840 L280 3660 C280 3720, 530 3720, 660 3720" class="roadmap-line" />
-
-                <!-- Module 4 Branch (Right Side Zig-Zag) -->
-                <path d="M660 4000 C790 4000, 1040 3960, 1040 4080 L1040 4900 C1040 4960, 790 4960, 660 4960" class="roadmap-line" />
-
-                <!-- Module 5 Branch (Left Side Zig-Zag) -->
-                <path d="M660 5240 C530 5240, 280 5200, 280 5320 L280 6140 C280 6200, 530 6200, 660 6200" class="roadmap-line" />
-
-                <!-- Module 6 Branch (Right Side Zig-Zag) -->
-                <path d="M660 6480 C790 6480, 1040 6440, 1040 6560 L1040 7380 C1040 7440, 790 7440, 660 7440" class="roadmap-line" />
+                <path d="M660 100 L660 9200" class="roadmap-line" />
+                <!-- Module 1 Branch (Left) -->
+                <path d="M660 260 C400 260, 280 300, 280 360 L280 840 C280 920, 400 1000, 660 1000" class="roadmap-line" />
+                <!-- Module 2 Branch (Right) -->
+                <path d="M660 1500 C920 1500, 1040 1540, 1040 1600 L1040 2320 C1040 2400, 920 2480, 660 2480" class="roadmap-line" />
+                <!-- Module 3 Branch (Left) -->
+                <path d="M660 2980 C400 2980, 280 3020, 280 3080 L280 3560 C280 3640, 400 3720, 660 3720" class="roadmap-line" />
+                <!-- Module 4 Branch (Right) -->
+                <path d="M660 4220 C920 4220, 1040 4260, 1040 4320 L1040 4800 C1040 4880, 920 4960, 660 4960" class="roadmap-line" />
+                <!-- Module 5 Branch (Left) -->
+                <path d="M660 5460 C400 5460, 280 5500, 280 5560 L280 6040 C280 6120, 400 6200, 660 6200" class="roadmap-line" />
+                <!-- Module 6 Branch (Right) -->
+                <path d="M660 6700 C920 6700, 1040 6740, 1040 6800 L1040 7280 C1040 7360, 920 7440, 660 7440" class="roadmap-line" />
+                <!-- Module 7 Branch (Left) -->
+                <path d="M660 7940 C400 7940, 280 7980, 280 8040 L280 8520 C280 8600, 400 8680, 660 8680" class="roadmap-line" />
             </svg>
 
             <!-- START NODE -->
-            <div class="roadmap-node start-node center-node" style="top: 20px;" data-id="start">
+            <div class="roadmap-node start-node center-node" style="top: 20px;" data-chapter="Getting Started">
                 <span class="node-status">START HERE</span>
                 <h3>Data Structures & Algorithms</h3>
                 <p>Master problem-solving and algorithmic thinking.</p>
             </div>
 
-            <!-- MODULE 1 HEADER -->
-            <div class="roadmap-node module-node center-node" style="top: 180px;" data-id="mod-1">
+            <!-- MODULE 1 -->
+            <div class="roadmap-node module-node center-node" style="top: 180px;">
                 <span class="module-label">Module 1</span>
-                <h3>Mathematical Foundations & Big O Analysis</h3>
-                <p>Analyze algorithm efficiency and memory constraints.</p>
+                <h3>Mathematical Foundations & Asymptotic Analysis</h3>
+                <p>Memory Architecture, Big O, and Space Complexity.</p>
             </div>
-
-            <!-- MODULE 1 LESSONS (Left Column: X = 70px) -->
-            <a href="01-big-o" class="roadmap-node lesson-node completed" style="top: 340px; left: 70px;" data-id="01-big-o">
+            <a href="dsa-1.1" class="roadmap-node lesson-node completed" style="top: 360px; left: 70px;" data-chapter="Module 1: Foundations">
                 <div class="node-icon">✓</div>
                 <div class="node-content">
-                    <h3>1. Asymptotic Analysis & Big O</h3>
-                    <p>Understand time and space complexity growth rates.</p>
+                    <h3>Chapter 1.1: Memory Architecture & Pointers</h3>
+                    <p>RAM layout, stack vs. heap memory, variable storage, and memory references.</p>
                 </div>
             </a>
-
-            <a href="02-complexity" class="roadmap-node lesson-node current" style="top: 580px; left: 70px;" data-id="02-complexity">
+            <a href="dsa-1.2" class="roadmap-node lesson-node current" style="top: 600px; left: 70px;" data-chapter="Module 1: Foundations">
                 <div class="node-icon">⚡</div>
                 <div class="node-content">
-                    <h3>2. Space & Time Trade-offs</h3>
-                    <p>Evaluate constant, linear, logarithmic, and quadratic bounds.</p>
+                    <h3>Chapter 1.2: Asymptotic Analysis & Big O</h3>
+                    <p>Mathematical definition of Big O, Omega, Theta; evaluating loops and recursion trees.</p>
                 </div>
             </a>
-
-            <a href="03-recursion" class="roadmap-node lesson-node locked" style="top: 820px; left: 70px;" data-id="03-recursion">
+            <a href="dsa-1.3" class="roadmap-node lesson-node locked" style="top: 840px; left: 70px;" data-chapter="Module 1: Foundations">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>3. Recursion & Memory Stack</h3>
-                    <p>Master base cases, call stacks, and recursive trees.</p>
+                    <h3>Chapter 1.3: Space Complexity</h3>
+                    <p>Auxiliary space, recursive call stack memory limits, and tail recursion mechanics.</p>
                 </div>
             </a>
-
-            <!-- PROJECT 01 -->
-            <a href="project-01" class="roadmap-node project-node" style="top: 1060px;" data-id="project-01">
-                <span class="project-badge">PROJECT 01</span>
-                <h3>Complexity Benchmark Suite</h3>
-                <p>Build a performance profiling script for algorithm benchmarking.</p>
+            <a href="#" class="roadmap-node project-node" style="top: 1080px;" data-chapter="Module 1 Project">
+                <span class="project-badge">MILESTONE 01</span>
+                <h3>Module 1 Assignments</h3>
+                <p>Memory address tracing, complexity matching quiz, and space complexity evaluations.</p>
             </a>
 
-            <!-- MODULE 2 HEADER -->
-            <div class="roadmap-node module-node center-node" style="top: 1300px;" data-id="mod-2">
+            <!-- MODULE 2 -->
+            <div class="roadmap-node module-node center-node" style="top: 1420px;">
                 <span class="module-label">Module 2</span>
-                <h3>Arrays and Strings</h3>
-                <p>Manipulate contiguous memory and sequential text efficiently.</p>
+                <h3>Linear Data Structures</h3>
+                <p>Arrays, Strings & Bit Manipulation.</p>
             </div>
-
-            <!-- MODULE 2 LESSONS (Right Column: X = 830px) -->
-            <a href="04-arrays" class="roadmap-node lesson-node locked" style="top: 1480px; left: 830px;" data-id="04-arrays">
+            <a href="dsa-2.1" class="roadmap-node lesson-node locked" style="top: 1600px; left: 830px;" data-chapter="Module 2: Linear Structures">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>1. Array Memory Layout</h3>
-                    <p>Contiguous allocations, indexing, and dynamic resizing.</p>
+                    <h3>Chapter 2.1: Static vs. Dynamic Arrays</h3>
+                    <p>Underlying memory reallocation, capacity vs. size, and amortized analysis of append.</p>
                 </div>
             </a>
-
-            <a href="05-two-pointer" class="roadmap-node lesson-node locked" style="top: 1720px; left: 830px;" data-id="05-two-pointer">
+            <a href="dsa-2.2" class="roadmap-node lesson-node locked" style="top: 1840px; left: 830px;" data-chapter="Module 2: Linear Structures">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>2. Two-Pointer & Sliding Window</h3>
-                    <p>Optimize linear scans and subarray window problems.</p>
+                    <h3>Chapter 2.2: Two-Pointer & Sliding Window</h3>
+                    <p>Opposite-direction pointers, fast-slow pointers, fixed and variable-size sliding windows.</p>
                 </div>
             </a>
-
-            <a href="06-strings" class="roadmap-node lesson-node locked" style="top: 1960px; left: 830px;" data-id="06-strings">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 2080px; left: 830px;" data-chapter="Module 2: Linear Structures">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>3. String Manipulation</h3>
-                    <p>Palindromes, anagrams, and character encoding mechanics.</p>
+                    <h3>Chapter 2.3: Prefix Sums & Matrices</h3>
+                    <p>1D and 2D prefix sum arrays, matrix traversal, and spiral matrix layouts.</p>
                 </div>
             </a>
-
-            <!-- PROJECT 02 -->
-            <a href="project-02" class="roadmap-node project-node" style="top: 2200px;" data-id="project-02">
-                <span class="project-badge">PROJECT 02</span>
-                <h3>Subarray & String Pattern Matcher</h3>
-                <p>Build a high-performance text and subarray processing engine.</p>
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 2320px; left: 830px;" data-chapter="Module 2: Linear Structures">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>Chapter 2.4: Strings & Bitwise Operations</h3>
+                    <p>String immutability trade-offs, bitwise operators (AND, OR, XOR) for fast optimization.</p>
+                </div>
+            </a>
+            <a href="#" class="roadmap-node project-node" style="top: 2560px;" data-chapter="Module 2 Project">
+                <span class="project-badge">MILESTONE 02</span>
+                <h3>Module 2 Assignments</h3>
+                <p>Build a dynamic array, solve Container With Most Water, matrix rotations, and XOR checks.</p>
             </a>
 
-            <!-- MODULE 3 HEADER -->
-            <div class="roadmap-node module-node center-node" style="top: 2540px;" data-id="mod-3">
+            <!-- MODULE 3 -->
+            <div class="roadmap-node module-node center-node" style="top: 2900px;">
                 <span class="module-label">Module 3</span>
-                <h3>Linked Lists, Stacks, and Queues</h3>
-                <p>Manage dynamic node pointers and LIFO/FIFO data pipelines.</p>
+                <h3>Non-Linear Memory</h3>
+                <p>Linked Lists, Stacks & Queues.</p>
             </div>
-
-            <!-- MODULE 3 LESSONS (Left Column: X = 70px) -->
-            <a href="07-linked-lists" class="roadmap-node lesson-node locked" style="top: 2720px; left: 70px;" data-id="07-linked-lists">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 3080px; left: 70px;" data-chapter="Module 3: Non-Linear Memory">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>1. Singly & Doubly Linked Lists</h3>
-                    <p>Pointer manipulation, insertion, and pointer reversal.</p>
+                    <h3>Chapter 3.1: Singly & Doubly Linked Lists</h3>
+                    <p>Node pointers, insertions, deletions, midpoints, and cycle detection (Floyd's algorithm).</p>
                 </div>
             </a>
-
-            <a href="08-stacks" class="roadmap-node lesson-node locked" style="top: 2960px; left: 70px;" data-id="08-stacks">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 3320px; left: 70px;" data-chapter="Module 3: Non-Linear Memory">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>2. Stack Abstract Data Type</h3>
-                    <p>Last-In-First-Out operations and expression balancing.</p>
+                    <h3>Chapter 3.2: Stacks (LIFO Architecture)</h3>
+                    <p>Array vs. Linked-list implementations, and the Monotonic Stack pattern.</p>
                 </div>
             </a>
-
-            <a href="09-queues" class="roadmap-node lesson-node locked" style="top: 3200px; left: 70px;" data-id="09-queues">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 3560px; left: 70px;" data-chapter="Module 3: Non-Linear Memory">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>3. Queue Abstract Data Type</h3>
-                    <p>First-In-First-Out buffers and circular queues.</p>
+                    <h3>Chapter 3.3: Queues, Deques & Buffers</h3>
+                    <p>FIFO mechanics, queue via two stacks, and sliding window maximum using Deque.</p>
                 </div>
             </a>
-
-            <!-- PROJECT 03 -->
-            <a href="project-03" class="roadmap-node project-node" style="top: 3440px;" data-id="project-03">
-                <span class="project-badge">PROJECT 03</span>
-                <h3>Browser History & Undo/Redo Engine</h3>
-                <p>Implement navigation stacks and linked list state managers.</p>
+            <a href="#" class="roadmap-node project-node" style="top: 3800px;" data-chapter="Module 3 Project">
+                <span class="project-badge">MILESTONE 03</span>
+                <h3>Module 3 Assignments</h3>
+                <p>Reverse linked lists, cycle detection, Valid parentheses, and circular queue design.</p>
             </a>
 
-            <!-- MODULE 4 HEADER -->
-            <div class="roadmap-node module-node center-node" style="top: 3780px;" data-id="mod-4">
+            <!-- MODULE 4 -->
+            <div class="roadmap-node module-node center-node" style="top: 4140px;">
                 <span class="module-label">Module 4</span>
-                <h3>Searching and Sorting Algorithms</h3>
-                <p>Organize and retrieve datasets with maximum speed.</p>
+                <h3>Searching, Sorting & Algorithmic Paradigms</h3>
+                <p>Advanced searching, divide and conquer, and greedy strategies.</p>
             </div>
-
-            <!-- MODULE 4 LESSONS (Right Column: X = 830px) -->
-            <a href="10-searching" class="roadmap-node lesson-node locked" style="top: 3960px; left: 830px;" data-id="10-searching">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 4320px; left: 830px;" data-chapter="Module 4: Searching & Sorting">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>1. Linear & Binary Search</h3>
-                    <p>Sequential checks vs divide-and-conquer space division.</p>
+                    <h3>Chapter 4.1: Advanced Binary Search</h3>
+                    <p>Binary search on sorted arrays, and binary search on monotonic answer spaces.</p>
                 </div>
             </a>
-
-            <a href="11-basic-sorting" class="roadmap-node lesson-node locked" style="top: 4200px; left: 830px;" data-id="11-basic-sorting">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 4560px; left: 830px;" data-chapter="Module 4: Searching & Sorting">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>2. Bubble, Insertion & Selection Sort</h3>
-                    <p>Quadratic comparison sorting mechanics and invariants.</p>
+                    <h3>Chapter 4.2: Divide and Conquer</h3>
+                    <p>Merge Sort & Quick Sort: merging logic, pivot partitioning, and worst-case handling.</p>
                 </div>
             </a>
-
-            <a href="12-advanced-sorting" class="roadmap-node lesson-node locked" style="top: 4440px; left: 830px;" data-id="12-advanced-sorting">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 4800px; left: 830px;" data-chapter="Module 4: Searching & Sorting">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>3. Merge Sort & Quick Sort</h3>
-                    <p>Divide-and-conquer sorting with optimal logarithmic depth.</p>
+                    <h3>Chapter 4.3: Greedy Algorithms</h3>
+                    <p>Greedy choice property, optimal substructure, and interval scheduling.</p>
                 </div>
             </a>
-
-            <!-- PROJECT 04 -->
-            <a href="project-04" class="roadmap-node project-node" style="top: 4680px;" data-id="project-04">
-                <span class="project-badge">PROJECT 04</span>
-                <h3>High-Performance Sorting Visualizer</h3>
-                <p>Build an interactive comparison suite for sorting algorithms.</p>
+            <a href="#" class="roadmap-node project-node" style="top: 5040px;" data-chapter="Module 4 Project">
+                <span class="project-badge">MILESTONE 04</span>
+                <h3>Module 4 Assignments</h3>
+                <p>Split array largest sum, implement Merge/Quick sort, activity selection, and jump games.</p>
             </a>
 
-            <!-- MODULE 5 HEADER -->
-            <div class="roadmap-node module-node center-node" style="top: 5020px;" data-id="mod-5">
+            <!-- MODULE 5 -->
+            <div class="roadmap-node module-node center-node" style="top: 5380px;">
                 <span class="module-label">Module 5</span>
-                <h3>Hash Tables and Collections</h3>
-                <p>Achieve constant-time lookups with hash mappings.</p>
+                <h3>Hash Tables & Advanced Collections</h3>
+                <p>Constant-time lookups and caching systems.</p>
             </div>
-
-            <!-- MODULE 5 LESSONS (Left Column: X = 70px) -->
-            <a href="13-hash-functions" class="roadmap-node lesson-node locked" style="top: 5200px; left: 70px;" data-id="13-hash-functions">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 5560px; left: 70px;" data-chapter="Module 5: Hash Tables">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>1. Hash Functions & Collisions</h3>
-                    <p>Hashing principles, chaining, and open addressing.</p>
+                    <h3>Chapter 5.1: Hash Functions & Collisions</h3>
+                    <p>Direct address tables, hash codes, chaining, and open addressing probing methods.</p>
                 </div>
             </a>
-
-            <a href="14-hash-maps" class="roadmap-node lesson-node locked" style="top: 5440px; left: 70px;" data-id="14-hash-maps">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 5800px; left: 70px;" data-chapter="Module 5: Hash Tables">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>2. Hash Maps & Frequency Counters</h3>
-                    <p>O(1) lookups and frequency counting patterns.</p>
+                    <h3>Chapter 5.2: Frequency Maps & Custom Objects</h3>
+                    <p>Using hash sets/maps for tracking states, and hashing complex structures.</p>
                 </div>
             </a>
-
-            <a href="15-sets" class="roadmap-node lesson-node locked" style="top: 5680px; left: 70px;" data-id="15-sets">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 6040px; left: 70px;" data-chapter="Module 5: Hash Tables">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>3. Sets & Subset Operations</h3>
-                    <p>Unique elements and mathematical set intersections.</p>
+                    <h3>Chapter 5.3: Design Systems (LRU Caches)</h3>
+                    <p>Combining Hash Maps with Doubly Linked Lists for O(1) cache operations.</p>
                 </div>
             </a>
-
-            <!-- PROJECT 05 -->
-            <a href="project-05" class="roadmap-node project-node" style="top: 5920px;" data-id="project-05">
-                <span class="project-badge">PROJECT 05</span>
-                <h3>Real-Time Cache & LRU Implementation</h3>
-                <p>Build a Least Recently Used cache using hash maps and double lists.</p>
+            <a href="#" class="roadmap-node project-node" style="top: 6280px;" data-chapter="Module 5 Project">
+                <span class="project-badge">MILESTONE 05</span>
+                <h3>Module 5 Assignments</h3>
+                <p>Build a mini hash map, solve Two-Sum variations, Group Anagrams, and implement an LRU Cache.</p>
             </a>
 
-            <!-- MODULE 6 HEADER -->
-            <div class="roadmap-node module-node center-node" style="top: 6260px;" data-id="mod-6">
+            <!-- MODULE 6 -->
+            <div class="roadmap-node module-node center-node" style="top: 6620px;">
                 <span class="module-label">Module 6</span>
-                <h3>Hierarchical Structures (Trees and Heaps)</h3>
-                <p>Navigate branching relationships and prioritized elements.</p>
+                <h3>Hierarchical Structures</h3>
+                <p>Trees, Heaps, and Priority Queues.</p>
             </div>
-
-            <!-- MODULE 6 LESSONS (Right Column: X = 830px) -->
-            <a href="16-binary-trees" class="roadmap-node lesson-node locked" style="top: 6440px; left: 830px;" data-id="16-binary-trees">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 6800px; left: 830px;" data-chapter="Module 6: Hierarchical Structures">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>1. Binary Trees & Traversals</h3>
-                    <p>In-order, pre-order, post-order, and level-order BFS/DFS.</p>
+                    <h3>Chapter 6.1: Binary Trees & Traversals</h3>
+                    <p>Tree terminology, DFS (Pre-order, In-order, Post-order), and BFS (Level Order traversal).</p>
                 </div>
             </a>
-
-            <a href="17-bst" class="roadmap-node lesson-node locked" style="top: 6680px; left: 830px;" data-id="17-bst">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 7040px; left: 830px;" data-chapter="Module 6: Hierarchical Structures">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>2. Binary Search Trees (BST)</h3>
-                    <p>Search, insertion, deletion, and balancing properties.</p>
+                    <h3>Chapter 6.2: Binary Search Trees (BST)</h3>
+                    <p>BST invariants, searching, inserting, deleting nodes, and validation.</p>
                 </div>
             </a>
-
-            <a href="18-heaps" class="roadmap-node lesson-node locked" style="top: 6920px; left: 830px;" data-id="18-heaps">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 7280px; left: 830px;" data-chapter="Module 6: Hierarchical Structures">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>3. Heaps & Priority Queues</h3>
-                    <p>Min-heaps, max-heaps, and heapify algorithms.</p>
+                    <h3>Chapter 6.3: Heaps & Priority Queues</h3>
+                    <p>Complete binary tree properties, and min-heap/max-heap heapify operations.</p>
                 </div>
             </a>
-
-            <!-- PROJECT 06 -->
-            <a href="project-06" class="roadmap-node project-node" style="top: 7160px;" data-id="project-06">
-                <span class="project-badge">PROJECT 06</span>
-                <h3>Priority Task Scheduler & Heap Engine</h3>
-                <p>Create an efficient job scheduler using binary heap priority queues.</p>
+            <a href="#" class="roadmap-node project-node" style="top: 7520px;" data-chapter="Module 6 Project">
+                <span class="project-badge">MILESTONE 06</span>
+                <h3>Module 6 Assignments</h3>
+                <p>Max tree depth, level order traversal, LCA in a BST, and Kth largest elements.</p>
             </a>
 
-            <!-- MODULE 7 HEADER -->
-            <div class="roadmap-node module-node center-node" style="top: 7500px;" data-id="mod-7">
+            <!-- MODULE 7 -->
+            <div class="roadmap-node module-node center-node" style="top: 7860px;">
                 <span class="module-label">Module 7</span>
-                <h3>Graph Traversal, Shortest Paths & Dynamic Programming</h3>
-                <p>Solve complex networks and optimal substructure problems.</p>
+                <h3>Graphs & Dynamic Programming</h3>
+                <p>The Master Level: Networks and optimal substructure.</p>
             </div>
-
-            <!-- MODULE 7 LESSONS (Left Column: X = 70px) -->
-            <a href="19-graph-representation" class="roadmap-node lesson-node locked" style="top: 7680px; left: 70px;" data-id="19-graph-representation">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 8040px; left: 70px;" data-chapter="Module 7: Graphs & DP">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>1. Graph Representations</h3>
-                    <p>Adjacency matrix vs adjacency list structures.</p>
+                    <h3>Chapter 7.1: Graph Representations & Traversals</h3>
+                    <p>Adjacency Matrix vs. Adjacency List, Breadth-First Search (BFS), Depth-First Search (DFS).</p>
                 </div>
             </a>
-
-            <a href="20-graph-traversal" class="roadmap-node lesson-node locked" style="top: 7920px; left: 70px;" data-id="20-graph-traversal">
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 8280px; left: 70px;" data-chapter="Module 7: Graphs & DP">
                 <div class="node-icon">🔒</div>
                 <div class="node-content">
-                    <h3>2. BFS, DFS & Topological Sort</h3>
-                    <p>Network traversal, cycle detection, and dependency ordering.</p>
+                    <h3>Chapter 7.2: Shortest Path & Minimum Spanning Trees</h3>
+                    <p>Dijkstra's algorithm, Disjoint Set Union (DSU / Union-Find), and Kruskal's algorithm.</p>
                 </div>
+            </a>
+            <a href="#" class="roadmap-node lesson-node locked" style="top: 8520px; left: 70px;" data-chapter="Module 7: Graphs & DP">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>Chapter 7.3: Dynamic Programming Fundamentals</h3>
+                    <p>Memoization (top-down) vs. Tabulation (bottom-up), and overlapping subproblems.</p>
+                </div>
+            </a>
+            <a href="#" class="roadmap-node project-node" style="top: 8760px;" data-chapter="Module 7 Project">
+                <span class="project-badge">MILESTONE 07</span>
+                <h3>Module 7 Assignments</h3>
+                <p>Number of islands, Dijkstra's network delay, 0/1 Knapsack problem, and Fibonacci tabulation.</p>
             </a>
 
         </div>
     </section>
 
-    <!-- INTERACTIVE SIDEBAR & OVERLAY -->
+    <!-- SIDEBAR HTML -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div>
-                <span class="sidebar-meta-badge" id="sidebarType">Lesson</span>
+                <span class="sidebar-meta-badge" id="sidebarChapterBadge">Module Info</span>
                 <h2 class="sidebar-title" id="sidebarTitle">Lesson Title</h2>
             </div>
-            <button class="sidebar-close" id="sidebarClose">✕</button>
+            <button class="sidebar-close" id="sidebarCloseBtn">&times;</button>
         </div>
         <div class="sidebar-body">
-            <p class="sidebar-desc-box" id="sidebarDesc">Comprehensive summary of the selected roadmap item.</p>
-            
-            <!-- NOTES SECTION -->
             <div>
-                <h4 class="sidebar-section-title">📝 Comprehensive Notes</h4>
-                <a href="#" class="notes-card" id="sidebarNotesLink">
+                <span class="sidebar-section-title">Overview</span>
+                <p class="sidebar-desc-box" id="sidebarDesc">Lesson description will appear here.</p>
+            </div>
+            
+            <div>
+                <span class="sidebar-section-title">Resources</span>
+                <a href="#" class="notes-card">
                     <div class="resource-info">
-                        <div class="resource-icon">📖</div>
-                        <div>
-                            <div style="font-size: 0.95rem; font-weight: 600;">Read Deep-Dive Documentation</div>
-                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Infotris official study guide & code snippets</div>
-                        </div>
+                        <div class="resource-icon">📝</div>
+                        <span>Interactive Lesson Notes</span>
                     </div>
                     <span>→</span>
                 </a>
             </div>
-
-            <!-- MULTIPLE VIDEOS SECTION -->
-            <div>
-                <h4 class="sidebar-section-title">🎥 Curated Video Tutorials</h4>
-                <div class="video-list-container" id="sidebarVideoList">
-                    <!-- Populated dynamically via JS -->
-                </div>
-            </div>
         </div>
     </aside>
 
-    <!-- JAVASCRIPT FOR SIDEBAR DATA & INTERACTIVITY -->
+    <!-- INTERACTIVE JAVASCRIPT -->
     <script>
-        // Detailed lesson & project database with multiple video creators & premium locked items
-        const lessonDatabase = {
-            "01-big-o": {
-                type: "Learning Lesson",
-                title: "Asymptotic Analysis & Big O",
-                desc: "Understand how to measure algorithm performance independent of hardware using Big O, Big Omega, and Big Theta notations.",
-                notesUrl: "notes/01-big-o",
-                videos: [
-                    { creator: "Code with Harry", title: "Asymptotic Notations & Big O Explained", url: "https://youtube.com/watch-harry-dsa-1", locked: false },
-                    { creator: "Abdul Bari", title: "Analysis of Algorithms - Big O Notation", url: "https://youtube.com/watch-bari-1", locked: false },
-                    { creator: "Infotris Masterclass", title: "Mathematical Proofs of Algorithm Growth", url: "#", locked: true }
-                ]
-            },
-            "02-complexity": {
-                type: "Learning Lesson",
-                title: "Space & Time Trade-offs",
-                desc: "Learn how to evaluate constant O(1), logarithmic O(log n), linear O(n), and quadratic O(n^2) complexity bounds.",
-                notesUrl: "notes/02-complexity",
-                videos: [
-                    { creator: "Code with Harry", title: "Time and Space Complexity in DSA", url: "https://youtube.com/watch-harry-dsa-2", locked: false },
-                    { creator: "FreeCodeCamp", title: "Big O Complexity Analysis Masterclass", url: "https://youtube.com/watch-fcc-dsa-2", locked: false },
-                    { creator: "Infotris Masterclass", title: "Memory Overhead Profiling Techniques", url: "#", locked: true }
-                ]
-            },
-            "03-recursion": {
-                type: "Learning Lesson",
-                title: "Recursion & Memory Stack",
-                desc: "Master base cases, recursive state trees, and how the call stack allocates memory frames during execution.",
-                notesUrl: "notes/03-recursion",
-                videos: [
-                    { creator: "Code with Harry", title: "Recursion in Data Structures", url: "https://youtube.com/watch-harry-dsa-3", locked: false },
-                    { creator: "Abdul Bari", title: "Recursion Tree Method and Stack Frames", url: "https://youtube.com/watch-bari-3", locked: false }
-                ]
-            },
-            "project-01": {
-                type: "Project Milestone",
-                title: "Complexity Benchmark Suite",
-                desc: "Build a custom performance profiling script to benchmark execution time and memory consumption across different algorithms.",
-                notesUrl: "projects/project-01",
-                videos: [
-                    { creator: "Code with Harry", title: "Project: Building a Complexity Profiler", url: "https://youtube.com/watch-harry-dsap1", locked: false },
-                    { creator: "Infotris Masterclass", title: "Advanced Benchmarking Architecture", url: "#", locked: true }
-                ]
-            },
-            "04-arrays": {
-                type: "Learning Lesson",
-                title: "Array Memory Layout",
-                desc: "Examine contiguous memory blocks, pointer offsets, index calculations, and dynamic array resizing strategies.",
-                notesUrl: "notes/04-arrays",
-                videos: [
-                    { creator: "Code with Harry", title: "Arrays Data Structure Tutorial", url: "https://youtube.com/watch-harry-dsa-4", locked: false },
-                    { creator: "Striver", title: "Array Basics & Memory Allocation", url: "https://youtube.com/watch-striver-4", locked: false }
-                ]
-            },
-            "05-two-pointer": {
-                type: "Learning Lesson",
-                title: "Two-Pointer & Sliding Window",
-                desc: "Optimize linear array and string scans using opposite-direction pointers and dynamic sliding window techniques.",
-                notesUrl: "notes/05-two-pointer",
-                videos: [
-                    { creator: "Code with Harry", title: "Two Pointer Technique Explained", url: "https://youtube.com/watch-harry-dsa-5", locked: false },
-                    { creator: "NeetCode", title: "Sliding Window Pattern Masterclass", url: "https://youtube.com/watch-neetcode-5", locked: false },
-                    { creator: "Infotris Masterclass", title: "Advanced Sliding Window Optimization", url: "#", locked: true }
-                ]
-            },
-            "06-strings": {
-                type: "Learning Lesson",
-                title: "String Manipulation",
-                desc: "Solve string transformation challenges including palindrome verification, anagram checks, and character frequency mapping.",
-                notesUrl: "notes/06-strings",
-                videos: [
-                    { creator: "Code with Harry", title: "Strings in Data Structures", url: "https://youtube.com/watch-harry-dsa-6", locked: false },
-                    { creator: "Striver", title: "String Algorithms & Pattern Matching", url: "https://youtube.com/watch-striver-6", locked: false }
-                ]
-            },
-            "project-02": {
-                type: "Project Milestone",
-                title: "Subarray & String Pattern Matcher",
-                desc: "Build a high-performance text search and subarray processing tool utilizing two-pointer algorithms.",
-                notesUrl: "projects/project-02",
-                videos: [
-                    { creator: "Code with Harry", title: "Project: Subarray & String Matcher App", url: "https://youtube.com/watch-harry-dsap2", locked: false },
-                    { creator: "Infotris Masterclass", title: "Production Code Review & Optimization", url: "#", locked: true }
-                ]
-            },
-            "07-linked-lists": {
-                type: "Learning Lesson",
-                title: "Singly & Doubly Linked Lists",
-                desc: "Master pointer manipulation, node insertion, deletion, and reversing singly and doubly linked lists in-place.",
-                notesUrl: "notes/07-linked-lists",
-                videos: [
-                    { creator: "Code with Harry", title: "Linked List Implementation in C/Python", url: "https://youtube.com/watch-harry-dsa-7", locked: false },
-                    { creator: "Abdul Bari", title: "Singly and Doubly Linked Lists Complete Guide", url: "https://youtube.com/watch-bari-7", locked: false }
-                ]
-            },
-            "08-stacks": {
-                type: "Learning Lesson",
-                title: "Stack Abstract Data Type",
-                desc: "Explore Last-In-First-Out (LIFO) operations, push/pop mechanics, and parsing expressions using stack structures.",
-                notesUrl: "notes/08-stacks",
-                videos: [
-                    { creator: "Code with Harry", title: "Stack Data Structure Tutorial", url: "https://youtube.com/watch-harry-dsa-8", locked: false },
-                    { creator: "Striver", title: "Stack Problems & Monotonic Stacks", url: "https://youtube.com/watch-striver-8", locked: false }
-                ]
-            },
-            "09-queues": {
-                type: "Learning Lesson",
-                title: "Queue Abstract Data Type",
-                desc: "Understand First-In-First-Out (FIFO) buffers, circular queues, and priority queuing mechanisms.",
-                notesUrl: "notes/09-queues",
-                videos: [
-                    { creator: "Code with Harry", title: "Queue Data Structure & Implementation", url: "https://youtube.com/watch-harry-dsa-9", locked: false },
-                    { creator: "FreeCodeCamp", title: "Queues and Deques Masterclass", url: "https://youtube.com/watch-fcc-dsa-9", locked: false }
-                ]
-            },
-            "project-03": {
-                type: "Project Milestone",
-                title: "Browser History & Undo/Redo Engine",
-                desc: "Implement a robust navigation history system and text editor undo/redo manager using stacks and linked lists.",
-                notesUrl: "projects/project-03",
-                videos: [
-                    { creator: "Code with Harry", title: "Project: Browser History Simulator", url: "https://youtube.com/watch-harry-dsap3", locked: false },
-                    { creator: "Infotris Masterclass", title: "Architecting State Management Engines", url: "#", locked: true }
-                ]
-            },
-            "10-searching": {
-                type: "Learning Lesson",
-                title: "Linear & Binary Search",
-                desc: "Contrast sequential linear searches with divide-and-conquer binary search variations on sorted collections.",
-                notesUrl: "notes/10-searching",
-                videos: [
-                    { creator: "Code with Harry", title: "Linear and Binary Search Algorithms", url: "https://youtube.com/watch-harry-dsa-10", locked: false },
-                    { creator: "Abdul Bari", title: "Binary Search Variations & Bounds", url: "https://youtube.com/watch-bari-10", locked: false }
-                ]
-            },
-            "11-basic-sorting": {
-                type: "Learning Lesson",
-                title: "Bubble, Insertion & Selection Sort",
-                desc: "Analyze quadratic comparison sorting algorithms, stability, and sorting invariants.",
-                notesUrl: "notes/11-basic-sorting",
-                videos: [
-                    { creator: "Code with Harry", title: "Bubble, Insertion, and Selection Sort", url: "https://youtube.com/watch-harry-dsa-11", locked: false },
-                    { creator: "Striver", title: "Basic Sorting Algorithms Deep Dive", url: "https://youtube.com/watch-striver-11", locked: false }
-                ]
-            },
-            "12-advanced-sorting": {
-                type: "Learning Lesson",
-                title: "Merge Sort & Quick Sort",
-                desc: "Master divide-and-conquer sorting algorithms achieving optimal logarithmic depth and partition strategies.",
-                notesUrl: "notes/12-advanced-sorting",
-                videos: [
-                    { creator: "Code with Harry", title: "Merge Sort and Quick Sort Algorithms", url: "https://youtube.com/watch-harry-dsa-12", locked: false },
-                    { creator: "Abdul Bari", title: "Merge Sort & Quick Sort Partition Logic", url: "https://youtube.com/watch-bari-12", locked: false },
-                    { creator: "Infotris Masterclass", title: "Optimizing Pivot Selection in Quick Sort", url: "#", locked: true }
-                ]
-            },
-            "project-04": {
-                type: "Project Milestone",
-                title: "High-Performance Sorting Visualizer",
-                desc: "Build an interactive web-based comparison tool visualizing sorting algorithm steps in real time.",
-                notesUrl: "projects/project-04",
-                videos: [
-                    { creator: "Code with Harry", title: "Project: Sorting Visualizer Suite", url: "https://youtube.com/watch-harry-dsap4", locked: false },
-                    { creator: "Infotris Masterclass", title: "Rendering High-Frequency UI Animations", url: "#", locked: true }
-                ]
-            },
-            "13-hash-functions": {
-                type: "Learning Lesson",
-                title: "Hash Functions & Collisions",
-                desc: "Explore deterministic hashing principles, collision resolution via chaining, and open addressing strategies.",
-                notesUrl: "notes/13-hash-functions",
-                videos: [
-                    { creator: "Code with Harry", title: "Hashing and Collision Resolution", url: "https://youtube.com/watch-harry-dsa-13", locked: false },
-                    { creator: "Abdul Bari", title: "Hash Tables and Collision Handling", url: "https://youtube.com/watch-bari-13", locked: false }
-                ]
-            },
-            "14-hash-maps": {
-                type: "Learning Lesson",
-                title: "Hash Maps & Frequency Counters",
-                desc: "Leverage hash maps for O(1) key-value lookups and frequency counting patterns in problem solving.",
-                notesUrl: "notes/14-hash-maps",
-                videos: [
-                    { creator: "Code with Harry", title: "Hash Maps in Data Structures", url: "https://youtube.com/watch-harry-dsa-14", locked: false },
-                    { creator: "NeetCode", title: "Hash Map Pattern Masterclass", url: "https://youtube.com/watch-neetcode-14", locked: false }
-                ]
-            },
-            "15-sets": {
-                type: "Learning Lesson",
-                title: "Sets & Subset Operations",
-                desc: "Manage unique element collections and perform mathematical set unions, intersections, and differences.",
-                notesUrl: "notes/15-sets",
-                videos: [
-                    { creator: "Code with Harry", title: "Sets and Subset Algorithms", url: "https://youtube.com/watch-harry-dsa-15", locked: false },
-                    { creator: "FreeCodeCamp", title: "Working with Sets in CS", url: "https://youtube.com/watch-fcc-dsa-15", locked: false }
-                ]
-            },
-            "project-05": {
-                type: "Project Milestone",
-                title: "Real-Time Cache & LRU Implementation",
-                desc: "Build a Least Recently Used (LRU) cache combining hash maps and doubly linked lists for O(1) operations.",
-                notesUrl: "projects/project-05",
-                videos: [
-                    { creator: "Code with Harry", title: "Project: Building an LRU Cache", url: "https://youtube.com/watch-harry-dsap5", locked: false },
-                    { creator: "Infotris Masterclass", title: "Enterprise Caching Strategies", url: "#", locked: true }
-                ]
-            },
-            "16-binary-trees": {
-                type: "Learning Lesson",
-                title: "Binary Trees & Traversals",
-                desc: "Master hierarchical node structures and traversal techniques including in-order, pre-order, post-order, and level-order BFS/DFS.",
-                notesUrl: "notes/16-binary-trees",
-                videos: [
-                    { creator: "Code with Harry", title: "Binary Trees and Tree Traversals", url: "https://youtube.com/watch-harry-dsa-16", locked: false },
-                    { creator: "Abdul Bari", title: "Binary Tree Traversals Explained", url: "https://youtube.com/watch-bari-16", locked: false },
-                    { creator: "Infotris Masterclass", title: "Iterative vs Recursive Tree Traversals", url: "#", locked: true }
-                ]
-            },
-            "17-bst": {
-                type: "Learning Lesson",
-                title: "Binary Search Trees (BST)",
-                desc: "Implement Binary Search Tree search, insertion, and deletion while maintaining ordering invariants.",
-                notesUrl: "notes/17-bst",
-                videos: [
-                    { creator: "Code with Harry", title: "Binary Search Trees Tutorial", url: "https://youtube.com/watch-harry-dsa-17", locked: false },
-                    { creator: "Striver", title: "BST Operations and Validation", url: "https://youtube.com/watch-striver-17", locked: false }
-                ]
-            },
-            "18-heaps": {
-                type: "Learning Lesson",
-                title: "Heaps & Priority Queues",
-                desc: "Build min-heaps and max-heaps, implement heapify algorithms, and construct efficient priority queues.",
-                notesUrl: "notes/18-heaps",
-                videos: [
-                    { creator: "Code with Harry", title: "Heaps and Priority Queues", url: "https://youtube.com/watch-harry-dsa-18", locked: false },
-                    { creator: "Abdul Bari", title: "Heap Data Structure & Heap Sort", url: "https://youtube.com/watch-bari-18", locked: false }
-                ]
-            },
-            "project-06": {
-                type: "Project Milestone",
-                title: "Priority Task Scheduler & Heap Engine",
-                desc: "Develop an advanced job task scheduler utilizing binary heap priority queues for asynchronous task management.",
-                notesUrl: "projects/project-06",
-                videos: [
-                    { creator: "Code with Harry", title: "Project: Priority Task Scheduler", url: "https://youtube.com/watch-harry-dsap6", locked: false },
-                    { creator: "Infotris Masterclass", title: "Designing Real-Time Scheduling Engines", url: "#", locked: true }
-                ]
-            },
-            "19-graph-representation": {
-                type: "Learning Lesson",
-                title: "Graph Representations",
-                desc: "Learn how to model networks using adjacency matrices and adjacency lists with weighted and directed edges.",
-                notesUrl: "notes/19-graph-representation",
-                videos: [
-                    { creator: "Code with Harry", title: "Graph Representation in Data Structures", url: "https://youtube.com/watch-harry-dsa-19", locked: false },
-                    { creator: "Abdul Bari", title: "Graphs: Matrix vs Adjacency List", url: "https://youtube.com/watch-bari-19", locked: false }
-                ]
-            },
-            "20-graph-traversal": {
-                type: "Learning Lesson",
-                title: "BFS, DFS & Topological Sort",
-                desc: "Master Breadth-First Search, Depth-First Search, cycle detection, and topological sorting for dependency graphs.",
-                notesUrl: "notes/20-graph-traversal",
-                videos: [
-                    { creator: "Code with Harry", title: "BFS and DFS Graph Traversals", url: "https://youtube.com/watch-harry-dsa-20", locked: false },
-                    { creator: "NeetCode", title: "Graph Algorithms Masterclass", url: "https://youtube.com/watch-neetcode-20", locked: false },
-                    { creator: "Infotris Masterclass", title: "Advanced Graph Network Analysis", url: "#", locked: true }
-                ]
-            }
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            const nodes = document.querySelectorAll('.lesson-node, .project-node, .start-node');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const closeBtn = document.getElementById('sidebarCloseBtn');
+            
+            const sidebarTitle = document.getElementById('sidebarTitle');
+            const sidebarDesc = document.getElementById('sidebarDesc');
+            const sidebarChapterBadge = document.getElementById('sidebarChapterBadge');
 
-        const sidebar = document.getElementById('sidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-        const sidebarClose = document.getElementById('sidebarClose');
-        const sidebarTitle = document.getElementById('sidebarTitle');
-        const sidebarDesc = document.getElementById('sidebarDesc');
-        const sidebarType = document.getElementById('sidebarType');
-        const sidebarNotesLink = document.getElementById('sidebarNotesLink');
-        const sidebarVideoList = document.getElementById('sidebarVideoList');
-
-        // Attach click handlers to roadmap nodes
-        document.querySelectorAll('.roadmap-node').forEach(node => {
-            node.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                const dataId = node.getAttribute('data-id');
-                const data = lessonDatabase[dataId];
-
-                if (!data) return; // Fallback if data is missing
-
-                // Populate sidebar header & description
-                sidebarTitle.innerText = data.title;
-                sidebarDesc.innerText = data.desc;
-                sidebarType.innerText = data.type;
-                sidebarNotesLink.href = data.notesUrl;
-
-                // Render dynamic multiple video links
-                sidebarVideoList.innerHTML = '';
-                data.videos.forEach(video => {
-                    const videoCard = document.createElement('a');
-                    videoCard.className = video.locked ? 'video-card locked-video' : 'video-card';
-                    videoCard.href = video.locked ? '#' : video.url;
+            // Open Sidebar
+            nodes.forEach(node => {
+                node.addEventListener('click', (e) => {
+                    e.preventDefault();
                     
-                    if (video.locked) {
-                        videoCard.onclick = (ev) => {
-                            ev.preventDefault();
-                            alert('This is a premium locked video tutorial. Upgrade your plan to unlock!');
-                        };
-                    }
-
-                    videoCard.innerHTML = `
-                        <div class="video-meta">
-                            <div class="video-icon">${video.locked ? '🔒' : '🎥'}</div>
-                            <div>
-                                <div class="video-creator">${video.creator}</div>
-                                <div class="video-title">${video.title}</div>
-                            </div>
-                        </div>
-                        <div>
-                            ${video.locked ? '<span class="lock-badge">🔒 Premium</span>' : '<span style="color: var(--primary); font-weight: 600;">→</span>'}
-                        </div>
-                    `;
-                    sidebarVideoList.appendChild(videoCard);
+                    // Extract data from the clicked node
+                    const title = node.querySelector('h3').innerText;
+                    const desc = node.querySelector('p').innerText;
+                    const chapterName = node.getAttribute('data-chapter') || "General Overview";
+                    
+                    // Populate Sidebar
+                    sidebarTitle.innerText = title;
+                    sidebarDesc.innerText = desc;
+                    sidebarChapterBadge.innerText = chapterName;
+                    
+                    // Show Sidebar
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; 
                 });
-
-                // Open sidebar smoothly
-                sidebar.classList.add('active');
-                sidebarOverlay.classList.add('active');
             });
-        });
 
-        // Close sidebar functions
-        function closeSidebar() {
-            sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-        }
+            // Close Sidebar Function
+            const closeSidebar = () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; 
+            };
 
-        sidebarClose.addEventListener('click', closeSidebar);
-        sidebarOverlay.addEventListener('click', closeSidebar);
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeSidebar();
+            // Close Event Listeners
+            closeBtn.addEventListener('click', closeSidebar);
+            overlay.addEventListener('click', closeSidebar);
         });
     </script>
-
 </body>
 </html>
