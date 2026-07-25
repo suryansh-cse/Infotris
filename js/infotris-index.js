@@ -107,7 +107,7 @@ const INFOTRIS_INDEX = [
 
         type:"course",
 
-        title:"Data Structures & Algorithms",
+        title:"DSA",
 
         description:
         "Master data structures and algorithms.",
