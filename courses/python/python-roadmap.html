@@ -3,23 +3,594 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | Python TrisGraph</title>
+    <title>Infotris | Python TrisGraph Roadmap</title>
 
-        <link rel="stylesheet" href="../../css/system/theme.css">
+    <!-- Google Fonts & Modern Styling Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="icon" type="image/png" href="../../assets/logo.png">
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.15);
+            --success: #10b981;
+            --success-bg: #d1fae5;
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --locked: #94a3b8;
+            --locked-bg: #f1f5f9;
+            --premium: #8b5cf6;
+            --premium-bg: #ede9fe;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-    <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/home.css">
-    <link rel="stylesheet" href="roadmap/python-roadmap.css">
-    <link rel="stylesheet" href="../../css/system/responsive.css">
-    <link rel="stylesheet" href="../../css/system/spacing.css">
-    <link rel="stylesheet" href="../../css/system/typography.css">
-    <link rel="stylesheet" href="../../css/system/utilities.css">
-    <link rel="icon" 
-    type="image/png" 
-    href="../../assets/logo.png">
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* SITE HEADER */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .navbar-logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .navbar-links a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO SECTION */
+        .roadmap-hero {
+            text-align: center;
+            padding: 90px 20px 70px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roadmap-badge {
+            display: inline-block;
+            background: var(--primary-glow);
+            color: var(--primary);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 20px;
+        }
+
+        .roadmap-title {
+            font-size: 3.25rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .roadmap-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* TRISGRAPH CONTAINER & OPTIMIZED SPACING */
+        .roadmap-section {
+            max-width: 1320px;
+            margin: 0 auto 160px;
+            padding: 0 32px;
+            position: relative;
+        }
+
+        .roadmap-container {
+            position: relative;
+            min-height: 4800px; /* Generous spacing to eliminate any card overlapping */
+        }
+
+        /* SVG BACKGROUND PATHS */
+        .roadmap-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .roadmap-line {
+            fill: none;
+            stroke: #cbd5e1;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 8 8;
+        }
+
+        /* NODE BASE STYLING & SIZING */
+        .roadmap-node {
+            position: absolute;
+            width: 420px; /* Enhanced card size for perfect proportions */
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            z-index: 2;
+            transition: var(--transition);
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .roadmap-node:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        /* CENTER NODES (Headers & Projects) */
+        .center-node {
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 460px;
+        }
+        .center-node:hover {
+            transform: translateX(-50%) translateY(-6px);
+        }
+
+        .start-node {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #ffffff;
+            border: none;
+        }
+        .start-node .node-status {
+            background: rgba(255, 255, 255, 0.15);
+            color: #38bdf8;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .start-node h3 { font-size: 1.7rem; margin-bottom: 8px; }
+        .start-node p { color: #94a3b8; font-size: 1.05rem; }
+
+        .module-node {
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            text-align: center;
+        }
+        .module-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .module-node h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        .module-node p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .project-node {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #bfdbfe;
+            text-align: center;
+            width: 460px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .project-node:hover {
+            transform: translateX(-50%) translateY(-6px);
+            border-color: var(--primary);
+        }
+        .project-badge {
+            background: var(--primary);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .project-node h3 { color: #1e40af; font-size: 1.4rem; margin-bottom: 6px; }
+        .project-node p { color: #3b82f6; font-size: 1rem; }
+
+        /* LESSON NODES */
+        .lesson-node {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .node-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-node.completed .node-icon {
+            background-color: var(--success-bg);
+            color: var(--success);
+        }
+
+        .lesson-node.current .node-icon {
+            background-color: var(--warning-bg);
+            color: var(--warning);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .lesson-node.locked .node-icon {
+            background-color: var(--locked-bg);
+            color: var(--locked);
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        .node-content h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .node-content p {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* SIDEBAR OVERLAY & PANEL */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            z-index: 1999;
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -520px;
+            width: 500px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -15px 0 40px rgba(0, 0, 0, 0.12);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            padding: 36px 32px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            background: #f8fafc;
+        }
+
+        .sidebar-meta-badge {
+            background: var(--primary-glow);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .sidebar-title {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .sidebar-close {
+            background: #e2e8f0;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .sidebar-close:hover {
+            background: var(--text-primary);
+            color: #ffffff;
+        }
+
+        .sidebar-body {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            flex: 1;
+        }
+
+        .sidebar-desc-box {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* NOTES CARD */
+        .notes-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .notes-card:hover {
+            background: #dcfce7;
+            border-color: #86efac;
+            transform: translateY(-2px);
+        }
+
+        .resource-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .resource-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #d1fae5;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        /* VIDEO LIST CARDS */
+        .video-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .video-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .video-card:hover:not(.locked-video) {
+            background: #eff6ff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .video-card.locked-video {
+            background: #f8fafc;
+            opacity: 0.8;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .video-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #e0f2fe;
+            color: #0284c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .video-card.locked-video .video-icon {
+            background: var(--locked-bg);
+            color: var(--locked);
+        }
+
+        .video-creator {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 2px;
+        }
+
+        .video-card.locked-video .video-creator {
+            color: var(--locked);
+        }
+
+        .video-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .lock-badge {
+            background: var(--premium-bg);
+            color: var(--premium);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 992px) {
+            .roadmap-svg {
+                display: none;
+            }
+            .roadmap-container {
+                min-height: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 36px;
+                padding-top: 10px;
+            }
+            .roadmap-node, .center-node, .project-node {
+                position: relative !important;
+                left: 0 !important;
+                transform: none !important;
+                width: 100% !important;
+            }
+            .roadmap-node:hover {
+                transform: translateY(-3px) !important;
+            }
+            .sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
 </head>
-
 <body class="page-roadmap">
 
     <!-- HEADER -->
@@ -29,300 +600,469 @@
                 <img src="../../assets/logo.png" alt="Infotris Logo">
                 <span>Infotris</span>
             </a>
-
             <ul class="navbar-links">
-                <li>
-                    <a href="../../courses">
-                        Courses
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../../careers">
-                        Careers
-                    </a>
-                </li>
+                <li><a href="../../courses">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- HERO -->
+    <!-- HERO SECTION -->
     <section class="roadmap-hero">
-
-        <span class="roadmap-badge">
-            Python Developer Trail
-        </span>
-
-        <h1 class="roadmap-title">
-            Python Learning TrisGraph
-        </h1>
-
+        <span class="roadmap-badge">Python Developer Trail</span>
+        <h1 class="roadmap-title">Python Learning TrisGraph</h1>
         <p class="roadmap-subtitle">
-            A structured trail to master Python —
-            from fundamentals to real-world projects.
-            Learn step by step, unlock skills,
-            and build actual projects while progressing.
+            An elite interactive path to master Python — from absolute core syntax to advanced system design. Click any lesson or milestone to explore comprehensive notes and curated multi-creator video tutorials.
         </p>
-
     </section>
 
-    <!-- ROADMAP -->
+    <!-- TRISGRAPH ROADMAP SECTION -->
     <section class="roadmap-section">
-
         <div class="roadmap-container">
 
-            <!-- SVG CONNECTIONS -->
-            <svg class="roadmap-svg"
-                 width="100%"
-                 height="2200"
-                 viewBox="0 0 1200 2200"
-                 preserveAspectRatio="xMidYMin meet">
+            <!-- SVG CURVED CONNECTIONS (Desktop View) -->
+            <svg class="roadmap-svg" width="100%" height="4800" viewBox="0 0 1320 4800" preserveAspectRatio="xMidYMin meet">
+                <!-- Main Central Spine -->
+                <path d="M660 100 L660 4650" class="roadmap-line" />
 
-                <!-- MAIN LINE -->
-                <path d="M600 120 L600 1850"
-                    class="roadmap-line"/>
+                <!-- Module 1 Branch (Left Side Zig-Zag) -->
+                <path d="M660 260 C530 260, 280 220, 280 340 L280 1160 C280 1220, 530 1220, 660 1220" class="roadmap-line" />
 
-                <!-- FOUNDATION BRANCH -->
-                <path d="M600 250 L350 250"
-                    class="roadmap-line"/>
+                <!-- Module 2 Branch (Right Side Zig-Zag) -->
+                <path d="M660 1520 C790 1520, 1040 1480, 1040 1600 L1040 2480 C1040 2880, 790 2700, 660 2830" class="roadmap-line" />
 
-                <path d="M600 250 L850 250"
-                    class="roadmap-line"/>
-
-                <!-- VARIABLES -->
-                <path d="M350 250 L350 420"
-                    class="roadmap-line"/>
-
-                <!-- DATA TYPES -->
-                <path d="M350 420 L350 590"
-                    class="roadmap-line"/>
-
-                <!-- INPUT OUTPUT -->
-                <path d="M350 590 L350 760"
-                    class="roadmap-line"/>
-
-                <!-- OPERATORS -->
-                <path d="M350 760 L350 930"
-                    class="roadmap-line"/>
-
-                <!-- PROJECT -->
-                <path d="M350 930 L600 930"
-                    class="roadmap-line"/>
-
-                <!-- MODULE 2 -->
-                <path d="M600 1100 L850 1100"
-                    class="roadmap-line"/>
-
-                <path d="M900 1650 L900 1100"
-                    class="roadmap-line"/>
-
+                <!-- Module 3 Branch (Left Side Zig-Zag) -->
+                <path d="M660 2820 C530 2820, 280 2780, 280 2900 L280 3820 C280 4380, 530 3980, 660 4280" class="roadmap-line" />
             </svg>
 
             <!-- START NODE -->
-            <div class="roadmap-node start-node"
-                 style="top: 10px; left: 50%;">
-
-                <span class="node-status">
-                    START
-                </span>
-
-                <h3>
-                    Python Developer
-                </h3>
-
-                <p>
-                    Begin your journey.
-                </p>
-
+            <div class="roadmap-node start-node center-node" style="top: -50px;" data-id="start">
+                <span class="node-status">START HERE</span>
+                <h3>Python Developer</h3>
+                <p>Begin your high-performance programming journey.</p>
             </div>
 
-            <!-- MODULE 1 -->
-            <div class="roadmap-node module-node"
-                 style="top: 180px; left: 50%;">
-
-                <span class="module-label">
-                    MODULE 1
-                </span>
-
-                <h3>
-                    Foundations
-                </h3>
-
-                <p>
-                    Learn Python basics.
-                </p>
-
+            <!-- MODULE 1 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 180px;" data-id="mod-1">
+                <span class="module-label">Module 1</span>
+                <h3>Foundations</h3>
+                <p>Learn core syntax & memory fundamentals.</p>
             </div>
 
-            <!-- INTRO -->
-            <a href="01-intro"
-               class="roadmap-node lesson-node completed"
-               style="top: 210px; left: 20%;">
-
-                <span class="node-icon">
-                    ✓
-                </span>
-
-                <h3>
-                    Introduction
-                </h3>
-
-                <p>
-                    Setup & Python basics.
-                </p>
-
+            <!-- MODULE 1 LESSONS (Left Column: X = 70px) -->
+            <a href="01-intro" class="roadmap-node lesson-node completed" style="top: 360px; left: 70px;" data-id="01-intro">
+                <div class="node-icon">✓</div>
+                <div class="node-content">
+                    <h3>1. Introduction & Environment</h3>
+                    <p>Setup interpreter, REPL, and code execution flow.</p>
+                </div>
             </a>
 
-            <!-- VARIABLES -->
-            <a href="02-variables"
-               class="roadmap-node lesson-node current"
-               style="top: 380px; left: 20%;">
-
-                <span class="node-icon">
-                    ⚡
-                </span>
-
-                <h3>
-                    Variables
-                </h3>
-
-                <p>
-                    Store data in memory.
-                </p>
-
+            <a href="02-variables" class="roadmap-node lesson-node current" style="top: 580px; left: 70px;" data-id="02-variables">
+                <div class="node-icon">⚡</div>
+                <div class="node-content">
+                    <h3>2. Variables & Memory Reference</h3>
+                    <p>Understand assignment, reference pointers, and labels.</p>
+                </div>
             </a>
 
-            <!-- DATA TYPES -->
-            <a href="03-datatypes"
-               class="roadmap-node lesson-node"
-               style="top: 550px; left: 20%;">
-
-                <span class="node-icon">
-                    🔒
-                </span>
-
-                <h3>
-                    Data Types
-                </h3>
-
-                <p>
-                    Learn strings, ints & bools.
-                </p>
-
+            <a href="03-datatypes" class="roadmap-node lesson-node locked" style="top: 820px; left: 70px;" data-id="03-datatypes">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Primitives & Data Types</h3>
+                    <p>Master integers, floats, booleans, and strings.</p>
+                </div>
             </a>
 
-            <!-- INPUT OUTPUT -->
-            <a href="04-input-output"
-               class="roadmap-node lesson-node"
-               style="top: 720px; left: 20%;">
-
-                <span class="node-icon">
-                    🔒
-                </span>
-
-                <h3>
-                    Input / Output
-                </h3>
-
-                <p>
-                    Interact with users.
-                </p>
-
+            <a href="04-input-output" class="roadmap-node lesson-node locked" style="top: 1060px; left: 70px;" data-id="04-input-output">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>4. Input & Formatted Output</h3>
+                    <p>Handle user interactions and string interpolation.</p>
+                </div>
             </a>
 
-            <!-- OPERATORS -->
-            <a href="05-operators"
-               class="roadmap-node lesson-node"
-               style="top: 890px; left: 20%;">
-
-                <span class="node-icon">
-                    🔒
-                </span>
-
-                <h3>
-                    Operators
-                </h3>
-
-                <p>
-                    Perform calculations.
-                </p>
-
+            <!-- PROJECT 01 -->
+            <a href="project-01" class="roadmap-node project-node" style="top: 1300px;" data-id="project-01">
+                <span class="project-badge">PROJECT 01</span>
+                <h3>Interactive Profile Generator</h3>
+                <p>Build your first dynamic command-line profile app.</p>
             </a>
 
-            <!-- PROJECT NODE -->
-            <a href="project-01"
-               class="roadmap-node project-node"
-               style="top: 860px; left: 50%;">
-
-                <span class="project-badge">
-                    PROJECT 01
-                </span>
-
-                <h3>
-                    Profile Generator
-                </h3>
-
-                <p>
-                    Build your first Python app.
-                </p>
-
-            </a>
-
-            <!-- MODULE 2 -->
-            <div class="roadmap-node module-node"
-                 style="top: 1030px; left: 50%;">
-
-                <span class="module-label">
-                    MODULE 2
-                </span>
-
-                <h3>
-                    Logic Building
-                </h3>
-
-                <p>
-                    Think like a programmer.
-                </p>
-
+            <!-- MODULE 2 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 1540px;" data-id="mod-2">
+                <span class="module-label">Module 2</span>
+                <h3>Logic Building & Control Flow</h3>
+                <p>Master decision-making and iteration mechanics.</p>
             </div>
 
-            <!-- CONDITIONS -->
-            <a href="06-conditions"
-               class="roadmap-node lesson-node"
-               style="top: 1060px; left: 77%;">
-
-                <span class="node-icon">
-                    🔒
-                </span>
-
-                <h3>
-                    Conditions
-                </h3>
-
-                <p>
-                    Learn decision making.
-                </p>
-
+            <!-- MODULE 2 LESSONS (Right Column: X = 830px) -->
+            <a href="05-operators" class="roadmap-node lesson-node locked" style="top: 1720px; left: 830px;" data-id="05-operators">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Operators & Expressions</h3>
+                    <p>Arithmetic, logical, and comparison operations.</p>
+                </div>
             </a>
-                   <!-- VARIABLES -->
-             <a href="07-loops"
-               class="roadmap-node lesson-node"
-                style="top: 1240px; left: 77%;">
 
-                   <span class="node-icon">⚡</span>
+            <a href="06-conditions" class="roadmap-node lesson-node locked" style="top: 1960px; left: 830px;" data-id="06-conditions">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. Conditional Branching</h3>
+                    <p>Write robust logic using if, elif, and else blocks.</p>
+                </div>
+            </a>
 
-                      <h3>Variables</h3>
+            <a href="07-loops" class="roadmap-node lesson-node locked" style="top: 2200px; left: 830px;" data-id="07-loops">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Loops & Iterations</h3>
+                    <p>Automate repetitive sequences with for & while loops.</p>
+                </div>
+            </a>
 
-                      <p>Store data in memory.</p>
-                      
+            <a href="08-functions" class="roadmap-node lesson-node locked" style="top: 2440px; left: 830px;" data-id="08-functions">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>4. Functions & Scope</h3>
+                    <p>Modularize blocks with parameters, returns, & scope rules.</p>
+                </div>
+            </a>
 
-               </a>
+            <!-- PROJECT 02 -->
+            <a href="project-02" class="roadmap-node project-node" style="top: 2680px;" data-id="project-02">
+                <span class="project-badge">PROJECT 02</span>
+                <h3>Robust CLI Calculator</h3>
+                <p>Build a fully functional calculation suite with error handling.</p>
+            </a>
+
+            <!-- MODULE 3 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 2920px;" data-id="mod-3">
+                <span class="module-label">Module 3</span>
+                <h3>Advanced Data Structures</h3>
+                <p>Organize high-volume data efficiently.</p>
+            </div>
+
+            <!-- MODULE 3 LESSONS (Left Column: X = 70px) -->
+            <a href="09-lists" class="roadmap-node lesson-node locked" style="top: 3100px; left: 70px;" data-id="09-lists">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Lists, Tuples & Slicing</h3>
+                    <p>Manipulate ordered collections and memory indices.</p>
+                </div>
+            </a>
+
+            <a href="10-dictionaries" class="roadmap-node lesson-node locked" style="top: 3340px; left: 70px;" data-id="10-dictionaries">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. Dictionaries & Sets</h3>
+                    <p>Hash maps for lightning-fast lookups and unique keys.</p>
+                </div>
+            </a>
+
+            <a href="11-comprehensions" class="roadmap-node lesson-node locked" style="top: 3580px; left: 70px;" data-id="11-comprehensions">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Pythonic Comprehensions</h3>
+                    <p>Write clean, high-speed list and dict transformations.</p>
+                </div>
+            </a>
+
+            <a href="12-modules" class="roadmap-node lesson-node locked" style="top: 3820px; left: 70px;" data-id="12-modules">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>4. Modules & Package Imports</h3>
+                    <p>Organize reusable codebases and third-party libraries.</p>
+                </div>
+            </a>
+
+            <!-- PROJECT 03 -->
+            <a href="project-03" class="roadmap-node project-node" style="top: 4060px;" data-id="project-03">
+                <span class="project-badge">PROJECT 03</span>
+                <h3>Inventory Management System</h3>
+                <p>Manage structured store inventory with persistent storage.</p>
+            </a>
+
+            <!-- MODULE 4 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 4300px;" data-id="mod-4">
+                <span class="module-label">Module 4</span>
+                <h3>Object-Oriented Programming & Beyond</h3>
+                <p>Scale code using classes, objects, and advanced design patterns.</p>
+            </div>
 
         </div>
-
     </section>
 
-    <script src="../../js/python-roadmap.js"></script>
+    <!-- INTERACTIVE SIDEBAR & OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div>
+                <span class="sidebar-meta-badge" id="sidebarType">Lesson</span>
+                <h2 class="sidebar-title" id="sidebarTitle">Lesson Title</h2>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">✕</button>
+        </div>
+        <div class="sidebar-body">
+            <p class="sidebar-desc-box" id="sidebarDesc">Comprehensive summary of the selected roadmap item.</p>
+            
+            <!-- NOTES SECTION -->
+            <div>
+                <h4 class="sidebar-section-title">📝 Comprehensive Notes</h4>
+                <a href="#" class="notes-card" id="sidebarNotesLink">
+                    <div class="resource-info">
+                        <div class="resource-icon">📖</div>
+                        <div>
+                            <div style="font-size: 0.95rem; font-weight: 600;">Read Deep-Dive Documentation</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Infotris official study guide & code snippets</div>
+                        </div>
+                    </div>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- MULTIPLE VIDEOS SECTION -->
+            <div>
+                <h4 class="sidebar-section-title">🎥 Curated Video Tutorials</h4>
+                <div class="video-list-container" id="sidebarVideoList">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- JAVASCRIPT FOR SIDEBAR DATA & INTERACTIVITY -->
+    <script>
+        // Detailed lesson & project database with multiple video creators & premium locked items
+        const lessonDatabase = {
+            "01-intro": {
+                type: "Learning Lesson",
+                title: "Introduction & Environment",
+                desc: "Learn how Python works under the hood, install the interpreter, configure your workspace, and write your first execution flow.",
+                notesUrl: "notes/01-intro",
+                videos: [
+                    { creator: "Code with Harry", title: "Python Intro & Installation on Windows/Mac", url: "https://youtube.com/watch-harry-1", locked: false },
+                    { creator: "FreeCodeCamp", title: "Python for Beginners - Full Course", url: "https://youtube.com/watch-fcc-1", locked: false },
+                    { creator: "Infotris Masterclass", title: "Advanced Interpreter Memory Architecture", url: "#", locked: true }
+                ]
+            },
+            "02-variables": {
+                type: "Learning Lesson",
+                title: "Variables & Memory Reference",
+                desc: "Understand variable assignment, reference pointers, naming conventions, and how Python manages memory references dynamically.",
+                notesUrl: "notes/02-variables",
+                videos: [
+                    { creator: "Code with Harry", title: "Variables and Data Types in Python", url: "https://youtube.com/watch-harry-2", locked: false },
+                    { creator: "Programming with Mosh", title: "Python Variables Explained Clearly", url: "https://youtube.com/watch-mosh-2", locked: false },
+                    { creator: "Infotris Masterclass", title: "Deep Dive into Python Garbage Collection", url: "#", locked: true }
+                ]
+            },
+            "03-datatypes": {
+                type: "Learning Lesson",
+                title: "Primitives & Data Types",
+                desc: "Master core primitive data types including integers, floating-point numbers, booleans, and strings with hands-on practice.",
+                notesUrl: "notes/03-datatypes",
+                videos: [
+                    { creator: "Code with Harry", title: "Typecasting and Operators in Python", url: "https://youtube.com/watch-harry-3", locked: false },
+                    { creator: "Corey Schafer", title: "Python Tutorial: Integers and Floats", url: "https://youtube.com/watch-corey-3", locked: false },
+                    { creator: "Infotris Masterclass", title: "Memory Allocation of Primitive Objects", url: "#", locked: true }
+                ]
+            },
+            "04-input-output": {
+                type: "Learning Lesson",
+                title: "Input & Formatted Output",
+                desc: "Learn how to accept user inputs, parse type inputs safely, and format string outputs cleanly using modern f-strings.",
+                notesUrl: "notes/04-input-output",
+                videos: [
+                    { creator: "Code with Harry", title: "Taking Input from User in Python", url: "https://youtube.com/watch-harry-4", locked: false },
+                    { creator: "Programming with Mosh", title: "Receiving Input & Formatting Strings", url: "https://youtube.com/watch-mosh-4", locked: false }
+                ]
+            },
+            "project-01": {
+                type: "Project Milestone",
+                title: "Interactive Profile Generator",
+                desc: "Apply your foundation skills to build a fully functional command-line profile generator that takes user input and outputs formatted cards.",
+                notesUrl: "projects/project-01",
+                videos: [
+                    { creator: "Code with Harry", title: "Practice Exercise: Build a CLI Profile App", url: "https://youtube.com/watch-harry-p1", locked: false },
+                    { creator: "Infotris Masterclass", title: "Project Architectural Walkthrough & Code Review", url: "#", locked: true }
+                ]
+            },
+            "05-operators": {
+                type: "Learning Lesson",
+                title: "Operators & Expressions",
+                desc: "Master arithmetic, assignment, comparison, logical, and bitwise operators to build complex mathematical expressions.",
+                notesUrl: "notes/05-operators",
+                videos: [
+                    { creator: "Code with Harry", title: "Operators & Expressions Tutorial", url: "https://youtube.com/watch-harry-5", locked: false },
+                    { creator: "FreeCodeCamp", title: "Understanding Python Operators In-Depth", url: "https://youtube.com/watch-fcc-5", locked: false }
+                ]
+            },
+            "06-conditions": {
+                type: "Learning Lesson",
+                title: "Conditional Branching",
+                desc: "Write decision-making logic using if, elif, and else statements to direct program behavior dynamically.",
+                notesUrl: "notes/06-conditions",
+                videos: [
+                    { creator: "Code with Harry", title: "If-Else Conditionals in Python", url: "https://youtube.com/watch-harry-6", locked: false },
+                    { creator: "Programming with Mosh", title: "Control Flow: If Statements", url: "https://youtube.com/watch-mosh-6", locked: false }
+                ]
+            },
+            "07-loops": {
+                type: "Learning Lesson",
+                title: "Loops & Iterations",
+                desc: "Automate repetitive tasks using for and while loops, along with loop control keywords like break, continue, and pass.",
+                notesUrl: "notes/07-loops",
+                videos: [
+                    { creator: "Code with Harry", title: "For and While Loops in Python", url: "https://youtube.com/watch-harry-7", locked: false },
+                    { creator: "Corey Schafer", title: "Loops and Iterations - For/While", url: "https://youtube.com/watch-corey-7", locked: false },
+                    { creator: "Infotris Masterclass", title: "Optimizing High-Performance Loop Iterations", url: "#", locked: true }
+                ]
+            },
+            "08-functions": {
+                type: "Learning Lesson",
+                title: "Functions & Scope",
+                desc: "Modularize your codebase with reusable functions, parameters, return statements, and understanding variable scope rules.",
+                notesUrl: "notes/08-functions",
+                videos: [
+                    { creator: "Code with Harry", title: "Functions and Recursion in Python", url: "https://youtube.com/watch-harry-8", locked: false },
+                    { creator: "Corey Schafer", title: "Python Functions Explained", url: "https://youtube.com/watch-corey-8", locked: false }
+                ]
+            },
+            "project-02": {
+                type: "Project Milestone",
+                title: "Robust CLI Calculator",
+                desc: "Build a robust calculator application featuring custom functions, loops for continuous calculation, and error validation.",
+                notesUrl: "projects/project-02",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Building a Calculator in Python", url: "https://youtube.com/watch-harry-p2", locked: false },
+                    { creator: "Infotris Masterclass", title: "Advanced CLI App Design Patterns", url: "#", locked: true }
+                ]
+            },
+            "09-lists": {
+                type: "Learning Lesson",
+                title: "Lists, Tuples & Slicing",
+                desc: "Manipulate ordered collections using lists and tuples, apply advanced slicing techniques, and manage index references.",
+                notesUrl: "notes/09-lists",
+                videos: [
+                    { creator: "Code with Harry", title: "Lists and Tuples in Python", url: "https://youtube.com/watch-harry-9", locked: false },
+                    { creator: "Programming with Mosh", title: "Mastering Python Lists & Methods", url: "https://youtube.com/watch-mosh-9", locked: false }
+                ]
+            },
+            "10-dictionaries": {
+                type: "Learning Lesson",
+                title: "Dictionaries & Sets",
+                desc: "Master hash maps (dictionaries) for rapid key-value lookups and mathematical sets for handling unique data groups.",
+                notesUrl: "notes/10-dictionaries",
+                videos: [
+                    { creator: "Code with Harry", title: "Dictionaries and Sets in Python", url: "https://youtube.com/watch-harry-10", locked: false },
+                    { creator: "Corey Schafer", title: "Python Dictionaries - Working with Key-Value Pairs", url: "https://youtube.com/watch-corey-10", locked: false }
+                ]
+            },
+            "11-comprehensions": {
+                type: "Learning Lesson",
+                title: "Pythonic Comprehensions",
+                desc: "Write clean, elegant, and high-speed list, dictionary, and set comprehensions like a professional Pythonista.",
+                notesUrl: "notes/11-comprehensions",
+                videos: [
+                    { creator: "Code with Harry", title: "Advanced Python Comprehensions", url: "https://youtube.com/watch-harry-11", locked: false },
+                    { creator: "Infotris Masterclass", title: "Speed Comparison: Loops vs Comprehensions", url: "#", locked: true }
+                ]
+            },
+            "12-modules": {
+                type: "Learning Lesson",
+                title: "Modules & Package Imports",
+                desc: "Organize large-scale codebases across multiple files and leverage Python's rich standard library and third-party packages.",
+                notesUrl: "notes/12-modules",
+                videos: [
+                    { creator: "Code with Harry", title: "Modules and Pip in Python", url: "https://youtube.com/watch-harry-12", locked: false },
+                    { creator: "Corey Schafer", title: "Import Modules and Exploring the Standard Library", url: "https://youtube.com/watch-corey-12", locked: false }
+                ]
+            },
+            "project-03": {
+                type: "Project Milestone",
+                title: "Inventory Management System",
+                desc: "Create an enterprise-grade store inventory manager utilizing dictionaries, lists, modular files, and persistent file storage.",
+                notesUrl: "projects/project-03",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Enterprise Inventory Manager", url: "https://youtube.com/watch-harry-p3", locked: false },
+                    { creator: "Infotris Masterclass", title: "Scaling Apps with Clean Architecture", url: "#", locked: true }
+                ]
+            }
+        };
+
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarTitle = document.getElementById('sidebarTitle');
+        const sidebarDesc = document.getElementById('sidebarDesc');
+        const sidebarType = document.getElementById('sidebarType');
+        const sidebarNotesLink = document.getElementById('sidebarNotesLink');
+        const sidebarVideoList = document.getElementById('sidebarVideoList');
+
+        // Attach click handlers to roadmap nodes
+        document.querySelectorAll('.roadmap-node').forEach(node => {
+            node.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const dataId = node.getAttribute('data-id');
+                const data = lessonDatabase[dataId];
+
+                if (!data) return; // Fallback if data is missing
+
+                // Populate sidebar header & description
+                sidebarTitle.innerText = data.title;
+                sidebarDesc.innerText = data.desc;
+                sidebarType.innerText = data.type;
+                sidebarNotesLink.href = data.notesUrl;
+
+                // Render dynamic multiple video links
+                sidebarVideoList.innerHTML = '';
+                data.videos.forEach(video => {
+                    const videoCard = document.createElement('a');
+                    videoCard.className = video.locked ? 'video-card locked-video' : 'video-card';
+                    videoCard.href = video.locked ? '#' : video.url;
+                    
+                    if (video.locked) {
+                        videoCard.onclick = (ev) => {
+                            ev.preventDefault();
+                            alert('This is a premium locked video tutorial. Upgrade your plan to unlock!');
+                        };
+                    }
+
+                    videoCard.innerHTML = `
+                        <div class="video-meta">
+                            <div class="video-icon">${video.locked ? '🔒' : '🎥'}</div>
+                            <div>
+                                <div class="video-creator">${video.creator}</div>
+                                <div class="video-title">${video.title}</div>
+                            </div>
+                        </div>
+                        <div>
+                            ${video.locked ? '<span class="lock-badge">🔒 Premium</span>' : '<span style="color: var(--primary); font-weight: 600;">→</span>'}
+                        </div>
+                    `;
+                    sidebarVideoList.appendChild(videoCard);
+                });
+
+                // Open sidebar smoothly
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+            });
+        });
+
+        // Close sidebar functions
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        }
+
+        sidebarClose.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebar();
+        });
+    </script>
 
 </body>
 </html>
