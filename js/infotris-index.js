@@ -121,6 +121,7 @@ const INFOTRIS_INDEX = [
             url:"courses/dsa/"
 
     }
+    ,
 
 
     // =========================
