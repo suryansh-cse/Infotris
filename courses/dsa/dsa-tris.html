@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Data Structures & Algorithms TrisGraph Roadmap</title>
+
+    <!-- Google Fonts & Modern Styling Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.15);
+            --success: #10b981;
+            --success-bg: #d1fae5;
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --locked: #94a3b8;
+            --locked-bg: #f1f5f9;
+            --premium: #8b5cf6;
+            --premium-bg: #ede9fe;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* SITE HEADER */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .navbar-logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .navbar-links a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO SECTION */
+        .roadmap-hero {
+            text-align: center;
+            padding: 90px 20px 70px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roadmap-badge {
+            display: inline-block;
+            background: var(--primary-glow);
+            color: var(--primary);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 20px;
+        }
+
+        .roadmap-title {
+            font-size: 3.25rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .roadmap-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* TRISGRAPH CONTAINER & OPTIMIZED SPACING */
+        .roadmap-section {
+            max-width: 1320px;
+            margin: 0 auto 160px;
+            padding: 0 32px;
+            position: relative;
+        }
+
+        .roadmap-container {
+            position: relative;
+            min-height: 8200px; /* Generous spacing to eliminate any card overlapping */
+        }
+
+        /* SVG BACKGROUND PATHS */
+        .roadmap-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .roadmap-line {
+            fill: none;
+            stroke: #cbd5e1;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 8 8;
+        }
+
+        /* NODE BASE STYLING & SIZING */
+        .roadmap-node {
+            position: absolute;
+            width: 420px; /* Enhanced card size for perfect proportions */
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            z-index: 2;
+            transition: var(--transition);
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .roadmap-node:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        /* CENTER NODES (Headers & Projects) */
+        .center-node {
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 460px;
+        }
+        .center-node:hover {
+            transform: translateX(-50%) translateY(-6px);
+        }
+
+        .start-node {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #ffffff;
+            border: none;
+        }
+        .start-node .node-status {
+            background: rgba(255, 255, 255, 0.15);
+            color: #38bdf8;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .start-node h3 { font-size: 1.7rem; margin-bottom: 8px; }
+        .start-node p { color: #94a3b8; font-size: 1.05rem; }
+
+        .module-node {
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            text-align: center;
+        }
+        .module-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .module-node h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        .module-node p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .project-node {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #bfdbfe;
+            text-align: center;
+            width: 460px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .project-node:hover {
+            transform: translateX(-50%) translateY(-6px);
+            border-color: var(--primary);
+        }
+        .project-badge {
+            background: var(--primary);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .project-node h3 { color: #1e40af; font-size: 1.4rem; margin-bottom: 6px; }
+        .project-node p { color: #3b82f6; font-size: 1rem; }
+
+        /* LESSON NODES */
+        .lesson-node {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .node-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-node.completed .node-icon {
+            background-color: var(--success-bg);
+            color: var(--success);
+        }
+
+        .lesson-node.current .node-icon {
+            background-color: var(--warning-bg);
+            color: var(--warning);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .lesson-node.locked .node-icon {
+            background-color: var(--locked-bg);
+            color: var(--locked);
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        .node-content h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .node-content p {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* SIDEBAR OVERLAY & PANEL */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            z-index: 1999;
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -520px;
+            width: 500px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -15px 0 40px rgba(0, 0, 0, 0.12);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            padding: 36px 32px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            background: #f8fafc;
+        }
+
+        .sidebar-meta-badge {
+            background: var(--primary-glow);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .sidebar-title {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .sidebar-close {
+            background: #e2e8f0;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .sidebar-close:hover {
+            background: var(--text-primary);
+            color: #ffffff;
+        }
+
+        .sidebar-body {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            flex: 1;
+        }
+
+        .sidebar-desc-box {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* NOTES CARD */
+        .notes-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .notes-card:hover {
+            background: #dcfce7;
+            border-color: #86efac;
+            transform: translateY(-2px);
+        }
+
+        .resource-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .resource-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #d1fae5;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        /* VIDEO LIST CARDS */
+        .video-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .video-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .video-card:hover:not(.locked-video) {
+            background: #eff6ff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .video-card.locked-video {
+            background: #f8fafc;
+            opacity: 0.8;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .video-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #e0f2fe;
+            color: #0284c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .video-card.locked-video .video-icon {
+            background: var(--locked-bg);
+            color: var(--locked);
+        }
+
+        .video-creator {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 2px;
+        }
+
+        .video-card.locked-video .video-creator {
+            color: var(--locked);
+        }
+
+        .video-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .lock-badge {
+            background: var(--premium-bg);
+            color: var(--premium);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 992px) {
+            .roadmap-svg {
+                display: none;
+            }
+            .roadmap-container {
+                min-height: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 36px;
+                padding-top: 10px;
+            }
+            .roadmap-node, .center-node, .project-node {
+                position: relative !important;
+                left: 0 !important;
+                transform: none !important;
+                width: 100% !important;
+            }
+            .roadmap-node:hover {
+                transform: translateY(-3px) !important;
+            }
+            .sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body class="page-roadmap">
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <nav class="navbar">
+            <a class="navbar-logo" href="../../">
+                <img src="../../assets/logo.png" alt="Infotris Logo">
+                <span>Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="roadmap-hero">
+        <span class="roadmap-badge">DSA Developer Track</span>
+        <h1 class="roadmap-title">Data Structures & Algorithms TrisGraph</h1>
+        <p class="roadmap-subtitle">
+            An elite interactive roadmap mastering computer science fundamentals and algorithmic problem-solving. Click any lesson or milestone to explore in-depth notes and curated multi-creator video tutorials.
+        </p>
+    </section>
+
+    <!-- TRISGRAPH ROADMAP SECTION -->
+    <section class="roadmap-section">
+        <div class="roadmap-container">
+
+            <!-- SVG CURVED CONNECTIONS (Desktop View) -->
+            <svg class="roadmap-svg" width="100%" height="8200" viewBox="0 0 1320 8200" preserveAspectRatio="xMidYMin meet">
+                <!-- Main Central Spine -->
+                <path d="M660 100 L660 8050" class="roadmap-line" />
+
+                <!-- Module 1 Branch (Left Side Zig-Zag) -->
+                <path d="M660 260 C530 260, 280 220, 280 340 L280 1160 C280 1220, 530 1220, 660 1220" class="roadmap-line" />
+
+                <!-- Module 2 Branch (Right Side Zig-Zag) -->
+                <path d="M660 1520 C790 1520, 1040 1480, 1040 1600 L1040 2420 C1040 2480, 790 2480, 660 2480" class="roadmap-line" />
+
+                <!-- Module 3 Branch (Left Side Zig-Zag) -->
+                <path d="M660 2760 C530 2760, 280 2720, 280 2840 L280 3660 C280 3720, 530 3720, 660 3720" class="roadmap-line" />
+
+                <!-- Module 4 Branch (Right Side Zig-Zag) -->
+                <path d="M660 4000 C790 4000, 1040 3960, 1040 4080 L1040 4900 C1040 4960, 790 4960, 660 4960" class="roadmap-line" />
+
+                <!-- Module 5 Branch (Left Side Zig-Zag) -->
+                <path d="M660 5240 C530 5240, 280 5200, 280 5320 L280 6140 C280 6200, 530 6200, 660 6200" class="roadmap-line" />
+
+                <!-- Module 6 Branch (Right Side Zig-Zag) -->
+                <path d="M660 6480 C790 6480, 1040 6440, 1040 6560 L1040 7380 C1040 7440, 790 7440, 660 7440" class="roadmap-line" />
+            </svg>
+
+            <!-- START NODE -->
+            <div class="roadmap-node start-node center-node" style="top: 20px;" data-id="start">
+                <span class="node-status">START HERE</span>
+                <h3>Data Structures & Algorithms</h3>
+                <p>Master problem-solving and algorithmic thinking.</p>
+            </div>
+
+            <!-- MODULE 1 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 180px;" data-id="mod-1">
+                <span class="module-label">Module 1</span>
+                <h3>Mathematical Foundations & Big O Analysis</h3>
+                <p>Analyze algorithm efficiency and memory constraints.</p>
+            </div>
+
+            <!-- MODULE 1 LESSONS (Left Column: X = 70px) -->
+            <a href="01-big-o" class="roadmap-node lesson-node completed" style="top: 340px; left: 70px;" data-id="01-big-o">
+                <div class="node-icon">✓</div>
+                <div class="node-content">
+                    <h3>1. Asymptotic Analysis & Big O</h3>
+                    <p>Understand time and space complexity growth rates.</p>
+                </div>
+            </a>
+
+            <a href="02-complexity" class="roadmap-node lesson-node current" style="top: 580px; left: 70px;" data-id="02-complexity">
+                <div class="node-icon">⚡</div>
+                <div class="node-content">
+                    <h3>2. Space & Time Trade-offs</h3>
+                    <p>Evaluate constant, linear, logarithmic, and quadratic bounds.</p>
+                </div>
+            </a>
+
+            <a href="03-recursion" class="roadmap-node lesson-node locked" style="top: 820px; left: 70px;" data-id="03-recursion">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Recursion & Memory Stack</h3>
+                    <p>Master base cases, call stacks, and recursive trees.</p>
+                </div>
+            </a>
+
+            <!-- PROJECT 01 -->
+            <a href="project-01" class="roadmap-node project-node" style="top: 1060px;" data-id="project-01">
+                <span class="project-badge">PROJECT 01</span>
+                <h3>Complexity Benchmark Suite</h3>
+                <p>Build a performance profiling script for algorithm benchmarking.</p>
+            </a>
+
+            <!-- MODULE 2 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 1300px;" data-id="mod-2">
+                <span class="module-label">Module 2</span>
+                <h3>Arrays and Strings</h3>
+                <p>Manipulate contiguous memory and sequential text efficiently.</p>
+            </div>
+
+            <!-- MODULE 2 LESSONS (Right Column: X = 830px) -->
+            <a href="04-arrays" class="roadmap-node lesson-node locked" style="top: 1480px; left: 830px;" data-id="04-arrays">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Array Memory Layout</h3>
+                    <p>Contiguous allocations, indexing, and dynamic resizing.</p>
+                </div>
+            </a>
+
+            <a href="05-two-pointer" class="roadmap-node lesson-node locked" style="top: 1720px; left: 830px;" data-id="05-two-pointer">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. Two-Pointer & Sliding Window</h3>
+                    <p>Optimize linear scans and subarray window problems.</p>
+                </div>
+            </a>
+
+            <a href="06-strings" class="roadmap-node lesson-node locked" style="top: 1960px; left: 830px;" data-id="06-strings">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. String Manipulation</h3>
+                    <p>Palindromes, anagrams, and character encoding mechanics.</p>
+                </div>
+            </a>
+
+            <!-- PROJECT 02 -->
+            <a href="project-02" class="roadmap-node project-node" style="top: 2200px;" data-id="project-02">
+                <span class="project-badge">PROJECT 02</span>
+                <h3>Subarray & String Pattern Matcher</h3>
+                <p>Build a high-performance text and subarray processing engine.</p>
+            </a>
+
+            <!-- MODULE 3 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 2540px;" data-id="mod-3">
+                <span class="module-label">Module 3</span>
+                <h3>Linked Lists, Stacks, and Queues</h3>
+                <p>Manage dynamic node pointers and LIFO/FIFO data pipelines.</p>
+            </div>
+
+            <!-- MODULE 3 LESSONS (Left Column: X = 70px) -->
+            <a href="07-linked-lists" class="roadmap-node lesson-node locked" style="top: 2720px; left: 70px;" data-id="07-linked-lists">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Singly & Doubly Linked Lists</h3>
+                    <p>Pointer manipulation, insertion, and pointer reversal.</p>
+                </div>
+            </a>
+
+            <a href="08-stacks" class="roadmap-node lesson-node locked" style="top: 2960px; left: 70px;" data-id="08-stacks">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. Stack Abstract Data Type</h3>
+                    <p>Last-In-First-Out operations and expression balancing.</p>
+                </div>
+            </a>
+
+            <a href="09-queues" class="roadmap-node lesson-node locked" style="top: 3200px; left: 70px;" data-id="09-queues">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Queue Abstract Data Type</h3>
+                    <p>First-In-First-Out buffers and circular queues.</p>
+                </div>
+            </a>
+
+            <!-- PROJECT 03 -->
+            <a href="project-03" class="roadmap-node project-node" style="top: 3440px;" data-id="project-03">
+                <span class="project-badge">PROJECT 03</span>
+                <h3>Browser History & Undo/Redo Engine</h3>
+                <p>Implement navigation stacks and linked list state managers.</p>
+            </a>
+
+            <!-- MODULE 4 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 3780px;" data-id="mod-4">
+                <span class="module-label">Module 4</span>
+                <h3>Searching and Sorting Algorithms</h3>
+                <p>Organize and retrieve datasets with maximum speed.</p>
+            </div>
+
+            <!-- MODULE 4 LESSONS (Right Column: X = 830px) -->
+            <a href="10-searching" class="roadmap-node lesson-node locked" style="top: 3960px; left: 830px;" data-id="10-searching">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Linear & Binary Search</h3>
+                    <p>Sequential checks vs divide-and-conquer space division.</p>
+                </div>
+            </a>
+
+            <a href="11-basic-sorting" class="roadmap-node lesson-node locked" style="top: 4200px; left: 830px;" data-id="11-basic-sorting">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. Bubble, Insertion & Selection Sort</h3>
+                    <p>Quadratic comparison sorting mechanics and invariants.</p>
+                </div>
+            </a>
+
+            <a href="12-advanced-sorting" class="roadmap-node lesson-node locked" style="top: 4440px; left: 830px;" data-id="12-advanced-sorting">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Merge Sort & Quick Sort</h3>
+                    <p>Divide-and-conquer sorting with optimal logarithmic depth.</p>
+                </div>
+            </a>
+
+            <!-- PROJECT 04 -->
+            <a href="project-04" class="roadmap-node project-node" style="top: 4680px;" data-id="project-04">
+                <span class="project-badge">PROJECT 04</span>
+                <h3>High-Performance Sorting Visualizer</h3>
+                <p>Build an interactive comparison suite for sorting algorithms.</p>
+            </a>
+
+            <!-- MODULE 5 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 5020px;" data-id="mod-5">
+                <span class="module-label">Module 5</span>
+                <h3>Hash Tables and Collections</h3>
+                <p>Achieve constant-time lookups with hash mappings.</p>
+            </div>
+
+            <!-- MODULE 5 LESSONS (Left Column: X = 70px) -->
+            <a href="13-hash-functions" class="roadmap-node lesson-node locked" style="top: 5200px; left: 70px;" data-id="13-hash-functions">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Hash Functions & Collisions</h3>
+                    <p>Hashing principles, chaining, and open addressing.</p>
+                </div>
+            </a>
+
+            <a href="14-hash-maps" class="roadmap-node lesson-node locked" style="top: 5440px; left: 70px;" data-id="14-hash-maps">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. Hash Maps & Frequency Counters</h3>
+                    <p>O(1) lookups and frequency counting patterns.</p>
+                </div>
+            </a>
+
+            <a href="15-sets" class="roadmap-node lesson-node locked" style="top: 5680px; left: 70px;" data-id="15-sets">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Sets & Subset Operations</h3>
+                    <p>Unique elements and mathematical set intersections.</p>
+                </div>
+            </a>
+
+            <!-- PROJECT 05 -->
+            <a href="project-05" class="roadmap-node project-node" style="top: 5920px;" data-id="project-05">
+                <span class="project-badge">PROJECT 05</span>
+                <h3>Real-Time Cache & LRU Implementation</h3>
+                <p>Build a Least Recently Used cache using hash maps and double lists.</p>
+            </a>
+
+            <!-- MODULE 6 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 6260px;" data-id="mod-6">
+                <span class="module-label">Module 6</span>
+                <h3>Hierarchical Structures (Trees and Heaps)</h3>
+                <p>Navigate branching relationships and prioritized elements.</p>
+            </div>
+
+            <!-- MODULE 6 LESSONS (Right Column: X = 830px) -->
+            <a href="16-binary-trees" class="roadmap-node lesson-node locked" style="top: 6440px; left: 830px;" data-id="16-binary-trees">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Binary Trees & Traversals</h3>
+                    <p>In-order, pre-order, post-order, and level-order BFS/DFS.</p>
+                </div>
+            </a>
+
+            <a href="17-bst" class="roadmap-node lesson-node locked" style="top: 6680px; left: 830px;" data-id="17-bst">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. Binary Search Trees (BST)</h3>
+                    <p>Search, insertion, deletion, and balancing properties.</p>
+                </div>
+            </a>
+
+            <a href="18-heaps" class="roadmap-node lesson-node locked" style="top: 6920px; left: 830px;" data-id="18-heaps">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>3. Heaps & Priority Queues</h3>
+                    <p>Min-heaps, max-heaps, and heapify algorithms.</p>
+                </div>
+            </a>
+
+            <!-- PROJECT 06 -->
+            <a href="project-06" class="roadmap-node project-node" style="top: 7160px;" data-id="project-06">
+                <span class="project-badge">PROJECT 06</span>
+                <h3>Priority Task Scheduler & Heap Engine</h3>
+                <p>Create an efficient job scheduler using binary heap priority queues.</p>
+            </a>
+
+            <!-- MODULE 7 HEADER -->
+            <div class="roadmap-node module-node center-node" style="top: 7500px;" data-id="mod-7">
+                <span class="module-label">Module 7</span>
+                <h3>Graph Traversal, Shortest Paths & Dynamic Programming</h3>
+                <p>Solve complex networks and optimal substructure problems.</p>
+            </div>
+
+            <!-- MODULE 7 LESSONS (Left Column: X = 70px) -->
+            <a href="19-graph-representation" class="roadmap-node lesson-node locked" style="top: 7680px; left: 70px;" data-id="19-graph-representation">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>1. Graph Representations</h3>
+                    <p>Adjacency matrix vs adjacency list structures.</p>
+                </div>
+            </a>
+
+            <a href="20-graph-traversal" class="roadmap-node lesson-node locked" style="top: 7920px; left: 70px;" data-id="20-graph-traversal">
+                <div class="node-icon">🔒</div>
+                <div class="node-content">
+                    <h3>2. BFS, DFS & Topological Sort</h3>
+                    <p>Network traversal, cycle detection, and dependency ordering.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE SIDEBAR & OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div>
+                <span class="sidebar-meta-badge" id="sidebarType">Lesson</span>
+                <h2 class="sidebar-title" id="sidebarTitle">Lesson Title</h2>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">✕</button>
+        </div>
+        <div class="sidebar-body">
+            <p class="sidebar-desc-box" id="sidebarDesc">Comprehensive summary of the selected roadmap item.</p>
+            
+            <!-- NOTES SECTION -->
+            <div>
+                <h4 class="sidebar-section-title">📝 Comprehensive Notes</h4>
+                <a href="#" class="notes-card" id="sidebarNotesLink">
+                    <div class="resource-info">
+                        <div class="resource-icon">📖</div>
+                        <div>
+                            <div style="font-size: 0.95rem; font-weight: 600;">Read Deep-Dive Documentation</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Infotris official study guide & code snippets</div>
+                        </div>
+                    </div>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- MULTIPLE VIDEOS SECTION -->
+            <div>
+                <h4 class="sidebar-section-title">🎥 Curated Video Tutorials</h4>
+                <div class="video-list-container" id="sidebarVideoList">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- JAVASCRIPT FOR SIDEBAR DATA & INTERACTIVITY -->
+    <script>
+        // Detailed lesson & project database with multiple video creators & premium locked items
+        const lessonDatabase = {
+            "01-big-o": {
+                type: "Learning Lesson",
+                title: "Asymptotic Analysis & Big O",
+                desc: "Understand how to measure algorithm performance independent of hardware using Big O, Big Omega, and Big Theta notations.",
+                notesUrl: "notes/01-big-o",
+                videos: [
+                    { creator: "Code with Harry", title: "Asymptotic Notations & Big O Explained", url: "https://youtube.com/watch-harry-dsa-1", locked: false },
+                    { creator: "Abdul Bari", title: "Analysis of Algorithms - Big O Notation", url: "https://youtube.com/watch-bari-1", locked: false },
+                    { creator: "Infotris Masterclass", title: "Mathematical Proofs of Algorithm Growth", url: "#", locked: true }
+                ]
+            },
+            "02-complexity": {
+                type: "Learning Lesson",
+                title: "Space & Time Trade-offs",
+                desc: "Learn how to evaluate constant O(1), logarithmic O(log n), linear O(n), and quadratic O(n^2) complexity bounds.",
+                notesUrl: "notes/02-complexity",
+                videos: [
+                    { creator: "Code with Harry", title: "Time and Space Complexity in DSA", url: "https://youtube.com/watch-harry-dsa-2", locked: false },
+                    { creator: "FreeCodeCamp", title: "Big O Complexity Analysis Masterclass", url: "https://youtube.com/watch-fcc-dsa-2", locked: false },
+                    { creator: "Infotris Masterclass", title: "Memory Overhead Profiling Techniques", url: "#", locked: true }
+                ]
+            },
+            "03-recursion": {
+                type: "Learning Lesson",
+                title: "Recursion & Memory Stack",
+                desc: "Master base cases, recursive state trees, and how the call stack allocates memory frames during execution.",
+                notesUrl: "notes/03-recursion",
+                videos: [
+                    { creator: "Code with Harry", title: "Recursion in Data Structures", url: "https://youtube.com/watch-harry-dsa-3", locked: false },
+                    { creator: "Abdul Bari", title: "Recursion Tree Method and Stack Frames", url: "https://youtube.com/watch-bari-3", locked: false }
+                ]
+            },
+            "project-01": {
+                type: "Project Milestone",
+                title: "Complexity Benchmark Suite",
+                desc: "Build a custom performance profiling script to benchmark execution time and memory consumption across different algorithms.",
+                notesUrl: "projects/project-01",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Building a Complexity Profiler", url: "https://youtube.com/watch-harry-dsap1", locked: false },
+                    { creator: "Infotris Masterclass", title: "Advanced Benchmarking Architecture", url: "#", locked: true }
+                ]
+            },
+            "04-arrays": {
+                type: "Learning Lesson",
+                title: "Array Memory Layout",
+                desc: "Examine contiguous memory blocks, pointer offsets, index calculations, and dynamic array resizing strategies.",
+                notesUrl: "notes/04-arrays",
+                videos: [
+                    { creator: "Code with Harry", title: "Arrays Data Structure Tutorial", url: "https://youtube.com/watch-harry-dsa-4", locked: false },
+                    { creator: "Striver", title: "Array Basics & Memory Allocation", url: "https://youtube.com/watch-striver-4", locked: false }
+                ]
+            },
+            "05-two-pointer": {
+                type: "Learning Lesson",
+                title: "Two-Pointer & Sliding Window",
+                desc: "Optimize linear array and string scans using opposite-direction pointers and dynamic sliding window techniques.",
+                notesUrl: "notes/05-two-pointer",
+                videos: [
+                    { creator: "Code with Harry", title: "Two Pointer Technique Explained", url: "https://youtube.com/watch-harry-dsa-5", locked: false },
+                    { creator: "NeetCode", title: "Sliding Window Pattern Masterclass", url: "https://youtube.com/watch-neetcode-5", locked: false },
+                    { creator: "Infotris Masterclass", title: "Advanced Sliding Window Optimization", url: "#", locked: true }
+                ]
+            },
+            "06-strings": {
+                type: "Learning Lesson",
+                title: "String Manipulation",
+                desc: "Solve string transformation challenges including palindrome verification, anagram checks, and character frequency mapping.",
+                notesUrl: "notes/06-strings",
+                videos: [
+                    { creator: "Code with Harry", title: "Strings in Data Structures", url: "https://youtube.com/watch-harry-dsa-6", locked: false },
+                    { creator: "Striver", title: "String Algorithms & Pattern Matching", url: "https://youtube.com/watch-striver-6", locked: false }
+                ]
+            },
+            "project-02": {
+                type: "Project Milestone",
+                title: "Subarray & String Pattern Matcher",
+                desc: "Build a high-performance text search and subarray processing tool utilizing two-pointer algorithms.",
+                notesUrl: "projects/project-02",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Subarray & String Matcher App", url: "https://youtube.com/watch-harry-dsap2", locked: false },
+                    { creator: "Infotris Masterclass", title: "Production Code Review & Optimization", url: "#", locked: true }
+                ]
+            },
+            "07-linked-lists": {
+                type: "Learning Lesson",
+                title: "Singly & Doubly Linked Lists",
+                desc: "Master pointer manipulation, node insertion, deletion, and reversing singly and doubly linked lists in-place.",
+                notesUrl: "notes/07-linked-lists",
+                videos: [
+                    { creator: "Code with Harry", title: "Linked List Implementation in C/Python", url: "https://youtube.com/watch-harry-dsa-7", locked: false },
+                    { creator: "Abdul Bari", title: "Singly and Doubly Linked Lists Complete Guide", url: "https://youtube.com/watch-bari-7", locked: false }
+                ]
+            },
+            "08-stacks": {
+                type: "Learning Lesson",
+                title: "Stack Abstract Data Type",
+                desc: "Explore Last-In-First-Out (LIFO) operations, push/pop mechanics, and parsing expressions using stack structures.",
+                notesUrl: "notes/08-stacks",
+                videos: [
+                    { creator: "Code with Harry", title: "Stack Data Structure Tutorial", url: "https://youtube.com/watch-harry-dsa-8", locked: false },
+                    { creator: "Striver", title: "Stack Problems & Monotonic Stacks", url: "https://youtube.com/watch-striver-8", locked: false }
+                ]
+            },
+            "09-queues": {
+                type: "Learning Lesson",
+                title: "Queue Abstract Data Type",
+                desc: "Understand First-In-First-Out (FIFO) buffers, circular queues, and priority queuing mechanisms.",
+                notesUrl: "notes/09-queues",
+                videos: [
+                    { creator: "Code with Harry", title: "Queue Data Structure & Implementation", url: "https://youtube.com/watch-harry-dsa-9", locked: false },
+                    { creator: "FreeCodeCamp", title: "Queues and Deques Masterclass", url: "https://youtube.com/watch-fcc-dsa-9", locked: false }
+                ]
+            },
+            "project-03": {
+                type: "Project Milestone",
+                title: "Browser History & Undo/Redo Engine",
+                desc: "Implement a robust navigation history system and text editor undo/redo manager using stacks and linked lists.",
+                notesUrl: "projects/project-03",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Browser History Simulator", url: "https://youtube.com/watch-harry-dsap3", locked: false },
+                    { creator: "Infotris Masterclass", title: "Architecting State Management Engines", url: "#", locked: true }
+                ]
+            },
+            "10-searching": {
+                type: "Learning Lesson",
+                title: "Linear & Binary Search",
+                desc: "Contrast sequential linear searches with divide-and-conquer binary search variations on sorted collections.",
+                notesUrl: "notes/10-searching",
+                videos: [
+                    { creator: "Code with Harry", title: "Linear and Binary Search Algorithms", url: "https://youtube.com/watch-harry-dsa-10", locked: false },
+                    { creator: "Abdul Bari", title: "Binary Search Variations & Bounds", url: "https://youtube.com/watch-bari-10", locked: false }
+                ]
+            },
+            "11-basic-sorting": {
+                type: "Learning Lesson",
+                title: "Bubble, Insertion & Selection Sort",
+                desc: "Analyze quadratic comparison sorting algorithms, stability, and sorting invariants.",
+                notesUrl: "notes/11-basic-sorting",
+                videos: [
+                    { creator: "Code with Harry", title: "Bubble, Insertion, and Selection Sort", url: "https://youtube.com/watch-harry-dsa-11", locked: false },
+                    { creator: "Striver", title: "Basic Sorting Algorithms Deep Dive", url: "https://youtube.com/watch-striver-11", locked: false }
+                ]
+            },
+            "12-advanced-sorting": {
+                type: "Learning Lesson",
+                title: "Merge Sort & Quick Sort",
+                desc: "Master divide-and-conquer sorting algorithms achieving optimal logarithmic depth and partition strategies.",
+                notesUrl: "notes/12-advanced-sorting",
+                videos: [
+                    { creator: "Code with Harry", title: "Merge Sort and Quick Sort Algorithms", url: "https://youtube.com/watch-harry-dsa-12", locked: false },
+                    { creator: "Abdul Bari", title: "Merge Sort & Quick Sort Partition Logic", url: "https://youtube.com/watch-bari-12", locked: false },
+                    { creator: "Infotris Masterclass", title: "Optimizing Pivot Selection in Quick Sort", url: "#", locked: true }
+                ]
+            },
+            "project-04": {
+                type: "Project Milestone",
+                title: "High-Performance Sorting Visualizer",
+                desc: "Build an interactive web-based comparison tool visualizing sorting algorithm steps in real time.",
+                notesUrl: "projects/project-04",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Sorting Visualizer Suite", url: "https://youtube.com/watch-harry-dsap4", locked: false },
+                    { creator: "Infotris Masterclass", title: "Rendering High-Frequency UI Animations", url: "#", locked: true }
+                ]
+            },
+            "13-hash-functions": {
+                type: "Learning Lesson",
+                title: "Hash Functions & Collisions",
+                desc: "Explore deterministic hashing principles, collision resolution via chaining, and open addressing strategies.",
+                notesUrl: "notes/13-hash-functions",
+                videos: [
+                    { creator: "Code with Harry", title: "Hashing and Collision Resolution", url: "https://youtube.com/watch-harry-dsa-13", locked: false },
+                    { creator: "Abdul Bari", title: "Hash Tables and Collision Handling", url: "https://youtube.com/watch-bari-13", locked: false }
+                ]
+            },
+            "14-hash-maps": {
+                type: "Learning Lesson",
+                title: "Hash Maps & Frequency Counters",
+                desc: "Leverage hash maps for O(1) key-value lookups and frequency counting patterns in problem solving.",
+                notesUrl: "notes/14-hash-maps",
+                videos: [
+                    { creator: "Code with Harry", title: "Hash Maps in Data Structures", url: "https://youtube.com/watch-harry-dsa-14", locked: false },
+                    { creator: "NeetCode", title: "Hash Map Pattern Masterclass", url: "https://youtube.com/watch-neetcode-14", locked: false }
+                ]
+            },
+            "15-sets": {
+                type: "Learning Lesson",
+                title: "Sets & Subset Operations",
+                desc: "Manage unique element collections and perform mathematical set unions, intersections, and differences.",
+                notesUrl: "notes/15-sets",
+                videos: [
+                    { creator: "Code with Harry", title: "Sets and Subset Algorithms", url: "https://youtube.com/watch-harry-dsa-15", locked: false },
+                    { creator: "FreeCodeCamp", title: "Working with Sets in CS", url: "https://youtube.com/watch-fcc-dsa-15", locked: false }
+                ]
+            },
+            "project-05": {
+                type: "Project Milestone",
+                title: "Real-Time Cache & LRU Implementation",
+                desc: "Build a Least Recently Used (LRU) cache combining hash maps and doubly linked lists for O(1) operations.",
+                notesUrl: "projects/project-05",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Building an LRU Cache", url: "https://youtube.com/watch-harry-dsap5", locked: false },
+                    { creator: "Infotris Masterclass", title: "Enterprise Caching Strategies", url: "#", locked: true }
+                ]
+            },
+            "16-binary-trees": {
+                type: "Learning Lesson",
+                title: "Binary Trees & Traversals",
+                desc: "Master hierarchical node structures and traversal techniques including in-order, pre-order, post-order, and level-order BFS/DFS.",
+                notesUrl: "notes/16-binary-trees",
+                videos: [
+                    { creator: "Code with Harry", title: "Binary Trees and Tree Traversals", url: "https://youtube.com/watch-harry-dsa-16", locked: false },
+                    { creator: "Abdul Bari", title: "Binary Tree Traversals Explained", url: "https://youtube.com/watch-bari-16", locked: false },
+                    { creator: "Infotris Masterclass", title: "Iterative vs Recursive Tree Traversals", url: "#", locked: true }
+                ]
+            },
+            "17-bst": {
+                type: "Learning Lesson",
+                title: "Binary Search Trees (BST)",
+                desc: "Implement Binary Search Tree search, insertion, and deletion while maintaining ordering invariants.",
+                notesUrl: "notes/17-bst",
+                videos: [
+                    { creator: "Code with Harry", title: "Binary Search Trees Tutorial", url: "https://youtube.com/watch-harry-dsa-17", locked: false },
+                    { creator: "Striver", title: "BST Operations and Validation", url: "https://youtube.com/watch-striver-17", locked: false }
+                ]
+            },
+            "18-heaps": {
+                type: "Learning Lesson",
+                title: "Heaps & Priority Queues",
+                desc: "Build min-heaps and max-heaps, implement heapify algorithms, and construct efficient priority queues.",
+                notesUrl: "notes/18-heaps",
+                videos: [
+                    { creator: "Code with Harry", title: "Heaps and Priority Queues", url: "https://youtube.com/watch-harry-dsa-18", locked: false },
+                    { creator: "Abdul Bari", title: "Heap Data Structure & Heap Sort", url: "https://youtube.com/watch-bari-18", locked: false }
+                ]
+            },
+            "project-06": {
+                type: "Project Milestone",
+                title: "Priority Task Scheduler & Heap Engine",
+                desc: "Develop an advanced job task scheduler utilizing binary heap priority queues for asynchronous task management.",
+                notesUrl: "projects/project-06",
+                videos: [
+                    { creator: "Code with Harry", title: "Project: Priority Task Scheduler", url: "https://youtube.com/watch-harry-dsap6", locked: false },
+                    { creator: "Infotris Masterclass", title: "Designing Real-Time Scheduling Engines", url: "#", locked: true }
+                ]
+            },
+            "19-graph-representation": {
+                type: "Learning Lesson",
+                title: "Graph Representations",
+                desc: "Learn how to model networks using adjacency matrices and adjacency lists with weighted and directed edges.",
+                notesUrl: "notes/19-graph-representation",
+                videos: [
+                    { creator: "Code with Harry", title: "Graph Representation in Data Structures", url: "https://youtube.com/watch-harry-dsa-19", locked: false },
+                    { creator: "Abdul Bari", title: "Graphs: Matrix vs Adjacency List", url: "https://youtube.com/watch-bari-19", locked: false }
+                ]
+            },
+            "20-graph-traversal": {
+                type: "Learning Lesson",
+                title: "BFS, DFS & Topological Sort",
+                desc: "Master Breadth-First Search, Depth-First Search, cycle detection, and topological sorting for dependency graphs.",
+                notesUrl: "notes/20-graph-traversal",
+                videos: [
+                    { creator: "Code with Harry", title: "BFS and DFS Graph Traversals", url: "https://youtube.com/watch-harry-dsa-20", locked: false },
+                    { creator: "NeetCode", title: "Graph Algorithms Masterclass", url: "https://youtube.com/watch-neetcode-20", locked: false },
+                    { creator: "Infotris Masterclass", title: "Advanced Graph Network Analysis", url: "#", locked: true }
+                ]
+            }
+        };
+
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarTitle = document.getElementById('sidebarTitle');
+        const sidebarDesc = document.getElementById('sidebarDesc');
+        const sidebarType = document.getElementById('sidebarType');
+        const sidebarNotesLink = document.getElementById('sidebarNotesLink');
+        const sidebarVideoList = document.getElementById('sidebarVideoList');
+
+        // Attach click handlers to roadmap nodes
+        document.querySelectorAll('.roadmap-node').forEach(node => {
+            node.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const dataId = node.getAttribute('data-id');
+                const data = lessonDatabase[dataId];
+
+                if (!data) return; // Fallback if data is missing
+
+                // Populate sidebar header & description
+                sidebarTitle.innerText = data.title;
+                sidebarDesc.innerText = data.desc;
+                sidebarType.innerText = data.type;
+                sidebarNotesLink.href = data.notesUrl;
+
+                // Render dynamic multiple video links
+                sidebarVideoList.innerHTML = '';
+                data.videos.forEach(video => {
+                    const videoCard = document.createElement('a');
+                    videoCard.className = video.locked ? 'video-card locked-video' : 'video-card';
+                    videoCard.href = video.locked ? '#' : video.url;
+                    
+                    if (video.locked) {
+                        videoCard.onclick = (ev) => {
+                            ev.preventDefault();
+                            alert('This is a premium locked video tutorial. Upgrade your plan to unlock!');
+                        };
+                    }
+
+                    videoCard.innerHTML = `
+                        <div class="video-meta">
+                            <div class="video-icon">${video.locked ? '🔒' : '🎥'}</div>
+                            <div>
+                                <div class="video-creator">${video.creator}</div>
+                                <div class="video-title">${video.title}</div>
+                            </div>
+                        </div>
+                        <div>
+                            ${video.locked ? '<span class="lock-badge">🔒 Premium</span>' : '<span style="color: var(--primary); font-weight: 600;">→</span>'}
+                        </div>
+                    `;
+                    sidebarVideoList.appendChild(videoCard);
+                });
+
+                // Open sidebar smoothly
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+            });
+        });
+
+        // Close sidebar functions
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        }
+
+        sidebarClose.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebar();
+        });
+    </script>
+
+</body>
+</html>
