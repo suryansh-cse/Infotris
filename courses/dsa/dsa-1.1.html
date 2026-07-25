@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1.1: Memory Architecture & Pointers | Infotris DSA</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Segoe UI, sans-serif;
+    background: #f6f7f9;
+    color: #111827;
+    line-height: 1.6;
+}
+
+/* Header Navbar */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-logo {
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.btn-dashboard {
+    padding: 0.5rem 1.25rem;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-dashboard:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Main Layout */
+.lesson-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb & Meta */
+.lesson-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.module-badge {
+    background: #111827;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.time-badge {
+    background: rgba(17, 24, 39, 0.06);
+    color: #4b5563;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Lesson Content Card */
+.lesson-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.lesson-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 32px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Multi-language code snippet tabs block */
+.code-section {
+    margin: 24px 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+.code-tabs {
+    display: flex;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 12px;
+}
+
+.code-tab {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.code-tab.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.code-content {
+    display: none;
+    padding: 24px;
+    color: #f3f4f6;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.code-content.active {
+    display: block;
+}
+
+.code-box .comment { color: #9ca3af; }
+.code-box .keyword { color: #f472b6; }
+.code-box .function { color: #60a5fa; }
+
+/* Interactive Quiz / Homework Box */
+.interactive-section {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.interactive-section h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.quiz-option {
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #111827;
+    background: #f1f5f9;
+}
+
+.quiz-option.correct {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #166534 !important;
+}
+
+.quiz-option.wrong {
+    background: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #991b1b !important;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 24px;
+}
+
+/* Footer Action Buttons */
+.lesson-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: #111827;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+    border: 2px solid #d1d5db;
+    color: #374151;
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    border-color: #111827;
+    color: #111827;
+}
+
+@media(max-width: 768px) {
+    .lesson-card {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .lesson-footer-nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../../index.html" class="navbar-logo">Infotris</a>
+        <a href="../../courses.html" class="btn-dashboard">Back to Courses</a>
+    </nav>
+</header>
+
+<main class="lesson-container">
+    <div class="lesson-meta-bar">
+        <span class="module-badge">Module 1.1</span>
+        <span class="time-badge">⏱ 20 min read</span>
+        <span class="time-badge">⚡ Foundational Concept</span>
+    </div>
+
+    <div class="lesson-card">
+        <h1>Memory Architecture & References</h1>
+        <p class="lesson-subtitle">Before diving into complex data structures like trees or graphs, you must understand how computer systems map variables, references, and physical memory slots regardless of your programming language.</p>
+
+        <div class="divider"></div>
+
+        <h2>1. The Hardware View: RAM Layout & Addresses</h2>
+        <p>Think of your machine's Random Access Memory (RAM) as a massive matrix of sequential post office boxes. Every box has a unique hexadecimal address identifier. When a compiler or interpreter runs your code, it allocates specific slots for variables depending on their data type size.</p>
+        <p>In languages like <strong>C++</strong>, you directly manage memory addresses using pointers (`&` and `*`). In <strong>Python</strong> or <strong>Java</strong>, the language runtime abstracts these memory references using object references and garbage collection, but the underlying hardware execution model remains identical.</p>
+
+        <!-- Multi-language code view -->
+        <div class="code-section code-box">
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab(event, 'cpp-code')">C++</button>
+                <button class="code-tab" onclick="switchTab(event, 'python-code')">Python</button>
+                <button class="code-tab" onclick="switchTab(event, 'java-code')">Java</button>
+            </div>
+            <div id="cpp-code" class="code-content active">
+<span class="comment">// C++ Direct Pointer & Memory Allocation</span>
+<span class="keyword">int</span> main() {
+    <span class="keyword">int</span> val = 42;          <span class="comment">// Stack variable</span>
+    <span class="keyword">int</span>* ptr = &val;       <span class="comment">// Store memory address</span>
+    <span class="keyword">return</span> 0;
+}
+            </div>
+            <div id="python-code" class="code-content">
+<span class="comment"># Python Object References & id() function</span>
+val = 42                   <span class="comment"># Object allocated in memory</span>
+print(id(val))             <span class="comment"># View the internal memory address reference</span>
+            </div>
+            <div id="java-code" class="code-content">
+<span class="comment">// Java Reference Handles</span>
+<span class="keyword">public</span> <span class="keyword">class</span> Main {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="function">main</span>(String[] args) {
+        Integer val = 42; <span class="comment">// Reference variable pointing to heap object</span>
+    }
+}
+            </div>
+        </div>
+
+        <h2>2. Stack vs. Heap Allocation</h2>
+        <p><strong>The Stack:</strong> Operates on a Last-In, First-Out (LIFO) model. It handles static memory allocation, local scope variables, and function invocation frames. It is extremely fast because memory allocation is just moving a stack pointer up or down.</p>
+        <p><strong>The Heap:</strong> Used for dynamic allocation where variable sizes or lifetimes are unknown at compile time. While flexible, managing the heap manually (like in C++) or via runtime garbage collection (like in Python/Java) impacts performance and introduces risks like leaks or fragmentation.</p>
+
+        <!-- Interactive Quiz Section -->
+        <div class="interactive-section">
+            <h3>Quick Check: Test Your Intuition</h3>
+            <p>Which statement best describes where local variables inside standard function scopes are allocated?</p>
+            
+            <div class="quiz-options">
+                <button class="quiz-option" onclick="checkAnswer(this, false)">A) The external file system database</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true)">B) The call stack memory frame for that function execution</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">C) The global unmanaged heap pool</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">D) The CPU internal register cache exclusively</button>
+            </div>
+            <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="lesson-footer-nav">
+            <a href="../../courses.html" class="btn btn-secondary">← Back to Curriculum</a>
+            <a href="#" class="btn btn-primary">Next: Big O Notation →</a>
+        </div>
+    </div>
+</main>
+
+<script>
+function switchTab(evt, tabId) {
+    const contents = document.querySelectorAll('.code-content');
+    contents.forEach(c => c.classList.remove('active'));
+
+    const tabs = document.querySelectorAll('.code-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+function checkAnswer(button, isCorrect) {
+    const options = button.parentElement.querySelectorAll('.quiz-option');
+    options.forEach(opt => {
+        opt.disabled = true;
+        // Check which one was the correct answer to highlight it green if they chose wrong
+        if(opt.getAttribute('onclick').includes('true')) {
+            opt.classList.add('correct');
+        }
+    });
+
+    const feedback = document.getElementById('quizFeedback');
+    if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.color = '#166534';
+        feedback.textContent = 'Correct! Local scope variables are managed cleanly on the LIFO call stack frame.';
+    } else {
+        button.classList.add('wrong');
+        feedback.style.color = '#991b1b';
+        feedback.textContent = 'Not quite! The correct option is highlighted in light green above.';
+    }
+}
+</script>
+
+</body>
+</html>
