@@ -1,65 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infotris | Big O</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../../css/system/theme.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1.3: Space Complexity & Call Stack Mechanics | Infotris DSA</title>
     <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/lesson.css">
     <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Segoe UI, sans-serif;
+    background: #f6f7f9;
+    color: #111827;
+    line-height: 1.6;
+}
+
+/* Header Navbar */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-logo {
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.btn-dashboard {
+    padding: 0.5rem 1.25rem;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-dashboard:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Main Layout */
+.lesson-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb & Meta */
+.lesson-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.module-badge {
+    background: #111827;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.time-badge {
+    background: rgba(17, 24, 39, 0.06);
+    color: #4b5563;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Lesson Content Card */
+.lesson-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.lesson-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 32px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Multi-language code snippet tabs block */
+.code-section {
+    margin: 24px 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+.code-tabs {
+    display: flex;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 12px;
+}
+
+.code-tab {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.code-tab.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.code-content {
+    display: none;
+    padding: 24px;
+    color: #f3f4f6;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.code-content.active {
+    display: block;
+}
+
+.code-box .comment { color: #9ca3af; }
+.code-box .keyword { color: #f472b6; }
+.code-box .function { color: #60a5fa; }
+
+/* Interactive Quiz / Homework Box */
+.interactive-section {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.interactive-section h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.quiz-option {
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #111827;
+    background: #f1f5f9;
+}
+
+.quiz-option.correct {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #166534 !important;
+}
+
+.quiz-option.wrong {
+    background: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #991b1b !important;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 24px;
+}
+
+/* Footer Action Buttons */
+.lesson-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: #111827;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+    border: 2px solid #d1d5db;
+    color: #374151;
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    border-color: #111827;
+    color: #111827;
+}
+
+@media(max-width: 768px) {
+    .lesson-card {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .lesson-footer-nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
 </head>
-<body class="page-lesson">
-    <main>
-        <header class="lesson-header">
-            <div class="lesson-header__inner">
-                <h1 class="lesson-header__title">Big O notation (intro)</h1>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../../index.html" class="navbar-logo">Infotris</a>
+        <a href="../../courses.html" class="btn-dashboard">Back to Courses</a>
+    </nav>
+</header>
+
+<main class="lesson-container">
+    <div class="lesson-meta-bar">
+        <span class="module-badge">Module 1.3</span>
+        <span class="time-badge">⏱ 20 min read</span>
+        <span class="time-badge">⚡ Core Concept</span>
+    </div>
+
+    <div class="lesson-card">
+        <h1>Space Complexity & Call Stack Mechanics</h1>
+        <p class="lesson-subtitle">Processor speed isn't the only bottleneck. Learn how to track physical memory footprints, auxiliary space rules, and recursive stack frames across your code bases.</p>
+
+        <div class="divider"></div>
+
+        <h2>1. Defining Space Complexity</h2>
+        <p>While time complexity measures how long code takes, space complexity calculates the total amount of volatile memory (RAM) your algorithm requires relative to the input size ($n$). This includes both input storage and <strong>auxiliary space</strong> (extra memory allocated by the algorithm itself).</p>
+
+        <h2>2. Auxiliary Space vs. Total Space</h2>
+        <p>When interviewers ask for space complexity, they usually want the auxiliary space. If a function accepts an array of size $n$ and creates a duplicate list of size $n$, the auxiliary space is $O(n)$, while the total space is $O(n + n)$, which simplifies back to $O(n)$.</p>
+
+        <!-- Multi-language code view -->
+        <div class="code-section code-box">
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab(event, 'cpp-code')">C++</button>
+                <button class="code-tab" onclick="switchTab(event, 'python-code')">Python</button>
+                <button class="code-tab" onclick="switchTab(event, 'java-code')">Java</button>
             </div>
-        </header>
-        <article class="lesson-content">
-            <div class="lesson-content__inner">
-                <p>Big O describes how runtime or space grows as input size n grows — worst-case unless noted.</p>
-                <ul>
-                    <li><strong>O(1)</strong> — constant: index into list</li>
-                    <li><strong>O(n)</strong> — linear: loop through all items</li>
-                    <li><strong>O(n²)</strong> — quadratic: nested loops over same data</li>
-                    <li><strong>O(log n)</strong> — logarithmic: binary search</li>
-                </ul>
-                <pre><code># O(n)
-def total(nums):
-    s = 0
-    for x in nums:
-        s += x
-    return s</code></pre>
-                <section class="practice-panel" data-practice-type="lesson" data-practice-id="dsa-03-big-o" aria-labelledby="practice-title">
-                    <div class="practice-panel__header">
-                        <span class="practice-panel__eyebrow">Reflect</span>
-                        <h2 id="practice-title" class="practice-panel__title">Quick check</h2>
-                        <p class="practice-panel__hint">Label the complexity of a few snippets you write or read.</p>
-                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
-                        <span class="practice-progress__label">0% complete</span>
-                    </div>
-                    <fieldset class="practice-checklist">
-                        <legend>Check when done</legend>
-                        <label class="practice-check"><input type="checkbox"><span>I can identify O(1) vs O(n) from a short code sample</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>I spotted nested loops as O(n²) in an example</span></label>
-                        <label class="practice-check"><input type="checkbox"><span>I know binary search is O(log n) and why the list must be sorted</span></label>
-                    </fieldset>
-                    <div class="practice-success" hidden>
-                        <span class="practice-success__icon" aria-hidden="true">✓</span>
-                        <p class="practice-success__title">Practice complete!</p>
-                        <p class="practice-success__text">Big O basics in place — searching algorithms next.</p>
-                    </div>
-                </section>
-                <nav class="lesson-nav">
-                    <a href="02-arrays">← Previous</a>
-                    <a class="lesson-nav__next" href="04-searching">Next →</a>
-                </nav>
+            <div id="cpp-code" class="code-content active">
+<span class="comment">// Recursive Factorial: O(n) Space due to Call Stack Frames</span>
+<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span> (n &lt;= 1) <span class="keyword">return</span> 1;
+    <span class="keyword">return</span> n * factorial(n - 1); <span class="comment">// Stack grows linearly with n</span>
+}
             </div>
-        </article>
-    </main>
-    <script src="../../js/practice.js" defer></script>
+            <div id="python-code" class="code-content">
+<span class="comment"># Recursive Factorial: O(n) Space due to Call Stack Frames</span>
+<span class="keyword">def</span> <span class="function">factorial</span>(n):
+    <span class="keyword">if</span> n &lt;= 1:
+        <span class="keyword">return</span> 1
+    <span class="keyword">return</span> n * factorial(n - 1)  <span class="comment"># Each recursive call stays active on stack</span>
+            </div>
+            <div id="java-code" class="code-content">
+<span class="comment">// Recursive Factorial: O(n) Space due to Call Stack Frames</span>
+<span class="keyword">public</span> <span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span> (n &lt;= 1) <span class="keyword">return</span> 1;
+    <span class="keyword">return</span> n * factorial(n - 1);
+}
+            </div>
+        </div>
+
+        <h2>3. Understanding Recursive Stack Memory</h2>
+        <p>Every time a function calls itself recursively, the system pushes a new stack frame onto the call stack to hold local variables and return addresses. If a recursive function runs $n$ times deep before hitting a base case, its space complexity is automatically $O(n)$ regardless of variables declared inside!</p>
+
+        <!-- Interactive Quiz Section -->
+        <div class="interactive-section">
+            <h3>Quick Check: Test Your Intuition</h3>
+            <p>If a recursive function makes $n$ sequential self-calls before reaching its termination base case, what is its minimum auxiliary space complexity?</p>
+            
+            <div class="quiz-options">
+                <button class="quiz-option" onclick="checkAnswer(this, false)">A) O(1) Constant Space</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true)">B) O(n) Linear Space due to call stack frames</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">C) O(n^2) Quadratic Space</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">D) O(log n) Logarithmic Space</button>
+            </div>
+            <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="lesson-footer-nav">
+            <a href="lesson-1-2.html" class="btn btn-secondary">← Previous: Asymptotic Analysis</a>
+            <a href="../module-2/lesson-2-1.html" class="btn btn-primary">Next Module: Arrays & Strings →</a>
+        </div>
+    </div>
+</main>
+
+<script>
+function switchTab(evt, tabId) {
+    const contents = document.querySelectorAll('.code-content');
+    contents.forEach(c => c.classList.remove('active'));
+
+    const tabs = document.querySelectorAll('.code-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+function checkAnswer(button, isCorrect) {
+    const options = button.parentElement.querySelectorAll('.quiz-option');
+    options.forEach(opt => {
+        opt.disabled = true;
+        if(opt.getAttribute('onclick').includes('true')) {
+            opt.classList.add('correct');
+        }
+    });
+
+    const feedback = document.getElementById('quizFeedback');
+    if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.color = '#166534';
+        feedback.textContent = 'Correct! Unresolved recursive call stacks consume O(n) memory frames.';
+    } else {
+        button.classList.add('wrong');
+        feedback.style.color = '#991b1b';
+        feedback.textContent = 'Not quite! The correct option is highlighted in light green above.';
+    }
+}
+</script>
+
 </body>
 </html>
