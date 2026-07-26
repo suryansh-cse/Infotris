@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 1.3: Space Complexity & Call Stack Mechanics | Infotris DSA</title>
+<title>Module 2.3: Prefix Sums & Matrix Manipulation | Infotris DSA</title>
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/lesson.css">
@@ -237,7 +237,7 @@ p {
     width: 100%;
 }
 
-.quiz-option.hover:not(:disabled) {
+.quiz-option:hover:not(:disabled) {
     border-color: #111827;
     background: #f1f5f9;
 }
@@ -330,29 +330,26 @@ p {
 
 <main class="lesson-container">
     <div class="lesson-meta-bar">
-        <span class="module-badge">Module 1.3</span>
-        <span class="time-badge">⏱ 30 min read</span>
-        <span class="time-badge">⚡ Mathematical Foundations</span>
+        <span class="module-badge">Module 2.3</span>
+        <span class="time-badge">⏱ 35 min read</span>
+        <span class="time-badge">⚡ Matrices & Precomputation</span>
     </div>
 
     <div class="lesson-card">
-        <h1>Space Complexity & Call Stack Mechanics</h1>
-        <p class="lesson-subtitle">Conclude Module 1 by learning how memory footprint extends beyond just variables into auxiliary allocations and the underlying recursive call stack.</p>
+        <h1>Prefix Sums & Matrix Manipulation</h1>
+        <p class="lesson-subtitle">Transform costly range-sum queries into instant $O(1)$ lookups using precomputed cumulative sums and master multi-directional 2D grid traversals.</p>
 
         <div class="divider"></div>
 
-        <h2>1. Auxiliary Space vs. Total Space</h2>
-        <p>When measuring memory consumption, algorithms are evaluated using two metrics:</p>
-        <p><strong>Total Space:</strong> The complete memory consumed by the algorithm during execution, which includes both the input data structure storage and any extra working memory allocated.</p>
-        <p><strong>Auxiliary Space:</strong> Specifically isolates the <em>extra</em> or temporary space used by the algorithm, excluding the memory taken up by the inputs themselves. In asymptotic analysis, we predominantly care about auxiliary space complexity.</p>
+        <h2>1. 1D and 2D Prefix Sum Arrays</h2>
+        <p>A prefix sum array precomputes cumulative totals so that the sum of any subarray between indices $L$ and $R$ can be found in constant time: `sum(L, R) = prefix[R + 1] - prefix[L]`.</p>
+        <p>In 2D matrices, this concept expands into a 2D prefix sum grid. By tracking cumulative subgrid areas, you can compute the sum of any arbitrary subrectangle defined by coordinates $(r_1, c_1)$ and $(r_2, c_2)$ in $O(1)$ time by using inclusion-exclusion principles across overlapping areas.</p>
 
-        <h2>2. Recursive Call Stack Memory Limits</h2>
-        <p>Unlike iterative loops that execute within a fixed stack footprint, recursive functions rely heavily on the runtime call stack. Each time a function invokes itself, the processor creates a new <strong>stack frame</strong> containing local variables, function parameters, and the return address.</p>
-        <p>If recursion goes too deep without a proper base case or exceeds available stack frame limits, it triggers a <strong>Stack Overflow</strong> error, crashing the process.</p>
+        <h2>2. Matrix Traversal & Spiral Layouts</h2>
+        <p>Two-dimensional grids require deliberate navigation strategies. Beyond standard row-major and column-major traversals, problems like spiral matrix layouts require dynamic boundary contraction (top, bottom, left, right pointers) to peel outer rings layer by layer.</p>
 
-        <h2>3. Tail Recursion Optimization</h2>
-        <p>A recursive function is considered <strong>tail recursive</strong> if the recursive call is the absolute final operation performed in the function, meaning no further calculations happen after the recursive call returns.</p>
-        <p>Advanced compilers can perform <strong>Tail Call Optimization (TCO)</strong>, recognizing that the current stack frame's variables are no longer needed and overwriting them instead of stacking new frames—effectively reducing recursion space complexity from $O(n)$ down to $O(1)$ constant space.</p>
+        <h2>3. Matrix Rotation & In-Place Transformations</h2>
+        <p>Many interview problems require transforming 2D matrices in-place (without allocating extra $O(n^2)$ space). For instance, rotating a square matrix by 90 degrees clockwise can be elegantly achieved by first executing a matrix transpose (swapping elements across the main diagonal) followed by reversing each individual row.</p>
 
         <!-- Multi-language code view -->
         <div class="code-section code-box">
@@ -362,55 +359,86 @@ p {
                 <button class="code-tab" onclick="switchTab(event, 'java-code')">Java</button>
             </div>
             <div id="cpp-code" class="code-content active">
-<span class="comment">// C++ Recursive Factorial Demonstrating Call Stack Frames O(n) Space</span>
-#include &lt;iostream&gt;
+<span class="comment">// C++ Solution: Rotate Image by 90 Degrees Clockwise In-Place</span>
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
 
-<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
-    <span class="comment">// Base case</span>
-    <span class="keyword">if</span> (n &lt;= 1) <span class="keyword">return</span> 1;
-    <span class="comment">// Each recursive frame stays active waiting for return value</span>
-    <span class="keyword">return</span> n * factorial(n - 1);
-}
+<span class="keyword">class</span> Solution {
+<span class="keyword">public:</span>
+    <span class="keyword">void</span> <span class="function">rotate</span>(std::vector&lt;std::vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) {
+        <span class="keyword">int</span> n = matrix.size();
+        <span class="comment">// Step 1: Transpose the matrix</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; n; ++i) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; n; ++j) {
+                std::swap(matrix[i][j], matrix[j][i]);
+            }
+        }
+        <span class="comment">// Step 2: Reverse each row</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; n; ++i) {
+            std::reverse(matrix[i].begin(), matrix[i].end());
+        }
+    }
+};
             </div>
             <div id="python-code" class="code-content">
-<span class="comment"># Python Recursive Factorial Call Stack Growth</span>
-<span class="keyword">def</span> <span class="function">factorial</span>(n: <span class="type">int</span>) -> <span class="type">int</span>:
-    <span class="keyword">if</span> n &lt;= 1:
-        <span class="keyword">return</span> 1
-    # Stack frames accumulate linearly: O(n) space complexity
-    <span class="keyword">return</span> n * factorial(n - 1)
+<span class="comment"># Python Solution: Rotate Image by 90 Degrees Clockwise In-Place</span>
+<span class="keyword">class</span> Solution:
+    <span class="keyword">def</span> <span class="function">rotate</span>(self, matrix: <span class="type">list</span>[<span class="type">list</span>[<span class="type">int</span>]]) -> <span class="keyword">None</span>:
+        n = <span class="keyword">len</span>(matrix)
+        # Step 1: Transpose matrix
+        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(n):
+            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="keyword">range</span>(i, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        # Step 2: Reverse each row
+        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(n):
+            matrix[i].reverse()
             </div>
             <div id="java-code" class="code-content">
-<span class="comment">// Java Recursive Factorial Stack Frame Allocation</span>
-<span class="keyword">public</span> <span class="keyword">class</span> Solution {
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
-        <span class="keyword">if</span> (n &lt;= 1) <span class="keyword">return</span> 1;
-        <span class="keyword">return</span> n * factorial(n - 1);
+<span class="comment">// Java Solution: Rotate Image by 90 Degrees Clockwise In-Place</span>
+<span class="keyword">class</span> Solution {
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="function">rotate</span>(<span class="keyword">int</span>[][] matrix) {
+        <span class="keyword">int</span> n = matrix.length;
+        <span class="comment">// Step 1: Transpose</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; n; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; n; j++) {
+                <span class="keyword">int</span> temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        <span class="comment">// Step 2: Reverse rows</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; n; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = 0; j &lt; n / 2; j++) {
+                <span class="keyword">int</span> temp = matrix[i][j];
+                matrix[i][j] = matrix[i][n - 1 - j];
+                matrix[i][n - 1 - j] = temp;
+            }
+        }
     }
 }
             </div>
         </div>
 
         <h2>4. Homework & Quiz Overview</h2>
-        <p>To verify your mastery of this chapter, practice evaluating the stack memory footprint of complex recursive functions, tree traversals, and multi-branching recursive expansions.</p>
+        <p>To secure your understanding, practice coding range sum query implementations using precomputed prefix arrays and dry-run boundary updates for matrix rotations and spiral traversals.</p>
 
         <!-- Interactive Quiz Section -->
         <div class="interactive-section">
             <h3>Quick Check: Test Your Intuition</h3>
-            <p>What is the auxiliary space complexity of a standard recursive function that performs a single recursive call and goes down to a depth of $n$?</p>
+            <p>What is the time complexity required to answer a range sum query on a 1D array after the prefix sum array has been precomputed?</p>
             
             <div class="quiz-options">
-                <button class="quiz-option" onclick="checkAnswer(this, false)">A) O(1) Constant Space</button>
-                <button class="quiz-option" onclick="checkAnswer(this, true)">B) O(n) Linear Space due to call stack frames</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false)">C) O(n^2) Quadratic Space</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false)">D) O(log n) Logarithmic Space</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">A) O(n) Linear Time</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true)">B) O(1) Constant Time</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">C) O(log n) Logarithmic Time</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">D) O(n^2) Quadratic Time</button>
             </div>
             <div id="quizFeedback" class="quiz-feedback"></div>
         </div>
 
         <div class="lesson-footer-nav">
-            <a href="dsa-1.2.html" class="btn btn-secondary">← Previous: Asymptotic Analysis</a>
-            <a href="dsa-2.1.html" class="btn btn-primary">Next: Module 2 (Static vs. Dynamic Arrays) →</a>
+            <a href="dsa-2.2.html" class="btn btn-secondary">← Previous: Two-Pointer & Sliding Window</a>
+            <a href="dsa-2.4.html" class="btn btn-primary">Next: Module 2.4 →</a>
         </div>
     </div>
 </main>
@@ -440,7 +468,7 @@ function checkAnswer(button, isCorrect) {
     if (isCorrect) {
         button.classList.add('correct');
         feedback.style.color = '#166534';
-        feedback.textContent = 'Correct! Each active level of recursion occupies a frame on the call stack, scaling linearly with depth n.';
+        feedback.textContent = 'Correct! Precomputing prefix sums allows any range sum query to be resolved in O(1) time.';
     } else {
         button.classList.add('wrong');
         feedback.style.color = '#991b1b';
