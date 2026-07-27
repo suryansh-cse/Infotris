@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 6.1: Binary Trees & Traversals | Infotris DSA</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Segoe UI, sans-serif;
+    background: #f6f7f9;
+    color: #111827;
+    line-height: 1.6;
+}
+
+/* Header Navbar */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-logo {
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.btn-dashboard {
+    padding: 0.5rem 1.25rem;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-dashboard:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Main Layout */
+.lesson-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb & Meta */
+.lesson-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.module-badge {
+    background: #111827;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.time-badge {
+    background: rgba(17, 24, 39, 0.06);
+    color: #4b5563;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Lesson Content Card */
+.lesson-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.lesson-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 32px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Multi-language code snippet tabs block */
+.code-section {
+    margin: 24px 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+.code-tabs {
+    display: flex;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 12px;
+}
+
+.code-tab {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.code-tab.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.code-content {
+    display: none;
+    padding: 24px;
+    color: #f3f4f6;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.code-content.active {
+    display: block;
+}
+
+.code-box .comment { color: #9ca3af; }
+.code-box .keyword { color: #f472b6; }
+.code-box .function { color: #60a5fa; }
+.code-box .type { color: #34d399; }
+
+/* Interactive Quiz / Homework Box */
+.interactive-section {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.interactive-section h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.quiz-option {
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #111827;
+    background: #f1f5f9;
+}
+
+.quiz-option.correct {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #166534 !important;
+}
+
+.quiz-option.wrong {
+    background: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #991b1b !important;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 24px;
+}
+
+/* Footer Action Buttons */
+.lesson-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: #111827;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+    border: 2px solid #d1d5db;
+    color: #374151;
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    border-color: #111827;
+    color: #111827;
+}
+
+@media(max-width: 768px) {
+    .lesson-card {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .lesson-footer-nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../../index" class="navbar-logo">Infotris</a>
+        <a href="../../courses" class="btn-dashboard">Back to Courses</a>
+    </nav>
+</header>
+
+<main class="lesson-container">
+    <div class="lesson-meta-bar">
+        <span class="module-badge">Module 6.1</span>
+        <span class="time-badge">⏱ 45 min read</span>
+        <span class="time-badge">⚡ Trees & Graph Traversals</span>
+    </div>
+
+    <div class="lesson-card">
+        <h1>Binary Trees & Traversals</h1>
+        <p class="lesson-subtitle">Master fundamental tree terminology, Depth-First Search (DFS) orderings, and Breadth-First Search (BFS) level-order traversal.</p>
+
+        <div class="divider"></div>
+
+        <h2>1. Tree Terminology & Binary Tree Properties</h2>
+        <p>A <strong>binary tree</strong> is a hierarchical data structure consisting of nodes, where each node has at most two children referred to as the <strong>left child</strong> and the <strong>right child</strong>. Key terminology includes:</p>
+        <p><strong>Root:</strong> The topmost node of a tree from which all other nodes branch out.</p>
+        <p><strong>Leaf:</strong> A node that has no children (both left and right pointers are null).</p>
+        <p><strong>Height & Depth:</strong> The depth of a node is its distance from the root, while the height of a tree is the maximum depth of any node within it.</p>
+
+        <h2>2. Depth-First Search (DFS) & Breadth-First Search (BFS)</h2>
+        <p>Traversing tree structures allows us to inspect or process every node systematically:</p>
+        <p><strong>DFS Orderings:</strong> Depth-first search explores branches deeply before backtracking. Depending on when the root is visited relative to its subtrees, DFS is classified into **Pre-order** (Root, Left, Right), **In-order** (Left, Root, Right), and **Post-order** (Left, Right, Root).</p>
+        <p><strong>BFS (Level Order Traversal):</strong> Breadth-first search processes nodes level by level from top to bottom, typically implemented using a **Queue** data structure.</p>
+
+        <!-- Multi-language code view -->
+        <div class="code-section code-box">
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab(event, 'cpp-code')">C++</button>
+                <button class="code-tab" onclick="switchTab(event, 'python-code')">Python</button>
+                <button class="code-tab" onclick="switchTab(event, 'java-code')">Java</button>
+            </div>
+            <div id="cpp-code" class="code-content active">
+<span class="comment">// C++ Solution: Binary Tree Level Order Traversal (BFS)</span>
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+
+<span class="keyword">struct</span> TreeNode {
+    <span class="keyword">int</span> val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(<span class="keyword">int</span> x) : val(x), left(<span class="keyword">nullptr</span>), right(<span class="keyword">nullptr</span>) {}
+};
+
+<span class="keyword">class</span> Solution {
+<span class="keyword">public:</span>
+    std::vector&lt;std::vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="function">levelOrder</span>(TreeNode* root) {
+        std::vector&lt;std::vector&lt;<span class="keyword">int</span>&gt;&gt; result;
+        <span class="keyword">if</span> (!root) <span class="keyword">return</span> result;
+        std::queue&lt;TreeNode*&gt; q;
+        q.push(root);
+        <span class="keyword">while</span> (!q.empty()) {
+            <span class="keyword">int</span> size = q.size();
+            std::vector&lt;<span class="keyword">int</span>&gt; level;
+            <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; size; ++i) {
+                TreeNode* node = q.front();
+                q.pop();
+                level.push_back(node-&gt;val);
+                <span class="keyword">if</span> (node-&gt;left) q.push(node-&gt;left);
+                <span class="keyword">if</span> (node-&gt;right) q.push(node-&gt;right);
+            }
+            result.push_back(level);
+        }
+        <span class="keyword">return</span> result;
+    }
+};
+            </div>
+            <div id="python-code" class="code-content">
+<span class="comment"># Python Solution: Binary Tree Level Order Traversal (BFS)</span>
+<span class="keyword">from</span> collections <span class="keyword">import</span> deque
+
+<span class="keyword">class</span> TreeNode:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, val=<span class="keyword">0</span>, left=<span class="keyword">None</span>, right=<span class="keyword">None</span>):
+        self.val = val
+        self.left = left
+        self.right = right
+
+<span class="keyword">class</span> Solution:
+    <span class="keyword">def</span> <span class="function">levelOrder</span>(self, root: TreeNode) -> <span class="type">list</span>[<span class="type">list</span>[<span class="type">int</span>]]:
+        result = []
+        <span class="keyword">if</span> <span class="keyword">not</span> root:
+            <span class="keyword">return</span> result
+        q = deque([root])
+        <span class="keyword">while</span> q:
+            size = <span class="function">len</span>(q)
+            level = []
+            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="function">range</span>(size):
+                node = q.popleft()
+                level.append(node.val)
+                <span class="keyword">if</span> node.left:
+                    q.append(node.left)
+                <span class="keyword">if</span> node.right:
+                    q.append(node.right)
+            result.append(level)
+        <span class="keyword">return</span> result
+            </div>
+            <div id="java-code" class="code-content">
+<span class="comment">// Java Solution: Binary Tree Level Order Traversal (BFS)</span>
+<span class="keyword">import</span> java.util.*;
+
+<span class="keyword">class</span> TreeNode {
+    <span class="keyword">int</span> val;
+    TreeNode left, right;
+    TreeNode(<span class="keyword">int</span> x) { val = x; }
+}
+
+<span class="keyword">class</span> Solution {
+    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="function">levelOrder</span>(TreeNode root) {
+        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();
+        <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> result;
+        Queue&lt;TreeNode&gt; q = <span class="keyword">new</span> LinkedList&lt;&gt;();
+        q.offer(root);
+        <span class="keyword">while</span> (!q.isEmpty()) {
+            <span class="keyword">int</span> size = q.size();
+            List&lt;Integer&gt; level = <span class="keyword">new</span> ArrayList&lt;&gt;();
+            <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; size; i++) {
+                TreeNode node = q.poll();
+                level.add(node.val);
+                <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) q.offer(node.left);
+                <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) q.offer(node.right);
+            }
+            result.add(level);
+        }
+        <span class="keyword">return</span> result;
+    }
+}
+            </div>
+        </div>
+
+        <h2>3. Homework & Quiz Overview</h2>
+        <p>To lock in your mastery, complete the implementation exercises for finding the <strong>Maximum Depth of a Binary Tree</strong> and implementing <strong>Level Order Traversal</strong>.</p>
+
+        <!-- Interactive Quiz Section -->
+        <div class="interactive-section">
+            <h3>Quick Check: Test Your Intuition</h3>
+            <p>Which DFS traversal strategy visits the left subtree first, then the root node, and finally the right subtree?</p>
+            
+            <div class="quiz-options">
+                <button class="quiz-option" onclick="checkAnswer(this, false)">A) Pre-order traversal</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true)">B) In-order traversal</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">C) Post-order traversal</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">D) Level-order traversal</button>
+            </div>
+            <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="lesson-footer-nav">
+            <a href="dsa-5.3" class="btn btn-secondary">← Previous: Module 5.3</a>
+            <a href="dsa-6.2" class="btn btn-primary">Next: Module 6.2 →</a>
+        </div>
+    </div>
+</main>
+
+<script>
+function switchTab(evt, tabId) {
+    const contents = document.querySelectorAll('.code-content');
+    contents.forEach(c => c.classList.remove('active'));
+
+    const tabs = document.querySelectorAll('.code-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+function checkAnswer(button, isCorrect) {
+    const options = button.parentElement.querySelectorAll('.quiz-option');
+    options.forEach(opt => {
+        opt.disabled = true;
+        if(opt.getAttribute('onclick').includes('true')) {
+            opt.classList.add('correct');
+        }
+    });
+
+    const feedback = document.getElementById('quizFeedback');
+    if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.color = '#166534';
+        feedback.textContent = 'Correct! In-order traversal visits the left subtree, processes the current root node, and then visits the right subtree.';
+    } else {
+        button.classList.add('wrong');
+        feedback.style.color = '#991b1b';
+        feedback.textContent = 'Not quite! The correct option is highlighted in light green above.';
+    }
+}
+</script>
+
+</body>
+</html>
