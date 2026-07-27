@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 7.2: Shortest Path & Minimum Spanning Trees | Infotris DSA</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Segoe UI, sans-serif;
+    background: #f6f7f9;
+    color: #111827;
+    line-height: 1.6;
+}
+
+/* Header Navbar */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-logo {
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.btn-dashboard {
+    padding: 0.5rem 1.25rem;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-dashboard:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Main Layout */
+.lesson-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb & Meta */
+.lesson-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.module-badge {
+    background: #111827;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.time-badge {
+    background: rgba(17, 24, 39, 0.06);
+    color: #4b5563;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Lesson Content Card */
+.lesson-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.lesson-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 32px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Multi-language code snippet tabs block */
+.code-section {
+    margin: 24px 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+.code-tabs {
+    display: flex;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 12px;
+}
+
+.code-tab {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.code-tab.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.code-content {
+    display: none;
+    padding: 24px;
+    color: #f3f4f6;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.code-content.active {
+    display: block;
+}
+
+.code-box .comment { color: #9ca3af; }
+.code-box .keyword { color: #f472b6; }
+.code-box .function { color: #60a5fa; }
+.code-box .type { color: #34d399; }
+
+/* Interactive Quiz / Homework Box */
+.interactive-section {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.interactive-section h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.quiz-option {
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #111827;
+    background: #f1f5f9;
+}
+
+.quiz-option.correct {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #166534 !important;
+}
+
+.quiz-option.wrong {
+    background: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #991b1b !important;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 24px;
+}
+
+/* Footer Action Buttons */
+.lesson-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: #111827;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+    border: 2px solid #d1d5db;
+    color: #374151;
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    border-color: #111827;
+    color: #111827;
+}
+
+@media(max-width: 768px) {
+    .lesson-card {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .lesson-footer-nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../../index.html" class="navbar-logo">Infotris</a>
+        <a href="../../courses.html" class="btn-dashboard">Back to Courses</a>
+    </nav>
+</header>
+
+<main class="lesson-container">
+    <div class="lesson-meta-bar">
+        <span class="module-badge">Module 7.2</span>
+        <span class="time-badge">⏱ 45 min read</span>
+        <span class="time-badge">⚡ Shortest Paths & MSTs</span>
+    </div>
+
+    <div class="lesson-card">
+        <h1>Shortest Path & Minimum Spanning Trees</h1>
+        <p class="lesson-subtitle">Master Dijkstra's algorithm for shortest paths, Disjoint Set Union (DSU / Union-Find) data structures, and Kruskal's Minimum Spanning Tree algorithm.</p>
+
+        <div class="divider"></div>
+
+        <h2>1. Dijkstra's Algorithm & Shortest Path Paradigms</h2>
+        <p><strong>Dijkstra's Algorithm</strong> is a greedy algorithm used to solve the single-source shortest path problem for a graph with non-negative edge weights. It iteratively selects the unvisited vertex with the smallest known tentative distance, relaxes its outgoing neighbor connections, and tracks shortest pathways using a Min-Priority Queue.</p>
+        <p><strong>Complexity:</strong> Using an adjacency list paired with a binary heap or priority queue, Dijkstra's algorithm runs in $O((V + E) \log V)$ time, making it highly efficient for sparse network topologies.</p>
+
+        <h2>2. Disjoint Set Union (DSU) & Kruskal's Algorithm</h2>
+        <p><strong>Disjoint Set Union (DSU / Union-Find):</strong> A data structure that tracks a partition of a set into disjoint subsets. It supports two primary operations: `find` (to locate the representative root of an element's set) and `union` (to merge two sets). Through optimization heuristics like **path compression** and **union by rank/size**, amortized time complexity drops to nearly constant time, $O(\alpha(n))$.</p>
+        <p><strong>Kruskal's Algorithm:</strong> A classic approach for finding a Minimum Spanning Tree (MST) in a connected weighted graph. It sorts all edges in ascending order of weight and greedily adds them to the forest using a DSU data structure to prevent cycles until all vertices are connected.</p>
+
+        <!-- Multi-language code view -->
+        <div class="code-section code-box">
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab(event, 'cpp-code')">C++</button>
+                <button class="code-tab" onclick="switchTab(event, 'python-code')">Python</button>
+                <button class="code-tab" onclick="switchTab(event, 'java-code')">Java</button>
+            </div>
+            <div id="cpp-code" class="code-content active">
+<span class="comment">// C++ Solution: Network Delay Time (Dijkstra's Algorithm)</span>
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;unordered_map&gt;
+#include &lt;climits&gt;
+
+<span class="keyword">class</span> Solution {
+<span class="keyword">public:</span>
+    <span class="keyword">int</span> <span class="function">networkDelayTime</span>(std::vector&lt;std::vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; times, <span class="keyword">int</span> n, <span class="keyword">int</span> k) {
+        std::unordered_map&lt;<span class="keyword">int</span>, std::vector&lt;std::pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt;&gt; adj;
+        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : times) {
+            adj[t[0]].push_back({t[1], t[2]});
+        }
+        std::priority_queue&lt;std::pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, std::vector&lt;std::pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt;, std::greater&lt;std::pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt;&gt; pq;
+        std::vector&lt;<span class="keyword">int</span>&gt; dist(n + 1, INT_MAX);
+        
+        dist[k] = 0;
+        pq.push({0, k});
+        
+        <span class="keyword">while</span> (!pq.empty()) {
+            <span class="keyword">auto</span> [d, u] = pq.top();
+            pq.pop();
+            
+            <span class="keyword">if</span> (d &gt; dist[u]) <span class="keyword">continue</span>;
+            
+            <span class="keyword">if</span> (adj.count(u)) {
+                <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; edge : adj[u]) {
+                    <span class="keyword">int</span> v = edge.first;
+                    <span class="keyword">int</span> weight = edge.second;
+                    <span class="keyword">if</span> (dist[u] + weight &lt; dist[v]) {
+                        dist[v] = dist[u] + weight;
+                        pq.push({dist[v], v});
+                    }
+                }
+            }
+        }
+        
+        <span class="keyword">int</span> maxDist = 0;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 1; i &lt;= n; ++i) {
+            <span class="keyword">if</span> (dist[i] == INT_MAX) <span class="keyword">return</span> -1;
+            maxDist = std::max(maxDist, dist[i]);
+        }
+        <span class="keyword">return</span> maxDist;
+    }
+};
+            </div>
+            <div id="python-code" class="code-content">
+<span class="comment"># Python Solution: Network Delay Time (Dijkstra's Algorithm)</span>
+<span class="keyword">import</span> heapq
+<span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
+
+<span class="keyword">class</span> Solution:
+    <span class="keyword">def</span> <span class="function">networkDelayTime</span>(self, times: <span class="type">list</span>[<span class="type">list</span>[<span class="type">int</span>]], n: <span class="type">int</span>, k: <span class="type">int</span>) -> <span class="type">int</span>:
+        adj = defaultdict(list)
+        <span class="keyword">for</span> u, v, w <span class="keyword">in</span> times:
+            adj[u].append((v, w))
+            
+        min_heap = [(0, k)]
+        dist = {i: <span class="type">float</span>('inf') <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(1, n + 1)}
+        dist[k] = 0
+        
+        <span class="keyword">while</span> min_heap:
+            d, u = heapq.<span class="function">heappop</span>(min_heap)
+            
+            <span class="keyword">if</span> d > dist[u]:
+                <span class="keyword">continue</span>
+                
+            <span class="keyword">for</span> v, weight <span class="keyword">in</span> adj[u]:
+                <span class="keyword">if</span> dist[u] + weight &lt; dist[v]:
+                    dist[v] = dist[u] + weight
+                    heapq.<span class="function">heappush</span>(min_heap, (dist[v], v))
+                    
+        max_dist = <span class="function">max</span>(dist.values())
+        <span class="keyword">return</span> max_dist <span class="keyword">if</span> max_dist != <span class="type">float</span>('inf') <span class="keyword">else</span> -1
+            </div>
+            <div id="java-code" class="code-content">
+<span class="comment">// Java Solution: Network Delay Time (Dijkstra's Algorithm)</span>
+<span class="keyword">import</span> java.util.*;
+
+<span class="keyword">class</span> Solution {
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="function">networkDelayTime</span>(<span class="keyword">int</span>[][] times, <span class="keyword">int</span> n, <span class="keyword">int</span> k) {
+        Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();
+        <span class="keyword">for</span> (<span class="keyword">int</span>[] t : times) {
+            adj.computeIfAbsent(t[0], x -&gt; <span class="keyword">new</span> ArrayList&lt;&gt;()).add(<span class="keyword">new</span> <span class="keyword">int</span>[]{t[1], t[2]});
+        }
+        
+        PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;(Comparator.comparingInt(a -&gt; a[0]));
+        <span class="keyword">int</span>[] dist = <span class="keyword">new</span> <span class="keyword">int</span>[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        
+        dist[k] = 0;
+        pq.offer(<span class="keyword">new</span> <span class="keyword">int</span>[]{0, k});
+        
+        <span class="keyword">while</span> (!pq.isEmpty()) {
+            <span class="keyword">int</span>[] curr = pq.poll();
+            <span class="keyword">int</span> d = curr[0], u = curr[1];
+            
+            <span class="keyword">if</span> (d &gt; dist[u]) <span class="keyword">continue</span>;
+            
+            <span class="keyword">if</span> (adj.containsKey(u)) {
+                <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : adj.get(u)) {
+                    <span class="keyword">int</span> v = edge[0], weight = edge[1];
+                    <span class="keyword">if</span> (dist[u] + weight &lt; dist[v]) {
+                        dist[v] = dist[u] + weight;
+                        pq.offer(<span class="keyword">new</span> <span class="keyword">int</span>[]{dist[v], v});
+                    }
+                }
+            }
+        }
+        
+        <span class="keyword">int</span> maxDist = 0;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 1; i &lt;= n; i++) {
+            <span class="keyword">if</span> (dist[i] == Integer.MAX_VALUE) <span class="keyword">return</span> -1;
+            maxDist = Math.max(maxDist, dist[i]);
+        }
+        <span class="keyword">return</span> maxDist;
+    }
+}
+            </div>
+        </div>
+
+        <h2>3. Homework & Quiz Overview</h2>
+        <p>To lock in your mastery, complete the implementation exercises for tracking <strong>Network Delay Time using Dijkstra</strong> and finding <strong>Redundant Connections using DSU</strong>.</p>
+
+        <!-- Interactive Quiz Section -->
+        <div class="interactive-section">
+            <h3>Quick Check: Test Your Intuition</h3>
+            <p>What is the primary purpose of path compression in a Disjoint Set Union (DSU / Union-Find) data structure?</p>
+            
+            <div class="quiz-options">
+                <button class="quiz-option" onclick="checkAnswer(this, false)">A) To sort graph edges in descending order by weight.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true)">B) To flatten the tree structure during `find` operations so future lookups execute in nearly constant time.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">C) To prevent cyclic loops during minimum spanning tree extraction.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">D) To allocate memory contiguously in flat array buffers.</button>
+            </div>
+            <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="lesson-footer-nav">
+            <a href="dsa-7.1.html" class="btn btn-secondary">← Previous: Module 7.1</a>
+            <a href="dsa-7.3.html" class="btn btn-primary">Next: Module 7.3 →</a>
+        </div>
+    </div>
+</main>
+
+<script>
+function switchTab(evt, tabId) {
+    const contents = document.querySelectorAll('.code-content');
+    contents.forEach(c => c.classList.remove('active'));
+
+    const tabs = document.querySelectorAll('.code-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+function checkAnswer(button, isCorrect) {
+    const options = button.parentElement.querySelectorAll('.quiz-option');
+    options.forEach(opt => {
+        opt.disabled = true;
+        if(opt.getAttribute('onclick').includes('true')) {
+            opt.classList.add('correct');
+        }
+    });
+
+    const feedback = document.getElementById('quizFeedback');
+    if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.color = '#166534';
+        feedback.textContent = 'Correct! Path compression flattens the tree structure every time `find` is executed, making subsequent traversals run in nearly constant $O(\alpha(n))$ time.';
+    } else {
+        button.classList.add('wrong');
+        feedback.style.color = '#991b1b';
+        feedback.textContent = 'Not quite! The correct option is highlighted in light green above.';
+    }
+}
+</script>
+
+</body>
+</html>
