@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5.3: Design Systems (LRU & LFU Caches) | Infotris DSA</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" type="image/png" href="../../assets/logo-infotris.png">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Segoe UI, sans-serif;
+    background: #f6f7f9;
+    color: #111827;
+    line-height: 1.6;
+}
+
+/* Header Navbar */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.navbar-logo {
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.btn-dashboard {
+    padding: 0.5rem 1.25rem;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-dashboard:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Main Layout */
+.lesson-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb & Meta */
+.lesson-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.module-badge {
+    background: #111827;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.time-badge {
+    background: rgba(17, 24, 39, 0.06);
+    color: #4b5563;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Lesson Content Card */
+.lesson-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.lesson-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 32px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Multi-language code snippet tabs block */
+.code-section {
+    margin: 24px 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+.code-tabs {
+    display: flex;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 12px;
+}
+
+.code-tab {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.code-tab.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.code-content {
+    display: none;
+    padding: 24px;
+    color: #f3f4f6;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.code-content.active {
+    display: block;
+}
+
+.code-box .comment { color: #9ca3af; }
+.code-box .keyword { color: #f472b6; }
+.code-box .function { color: #60a5fa; }
+.code-box .type { color: #34d399; }
+
+/* Interactive Quiz / Homework Box */
+.interactive-section {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.interactive-section h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.quiz-option {
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #111827;
+    background: #f1f5f9;
+}
+
+.quiz-option.correct {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #166534 !important;
+}
+
+.quiz-option.wrong {
+    background: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #991b1b !important;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 24px;
+}
+
+/* Footer Action Buttons */
+.lesson-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: #111827;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+    border: 2px solid #d1d5db;
+    color: #374151;
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    border-color: #111827;
+    color: #111827;
+}
+
+@media(max-width: 768px) {
+    .lesson-card {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .lesson-footer-nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../../index" class="navbar-logo">Infotris</a>
+        <a href="../../courses" class="btn-dashboard">Back to Courses</a>
+    </nav>
+</header>
+
+<main class="lesson-container">
+    <div class="lesson-meta-bar">
+        <span class="module-badge">Module 5.3</span>
+        <span class="time-badge">⏱ 45 min read</span>
+        <span class="time-badge">⚡ System Design & Data Structures</span>
+    </div>
+
+    <div class="lesson-card">
+        <h1>Design Systems (LRU & LFU Caches)</h1>
+        <p class="lesson-subtitle">Combine hash maps with doubly linked lists to achieve $O(1)$ constant time complexity for Least Recently Used (LRU) cache operations.</p>
+
+        <div class="divider"></div>
+
+        <h2>1. The Architecture of High-Performance Caches</h2>
+        <p>Cache eviction policies such as <strong>LRU (Least Recently Used)</strong> require two fundamental capabilities: $O(1)$ key-value lookups and $O(1)$ recency re-ordering upon access or insertion. While a standard hash map provides instant $O(1)$ lookups, it cannot track chronological access order. Conversely, a linked list tracks order sequentially but requires $O(n)$ traversal to find or update items.</p>
+        <p><strong>The Hybrid Solution:</strong> Pairing a hash map with a <strong>doubly linked list</strong> solves both constraints. The hash map stores keys mapped directly to their corresponding list node pointers, enabling instant access while the doubly linked list handles constant-time node promotion and eviction.</p>
+
+        <h2>2. Implementing LRU Cache Mechanics</h2>
+        <p>To ensure all operations execute in $O(1)$ time, boundary dummy head and tail nodes are maintained:</p>
+        <p><strong>Get Operation:</strong> If the key exists in the hash map, fetch its node, promote it to the front (right after the head), and return its value. If missing, return -1.</p>
+        <p><strong>Put Operation:</strong> If the key exists, update its value and promote it to the front. If it doesn't exist, create a new node and insert it at the front. If capacity is exceeded, evict the node immediately preceding the tail before adding the new entry.</p>
+
+        <!-- Multi-language code view -->
+        <div class="code-section code-box">
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab(event, 'cpp-code')">C++</button>
+                <button class="code-tab" onclick="switchTab(event, 'python-code')">Python</button>
+                <button class="code-tab" onclick="switchTab(event, 'java-code')">Java</button>
+            </div>
+            <div id="cpp-code" class="code-content active">
+<span class="comment">// C++ Solution: LRU Cache (Hash Map + Doubly Linked List)</span>
+#include &lt;unordered_map&gt;
+
+<span class="keyword">class</span> LRUCache {
+<span class="keyword">private:</span>
+    <span class="keyword">struct</span> Node {
+        <span class="keyword">int</span> key, val;
+        Node* prev;
+        Node* next;
+        Node(<span class="keyword">int</span> k, <span class="keyword">int</span> v) : key(k), val(v), prev(<span class="keyword">nullptr</span>), next(<span class="keyword">nullptr</span>) {}
+    };
+
+    <span class="keyword">int</span> capacity;
+    std::unordered_map&lt;<span class="keyword">int</span>, Node*&gt; map;
+    Node* head;
+    Node* tail;
+
+    <span class="keyword">void</span> <span class="function">addNode</span>(Node* node) {
+        Node* nextNode = head-&gt;next;
+        head-&gt;next = node;
+        node-&gt;prev = head;
+        node-&gt;next = nextNode;
+        nextNode-&gt;prev = node;
+    }
+
+    <span class="keyword">void</span> <span class="function">removeNode</span>(Node* node) {
+        Node* prevNode = node-&gt;prev;
+        Node* nextNode = node-&gt;next;
+        prevNode-&gt;next = nextNode;
+        nextNode-&gt;prev = prevNode;
+    }
+
+    <span class="keyword">void</span> <span class="function">moveToHead</span>(Node* node) {
+        removeNode(node);
+        addNode(node);
+    }
+
+    Node* <span class="function">popTail</span>() {
+        Node* res = tail-&gt;prev;
+        removeNode(res);
+        <span class="keyword">return</span> res;
+    }
+
+<span class="keyword">public:</span>
+    <span class="function">LRUCache</span>(<span class="keyword">int</span> cap) : capacity(cap) {
+        head = <span class="keyword">new</span> Node(0, 0);
+        tail = <span class="keyword">new</span> Node(0, 0);
+        head-&gt;next = tail;
+        tail-&gt;prev = head;
+    }
+    
+    <span class="keyword">int</span> <span class="function">get</span>(<span class="keyword">int</span> key) {
+        <span class="keyword">if</span> (map.find(key) == map.end()) <span class="keyword">return</span> -1;
+        Node* node = map[key];
+        moveToHead(node);
+        <span class="keyword">return</span> node-&gt;val;
+    }
+    
+    <span class="keyword">void</span> <span class="function">put</span>(<span class="keyword">int</span> key, <span class="keyword">int</span> value) {
+        <span class="keyword">if</span> (map.find(key) != map.end()) {
+            Node* node = map[key];
+            node-&gt;val = value;
+            moveToHead(node);
+        } <span class="keyword">else</span> {
+            <span class="keyword">if</span> (map.size() &gt;= capacity) {
+                Node* lru = popTail();
+                map.erase(lru-&gt;key);
+                <span class="keyword">delete</span> lru;
+            }
+            Node* newNode = <span class="keyword">new</span> Node(key, value);
+            map[key] = newNode;
+            addNode(newNode);
+        }
+    }
+};
+            </div>
+            <div id="python-code" class="code-content">
+<span class="comment"># Python Solution: LRU Cache (Hash Map + Doubly Linked List)</span>
+<span class="keyword">class</span> Node:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, key: <span class="type">int</span> = 0, val: <span class="type">int</span> = 0):
+        self.key = key
+        self.val = val
+        self.prev = <span class="keyword">None</span>
+        self.next = <span class="keyword">None</span>
+
+<span class="keyword">class</span> LRUCache:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, capacity: <span class="type">int</span>):
+        self.capacity = capacity
+        self.cache = {}
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    <span class="keyword">def</span> <span class="function">_add_node</span>(self, node: Node) -> <span class="keyword">None</span>:
+        next_node = self.head.next
+        self.head.next = node
+        node.prev = self.head
+        node.next = next_node
+        next_node.prev = node
+
+    <span class="keyword">def</span> <span class="function">_remove_node</span>(self, node: Node) -> <span class="keyword">None</span>:
+        prev_node = node.prev
+        next_node = node.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+
+    <span class="keyword">def</span> <span class="function">_move_to_head</span>(self, node: Node) -> <span class="keyword">None</span>:
+        self._remove_node(node)
+        self._add_node(node)
+
+    <span class="keyword">def</span> <span class="function">_pop_tail</span>(self) -> Node:
+        res = self.tail.prev
+        self._remove_node(res)
+        <span class="keyword">return</span> res
+
+    <span class="keyword">def</span> <span class="function">get</span>(self, key: <span class="type">int</span>) -> <span class="type">int</span>:
+        <span class="keyword">if</span> key <span class="keyword">not_in</span> self.cache:
+            <span class="keyword">return</span> -1
+        node = self.cache[key]
+        self._move_to_head(node)
+        <span class="keyword">return</span> node.val
+
+    <span class="keyword">def</span> <span class="function">put</span>(self, key: <span class="type">int</span>, value: <span class="type">int</span>) -> <span class="keyword">None</span>:
+        <span class="keyword">if</span> key <span class="keyword">in</span> self.cache:
+            node = self.cache[key]
+            node.val = value
+            self._move_to_head(node)
+        <span class="keyword">else</span>:
+            <span class="keyword">if</span> <span class="function">len</span>(self.cache) >= self.capacity:
+                lru = self._pop_tail()
+                <span class="keyword">del</span> self.cache[lru.key]
+            new_node = Node(key, value)
+            self.cache[key] = new_node
+            self._add_node(new_node)
+            </div>
+            <div id="java-code" class="code-content">
+<span class="comment">// Java Solution: LRU Cache (Hash Map + Doubly Linked List)</span>
+<span class="keyword">import</span> java.util.HashMap;
+<span class="keyword">import</span> java.util.Map;
+
+<span class="keyword">class</span> LRUCache {
+    <span class="keyword">class</span> Node {
+        <span class="keyword">int</span> key, val;
+        Node prev, next;
+        Node(<span class="keyword">int</span> k, <span class="keyword">int</span> v) { key = k; val = v; }
+    }
+
+    <span class="keyword">private</span> <span class="keyword">int</span> capacity;
+    <span class="keyword">private</span> Map&lt;Integer, Node&gt; map;
+    <span class="keyword">private</span> Node head, tail;
+
+    <span class="keyword">public</span> <span class="function">LRUCache</span>(<span class="keyword">int</span> capacity) {
+        <span class="keyword">this</span>.capacity = capacity;
+        map = <span class="keyword">new</span> HashMap&lt;&gt;();
+        head = <span class="keyword">new</span> Node(0, 0);
+        tail = <span class="keyword">new</span> Node(0, 0);
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="function">get</span>(<span class="keyword">int</span> key) {
+        <span class="keyword">if</span> (!map.containsKey(key)) <span class="keyword">return</span> -1;
+        Node node = map.get(key);
+        moveToHead(node);
+        <span class="keyword">return</span> node.val;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="function">put</span>(<span class="keyword">int</span> key, <span class="keyword">int</span> value) {
+        <span class="keyword">if</span> (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.val = value;
+            moveToHead(node);
+        } <span class="keyword">else</span> {
+            <span class="keyword">if</span> (map.size() &gt;= capacity) {
+                Node lru = popTail();
+                map.remove(lru.key);
+            }
+            Node newNode = <span class="keyword">new</span> Node(key, value);
+            map.put(key, newNode);
+            addNode(newNode);
+        }
+    }
+
+    <span class="keyword">private</span> <span class="keyword">void</span> <span class="function">addNode</span>(Node node) {
+        Node nextNode = head.next;
+        head.next = node;
+        node.prev = head;
+        node.next = nextNode;
+        nextNode.prev = node;
+    }
+
+    <span class="keyword">private</span> <span class="keyword">void</span> <span class="function">removeNode</span>(Node node) {
+        Node prevNode = node.prev;
+        Node nextNode = node.next;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+    }
+
+    <span class="keyword">private</span> <span class="keyword">void</span> <span class="function">moveToHead</span>(Node node) {
+        removeNode(node);
+        addNode(node);
+    }
+
+    <span class="keyword">private</span> Node <span class="function">popTail</span>() {
+        Node res = tail.prev;
+        removeNode(res);
+        <span class="keyword">return</span> res;
+    }
+}
+            </div>
+        </div>
+
+        <h2>3. Homework & Quiz Overview</h2>
+        <p>To lock in your mastery, complete the implementation exercises for building a fully optimized <strong>LRU Cache</strong> with $O(1)$ operations.</p>
+
+        <!-- Interactive Quiz Section -->
+        <div class="interactive-section">
+            <h3>Quick Check: Test Your Intuition</h3>
+            <p>Why is a <strong>doubly</strong> linked list preferred over a singly linked list for implementing an LRU Cache?</p>
+            
+            <div class="quiz-options">
+                <button class="quiz-option" onclick="checkAnswer(this, false)">A) A doubly linked list uses less memory space than a singly linked list.</button>
+                <button class="quiz-option" onclick="checkAnswer(true, true)">B) It allows removing a target node in $O(1)$ time by having direct access to its predecessor node.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">C) It prevents hash map collisions during capacity expansion.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false)">D) Singly linked lists do not support storing integer keys and values together.</button>
+            </div>
+            <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="lesson-footer-nav">
+            <a href="dsa-5.2" class="btn btn-secondary">← Previous: Module 5.2</a>
+            <a href="dsa-5.4" class="btn btn-primary">Next: Module 5.4 →</a>
+        </div>
+    </div>
+</main>
+
+<script>
+function switchTab(evt, tabId) {
+    const contents = document.querySelectorAll('.code-content');
+    contents.forEach(c => c.classList.remove('active'));
+
+    const tabs = document.querySelectorAll('.code-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+function checkAnswer(button, isCorrect) {
+    const options = button.parentElement.querySelectorAll('.quiz-option');
+    options.forEach(opt => {
+        opt.disabled = true;
+        if(opt.getAttribute('onclick').includes('true')) {
+            opt.classList.add('correct');
+        }
+    });
+
+    const feedback = document.getElementById('quizFeedback');
+    if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.color = '#166534';
+        feedback.textContent = 'Correct! With backward pointers (`prev`), we can delete any node in $O(1)$ time without needing to traverse from the head.';
+    } else {
+        button.classList.add('wrong');
+        feedback.style.color = '#991b1b';
+        feedback.textContent = 'Not quite! The correct option is highlighted in light green above.';
+    }
+}
+</script>
+
+</body>
+</html>
