@@ -26,3 +26,12 @@ const db = getFirestore(app);
 console.log("🔥 Firebase Connected Successfully!");
 
 export { app, auth, db };
+
+// Add storage import to your existing firebase.js setup:
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+// Initialize storage if not already present:
+const storage = getStorage(app);
+
+// Export storage:
+export { auth, db, storage };
