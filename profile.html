@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris — Developer Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --bg-tertiary: #18181b;
+            --surface: #141414;
+            --surface-hover: #1a1a1a;
+            --border: #262626;
+            --border-subtle: #1f1f1f;
+            --text-main: #ededed;
+            --text-muted: #a1a1aa;
+            --text-subtle: #71717a;
+            --white: #ffffff;
+            --black: #000000;
+            
+            --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Layout Container */
+        .infotris-app {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 2rem;
+        }
+
+        .cover-banner {
+            height: 200px;
+            background: linear-gradient(135deg, #1c1c1c 0%, #0d0d0d 100%);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .header-content {
+            padding: 0 2rem 2rem;
+            position: relative;
+        }
+
+        .profile-avatar-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: -50px;
+            margin-bottom: 1.25rem;
+        }
+
+        .avatar-container {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-full);
+            background: var(--bg-primary);
+            border: 4px solid var(--bg-secondary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .edit-profile-btn {
+            background: var(--white);
+            color: var(--black);
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.6rem 1.25rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .edit-profile-btn:hover {
+            background: #e4e4e7;
+            transform: translateY(-1px);
+        }
+
+        .user-names h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.01em;
+        }
+
+        .user-names .username {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.125rem;
+        }
+
+        .user-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin-top: 0.875rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .user-bio {
+            margin-top: 1rem;
+            font-size: 0.9375rem;
+            color: var(--text-main);
+            max-width: 700px;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .social-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.375rem 0.875rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-pill:hover {
+            color: var(--white);
+            border-color: var(--text-muted);
+            background: var(--surface-hover);
+        }
+
+        /* Grid Layout for Sections */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .column-main, .column-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Card Component */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            letter-spacing: -0.01em;
+        }
+
+        /* Learning Stats Bar / Journey */
+        .learning-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 600px) {
+            .learning-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.875rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .trail-progress-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .trail-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        .trail-title {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .trail-course {
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-top: 0.25rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--white);
+            border-radius: var(--radius-full);
+        }
+
+        /* Skills Tags */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-pill {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8125rem;
+            font-family: var(--font-mono);
+            transition: var(--transition);
+        }
+
+        .skill-pill:hover {
+            border-color: var(--text-muted);
+            background: var(--surface-hover);
+        }
+
+        /* Badges Showcase */
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 0.875rem;
+        }
+
+        .badge-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .badge-card.locked {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        .badge-card:not(.locked):hover {
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .badge-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .badge-name {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .badge-desc {
+            font-size: 0.7rem;
+            color: var(--text-subtle);
+        }
+
+        /* Projects */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .project-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .project-item:hover {
+            border-color: var(--text-muted);
+        }
+
+        .project-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-name {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .project-link {
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: var(--white);
+        }
+
+        .project-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.875rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+        }
+
+        .tech-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-subtle);
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        /* Timeline / Experience & Education */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            padding-left: 1rem;
+            border-left: 1px solid var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.36rem;
+            top: 0.375rem;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--text-subtle);
+            border: 2px solid var(--bg-secondary);
+        }
+
+        .timeline-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .timeline-subtitle {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 0.125rem;
+        }
+
+        .timeline-date {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            margin-top: 0.25rem;
+        }
+
+        /* Recent Activity Feed */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            padding-bottom: 0.875rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .activity-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-subtle);
+            margin-top: 0.45rem;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            color: var(--text-muted);
+        }
+
+        .activity-content strong {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            font-family: var(--font-mono);
+            margin-top: 0.125rem;
+        }
+
+        /* About Text */
+        .about-text {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="infotris-app">
+
+        <!-- PROFILE HEADER -->
+        <header class="profile-header">
+            <div class="cover-banner"></div>
+            <div class="header-content">
+                <div class="profile-avatar-row">
+                    <div class="avatar-container">
+                        <!-- Placeholder Developer Avatar -->
+                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="100" fill="#18181b"/>
+                            <path d="M35 60C35 51.7157 41.7157 45 50 45C58.2843 45 65 51.7157 65 60V65H35V60Z" fill="#27272a"/>
+                            <circle cx="50" cy="35" r="12" fill="#27272a"/>
+                        </svg>
+                    </div>
+                    <button class="edit-profile-btn" type="button">Edit Profile</button>
+                </div>
+
+                <div class="user-names">
+                    <h1>Alex Vance</h1>
+                    <div class="username">@alexvance</div>
+                </div>
+
+                <div class="user-meta">
+                    <div class="meta-item">
+                        <span>Backend & Systems Engineer</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>•</span>
+                        <span>Stanford University</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>•</span>
+                        <span>San Francisco, CA</span>
+                    </div>
+                </div>
+
+                <p class="user-bio">
+                    Computer science undergrad building low-latency systems and distributed backend architectures. Passionate about systems programming and clean code.
+                </p>
+
+                <!-- SOCIAL LINKS -->
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" rel="noreferrer" class="social-pill">
+                        GitHub
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="social-pill">
+                        LinkedIn
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noreferrer" class="social-pill">
+                        X / Twitter
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noreferrer" class="social-pill">
+                        Instagram
+                    </a>
+                    <a href="https://alexvance.dev" target="_blank" rel="noreferrer" class="social-pill">
+                        Website ↗
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN PROFILE GRID -->
+        <div class="profile-grid">
+
+            <!-- MAIN COLUMN -->
+            <div class="column-main">
+
+                <!-- LEARNING JOURNEY -->
+                <section class="card">
+                    <h2 class="card-title">Learning Journey</h2>
+                    
+                    <div class="learning-stats">
+                        <div class="stat-box">
+                            <div class="stat-value">4,850</div>
+                            <div class="stat-label">XP Earned</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">28 days</div>
+                            <div class="stat-label">Streak</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">14</div>
+                            <div class="stat-label">Courses</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">86</div>
+                            <div class="stat-label">Lessons</div>
+                        </div>
+                    </div>
+
+                    <div class="trail-progress-box">
+                        <div class="trail-info-row">
+                            <div>
+                                <div class="trail-course">Current Trail</div>
+                                <div class="trail-title">Advanced Distributed Systems</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="trail-course">Course 4 of 6</div>
+                                <div class="trail-title" style="font-size: 0.8125rem; color: var(--text-muted);">Consensus Protocols</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="trail-info-row" style="margin-bottom: 0.25rem; font-size: 0.75rem; color: var(--text-subtle);">
+                                <span>Progress</span>
+                                <span>68%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 68%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PROJECTS -->
+                <section class="card">
+                    <h2 class="card-title">Featured Projects</h2>
+                    
+                    <div class="projects-list">
+                        <div class="project-item">
+                            <div class="project-header-row">
+                                <div class="project-name">InfraDB</div>
+                                <div class="project-links">
+                                    <a href="#" class="project-link">GitHub ↗</a>
+                                    <a href="#" class="project-link">Demo ↗</a>
+                                </div>
+                            </div>
+                            <p class="project-desc">A lightweight, append-only key-value storage engine built from scratch in C++ focusing on optimal page caching and minimal lock contention.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">C++</span>
+                                <span class="tech-tag">Systems</span>
+                                <span class="tech-tag">Concurrency</span>
+                            </div>
+                        </div>
+
+                        <div class="project-item">
+                            <div class="project-header-row">
+                                <div class="project-name">NetPulse</div>
+                                <div class="project-links">
+                                    <a href="#" class="project-link">GitHub ↗</a>
+                                    <a href="#" class="project-link">Demo ↗</a>
+                                </div>
+                            </div>
+                            <p class="project-desc">Real-time distributed telemetry and log ingestion pipeline processing 10k+ events/sec with zero-copy buffer allocations.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">AsyncIO</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RECENT ACTIVITY -->
+                <section class="card">
+                    <h2 class="card-title">Recent Activity</h2>
+                    
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div>
+                                <div class="activity-content">Completed lesson <strong>Raft Log Replication</strong> in Advanced Distributed Systems</div>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div>
+                                <div class="activity-content">Solved 3 Daily DSA Problems (Medium / Hard)</div>
+                                <div class="activity-time">Yesterday</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div>
+                                <div class="activity-content">Earned badge <strong>Concurrency Master</strong></div>
+                                <div class="activity-time">3 days ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div>
+                                <div class="activity-content">Started new learning trail <strong>Advanced Distributed Systems</strong></div>
+                                <div class="activity-time">1 week ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- SIDE COLUMN -->
+            <div class="column-side">
+
+                <!-- ABOUT -->
+                <section class="card">
+                    <h2 class="card-title">About</h2>
+                    <p class="about-text">
+                        Deeply focused on low-level systems engineering, consensus algorithms, and performance optimization. Constantly writing code, solving complex architectural challenges, and sharpening algorithmic skills.
+                    </p>
+                </section>
+
+                <!-- SKILLS -->
+                <section class="card">
+                    <h2 class="card-title">Skills & Stack</h2>
+                    <div class="skills-container">
+                        <span class="skill-pill">C++</span>
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">JavaScript</span>
+                        <span class="skill-pill">SQL</span>
+                        <span class="skill-pill">Distributed Systems</span>
+                        <span class="skill-pill">Git</span>
+                        <span class="skill-pill">Docker</span>
+                        <span class="skill-pill">Linux Kernels</span>
+                        <span class="skill-pill">Algorithms</span>
+                    </div>
+                </section>
+
+                <!-- BADGES -->
+                <section class="card">
+                    <h2 class="card-title">Badges</h2>
+                    <div class="badges-grid">
+                        <div class="badge-card">
+                            <div class="badge-icon">⚡</div>
+                            <div>
+                                <div class="badge-name">Speed Demon</div>
+                                <div class="badge-desc">30-day streak</div>
+                            </div>
+                        </div>
+                        <div class="badge-card">
+                            <div class="badge-icon">⚙️</div>
+                            <div>
+                                <div class="badge-name">Concurrency</div>
+                                <div class="badge-desc">Systems track</div>
+                            </div>
+                        </div>
+                        <div class="badge-card locked">
+                            <div class="badge-icon">🔒</div>
+                            <div>
+                                <div class="badge-name">Architect</div>
+                                <div class="badge-desc">Complete trail</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- EDUCATION -->
+                <section class="card">
+                    <h2 class="card-title">Education</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-title">Stanford University</div>
+                            <div class="timeline-subtitle">B.S. in Computer Science</div>
+                            <div class="timeline-date">2023 — 2027 (Expected)</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- EXPERIENCE -->
+                <section class="card">
+                    <h2 class="card-title">Experience</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-title">Systems Engineering Intern</div>
+                            <div class="timeline-subtitle">Veloce Labs</div>
+                            <div class="timeline-date">Summer 2025</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
