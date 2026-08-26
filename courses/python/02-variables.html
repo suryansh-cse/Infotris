@@ -275,32 +275,49 @@ print(username, "is", age, "years old.")</code></pre>
 
 <!-- JavaScript to make the quiz interactive -->
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const quizPanel = document.querySelector('.quiz-panel');
-        if (!quizPanel) return;
+    (() => {
+        const quizPanel = document.querySelector('.quiz-panel[data-quiz-id="02-variables"]');
+        const submitBtn = quizPanel?.querySelector('.quiz-btn-submit');
+        const questions = quizPanel?.querySelectorAll('.quiz-question');
 
-        const submitBtn = quizPanel.querySelector('.quiz-btn-submit');
-        const questions = quizPanel.querySelectorAll('.quiz-question');
+        if (!submitBtn || !questions) return;
 
         submitBtn.addEventListener('click', () => {
+            let allAnswered = true;
+
             questions.forEach(question => {
                 const selectedInput = question.querySelector('input[type="radio"]:checked');
                 const feedbackDiv = question.querySelector('.quiz-feedback');
+                const options = question.querySelectorAll('.quiz-option');
 
                 if (!selectedInput) {
-                    feedbackDiv.textContent = "Please select an answer.";
-                    feedbackDiv.style.color = "orange";
+                    allAnswered = false;
+                    if (feedbackDiv) {
+                        feedbackDiv.textContent = 'Please select an answer.';
+                        feedbackDiv.className = 'quiz-feedback quiz-feedback--incorrect is-visible';
+                        feedbackDiv.style.display = 'block';
+                    }
                     return;
                 }
 
-                const isCorrect = selectedInput.getAttribute('data-correct') === 'true';
-                const explanation = selectedInput.getAttribute('data-explanation');
+                const isCorrect = selectedInput.dataset.correct === 'true';
+                options.forEach(option => {
+                    const radio = option.querySelector('input[type="radio"]');
+                    option.classList.remove('is-selected', 'is-correct', 'is-incorrect');
+                    if (radio?.dataset.correct === 'true') option.classList.add('is-correct');
+                    else if (radio?.checked) option.classList.add('is-incorrect');
+                });
 
-                feedbackDiv.textContent = explanation;
-                feedbackDiv.style.color = isCorrect ? "green" : "red";
+                if (feedbackDiv) {
+                    feedbackDiv.textContent = selectedInput.dataset.explanation || (isCorrect ? 'Correct!' : 'Incorrect. Try again!');
+                    feedbackDiv.className = `quiz-feedback ${isCorrect ? 'quiz-feedback--correct' : 'quiz-feedback--incorrect'} is-visible`;
+                    feedbackDiv.style.display = 'block';
+                }
             });
+
+            if (!allAnswered) submitBtn.focus();
         });
-    });
+    })();
 </script>
 
                 <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
