@@ -198,80 +198,110 @@ print(username, "is", age, "years old.")</code></pre>
                     </div>
                 </section>
 
-                <section class="quiz-panel" data-quiz-id="02-variables">
-                    <div class="quiz-panel__header">
-                        <span class="quiz-panel__eyebrow">Quiz</span>
-                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
-                    </div>
-                    
-                    <div class="quiz-question">
-                        <p class="quiz-question__text">1. What is the data type of the value returned by `input("Enter price: ")`?</p>
-                        <div class="quiz-options">
-                            <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not automatically infer number types from user input.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">int or float (depending on what the user types)</span>
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! input() always returns a string (str). If you want a number, you must cast it.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">str (always)</span>
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python is dynamically typed but inputs are always loaded as text strings.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">bool</span>
-                            </label>
-                        </div>
-                        <div class="quiz-feedback"></div>
-                    </div>
+               <section class="quiz-panel" data-quiz-id="02-variables">
+    <div class="quiz-panel__header">
+        <span class="quiz-panel__eyebrow">Quiz</span>
+        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+    </div>
+    
+    <div class="quiz-question" data-question>
+        <p class="quiz-question__text">1. What is the data type of the value returned by <code>input("Enter price: ")</code>?</p>
+        <div class="quiz-options">
+            <label class="quiz-option">
+                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python does not automatically infer number types from user input.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">int or float (depending on what the user types)</span>
+            </label>
+            <label class="quiz-option">
+                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! input() always returns a string (str). If you want a number, you must cast it.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">str (always)</span>
+            </label>
+            <label class="quiz-option">
+                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Python is dynamically typed but inputs are always loaded as text strings.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">bool</span>
+            </label>
+        </div>
+        <div class="quiz-feedback"></div>
+    </div>
 
-                    <div class="quiz-question">
-                        <p class="quiz-question__text">2. Which of the following is an INVALID variable name in Python?</p>
-                        <div class="quiz-options">
-                            <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Underscores are perfectly valid in variables.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">user_name</span>
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Variable names cannot begin with a number.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">3rd_score</span>
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python variables can contain numbers as long as they don't start with them.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">score3</span>
-                            </label>
-                        </div>
-                        <div class="quiz-feedback"></div>
-                    </div>
+    <div class="quiz-question" data-question>
+        <p class="quiz-question__text">2. Which of the following is an INVALID variable name in Python?</p>
+        <div class="quiz-options">
+            <label class="quiz-option">
+                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Underscores are perfectly valid in variables.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">user_name</span>
+            </label>
+            <label class="quiz-option">
+                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! Variable names cannot begin with a number.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">3rd_score</span>
+            </label>
+            <label class="quiz-option">
+                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Python variables can contain numbers as long as they don't start with them.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">score3</span>
+            </label>
+        </div>
+        <div class="quiz-feedback"></div>
+    </div>
 
-                    <div class="quiz-question">
-                        <p class="quiz-question__text">3. What is the value of `result` after running: `result = 10 / 2`?</p>
-                        <div class="quiz-options">
-                            <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. In Python, single division (/) always returns a floating point number.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">5 (integer)</span>
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Single division (/) always returns a float in Python (e.g., 5.0). To get an integer, use floor division (//).">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">5.0 (float)</span>
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python division evaluates to a float.">
-                                <span class="quiz-option__indicator"></span>
-                                <span class="quiz-option__text">"5.0" (string)</span>
-                            </label>
-                        </div>
-                        <div class="quiz-feedback"></div>
-                    </div>
+    <div class="quiz-question" data-question>
+        <p class="quiz-question__text">3. What is the value of <code>result</code> after running: <code>result = 10 / 2</code>?</p>
+        <div class="quiz-options">
+            <label class="quiz-option">
+                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. In Python, single division (/) always returns a floating point number.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">5 (integer)</span>
+            </label>
+            <label class="quiz-option">
+                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Single division (/) always returns a float in Python (e.g., 5.0). To get an integer, use floor division (//).">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">5.0 (float)</span>
+            </label>
+            <label class="quiz-option">
+                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Python division evaluates to a float.">
+                <span class="quiz-option__indicator"></span>
+                <span class="quiz-option__text">"5.0" (string)</span>
+            </label>
+        </div>
+        <div class="quiz-feedback"></div>
+    </div>
 
-                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
-                </section>
+    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+</section>
+
+<!-- JavaScript to make the quiz interactive -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const quizPanel = document.querySelector('.quiz-panel');
+        if (!quizPanel) return;
+
+        const submitBtn = quizPanel.querySelector('.quiz-btn-submit');
+        const questions = quizPanel.querySelectorAll('.quiz-question');
+
+        submitBtn.addEventListener('click', () => {
+            questions.forEach(question => {
+                const selectedInput = question.querySelector('input[type="radio"]:checked');
+                const feedbackDiv = question.querySelector('.quiz-feedback');
+
+                if (!selectedInput) {
+                    feedbackDiv.textContent = "Please select an answer.";
+                    feedbackDiv.style.color = "orange";
+                    return;
+                }
+
+                const isCorrect = selectedInput.getAttribute('data-correct') === 'true';
+                const explanation = selectedInput.getAttribute('data-explanation');
+
+                feedbackDiv.textContent = explanation;
+                feedbackDiv.style.color = isCorrect ? "green" : "red";
+            });
+        });
+    });
+</script>
 
                 <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
                     <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
