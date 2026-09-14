@@ -43,88 +43,46 @@ const INFOTRIS_INDEX = [
     },
 
     {
-        id: "html",
-
+        id: "dsa",
         type: "course",
 
-        title: "HTML",
+        title: "Data Structures & Algorithms",
 
         description:
-            "HTML Complete Course",
+            "Master data structures and algorithms.",
 
         keywords: [
-            "html",
-            "frontend",
-            "website",
-            "web"
+            "dsa",
+            "algorithm",
+            "algorithms",
+            "data structures",
+            "tree",
+            "graph",
+            "linked list"
         ],
 
-        url: "courses/html/"
+        url: "courses/dsa/"
     },
 
     {
-        id: "css",
-
+        id: "problem-solving",
         type: "course",
 
-        title: "CSS",
+        title: "Problem Solving",
 
         description:
-            "CSS Styling",
+            "Learn to break down problems, write pseudocode, debug, and practice coding patterns.",
 
         keywords: [
-            "css",
-            "frontend",
-            "design"
+            "problem solving",
+            "debugging",
+            "pseudocode",
+            "patterns",
+            "coding"
         ],
 
-        url: "courses/css/"
+        url: "courses/problem-solving/"
     },
-
-    {
-        id: "javascript",
-
-        type: "course",
-
-        title: "JavaScript",
-
-        description:
-            "Modern JavaScript",
-
-        keywords: [
-            "javascript",
-            "js",
-            "frontend",
-            "web"
-        ],
-
-        url: "courses/javascript/"
-    },
-     
-    {
-
-        id:"DSA",
-
-        type:"course",
-
-        title:"Data Structures & Algorithms",
-
-        description:
-        "Master data structures and algorithms.",
-
-         keywords: [
-        "dsa",
-        "algorithm",
-        "algorithms",
-        "data structures",
-        "tree",
-        "graph",
-        "linked list"
-        ],
-            url:"courses/dsa/"
-
-    }
-    ,
 
 
     // =========================
@@ -132,49 +90,23 @@ const INFOTRIS_INDEX = [
     // =========================
 
     {
+        id: "python-developer",
+        type: "career",
 
-        id:"python-developer",
-
-        type:"career",
-
-        title:"Python Developer",
+        title: "Python Developer",
 
         description:
-        "Become a Python Developer.",
+            "Become a Python Developer.",
 
-        keywords:[
+        keywords: [
             "python",
             "developer",
             "backend",
             "career"
         ],
 
-        url:"careers/python-developer/"
-
-    },
-
-    {
-
-        id:"frontend-developer",
-
-        type:"career",
-
-        title:"Frontend Developer",
-
-        description:
-        "Frontend Career",
-
-        keywords:[
-            "frontend",
-            "html",
-            "css",
-            "javascript"
-        ],
-
-            url:"careers/frontend-developer/"
-
+        url: "careers/python-developer/"
     }
-
     
 ];
 console.log("Infotris Database Loaded");
