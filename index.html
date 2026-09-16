@@ -15,11 +15,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- global.css = colors + reset | home.css = this page layout only -->
+    <!-- Design system + page styles -->
+    <link rel="stylesheet" href="css/system/theme.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/anime.css">
-    <link rel="icon" type="image/png" href="assets/logo-infotris.png">
+    <link rel="stylesheet" href="css/system/responsive.css">
+    <link rel="stylesheet" href="css/system/animations.css">
+    <link rel="stylesheet" href="css/system/variables.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <!--
       Import map: lets anime.js use "import … from 'animejs'" without npm/Vite.
       Maps the package name to a browser-ready ES module on jsDelivr CDN.
@@ -55,7 +59,13 @@
             </ul>
 
             <!-- Call-to-action for returning users -->
-            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+            <div id="navbar-user">
+
+                <a class="btn-sign-in" href="signup.html">
+                    Sign In
+                </a>
+            
+            </div>
         </nav>
 
 
@@ -67,7 +77,7 @@
                     <h1 id="hero-heading" class="hero-title">
                         Learn right thing.
                         <br>
-                        Not ever thing.
+                        Not everything.
                     </h1>
 
                     <p class="hero-description">
@@ -77,22 +87,35 @@
                     </p>
 
                     <!-- Visual-only search UI (no JavaScript). type="button" prevents form submit. -->
-                    <div class="search-bar" role="search" aria-label="Search courses">
-                        <label class="visually-hidden" for="course-search">Search courses</label>
-                        <input type="search" id="course-search" class="search-bar-input"
-                            placeholder="Search courses, topics, or skills…" autocomplete="off">
-                        <button type="button" class="search-bar-button" aria-label="Search">
-                            Search
-                        </button>
+                    <div class="search-container">
+
+                        <div class="search-bar">
+                    
+                            <input
+                                id="course-search"
+                                class="search-bar-input"
+                                type="search"
+                                autocomplete="off"
+                                placeholder="Search courses, careers..."
+                            >
+                    
+                            <button class="search-bar-button">
+                                Search
+                            </button>
+                    
+                        </div>
+                    
+                        <div class="search-results"></div>
+                    
                     </div>
 
                     <!-- Quick topic filters — styled as chips, not functional yet -->
                     <div class="category-chips" aria-label="Popular topics">
-                        <span class="chip">HTML</span>
-                        <span class="chip">CSS</span>
-                        <span class="chip"><a href="courses/python/">python</a></span>
-                        <span class="chip">AI</span>
-                        <span class="chip">Web Dev</span>
+                        <span class="chip"><a href="courses/coming/coming.html" target="_blank">HTML</a></span>
+                        <span class="chip"><a href="courses/coming/coming.html" target="_blank">CSS</a></span>
+                        <span class="chip"><a href="courses/python/index.html" target="_blank">python</a></span>
+                        <span class="chip"><a href="courses/coming/coming.html" target="_blank">AI</a></span>
+                        <span class="chip"><a href="courses/coming/coming.html" target="_blank">Web Dev</a></span>
                     </div>
                 </div>
 
@@ -210,10 +233,10 @@
             <div class="footer-column">
                 <h3 class="footer-heading">Navigation</h3>
                 <ul class="footer-links">
-                    <li><a href="./">Home</a></li>
                     <li><a href="about">About</a></li>
                     <li><a href="careers">Career Paths</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="courses">Courses</a></li>
+                    <li><a href="courses/coming/terms-soon">terms & Privacy</a></li>
                 </ul>
             </div>
 
@@ -261,6 +284,10 @@
 
         <script src="js/anime.js" type="module"></script>
         <script src="js/trisgraph.js" type="module"></script>
+        <script src="js/infotris-index.js"></script>
+<script src="js/search.js"></script>
+<script type="module" src="js/navbar.js"></script>
+
 </body>
 
 </html>

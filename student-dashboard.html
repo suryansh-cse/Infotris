@@ -10,24 +10,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+        <link rel="stylesheet" href="css/system/theme.css">
+
+    
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
-    
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <style>
-        /* Dashboard-specific styles using existing design tokens */
+        /* ================= DASHBOARD LAYOUT ================= */
         
         .dashboard-page {
             background-color: var(--bg-light);
         }
         
-        /* Main dashboard container */
         .dashboard-container {
             max-width: var(--max-width);
             margin: 0 auto;
             padding: var(--space-md);
         }
         
-        /* Dashboard Grid Layout: Main (70%) & Sidebar (30%) */
         .dashboard-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
@@ -42,7 +43,7 @@
             gap: var(--space-md);
         }
 
-        /* Welcome Section */
+        /* ================= HEADER & WELCOME ================= */
         .dashboard-welcome {
             padding: var(--space-lg);
             background-color: #ffffff;
@@ -73,7 +74,6 @@
             font-weight: 500;
         }
 
-        /* User Profile Menu in Navbar */
         .navbar-user {
             position: relative;
             display: inline-flex;
@@ -163,7 +163,7 @@
             color: #a30000;
         }
 
-        /* Stats Overview Cards */
+        /* ================= STATS ================= */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -202,7 +202,7 @@
             color: var(--text-secondary);
         }
 
-        /* Dashboard Section Container */
+        /* ================= CONTENT SECTIONS ================= */
         .dashboard-section {
             background-color: #ffffff;
             border: 1px solid var(--border-color);
@@ -227,92 +227,12 @@
             color: var(--text-primary);
         }
 
-        /* Progress Card */
-        .progress-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--space-md);
-        }
-
-        .progress-card {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-            padding: 1.25rem;
-            background-color: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            box-shadow: 0 1px 3px rgba(17, 17, 17, 0.04);
-            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-        }
-        
-        .progress-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(17, 17, 17, 0.07);
-            border-color: #c4c4c4;
-        }
-        
-        .progress-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        
-        .progress-card-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 2.5rem;
-            height: 2.5rem;
-            background-color: var(--bg-dark);
-            color: var(--bg-light);
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 0.9375rem;
-        }
-        
-        .progress-card-percentage {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        
-        .progress-card-title {
-            font-size: 1.0625rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-        
-        .progress-bar-container {
-            width: 100%;
-            height: 8px;
-            background-color: #e8e8e8;
-            border-radius: 999px;
-            overflow: hidden;
-            margin: var(--space-sm) 0;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background-color: #0d0d0d;
-            border-radius: 999px;
-            transition: width 0.3s ease;
-        }
-        
-        .progress-card-status {
-            font-size: 0.8125rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--space-sm);
-        }
-        
-        .progress-card-button {
+        .recommended-lesson-cta {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.6rem 1rem;
-            font-size: 0.9375rem;
+            padding: 0.45rem 1rem;
+            font-size: 0.8125rem;
             font-weight: 600;
             color: var(--bg-light);
             background-color: var(--bg-dark);
@@ -323,18 +243,39 @@
             text-align: center;
         }
         
-        .progress-card-button:hover {
+        .recommended-lesson-cta:hover {
             opacity: 0.88;
         }
-        
-        .progress-card-button:disabled {
-            background-color: #d9d9d9;
-            color: var(--text-secondary);
-            cursor: not-allowed;
-            opacity: 0.7;
+
+        .recommended-lesson {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: var(--space-md);
+            background-color: rgba(13, 13, 13, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
         }
 
-        /* Syllabus Accordion / Nested Checklist styling */
+        .recommended-lesson-label {
+            display: block;
+            margin-bottom: 0.15rem;
+            color: var(--text-secondary);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .recommended-lesson-title {
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            font-weight: 600;
+        }
+
+        /* ================= COURSE TRACKER ================= */
         .syllabus-module {
             margin-bottom: var(--space-md);
             border: 1px solid var(--border-color);
@@ -445,7 +386,7 @@
             color: var(--bg-light);
         }
 
-        /* Certificate Milestone Card */
+        /* ================= CERTIFICATE ================= */
         .milestone-card {
             display: flex;
             align-items: center;
@@ -469,6 +410,14 @@
         .milestone-card.unlocked:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+        }
+
+        .milestone-card-inner {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            gap: var(--space-md);
+            min-width: 0;
         }
 
         .milestone-badge-wrapper {
@@ -544,7 +493,7 @@
             transform: none;
         }
 
-        /* Sidebar: Daily Goal Widget */
+        /* ================= SIDEBAR ================= */
         .sidebar-widget {
             background-color: #ffffff;
             border: 1px solid var(--border-color);
@@ -651,7 +600,6 @@
             opacity: 0.88;
         }
 
-        /* Sidebar: Weekly Targets Checklist */
         .weekly-goals-checklist {
             display: flex;
             flex-direction: column;
@@ -679,7 +627,6 @@
             color: var(--text-secondary);
         }
 
-        /* Sidebar: Activity Heatmap */
         .heatmap-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -697,7 +644,8 @@
         }
 
         .heatmap-cell:hover {
-            border: 1px solid var(--text-primary);
+            outline: 1px solid var(--text-primary);
+            outline-offset: 1px;
         }
 
         .heatmap-cell[data-level="0"] { background-color: #f0f0ee; }
@@ -743,7 +691,12 @@
             border-radius: 2px;
         }
 
-        /* Sidebar: Recent Activity Timeline */
+        .heatmap-legend-cell[data-level="0"] { background-color: #f0f0ee; }
+        .heatmap-legend-cell[data-level="1"] { background-color: #d1d1cf; }
+        .heatmap-legend-cell[data-level="2"] { background-color: #9c9c9a; }
+        .heatmap-legend-cell[data-level="3"] { background-color: #666665; }
+        .heatmap-legend-cell[data-level="4"] { background-color: #111111; }
+
         .activity-timeline {
             display: flex;
             flex-direction: column;
@@ -799,7 +752,7 @@
             margin-top: 0.1rem;
         }
 
-        /* Quick Actions grid in student dashboard */
+        /* ================= QUICK ACTIONS ================= */
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -829,7 +782,7 @@
             transform: translateY(-1px);
         }
 
-        /* Certificate Modal Styles */
+        /* ================= CERTIFICATE MODAL ================= */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -1023,7 +976,7 @@
             color: var(--text-primary);
         }
 
-        /* Print styling for Certificate */
+        /* ================= PRINT ================= */
         @media print {
             body * {
                 visibility: hidden;
@@ -1058,7 +1011,7 @@
             }
         }
 
-        /* Developer Sandbox Drawer Panel */
+        /* ================= SANDBOX CONTROLS ================= */
         .sandbox-drawer {
             margin-top: var(--space-xl);
             background-color: var(--bg-dark);
@@ -1185,7 +1138,7 @@
             padding: 0.4rem 0.75rem;
         }
 
-        /* Mobile responsive modifications */
+        /* ================= RESPONSIVE ================= */
         @media (max-width: 992px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -1269,12 +1222,12 @@
                 <div class="user-dropdown" id="userMenuDropdown">
                     <div class="user-dropdown-header">
                         <p class="user-dropdown-name" id="dropdownName">Alex Student</p>
-                        <p class="user-dropdown-email" id="dropdownEmail">alex@openlearn.edu</p>
+                        <p class="user-dropdown-email" id="dropdownEmail">alex@infotris.edu</p>
                     </div>
                     <div class="user-dropdown-divider"></div>
-                    <a href="student-dashboard" class="user-dropdown-item">Dashboard</a>
-                    <a href="courses" class="user-dropdown-item">My Courses</a>
-                    <a href="#settings" class="user-dropdown-item">Settings</a>
+                    <a href="index.html" class="user-dropdown-item">Home</a>
+                    <a href="courses/coming/profile-coming" class="user-dropdown-item">Profiles</a>
+                    <a href="trisgraph.html" class="user-dropdown-item">TrisGraph</a>
                     <div class="user-dropdown-divider"></div>
                     <a href="#" class="user-dropdown-item logout-link" id="simLogoutBtn">Sign Out</a>
                 </div>
@@ -1327,12 +1280,12 @@
                     </div>
 
                     <!-- Recommended next lesson widget -->
-                    <div id="recommendedLessonCard" style="background-color: rgba(13, 13, 13, 0.03); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; margin-bottom: var(--space-md); display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                    <div id="recommendedLessonCard" class="recommended-lesson">
                         <div>
-                            <span style="font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); display: block; margin-bottom: 0.15rem;">Recommended Lesson</span>
-                            <span id="nextLessonTitle" style="font-size: 0.9375rem; font-weight: 600; color: var(--text-primary);">03 - Data Types</span>
+                            <span class="recommended-lesson-label">Recommended Lesson</span>
+                            <span id="nextLessonTitle" class="recommended-lesson-title">03 - Data Types</span>
                         </div>
-                        <a id="nextLessonCTA" href="courses/python/03-data-type" class="progress-card-button" style="padding: 0.45rem 1rem; font-size: 0.8125rem;">Resume Learning</a>
+                        <a id="nextLessonCTA" href="courses/python/03-data-type" class="recommended-lesson-cta">Resume Learning</a>
                     </div>
 
                     <div id="pythonModulesContainer">
@@ -1503,7 +1456,7 @@
     <div class="modal-overlay" id="certificateModalOverlay">
         <div class="certificate-container">
             <button class="cert-close-trigger" id="certCloseTrigger" aria-label="Close certificate">×</button>
-            <div class="cert-watermark">OPENLEARN</div>
+            <div class="cert-watermark">INFOTRIS</div>
             
             <p class="cert-org">Infotris Academy Certificate</p>
             <h2 class="cert-title-primary">Certificate of Completion</h2>
@@ -1534,7 +1487,7 @@
                 <div class="cert-meta-item">GPA: <strong>4.0 Honors</strong></div>
             </div>
             
-            <span class="cert-id-badge" id="certVerificationId">VERIFICATION ID: OL-PY-5E29A11F</span>
+            <span class="cert-id-badge" id="certVerificationId">VERIFICATION ID: IT-PY-5E29A11F</span>
             
             <div class="cert-buttons-row">
                 <button class="cert-action-btn cert-btn-dark" id="btnPrintCert">Print Certificate</button>
@@ -1611,10 +1564,14 @@
         </div>
     </footer>
 
-    <!-- Script Block for Dashboard Dynamics -->
-    <script>
+    <!-- ================= DASHBOARD LOGIC ================= -->
+    <script type="module">
+        import { auth, db } from "./js/firebase.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
         document.addEventListener("DOMContentLoaded", () => {
-            // --- SYLLABUS DATA CONFIG ---
+            // ================= COURSE DATA =================
             const COURSE_MODULES = [
                 {
                     name: "Python Basics",
@@ -1682,65 +1639,148 @@
                 }
             ];
 
-            // List of flat lessons
-            const ALL_ITEMS = [];
-            COURSE_MODULES.forEach(mod => {
-                mod.lessons.forEach(l => {
-                    ALL_ITEMS.push(l);
-                });
+            const ALL_ITEMS = COURSE_MODULES.flatMap(module => module.lessons);
+            const DEFAULT_WEEKLY_GOALS = {
+                "python-lessons": false,
+                "build-project": false,
+                "github-page": false
+            };
+            const dom = Object.freeze({
+                welcomeName: document.getElementById("welcomeStudentName"),
+                welcomeMessage: document.getElementById("welcomeMotivationText"),
+                avatar: document.getElementById("navbarAvatar"),
+                dropdownName: document.getElementById("dropdownName"),
+                dropdownEmail: document.getElementById("dropdownEmail"),
+                nameInput: document.getElementById("sandboxNameInput"),
+                progress: document.getElementById("kpiProgress"),
+                streak: document.getElementById("kpiStreak"),
+                hours: document.getElementById("kpiHours"),
+                certificates: document.getElementById("kpiCertificates"),
+                sidebarStreak: document.getElementById("sidebarStreakDays"),
+                streakIcon: document.getElementById("streakIcon"),
+                completeness: document.getElementById("pythonCompletenessStatus"),
+                modules: document.getElementById("pythonModulesContainer"),
+                goalSelector: document.getElementById("dailyGoalSelector"),
+                goalPercent: document.getElementById("goalPctText"),
+                goalMinutes: document.getElementById("goalMinText"),
+                goalBar: document.getElementById("goalCircularBar"),
+                heatmap: document.getElementById("heatmapGrid"),
+                timeline: document.getElementById("recentActivityTimeline")
             });
+            let lessonStateCache = new Map();
+            let userDocumentRef = null;
+            let pendingDashboardWrite = null;
+            let saveTimer = null;
 
-            // --- LOCAL STORAGE HELPERS ---
-            function getLocalState(lesson) {
-                // Find if a practice or quiz is completed in localStorage.
-                let hasPractice = false;
-                let hasQuiz = false;
+            // ================= FIRESTORE =================
+            function createDefaultState(user) {
+                const displayName = user.displayName || user.email?.split("@")[0] || "Student";
+                return {
+                    studentName: displayName,
+                    email: user.email || "",
+                    avatar: user.photoURL || displayName.charAt(0).toUpperCase(),
+                    streak: 0,
+                    level: 1,
+                    xp: 0,
+                    coins: 0,
+                    certificateHash: "",
+                    dailyGoalMins: 30,
+                    dailyGoalProgress: 0,
+                    weeklyGoals: { ...DEFAULT_WEEKLY_GOALS },
+                    completedItems: []
+                };
+            }
 
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key.includes(lesson.file)) {
-                        if (key.startsWith("openlearn-quiz-")) {
-                            if (localStorage.getItem(key) === "complete") {
-                                hasQuiz = true;
-                            }
-                        }
-                        if (key.startsWith("openlearn-practice-")) {
-                            try {
-                                const data = JSON.parse(localStorage.getItem(key));
-                                if (data && data.checks && data.checks.length > 0 && data.checks.every(c => c === true)) {
-                                    hasPractice = true;
-                                }
-                            } catch (e) {}
-                        }
+            function getMissingUserFields(data, defaults, prefix = "") {
+                return Object.entries(defaults).reduce((missing, [key, value]) => {
+                    const path = prefix ? `${prefix}.${key}` : key;
+                    if (data?.[key] === undefined) {
+                        missing[path] = value;
+                    } else if (value && typeof value === "object" && !Array.isArray(value)) {
+                        Object.assign(missing, getMissingUserFields(data[key], value, path));
+                    }
+                    return missing;
+                }, {});
+            }
+
+            async function loadUserState(user) {
+                userDocumentRef = doc(db, "users", user.uid);
+                const defaults = createDefaultState(user);
+                const documentDefaults = {
+                    profile: { displayName: defaults.studentName, email: defaults.email, joinedAt: serverTimestamp(), avatar: defaults.avatar },
+                    stats: { level: 1, xp: 0, streak: 0, coins: 0, dailyGoalMins: 30, dailyGoalProgress: 0 },
+                    learning: { currentTrail: "python", currentLesson: "01-intro", progress: { completedItems: [] }, practice: {}, quizzes: {} },
+                    missions: { weeklyGoals: { ...DEFAULT_WEEKLY_GOALS } },
+                    achievements: [],
+                    activity: []
+                };
+                const snapshot = await getDoc(userDocumentRef);
+                let data = snapshot.data();
+
+                if (!snapshot.exists()) {
+                    await setDoc(userDocumentRef, documentDefaults);
+                    data = documentDefaults;
+                } else {
+                    const missingFields = getMissingUserFields(data, documentDefaults);
+                    if (Object.keys(missingFields).length) {
+                        await updateDoc(userDocumentRef, missingFields);
+                        data = { ...documentDefaults, ...data, profile: { ...documentDefaults.profile, ...data.profile }, stats: { ...documentDefaults.stats, ...data.stats }, learning: { ...documentDefaults.learning, ...data.learning }, missions: { ...documentDefaults.missions, ...data.missions } };
                     }
                 }
-                return { practice: hasPractice, quiz: hasQuiz, done: hasPractice || hasQuiz };
+
+                return {
+                    ...defaults,
+                    studentName: data.profile?.displayName || defaults.studentName,
+                    email: data.profile?.email || defaults.email,
+                    avatar: data.profile?.avatar || defaults.avatar,
+                    level: data.stats?.level ?? defaults.level,
+                    xp: data.stats?.xp ?? defaults.xp,
+                    coins: data.stats?.coins ?? defaults.coins,
+                    certificateHash: data.profile?.certificateHash || "",
+                    streak: data.stats?.streak ?? defaults.streak,
+                    dailyGoalMins: data.stats?.dailyGoalMins ?? defaults.dailyGoalMins,
+                    dailyGoalProgress: data.stats?.dailyGoalProgress ?? defaults.dailyGoalProgress,
+                    weeklyGoals: { ...DEFAULT_WEEKLY_GOALS, ...data.missions?.weeklyGoals },
+                    completedItems: Array.isArray(data.learning?.progress?.completedItems) ? data.learning.progress.completedItems : []
+                };
             }
 
-            // --- STATE MANAGEMENT ---
-            let state = {
-                studentName: localStorage.getItem("openlearn-student-name") || "Alex Student",
-                streak: parseInt(localStorage.getItem("openlearn-streak")) || 9,
-                dailyGoalMins: parseInt(localStorage.getItem("openlearn-daily-goal")) || 30,
-                dailyGoalProgress: parseInt(localStorage.getItem("openlearn-daily-progress")) || 15,
-                weeklyGoals: JSON.parse(localStorage.getItem("openlearn-weekly-goals")) || {
-                    "python-lessons": false,
-                    "build-project": false,
-                    "github-page": false
+            function queueDashboardSave() {
+                if (!userDocumentRef) return;
+                pendingDashboardWrite = {
+                    profile: { displayName: state.studentName, avatar: state.avatar, certificateHash: state.certificateHash },
+                    stats: { level: state.level, xp: state.xp, coins: state.coins, streak: state.streak, dailyGoalMins: state.dailyGoalMins, dailyGoalProgress: state.dailyGoalProgress },
+                    missions: { weeklyGoals: state.weeklyGoals },
+                    learning: { progress: { completedItems: state.completedItems } }
+                };
+                clearTimeout(saveTimer);
+                saveTimer = setTimeout(async () => {
+                    const update = pendingDashboardWrite;
+                    pendingDashboardWrite = null;
+                    try {
+                        await setDoc(userDocumentRef, update, { merge: true });
+                    } catch {
+                        dom.welcomeMessage.textContent = "You are offline. Your latest dashboard changes will sync when you reconnect.";
+                    }
+                }, 250);
+            }
+
+            function getLocalState(lesson) {
+                const cacheKey = `${lesson.file}-${lesson.id}`;
+                if (lessonStateCache.has(cacheKey)) {
+                    return lessonStateCache.get(cacheKey);
                 }
-            };
-
-            // Save state updates
-            function saveStateToStorage() {
-                localStorage.setItem("openlearn-student-name", state.studentName);
-                localStorage.setItem("openlearn-streak", state.streak);
-                localStorage.setItem("openlearn-daily-goal", state.dailyGoalMins);
-                localStorage.setItem("openlearn-daily-progress", state.dailyGoalProgress);
-                localStorage.setItem("openlearn-weekly-goals", JSON.stringify(state.weeklyGoals));
+                const lessonState = { done: state.completedItems.includes(cacheKey) };
+                lessonStateCache.set(cacheKey, lessonState);
+                return lessonState;
             }
+
+            // ================= DASHBOARD STATE =================
+            let state = createDefaultState({ email: "" });
 
             // --- UI RENDER HANDLERS ---
             function updateDashboard() {
+                lessonStateCache = new Map();
                 // 1. Gather lesson completions
                 let completedCount = 0;
                 const itemsStatus = ALL_ITEMS.map(item => {
@@ -1760,17 +1800,12 @@
                         break;
                     }
                 }
-                // If all done, default to last or congratulations
-                if (!recommended && itemsStatus.length > 0) {
-                    recommended = null;
-                }
-
                 // 3. Update welcome banner & student name
-                document.getElementById("welcomeStudentName").textContent = state.studentName;
-                document.getElementById("navbarAvatar").textContent = state.studentName.charAt(0).toUpperCase();
-                document.getElementById("dropdownName").textContent = state.studentName;
-                document.getElementById("dropdownEmail").textContent = state.studentName.toLowerCase().replace(/\s+/g, "") + "@openlearn.edu";
-                document.getElementById("sandboxNameInput").value = state.studentName;
+                dom.welcomeName.textContent = state.studentName;
+                dom.avatar.textContent = state.studentName.charAt(0).toUpperCase();
+                dom.dropdownName.textContent = state.studentName;
+                dom.dropdownEmail.textContent = state.email || `${state.studentName.toLowerCase().replace(/\s+/g, "")}@infotris.edu`;
+                dom.nameInput.value = state.studentName;
 
                 // Welcome message based on progress
                 let motTxt = "Consistency beats intensity. Review your pathway and build coding habits!";
@@ -1781,20 +1816,20 @@
                 } else if (state.streak >= 7) {
                     motTxt = `Outstanding! You are on a ${state.streak}-day streak! Keep compounding your skills. 🚀`;
                 }
-                document.getElementById("welcomeMotivationText").textContent = motTxt;
+                dom.welcomeMessage.textContent = motTxt;
 
                 // 4. Update Stats Row (KPIs)
-                document.getElementById("kpiProgress").textContent = `${completionPercentage}%`;
+                dom.progress.textContent = `${completionPercentage}%`;
                 document.getElementById("kpiStreak").textContent = `🔥 ${state.streak}`;
                 
                 // Study Time: estimate 45m per completed lesson/project + goal progress
                 const studyHours = ((completedCount * 45 + state.dailyGoalProgress) / 60).toFixed(1);
-                document.getElementById("kpiHours").textContent = `${studyHours}h`;
+                dom.hours.textContent = `${studyHours}h`;
                 
                 const certsUnlocked = completionPercentage === 100 ? "1 / 1" : "0 / 1";
-                document.getElementById("kpiCertificates").textContent = certsUnlocked;
+                dom.certificates.textContent = certsUnlocked;
                 
-                document.getElementById("sidebarStreakDays").textContent = `${state.streak} Days`;
+                dom.sidebarStreak.textContent = `${state.streak} Days`;
                 if (state.streak === 0) {
                     document.getElementById("streakIcon").textContent = "💤";
                 } else {
@@ -1802,16 +1837,12 @@
                 }
 
                 // 5. Recommended lesson card
-                const recCard = document.getElementById("recommendedLessonCard");
                 if (recommended) {
-                    recCard.style.display = "flex";
                     document.getElementById("nextLessonTitle").textContent = `${recommended.title} (${recommended.type === "project" ? "Guided Project" : "Lesson"})`;
-                    const folder = recommended.type === "project" ? "" : "python/";
                     document.getElementById("nextLessonCTA").href = `courses/python/${recommended.file}`;
                     document.getElementById("nextLessonCTA").textContent = recommended.type === "project" ? "Open Project" : "Resume Learning";
                     document.getElementById("resumePythonQuickAction").href = `courses/python/${recommended.file}`;
                 } else {
-                    recCard.style.display = "flex";
                     document.getElementById("nextLessonTitle").textContent = "All modules complete! Claim your credential below.";
                     document.getElementById("nextLessonCTA").href = "#pythonCertificateCard";
                     document.getElementById("nextLessonCTA").textContent = "View Milestone";
@@ -1819,15 +1850,15 @@
                 }
 
                 // 6. Python progress completeness badge
-                document.getElementById("pythonCompletenessStatus").textContent = `${completionPercentage}% Completed`;
+                dom.completeness.textContent = `${completionPercentage}% Completed`;
 
                 // 7. Render nested Syllabus Checklist
-                const syllabusContainer = document.getElementById("pythonModulesContainer");
+                const syllabusContainer = dom.modules;
                 syllabusContainer.innerHTML = ""; // Clear
 
                 let firstUncompletedFound = false;
 
-                COURSE_MODULES.forEach((module, modIndex) => {
+                COURSE_MODULES.forEach(module => {
                     const modDiv = document.createElement("div");
                     modDiv.className = "syllabus-module";
 
@@ -1918,16 +1949,16 @@
                 const currentMins = state.dailyGoalProgress;
                 const goalPct = Math.min(100, Math.round((currentMins / targetMins) * 100));
                 
-                document.getElementById("goalPctText").textContent = `${goalPct}%`;
-                document.getElementById("goalMinText").textContent = `${currentMins}m / ${targetMins}m`;
+                dom.goalPercent.textContent = `${goalPct}%`;
+                dom.goalMinutes.textContent = `${currentMins}m / ${targetMins}m`;
 
                 // SVG offset calculation (radius 36 => circumference = 226.19)
                 const circ = 226.19;
                 const offset = circ - (Math.min(goalPct, 100) / 100) * circ;
-                document.getElementById("goalCircularBar").style.strokeDashoffset = offset;
+                dom.goalBar.style.strokeDashoffset = offset;
 
                 // Sync daily goal dropdown selector value
-                document.getElementById("dailyGoalSelector").value = state.dailyGoalMins;
+                dom.goalSelector.value = state.dailyGoalMins;
 
                 // Sync weekly checklist UI
                 const wGoalInputs = document.querySelectorAll(".weekly-goal-checkbox input");
@@ -1943,19 +1974,18 @@
                 generateRecentActivityTimeline(completionPercentage, completedCount);
             }
 
-            // --- WEEKLY FOCUS SAVE HANDLER ---
+            // ================= GOALS & ACTIVITY =================
             document.querySelectorAll(".weekly-goal-checkbox input").forEach(input => {
                 input.addEventListener("change", (e) => {
                     const id = e.target.dataset.goalId;
                     state.weeklyGoals[id] = e.target.checked;
-                    saveStateToStorage();
+                    queueDashboardSave();
                 });
             });
 
-            // --- DAILY GOAL GAUGING ---
             document.getElementById("dailyGoalSelector").addEventListener("change", (e) => {
-                state.dailyGoalMins = parseInt(e.target.value);
-                saveStateToStorage();
+                state.dailyGoalMins = parseInt(e.target.value, 10);
+                queueDashboardSave();
                 updateDashboard();
             });
 
@@ -1964,13 +1994,13 @@
                 if (state.dailyGoalProgress > 120) {
                     state.dailyGoalProgress = 120; // Cap daily limit
                 }
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
             });
 
-            // --- ACTIVITY HEATMAP GRID GENERATOR ---
+            // ================= HEATMAP =================
             function generateActivityHeatmap() {
-                const grid = document.getElementById("heatmapGrid");
+                const grid = dom.heatmap;
                 grid.innerHTML = ""; // Clear
 
                 // Generate last 14 days (2 weeks of 7 squares)
@@ -2018,8 +2048,8 @@
                     // On click day, simulate coding session
                     cell.addEventListener("click", () => {
                         if (idx === 13) {
-                            state.dailyGoalProgress += 15;
-                            saveStateToStorage();
+                            state.dailyGoalProgress = Math.min(state.dailyGoalProgress + 15, 120);
+                            queueDashboardSave();
                             updateDashboard();
                         } else {
                             alert(`Simulated Study Date: ${formattedDate} (${minLabel})`);
@@ -2030,9 +2060,9 @@
                 });
             }
 
-            // --- RECENT TIMELINE ACHIEVEMENTS GENERATOR ---
+            // ================= ACHIEVEMENTS =================
             function generateRecentActivityTimeline(pct, count) {
-                const timeline = document.getElementById("recentActivityTimeline");
+                const timeline = dom.timeline;
                 timeline.innerHTML = "";
 
                 if (pct === 0) {
@@ -2079,22 +2109,14 @@
                 });
             }
 
-            // --- SANDBOX DRAWER INTERACTION ---
+            // ================= SANDBOX CONTROLS =================
             const sandboxDrawer = document.getElementById("sandboxDrawer");
             document.getElementById("sandboxHeaderTrigger").addEventListener("click", () => {
                 sandboxDrawer.classList.toggle("open");
             });
 
-            // --- SIMULATE 0% PROGRESS ---
             document.getElementById("btnSim0").addEventListener("click", () => {
-                // Remove all practice & quiz storage entries
-                for (let i = localStorage.length - 1; i >= 0; i--) {
-                    const key = localStorage.key(i);
-                    if (key.startsWith("openlearn-practice-") || key.startsWith("openlearn-quiz-")) {
-                        localStorage.removeItem(key);
-                    }
-                }
-                
+                state.completedItems = [];
                 state.streak = 0;
                 state.dailyGoalProgress = 0;
                 state.weeklyGoals = {
@@ -2103,31 +2125,18 @@
                     "github-page": false
                 };
                 
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#00875a");
             });
 
-            // --- SIMULATE 50% PROGRESS ---
             document.getElementById("btnSim50").addEventListener("click", () => {
                 // Clear first
                 document.getElementById("btnSim0").click();
 
-                // Complete first 9 items
+                // Complete the first half of the trail.
                 const countToComplete = Math.floor(ALL_ITEMS.length / 2);
-                for (let i = 0; i < countToComplete; i++) {
-                    const lesson = ALL_ITEMS[i];
-                    // Simulate completed quiz key
-                    const quizKey = `openlearn-quiz-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(quizKey, "complete");
-                    
-                    // Simulate checks completed practice key
-                    const practiceKey = `openlearn-practice-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(practiceKey, JSON.stringify({
-                        checks: [true, true, true],
-                        code: "# Practice completed successfully\n"
-                    }));
-                }
+                state.completedItems = ALL_ITEMS.slice(0, countToComplete).map(lesson => `${lesson.file}-${lesson.id}`);
 
                 state.streak = 5;
                 state.dailyGoalProgress = 20;
@@ -2137,24 +2146,13 @@
                     "github-page": false
                 };
 
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#00875a");
             });
 
-            // --- SIMULATE 100% PROGRESS ---
             document.getElementById("btnSim100").addEventListener("click", () => {
-                // Complete all 19 items
-                ALL_ITEMS.forEach(lesson => {
-                    const quizKey = `openlearn-quiz-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(quizKey, "complete");
-                    
-                    const practiceKey = `openlearn-practice-courses/python/${lesson.file}-${lesson.id}`;
-                    localStorage.setItem(practiceKey, JSON.stringify({
-                        checks: [true, true, true, true],
-                        code: "# Practice completed successfully\n"
-                    }));
-                });
+                state.completedItems = ALL_ITEMS.map(lesson => `${lesson.file}-${lesson.id}`);
 
                 state.streak = 12;
                 state.dailyGoalProgress = 30;
@@ -2164,33 +2162,30 @@
                     "github-page": true
                 };
 
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#00875a");
             });
 
-            // --- INCREMENT STREAK ---
             document.getElementById("btnIncrementStreak").addEventListener("click", () => {
                 state.streak += 1;
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#d4af37");
             });
 
-            // --- RESET STREAK ---
             document.getElementById("btnResetStreak").addEventListener("click", () => {
                 state.streak = 0;
-                saveStateToStorage();
+                queueDashboardSave();
                 updateDashboard();
                 showSandboxFlash("#a30000");
             });
 
-            // --- SAVE STUDENT NAME ---
             document.getElementById("btnSaveName").addEventListener("click", () => {
                 const newName = document.getElementById("sandboxNameInput").value.trim();
                 if (newName) {
                     state.studentName = newName;
-                    saveStateToStorage();
+                    queueDashboardSave();
                     updateDashboard();
                     showSandboxFlash("#00875a");
                 }
@@ -2206,7 +2201,7 @@
                 }, 500);
             }
 
-            // --- CERTIFICATE MODAL TRIGGER & PRINT ---
+            // ================= CERTIFICATE MODAL =================
             const overlay = document.getElementById("certificateModalOverlay");
             const claimBtn = document.getElementById("claimCertificateBtn");
             const closeBtn = document.getElementById("certCloseTrigger");
@@ -2223,10 +2218,11 @@
                 document.getElementById("certIssueDate").textContent = issueDateText;
 
                 // Random Verification ID
-                let hash = localStorage.getItem("openlearn-cert-hash");
+                let hash = state.certificateHash;
                 if (!hash) {
-                    hash = "OL-PY-" + Math.random().toString(16).substr(2, 8).toUpperCase();
-                    localStorage.setItem("openlearn-cert-hash", hash);
+                    hash = "IT-PY-" + Math.random().toString(16).substr(2, 8).toUpperCase();
+                    state.certificateHash = hash;
+                    queueDashboardSave();
                 }
                 document.getElementById("certVerificationId").textContent = `VERIFICATION ID: ${hash}`;
 
@@ -2250,15 +2246,39 @@
                 window.print();
             });
 
-            // --- SIMULATED LOGOUT ---
+            // ================= SESSION =================
             document.getElementById("simLogoutBtn").addEventListener("click", (e) => {
                 e.preventDefault();
-                alert("Simulating sign-out. Cleaning active session...");
-                window.location.href = "./";
+                signOut(auth)
+                    .catch(() => {})
+                    .finally(() => window.location.replace("signup.html"));
             });
 
-            // --- INITIALIZATION RUN ---
-            updateDashboard();
+            // ================= INITIALIZATION =================
+            function setLoadingState(message) {
+                document.body.setAttribute("aria-busy", "true");
+                dom.welcomeMessage.textContent = message;
+                dom.completeness.textContent = "Loading…";
+            }
+
+            onAuthStateChanged(auth, async user => {
+                if (!user) {
+                    window.location.replace("signup.html");
+                    return;
+                }
+
+                setLoadingState("Loading your learning dashboard…");
+                try {
+                    state = await loadUserState(user);
+                    updateDashboard();
+                } catch {
+                    state = createDefaultState(user);
+                    updateDashboard();
+                    dom.welcomeMessage.textContent = "Your dashboard is available in offline mode. Changes will sync when Firestore reconnects.";
+                } finally {
+                    document.body.removeAttribute("aria-busy");
+                }
+            });
         });
     </script>
 </body>

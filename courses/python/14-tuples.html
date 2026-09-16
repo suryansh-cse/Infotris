@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | tuples</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../"><img src="../../assets/logo.png" alt="" width="56" height="56"><span class="navbar-brand-text">Infotris</span></a>
+            <ul class="navbar-links"><li><a href="../../courses" aria-current="page">Courses</a></li></ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb"><a href="./">Python</a><span>/</span><span>Lesson 7</span></nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="13-dictionaries.html">← Previous</a>
+                <p class="lesson-header__label">Lesson 14</p>
+                <h1 class="lesson-header__title"> tuples</h1>
+                <p class="lesson-header__meta">~35 min</p>
+            </div>
+        </header>
+
+          <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Tuples in Python</h2>
+                <p>Lists are fantastic when you need a sequence of items that changes over time. But what if you have data that should <strong>never change</strong> during program execution—like standard GPS coordinates, RGB color codes, or database record IDs? That's where <strong>tuples</strong> come in. Tuples are Python's immutable, high-performance answer to read-only sequences.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand what a tuple is and why immutability matters.</li>
+                    <li>Create tuples, including the single-item tuple edge case.</li>
+                    <li>Access and slice tuple elements using zero-based indexing.</li>
+                    <li>Master tuple packing, unpacking, and variable swapping tricks.</li>
+                    <li>Use built-in tuple methods: <code>.count()</code> and <code>.index()</code>.</li>
+                </ul>
+
+                <h2>2. What is a Tuple?</h2>
+                <p>A tuple is an <strong>ordered</strong>, <strong>immutable</strong> (un-changeable) collection of items that allows duplicate values. Tuples are written with parentheses <code>()</code> and separated by commas.</p>
+
+                <p>Think of a tuple as a sealed, laminated sheet of paper containing data. Once written and laminated, you can read everything on it as many times as you like, but you can't erase or edit a single character.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># Creating a tuple with parentheses
+point = (10, 20)
+colors = ("red", "green", "blue")
+
+print(point)         # Output: (10, 20)
+print(type(colors))  # Output: &lt;class 'tuple'&gt;
+
+# Tuples allow duplicates
+ratings = (5, 5, 4, 3, 5)
+print(ratings)       # Output: (5, 5, 4, 3, 5)</code></pre>
+
+                <h2>3. The Single-Element Tuple Gotcha</h2>
+                <p>Creating a tuple with multiple items is straightforward. However, creating a tuple with <strong>just one item</strong> requires a special syntax detail that trips up almost every beginner: a trailing comma!</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># WRONG: Python sees this as a string wrapped in parentheses
+not_a_tuple = ("python")
+print(type(not_a_tuple))  # Output: &lt;class 'str'&gt;
+
+# RIGHT: The trailing comma tells Python it is a tuple
+is_a_tuple = ("python",)
+print(type(is_a_tuple))   # Output: &lt;class 'tuple'&gt;</code></pre>
+
+                <h2>4. Accessing & Slicing Tuple Elements</h2>
+                <p>Just like lists, tuples are zero-indexed. You access individual items using square brackets <code>[]</code>, support negative indexing (from the end), and can extract slices <code>[start:stop]</code>.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code>dimensions = (1920, 1080, 60)
+
+# Zero-based indexing
+width = dimensions[0]    # 1920
+height = dimensions[1]   # 1080
+
+# Negative indexing
+fps = dimensions[-1]     # 60
+
+# Slicing (returns a NEW tuple)
+resolution = dimensions[0:2]
+print(resolution)        # Output: (1920, 1080)</code></pre>
+
+                <h2>5. Why Use Tuples Instead of Lists?</h2>
+                <p>If lists can do almost everything tuples do, why bother using tuples at all? There are three major reasons:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Feature</th>
+                            <th style="padding: 0.5rem;">Tuples</th>
+                            <th style="padding: 0.5rem;">Lists</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Mutability</strong></td>
+                            <td style="padding: 0.5rem;">Immutable (Cannot be modified)</td>
+                            <td style="padding: 0.5rem;">Mutable (Can add/remove/change)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Performance</strong></td>
+                            <td style="padding: 0.5rem;">Faster iteration & lower memory overhead</td>
+                            <td style="padding: 0.5rem;">Slightly slower & larger memory footprint</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Data Integrity</strong></td>
+                            <td style="padding: 0.5rem;">Guarantees write-protection for constants</td>
+                            <td style="padding: 0.5rem;">Risk of accidental modification</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Dictionary Keys</strong></td>
+                            <td style="padding: 0.5rem;">Can be used as dict keys (hashable)</td>
+                            <td style="padding: 0.5rem;">CANNOT be used as dict keys</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>6. Tuple Packing & Unpacking</h2>
+                <p>Python allows you to "pack" multiple values into a tuple without parentheses, and "unpack" them into individual variables in a single elegant line.</p>
+
+                <p><strong>Python code example:</strong></p>
+                <pre><code># Tuple Packing (parentheses optional)
+user_data = "Alex", 28, "Developer"
+
+# Tuple Unpacking
+name, age, job = user_data
+
+print(name)  # Output: Alex
+print(age)   # Output: 28
+print(job)   # Output: Developer
+
+# Pythonic variable swapping using tuple unpacking!
+a = 5
+b = 10
+a, b = b, a  # Swaps a and b instantly!
+print(f"a: {a}, b: {b}")  # Output: a: 10, b: 5
+
+# Extended unpacking with the wildcard * operator
+scores = (98, 85, 90, 72, 88)
+first, *middle, last = scores
+print(first)   # Output: 98
+print(middle)  # Output: [85, 90, 72] (Unpacked as a list!)
+print(last)    # Output: 88</code></pre>
+
+                <h2>7. Real World Example</h2>
+                <p>Tuples are frequently used when functions need to return multiple values at once (such as geographic GPS coordinates or bounding boxes in computer vision).</p>
+
+                <pre><code>import math
+
+def get_circle_metrics(radius):
+    """Calculates and returns area and circumference as a tuple."""
+    area = math.pi * (radius ** 2)
+    circumference = 2 * math.pi * radius
+    return (round(area, 2), round(circumference, 2))
+
+# Calling the function and unpacking the returned tuple
+circle_area, circle_circ = get_circle_metrics(5)
+
+print(f"Area: {circle_area} sq units")          # Output: Area: 78.54 sq units
+print(f"Circumference: {circle_circ} units")  # Output: Circumference: 31.42 units</code></pre>
+
+                <h2>8. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Attempting Item Assignment</strong>: Writing <code>my_tuple[0] = "new"</code> raises a <code>TypeError</code> because tuples are immutable.</li>
+                        <li><strong>Forgetting the Trailing Comma</strong>: Writing <code>single_item = ("data")</code> creates a string, not a tuple. Always add the comma: <code>("data",)</code>.</li>
+                        <li><strong>Unpacking Mismatch</strong>: Trying to unpack a 3-element tuple into 2 variables without using <code>*</code> will throw a <code>ValueError: too many values to unpack</code>.</li>
+                    </ul>
+                </div>
+
+                <h2>9. Tuple Methods</h2>
+                <p>Because tuples are immutable, they don't have methods like <code>.append()</code> or <code>.pop()</code>. Instead, they only have <strong>two</strong> built-in methods:</p>
+
+                <pre><code>numbers = (1, 3, 7, 8, 7, 5, 7, 2)
+
+# 1. .count(x): Returns the number of times 'x' appears
+count_sevens = numbers.count(7)
+print(f"7 appears {count_sevens} times")  # Output: 7 appears 3 times
+
+# 2. .index(x): Returns the first zero-based index position of 'x'
+index_of_eight = numbers.index(8)
+print(f"8 is at index {index_of_eight}")  # Output: 8 is at index 3</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="08-tuples" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Unpack Coordinate Pair</h2>
+                        <p class="practice-panel__hint">Create a tuple named <code>location</code> holding latitude and longitude values: <code>(37.7749, -122.4194)</code>. Unpack the tuple into two separate variables named <code>lat</code> and <code>lon</code>, then print <code>lat</code>.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="8" spellcheck="false" placeholder="# Create location tuple&#10;location = (37.7749, -122.4194)&#10;&#10;# Unpack into lat, lon and print lat&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I defined a tuple <code>location = (37.7749, -122.4194)</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I unpacked it into <code>lat, lon = location</code></span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I printed <code>lat</code> successfully</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Awesome work! You've mastered tuple creation and unpacking.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="08-tuples">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. Which statement correctly describes a Python tuple?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Lists are mutable; tuples are immutable.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">A mutable, ordered collection of items.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! Tuples maintain exact element order and cannot be altered after creation.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">An immutable, ordered collection of items.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. Sets are unordered; tuples are ordered.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">An unordered, unique collection of items.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. How do you create a single-element tuple containing the integer 42?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. Writing (42) evaluates to a plain integer.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">my_tuple = (42)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The trailing comma is essential to distinguish a single-element tuple from standard parentheses.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">my_tuple = (42,)</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. tuple[42] is invalid syntax.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">my_tuple = tuple[42]</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What happens if you run `tup = (1, 2); tup[0] = 99`?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Tuples do not support item assignment because they are immutable.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python raises a TypeError.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Tuples cannot be modified in place.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">The tuple becomes (99, 2).</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. It does not convert to a list automatically.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Python converts the tuple into a list automatically.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. What are the ONLY two built-in methods available on a tuple object?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. .append() and .pop() modify objects, which tuples do not allow.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.append() and .pop()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! Tuples only support read-only query operations: .count() and .index().">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.count() and .index()</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. .sort() mutates sequences in place.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">.find() and .sort()</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>10. Challenge Project</h2>
+                <p><strong>Database Record Unpacker:</strong> Imagine you retrieve a database tuple containing user data: <code>record = ("usr_1092", "Sarah Connor", "sarah@skynet.org", "Admin", 2026)</code>. Write a Python script that unpacks the <code>user_id</code> and <code>email</code> individually, collects all remaining metadata into a list called <code>details</code> using the <code>*</code> operator, and prints a clean summary report.</p>
+
+                <h2>11. Key Takeaways</h2>
+                <ul>
+                    <li>Tuples are <strong>ordered</strong> and <strong>immutable</strong> data structures defined using <code>()</code>.</li>
+                    <li>Always include a trailing comma for single-item tuples: <code>(item,)</code>.</li>
+                    <li>Use tuples over lists when data integrity and performance are critical.</li>
+                    <li>Tuple <strong>packing</strong> and <strong>unpacking</strong> allow clean multi-variable assignments and swapping.</li>
+                    <li>Tuples support only two methods: <code>.count()</code> and <code>.index()</code>.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Tuples! Next up, we will dive into key-value pairs in **Dictionaries in Python**!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="13-dictionaries">← Dictionaries</a>
+                    <a class="lesson-nav__next" href="15-set">Set →</a>
+                </nav>
+            </div>
+        </article>
+
+            </main>
+    <footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>

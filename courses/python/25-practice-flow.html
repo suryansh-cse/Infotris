@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Practice Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+    <link rel="icon" 
+    type="image/png" 
+    href="assets/logo.png">
+</head>
+<body class="page-lesson">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="../../" aria-label="Infotris home">
+                <img src="../../assets/logo.png" alt="" width="56" height="56">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="../../courses" aria-current="page">Courses</a></li>
+                <li><a href="../../careers">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+    <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../careers/python-developer/">Python Developer</a>
+        <span>/</span>
+        <a href="./">Python</a>
+        <span>/</span>
+        <span>Lesson 10</span>
+    </nav>
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="24-mini-programs">← Lesson 24</a>
+                <p class="lesson-header__label">Lesson 25 · Python</p>
+                <h1 class="lesson-header__title">Practice Flow </h1>
+                <p class="lesson-header__meta">~40 min</p>
+            </div>
+        </header>
+
+<article class="lesson-content">
+            <div class="lesson-content__inner">
+                <h2>1. Practice Flow in Python</h2>
+                <p><strong>Practice Flow</strong> (often referred to as <em>Control Flow</em> or <em>Program Execution Flow</em>) is the order in which individual statements, instructions, or function calls are executed or evaluated when a Python program runs. Mastering program flow allows you to control how your code makes decisions, repeats operations, handles unexpected runtime errors, and steps through state transitions predictably.</p>
+
+                <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Learning Objectives</h3>
+                <ul>
+                    <li>Understand Python's sequential execution model and how the Call Stack manages function execution.</li>
+                    <li>Master conditional branching patterns, guard clauses, and the <code>match-case</code> statement.</li>
+                    <li>Control loop iteration flow using <code>break</code>, <code>continue</code>, <code>pass</code>, and loop <code>else</code> clauses.</li>
+                    <li>Trace exception handling execution order across <code>try-except-else-finally</code> blocks.</li>
+                    <li>Apply clean flow control patterns to avoid deep nesting ("Pyramid of Doom").</li>
+                </ul>
+
+                <h2>2. Understanding Program Execution Flow</h2>
+                <p>By default, Python reads and executes code <strong>sequentially from top to bottom, line by line</strong>. However, real-world software is rarely linear. Control flow constructs alter this default linear path, enabling your code to jump, branch, repeat, or handle runtime failures based on dynamically changing data conditions.</p>
+
+                <p>When a function is called, execution pauses at the call site, jumps to the function's definition, executes its body, and returns a value back to the caller before resuming the main program flow.</p>
+
+                <p><strong>Visualizing Execution Flow Constructs:</strong></p>
+                <pre><code># 1. Sequential Flow (Line 1 -> Line 2)
+x = 10
+y = 20
+
+# 2. Branching Flow (Jumps based on condition)
+if x < y:
+    print("x is smaller")  # Executed
+else:
+    print("y is smaller")  # Skipped
+
+# 3. Iterative Flow (Repeats block until condition completes)
+for i in range(3):
+    print(f"Iteration: {i}")
+
+# 4. Jump/Return Flow (Pauses current frame & returns control)
+def calculate_square(num):
+    return num * num  # Returns control back to caller
+
+result = calculate_square(4)</code></pre>
+
+                <h2>3. Key Flow Control Mechanisms in Python</h2>
+                <p>Python provides several fundamental structures to control execution flow across different programming contexts:</p>
+
+                <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--text-primary); text-align: left;">
+                            <th style="padding: 0.5rem;">Flow Mechanism</th>
+                            <th style="padding: 0.5rem;">Keywords / Syntax</th>
+                            <th style="padding: 0.5rem;">Execution Direction</th>
+                            <th style="padding: 0.5rem;">Primary Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Conditional Branching</strong></td>
+                            <td style="padding: 0.5rem;"><code>if</code>, <code>elif</code>, <code>else</code>, <code>match-case</code></td>
+                            <td style="padding: 0.5rem;">Forking path (Chooses 1 branch)</td>
+                            <td style="padding: 0.5rem;">Decision making based on variable state.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Loop Iteration</strong></td>
+                            <td style="padding: 0.5rem;"><code>for</code>, <code>while</code></td>
+                            <td style="padding: 0.5rem;">Cyclic loop (Repeats block)</td>
+                            <td style="padding: 0.5rem;">Processing collections or repeating actions.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Iteration Control</strong></td>
+                            <td style="padding: 0.5rem;"><code>break</code>, <code>continue</code>, <code>pass</code></td>
+                            <td style="padding: 0.5rem;">Jump / Skip / Placeholder</td>
+                            <td style="padding: 0.5rem;">Exiting loops early or skipping steps.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Exception Handling</strong></td>
+                            <td style="padding: 0.5rem;"><code>try</code>, <code>except</code>, <code>else</code>, <code>finally</code></td>
+                            <td style="padding: 0.5rem;">Interrupt & Recovery path</td>
+                            <td style="padding: 0.5rem;">Graceful recovery from runtime errors.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 0.5rem;"><strong>Subroutine Execution</strong></td>
+                            <td style="padding: 0.5rem;"><code>def</code>, <code>return</code>, <code>yield</code></td>
+                            <td style="padding: 0.5rem;">Call Stack jump & return</td>
+                            <td style="padding: 0.5rem;">Encapsulating logic and returning results.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>4. Clean Conditional Flow & Guard Clauses</h2>
+                <p>When handling multiple conditions, beginners often nest <code>if</code> statements inside one another, creating deeply nested code that is hard to read (the <strong>"Pyramid of Doom"</strong>). A professional pattern to control program flow is using <strong>Guard Clauses</strong>—early returns or exits that handle error conditions or invalid data at the top of a function.</p>
+
+                <p><strong>Nested Code vs. Guard Clause Flow Pattern:</strong></p>
+                <pre><code># ❌ BAD: Deeply Nested Conditional Flow
+def process_user_payment_bad(user, amount):
+    if user is not None:
+        if user.is_active:
+            if user.has_sufficient_funds(amount):
+                user.deduct_funds(amount)
+                return "Payment Successful"
+            else:
+                return "Insufficient Funds"
+        else:
+            return "User Inactive"
+    else:
+        return "Invalid User"
+
+
+# ✅ GOOD: Clean Guard Clause Flow (Flat Structure)
+def process_user_payment_good(user, amount):
+    # Guard 1: Validate User
+    if user is None:
+        return "Invalid User"
+
+    # Guard 2: Validate Account Status
+    if not user.is_active:
+        return "User Inactive"
+
+    # Guard 3: Validate Funds
+    if not user.has_sufficient_funds(amount):
+        return "Insufficient Funds"
+
+    # Main Happy Path Execution
+    user.deduct_funds(amount)
+    return "Payment Successful"</code></pre>
+
+                <h2>5. Loop Flow: <code>break</code>, <code>continue</code>, and Loop <code>else</code></h2>
+                <p>Python provides advanced flow mechanisms for loops that control exact iteration behavior:</p>
+                <ul>
+                    <li><strong><code>break</code>:</strong> Immediately terminates the loop and jumps to the statement directly following the loop block.</li>
+                    <li><strong><code>continue</code>:</strong> Skips the rest of the current iteration and jumps directly to the next loop cycle.</li>
+                    <li><strong>Loop <code>else</code>:</strong> Executes ONLY if the loop completed naturally without hitting a <code>break</code> statement!</li>
+                </ul>
+
+                <p><strong>Python code example: Search Flow with Loop <code>else</code></strong></p>
+                <pre><code>numbers = [12, 35, 9, 44, 23]
+target = 44
+
+for num in numbers:
+    if num == target:
+        print(f"Target {target} found in list!")
+        break  # Exits loop early!
+else:
+    # This block ONLY runs if the loop completed without hitting a break!
+    print(f"Target {target} was NOT found in the list.")</code></pre>
+
+                <h2>6. Exception Handling Execution Flow</h2>
+                <p>When an unhandled exception occurs, Python halts normal execution flow and immediately searches up the call stack for a matching <code>try-except</code> block. Understanding the full <code>try-except-else-finally</code> execution sequence is essential for resource management:</p>
+
+                <pre><code>def read_file_contents(filename):
+    try:
+        print("1. Opening file...")
+        file = open(filename, "r")
+        content = file.read()
+    except FileNotFoundError:
+        print("2a. Exception caught: File does not exist!")
+    else:
+        # Executes ONLY if NO exception occurred inside try block!
+        print("2b. Success: File read without errors!")
+        return content
+    finally:
+        # ALWAYS executes regardless of whether an exception occurred or not!
+        print("3. Finally block: Cleanup and file handle closing executed.")
+
+# Test flow with missing file
+read_file_contents("missing.txt")
+# Output:
+# 1. Opening file...
+# 2a. Exception caught: File does not exist!
+# 3. Finally block: Cleanup and file handle closing executed.</code></pre>
+
+                <h2>7. Common Beginner Mistakes</h2>
+                <div class="lesson-placeholder" style="border-left: 3px solid #a30000; background-color: rgba(163,0,0,0.02); padding: var(--space-md);">
+                    <p style="font-weight: 600; color: #a30000; margin-bottom: 0.25rem;">⚠️ Watch out for these mistakes:</p>
+                    <ul style="margin-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <li><strong>Modifying a List While Iterating Over It</strong>: Adding or removing elements from a list during a <code>for item in my_list:</code> loop corrupts the internal loop index, causing skipped items or unexpected flow behavior. Create a copy or filter into a new list instead!</li>
+                        <li><strong>Infinite <code>while</code> Loops</strong>: Forgetting to update loop variables inside a <code>while</code> loop body locks the program execution indefinitely. Always ensure a clear exit condition exists.</li>
+                        <li><strong>Misunderstanding Loop <code>else</code> Execution</strong>: Expecting the loop <code>else</code> clause to run when a loop encounters a <code>break</code> statement. Remember: loop <code>else</code> runs ONLY when no <code>break</code> occurs!</li>
+                        <li><strong>Confusing <code>print()</code> with <code>return</code> Flow</strong>: Using <code>print()</code> instead of <code>return</code> inside functions allows execution flow to fall through to the end of the function, implicitly returning <code>None</code>.</li>
+                    </ul>
+                </div>
+
+                <h2>8. Code Examples</h2>
+                <p>Here are practical code patterns demonstrating state machine flow control and match-case flow branching in Python:</p>
+
+                <pre><code># 1. Structural Pattern Matching Flow (Python 3.10+)
+def handle_http_response(status_code):
+    match status_code:
+        case 200 | 201:
+            print("Flow: Success / Resource Created")
+        case 400 | 404:
+            print("Flow: Client Error - Bad Request or Not Found")
+        case 500:
+            print("Flow: Server Error")
+        case _:
+            print("Flow: Unknown HTTP Status Code")
+
+handle_http_response(200)  # Output: Flow: Success / Resource Created
+handle_http_response(404)  # Output: Flow: Client Error - Bad Request or Not Found
+
+# 2. State Machine Practice Flow
+class OrderFlowState:
+    PENDING = "Pending"
+    PROCESSING = "Processing"
+    SHIPPED = "Shipped"
+    DELIVERED = "Delivered"
+
+def advance_order_status(current_state):
+    if current_state == OrderFlowState.PENDING:
+        return OrderFlowState.PROCESSING
+    elif current_state == OrderFlowState.PROCESSING:
+        return OrderFlowState.SHIPPED
+    elif current_state == OrderFlowState.SHIPPED:
+        return OrderFlowState.DELIVERED
+    else:
+        return "Order Completed"
+
+status = OrderFlowState.PENDING
+status = advance_order_status(status)
+print(f"Current State: {status}")  # Output: Current State: Processing</code></pre>
+
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="16-practice-flow" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Interactive Practice</span>
+                        <h2 id="practice-title" class="practice-panel__title">Mini Practice: Guard Clause Refactoring</h2>
+                        <p class="practice-panel__hint">Refactor a nested flow function into clean guard clauses. The function should validate an age integer: return <code>"Invalid Age"</code> if age &lt; 0, <code>"Minor"</code> if age &lt; 18, and <code>"Adult"</code> for age 18 and older.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <div class="practice-workspace">
+                        <label for="practice-code">Your code</label>
+                        <textarea id="practice-code" class="practice-code" rows="10" spellcheck="false" placeholder="def check_user_age(age):&#10;    # Guard 1: Check negative age&#10;    if age < 0:&#10;        return 'Invalid Age'&#10;    &#10;    # Guard 2: Check minor&#10;    if age < 18:&#10;        return 'Minor'&#10;    &#10;    # Happy path&#10;    return 'Adult'&#10;&#10;print(check_user_age(-5))&#10;print(check_user_age(15))&#10;print(check_user_age(25))&#10;"></textarea>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I created early exit guard clauses for invalid age (< 0)</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I handled minor check (< 18) before the main happy path return</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I tested all branching paths with different inputs</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Awesome job! You've mastered clean flow control and guard clause refactoring.</p>
+                    </div>
+                </section>
+
+                <section class="quiz-panel" data-quiz-id="16-practice-flow">
+                    <div class="quiz-panel__header">
+                        <span class="quiz-panel__eyebrow">Quiz</span>
+                        <h2 class="quiz-panel__title">Test Your Understanding</h2>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">1. When does the `else` clause attached to a `for` or `while` loop execute in Python?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. If a break statement is hit, the loop's else block is completely skipped.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">When the loop hits a break statement.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true" data-explanation="Correct! A loop's else block runs ONLY if the loop finishes iterating naturally without encountering a break statement.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">When the loop finishes iterating naturally without encountering a break statement.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false" data-explanation="Incorrect. The loop's else block runs whenever the loop completes normally, regardless of list size.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Only if the loop iterable contains zero elements.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">2. In a `try-except-else-finally` block, when does the `finally` block execute?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The else block runs only when no exception occurs.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Only when no exception is raised inside the try block.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false" data-explanation="Incorrect. The except block runs when an exception occurs.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Only when an unhandled exception is caught.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true" data-explanation="Correct! The finally block ALWAYS executes before leaving the try statement, whether an exception occurred, was handled, or not.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">Always, regardless of whether an exception occurred or was caught.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">3. What is the main structural advantage of using "Guard Clauses" in function flow control?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true" data-explanation="Correct! Guard clauses eliminate deep nested if statements by checking error/edge conditions early and returning immediately.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It eliminates deep nesting by handling invalid/edge conditions early with early returns.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Guard clauses improve readability, not memory allocation speed.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It speeds up Python memory compilation time automatically.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false" data-explanation="Incorrect. Guard clauses work inside standard Python functions without requiring additional modules.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It allows functions to run without defining parameter inputs.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p class="quiz-question__text">4. What does the `continue` keyword do when executed inside a loop body?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Terminating the entire loop is performed by the 'break' statement.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It terminates the loop completely and jumps to code outside the loop.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="true" data-explanation="Correct! 'continue' skips the remainder of the current loop body and immediately advances to the next iteration.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It skips the rest of the current iteration and jumps directly to the next cycle.</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q4" data-correct="false" data-explanation="Incorrect. Restarting the loop from index zero requires resetting iterators manually.">
+                                <span class="quiz-option__indicator"></span>
+                                <span class="quiz-option__text">It restarts the loop back at index 0 regardless of current loop state.</span>
+                            </label>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button>
+                </section>
+
+                <h2>9. Challenge Project</h2>
+                <p><strong>Interactive Bank ATM Simulator Flow:</strong> Build a CLI state-machine simulator that directs user execution flow through safe transaction pathways:</p>
+                <ol>
+                    <li>Implement a authentication state using guard clauses: check PIN against valid credentials (max 3 failed attempts allowed using a loop).</li>
+                    <li>Create an interactive menu loop with options: <strong>Check Balance</strong>, <strong>Deposit Funds</strong>, <strong>Withdraw Funds</strong>, and <strong>Logout</strong>.</li>
+                    <li>Use exception-driven flow with <code>try-except-else-finally</code> to catch non-numeric input when user enters deposit or withdrawal amounts.</li>
+                    <li>Enforce withdrawal guard conditions: print an error and refuse withdrawal if requested amount exceeds current account balance.</li>
+                </ol>
+
+                <h2>10. Key Takeaways</h2>
+                <ul>
+                    <li>Program execution flow dictates the order in which statements and function calls execute.</li>
+                    <li>Use <strong>Guard Clauses</strong> to keep function code flat, clean, and free of deeply nested conditional blocks.</li>
+                    <li>Loop <strong><code>break</code></strong> exits early, <strong><code>continue</code></strong> skips to the next cycle, and loop <strong><code>else</code></strong> runs when no <code>break</code> occurs.</li>
+                    <li>In exception handling, the <strong><code>else</code></strong> block runs on success, while <strong><code>finally</code></strong> ALWAYS runs for cleanup.</li>
+                    <li>Manage complex multi-branch logic cleanly using Python's structural <strong><code>match-case</code></strong> statement.</li>
+                </ul>
+
+                <div class="lesson-placeholder" style="margin-top: var(--space-lg); border-style: solid; border-color: var(--text-primary);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">🚀 Progression</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0; color: var(--text-secondary);">You've mastered Practice & Control Flow! Next up, we will explore **File Handling & Modules in Python** to work with external files and persistent data!</p>
+                </div>
+
+                <nav class="lesson-nav">
+                    <a href="25-mini-programs">← Mini Programs</a>
+                    <a class="lesson-nav__next" href="17-file-handling">File Handling →</a>
+                </nav>
+            </div>
+        </article>
+<footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris. All rights reserved.</p></div></footer>
+    <script src="../../js/practice.js" defer></script>
+</body>
+</html>

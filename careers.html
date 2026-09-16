@@ -8,10 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/system/theme.css">
+
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/careers.css">
-    <link rel="icon" type="image/png"  href="assets/logo-infotris.png">
+    <link rel="icon" type="image/png"  href="assets/logo.png">
 </head>
 <body class="page-careers">
 
@@ -30,7 +32,13 @@
                 <li><a href="about">About</a></li>
             </ul>
 
-            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+            <div id="navbar-user">
+
+                <a class="btn-sign-in" href="signup.html">
+                    Sign In
+                </a>
+            
+            </div>
         </nav>
     </header>
 
@@ -108,18 +116,19 @@
                     <li class="careers-timeline__step">
                         <span class="careers-timeline__num" aria-hidden="true">02</span>
                         <div class="careers-timeline__body">
-                            <h3 class="careers-timeline__title">Practice by building</h3>
+                            <h3 class="careers-timeline__title">Know your position</h3>
                             <p class="careers-timeline__text">
-                                Work through exercises and projects so you understand concepts — not just watch lessons.
+                                Know your position in the course trail and what to study next.
+                                Check your progress with the TrisGraph map and milestones.
                             </p>
                         </div>
                     </li>
                     <li class="careers-timeline__step">
                         <span class="careers-timeline__num" aria-hidden="true">03</span>
                         <div class="careers-timeline__body">
-                            <h3 class="careers-timeline__title">Track your progress</h3>
+                            <h3 class="careers-timeline__title">Practice by building</h3>
                             <p class="careers-timeline__text">
-                                Follow TrisGraph maps and milestones from beginner topics toward advanced skills.
+                                Work through exercises and projects so you understand concepts and build your skills.
                             </p>
                         </div>
                     </li>
@@ -173,7 +182,7 @@
                                 <li><span class="careers-path-card__skill">DSA</span></li>
                                 <li><span class="careers-path-card__skill">Problem Solving</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="careers/python-developer/">View syllabus</a>
+                            <a class="careers-path-card__cta" href="careers/python-developer/index">View syllabus</a>
                         </article>
                     </li>
                     <li>
@@ -198,7 +207,7 @@
                                 <li><span class="careers-path-card__skill">CSS</span></li>
                                 <li><span class="careers-path-card__skill">JavaScript</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#web-foundations">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/coming/career-coming-soon">Start studying</a>
                         </article>
                     </li>
                     <li>
@@ -223,7 +232,7 @@
                                 <li><span class="careers-path-card__skill">Git</span></li>
                                 <li><span class="careers-path-card__skill">JavaScript</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#course-webdev">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/coming/career-coming-soon">Start studying</a>
                         </article>
                     </li>
                     <li>
@@ -248,7 +257,7 @@
                                 <li><span class="careers-path-card__skill">Python</span></li>
                                 <li><span class="careers-path-card__skill">Web Dev</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#course-ai">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/coming/career-coming-soon">Start studying</a>
                         </article>
                     </li>
                     <li>
@@ -273,7 +282,7 @@
                                 <li><span class="careers-path-card__skill">Problem Solving</span></li>
                                 <li><span class="careers-path-card__skill">JavaScript</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#course-dsa">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/coming/career-coming-soon">Start studying</a>
                         </article>
                     </li>
                     <li>
@@ -297,7 +306,7 @@
                                 <li><span class="careers-path-card__skill">Git</span></li>
                                 <li><span class="careers-path-card__skill">Web Dev</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#course-git">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/coming/career-coming-soon">Start studying</a>
                         </article>
                     </li>
                     <li>
@@ -321,7 +330,7 @@
                                 <li><span class="careers-path-card__skill">HTML</span></li>
                                 <li><span class="careers-path-card__skill">CSS</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#course-css">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/coming/career-coming-soon">Start studying</a>
                         </article>
                     </li>
                     <li>
@@ -345,7 +354,7 @@
                                 <li><span class="careers-path-card__skill">Problem Solving</span></li>
                                 <li><span class="careers-path-card__skill">DSA</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#course-problem-solving">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/problem-solving/index">Start studying</a>
                         </article>
                     </li>
                     <li>
@@ -370,7 +379,7 @@
                                 <li><span class="careers-path-card__skill">JavaScript</span></li>
                                 <li><span class="careers-path-card__skill">Git</span></li>
                             </ul>
-                            <a class="careers-path-card__cta" href="courses#course-html">Start studying</a>
+                            <a class="careers-path-card__cta" href="courses/coming/coming">Start studying</a>
                         </article>
                     </li>
                 </ul>
@@ -488,7 +497,7 @@
                 </p>
                 <div class="careers-cta__actions">
                     <a class="careers-btn careers-btn--light" href="courses">Go to courses</a>
-                    <a class="careers-btn careers-btn--outline-light" href="#paths">View learning trails</a>
+                    <a class="careers-btn careers-btn--outline-light" href="trisgraph">View learning trails</a>
                 </div>
             </div>
         </section>
@@ -561,6 +570,6 @@
             <p>&copy; 2026 Infotris. All rights reserved.</p>
         </div>
     </footer>
-
+           <script type="module" src="js/navbar.js"></script>
 </body>
 </html>

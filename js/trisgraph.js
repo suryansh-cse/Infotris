@@ -71,7 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
     statistics: {
       title: "Applied Statistics",
       desc: "Probability, distributions, hypothesis testing, and statistical models to validate assumptions."
+    },
+    dsa: {
+      title: "DSA Trail",
+      desc: "Data structures & algorithms for efficient problem-solving and software design."
     }
+
   };
 
   // Set default active path (Python)

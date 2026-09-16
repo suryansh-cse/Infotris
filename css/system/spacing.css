@@ -1,0 +1,26 @@
+/* ==========================================================================
+   SPACING.CSS — Section rhythm and stack spacing utilities
+   ========================================================================== */
+
+.section {
+  padding: var(--space-xl) var(--space-md);
+}
+
+.section--sm {
+  padding: var(--space-lg) var(--space-md);
+}
+
+.section--lg {
+  padding: clamp(5rem, 10vw, 8rem) var(--space-md);
+}
+
+.section--bordered {
+  border-top: var(--border-width) solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.stack-xs { display: flex; flex-direction: column; gap: var(--space-xs); }
+.stack-sm { display: flex; flex-direction: column; gap: var(--space-sm); }
+.stack-md { display: flex; flex-direction: column; gap: var(--space-md); }
+.stack-lg { display: flex; flex-direction: column; gap: var(--space-lg); }
+.stack-xl { display: flex; flex-direction: column; gap: var(--space-xl); }

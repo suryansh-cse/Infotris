@@ -10,9 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+        <link rel="stylesheet" href="css/system/theme.css">
+
+    
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/trisgraph-page.css">
+    <link rel="stylesheet" href="css/system/responsive.css">
+    <link rel="stylesheet" href="css/system/animations.css">
+    <link rel="stylesheet" href="css/system/variables.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
 <body class="page-trisgraph">
@@ -33,7 +39,13 @@
                 <li><a href="about">About</a></li>
             </ul>
 
-            <a class="btn-sign-in" href="#sign-in">Sign In</a>
+            <div id="navbar-user">
+
+                <a class="btn-sign-in" href="signup.html">
+                    Sign In
+                </a>
+            
+            </div>
         </nav>
     </header>
 
@@ -64,8 +76,8 @@
                             <h3>Python Trail</h3>
                             <p>Core programming & logic</p>
                         </div>
+                        <a href="courses/python/python-roadmap" class="btn-sidebar-cta" style="width:70px; height: 25px;padding: 0 10px;">Start-></a>
                     </button>
-
                     <!-- AI Card -->
                     <button class="trail-selector-btn" data-path="ai">
                         <span class="btn-bullet"></span>
@@ -73,6 +85,7 @@
                             <h3>AI & ML Trail</h3>
                             <p>Models & neural networks</p>
                         </div>
+                        <a href="courses/coming/trisgraph-soon.html" class="btn-sidebar-cta" style="width:70px; height: 25px;padding: 0 10px;">Start-></a>
                     </button>
 
                     <!-- Web Dev Card -->
@@ -82,6 +95,7 @@
                             <h3>Web Development Trail</h3>
                             <p>Frontend & database design</p>
                         </div>
+                        <a href="courses/coming/trisgraph-soon" class="btn-sidebar-cta" style="width:70px; height: 25px;padding: 0 10px;">Start-></a>
                     </button>
 
                     <!-- Data Science Card -->
@@ -91,6 +105,17 @@
                             <h3>Data Science Trail</h3>
                             <p>Statistics & data frames</p>
                         </div>
+                        <a href="courses/coming/trisgraph-soon" class="btn-sidebar-cta" style="width:70px; height: 25px;padding: 0 10px;">Start-></a>
+                    </button>
+
+                    <!-- DSA Card -->
+                    <button class="trail-selector-btn" data-path="dsa">
+                        <span class="btn-bullet"></span>
+                        <div class="btn-content">
+                            <h3>DSA Trail</h3>
+                            <p>Data structures & algorithms</p>
+                        </div>
+                        <a href="courses/dsa/dsa-tris" class="btn-sidebar-cta" style="width:70px; height: 25px;padding: 0 10px;">Start-></a>
                     </button>
                 </div>
             </div>
@@ -110,6 +135,8 @@
                     <a href="courses/python/" class="btn-sidebar-cta">Start Python Trail</a>
                 </div>
             </div>
+
+            
         </aside>
 
         <!-- RIGHT PANEL: Graph Canvas -->
@@ -169,6 +196,15 @@
                     <line x1="480" y1="330" x2="590" y2="400" class="trisgraph-line path-datascience" data-from="datascience" data-to="pandas" />
                     <line x1="480" y1="330" x2="350" y2="410" class="trisgraph-line path-datascience" data-from="datascience" data-to="sql" />
                     <line x1="480" y1="330" x2="490" y2="440" class="trisgraph-line path-datascience" data-from="datascience" data-to="statistics" />
+                     
+                    <!-- DSA Connections -->
+                    <line x1="350" y1="250" x2="350" y2="410" class="trisgraph-line path-dsa" data-from="infotris" data-to="dsa" />
+                    <line x1="350" y1="410" x2="350" y2="440" class="trisgraph-line path-dsa" data-from="dsa" data-to="dsa-subnode" />
+                    <line x1="350" y1="440" x2="350" y2="470" class="trisgraph-line path-dsa" data-from="dsa-subnode" data-to="dsa-subnode2" />
+                    <line x1="350" y1="470" x2="350" y2="500" class="trisgraph-line path-dsa" data-from="dsa-subnode2" data-to="dsa-subnode3" />
+                    <line x1="350" y1="500" x2="350" y2="530" class="trisgraph-line path-dsa" data-from="dsa-subnode3" data-to="dsa-subnode4" />
+
+
 
                     <!-- Nodes Layer (Groups of Circles + Text) -->
                     <!-- Center: Infotris -->
@@ -239,6 +275,19 @@
                     <g class="trisgraph-node-group node-datascience" data-node="statistics">
                         <circle cx="490" cy="440" r="6" class="trisgraph-node-circle" />
                         <text x="490" y="458" text-anchor="middle" class="trisgraph-node-text">Statistics</text>
+                    </g>
+                    <!-- DSA Core -->
+                    <g class="trisgraph-node-group node-dsa" data-node="dsa">
+                        <circle cx="350" cy="410" r="8" class="trisgraph-node-circle" />
+                        <text x="350" y="428" text-anchor="middle" class="trisgraph-node-text">DSA</text>
+                    </g>    
+                     <g class="trisgraph-node-group node-infotris" data-node="infotris">
+                        <circle cx="350" cy="250" r="11" class="trisgraph-node-circle" />
+                        <text x="350" y="228" text-anchor="middle" class="trisgraph-node-text">Infotris</text>
+                    </g>
+                     <g class="trisgraph-node-group node-python" data-node="python">
+                        <circle cx="220" cy="170" r="8" class="trisgraph-node-circle" />
+                        <text x="220" y="152" text-anchor="middle" class="trisgraph-node-text">Python</text>
                     </g>
                 </svg>
             </div>
@@ -317,7 +366,11 @@
             <p>&copy; 2026 Infotris. All rights reserved.</p>
         </div>
     </footer>
-
+           <script src="js/anime.js" type="module"></script>
+        <script src="js/trisgraph.js" type="module"></script>
+        <script src="js/infotris-index.js"></script>
+<script src="js/search.js"></script>
+<script type="module" src="js/navbar.js"></script>
     <script src="js/trisgraph-page.js" type="module"></script>
 </body>
 </html>
