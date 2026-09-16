@@ -1,5 +1,3 @@
-
-
 #layout.pillar-animation {
   width: 100%;
   display: flex;
@@ -16,8 +14,26 @@
   background-color: rgba(13, 13, 13, 0.03);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
+  position: relative;
+  overflow: visible;
 }
 
+/* Subtle ambient glow behind the frame */
+.pillar-animation-frame::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(ellipse at center, rgba(13, 13, 13, 0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.pillar-animation-frame:hover::before {
+  opacity: 1;
+}
 
 /* --------------------------------------------------------------------------
    GRID CONTAINER (.layout-container)
@@ -28,6 +44,7 @@
   width: 100%;
   height: 100%;
   min-height: 280px;
+  will-change: transform;
 }
 
 #layout .grid-layout {
@@ -35,8 +52,11 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 10px;
+  height: 100%;
+  width: 100%;
+  /* Smooth grid transitions */
+  transition: grid-template-columns 0.3s ease, grid-template-rows 0.3s ease;
 }
-
 
 /* --------------------------------------------------------------------------
    GRID STATE 1 (default — matches data-grid="1" in HTML)
@@ -46,7 +66,6 @@
 #layout [data-grid="1"] .item:nth-child(2) { grid-column: 2; grid-row: 1; }
 #layout [data-grid="1"] .item:nth-child(3) { grid-column: 1; grid-row: 3; }
 #layout [data-grid="1"] .item:nth-child(4) { grid-column: 2; grid-row: 2 / 4; }
-
 
 /* --------------------------------------------------------------------------
    GRID STATE 2 — 3-column grid, items 1 and 4 span full height
@@ -61,6 +80,8 @@
   grid-row: 1 / 3;
 }
 
+#layout [data-grid="2"] .item:nth-child(2) { grid-column: 2; grid-row: 1; }
+#layout [data-grid="2"] .item:nth-child(3) { grid-column: 3; grid-row: 1; }
 
 /* --------------------------------------------------------------------------
    GRID STATE 3 — mirrored bento layout (different card positions)
@@ -69,7 +90,6 @@
 #layout [data-grid="3"] .item:nth-child(3) { grid-column: 2; grid-row: 1 / 3; }
 #layout [data-grid="3"] .item:nth-child(2) { grid-column: 1; grid-row: 2 / 4; }
 #layout [data-grid="3"] .item:nth-child(1) { grid-column: 2; grid-row: 3; }
-
 
 /* --------------------------------------------------------------------------
    GRID STATE 4 — 3 columns; items 3 and 4 share a tall right column
@@ -86,6 +106,8 @@
   grid-row: 1 / 3;
 }
 
+#layout [data-grid="4"] .item:nth-child(3) { grid-column: 2; }
+#layout [data-grid="4"] .item:nth-child(4) { grid-column: 3; }
 
 /* --------------------------------------------------------------------------
    PILLAR CARDS (.item)
@@ -102,18 +124,131 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--bg-light);
-  background-color: var(--bg-dark);
+  background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a1a 100%);
   border: 1px solid rgba(217, 217, 217, 0.15);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 14px rgba(13, 13, 13, 0.12);
+  box-shadow:
+    0 4px 14px rgba(13, 13, 13, 0.12),
+    0 1px 3px rgba(13, 13, 13, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
   user-select: none;
+  position: relative;
+  overflow: hidden;
+  /* Hardware acceleration for smooth transforms */
+  will-change: transform, opacity, box-shadow;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
-/* Subtle variation — first card slightly lighter for visual hierarchy */
-#layout .item:nth-child(1) {
-  background-color: #1a1a1a;
+/* Subtle inner highlight for depth */
+#layout .item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: inherit;
 }
 
+/* Individual card color personalities */
+#layout .item:nth-child(1) { /* Learn - Deep blue accent */
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a1a1a 100%);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+#layout .item:nth-child(1)::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+  transform: translateX(-50%);
+  transition: width 0.4s ease;
+}
+#layout .item:nth-child(1):hover::after { width: 80%; }
+
+#layout .item:nth-child(2) { /* Build - Emerald accent */
+  background: linear-gradient(135deg, #0d2a1a 0%, #1a1a1a 100%);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+#layout .item:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #10b981, transparent);
+  transform: translateX(-50%);
+  transition: width 0.4s ease;
+}
+#layout .item:nth-child(2):hover::after { width: 80%; }
+
+#layout .item:nth-child(3) { /* Solve - Amber accent */
+  background: linear-gradient(135deg, #2a200d 0%, #1a1a1a 100%);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+#layout .item:nth-child(3)::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+  transform: translateX(-50%);
+  transition: width 0.4s ease;
+}
+#layout .item:nth-child(3):hover::after { width: 80%; }
+
+#layout .item:nth-child(4) { /* Ship - Rose accent */
+  background: linear-gradient(135deg, #2a0d1a 0%, #1a1a1a 100%);
+  border-color: rgba(244, 63, 94, 0.2);
+}
+#layout .item:nth-child(4)::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #f43f5e, transparent);
+  transform: translateX(-50%);
+  transition: width 0.4s ease;
+}
+#layout .item:nth-child(4):hover::after { width: 80%; }
+
+/* Hover state - subtle lift and glow */
+#layout .item:hover {
+  transform: translateY(-2px) scale(1.01) !important;
+  box-shadow:
+    0 12px 28px rgba(13, 13, 13, 0.18),
+    0 4px 8px rgba(13, 13, 13, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  z-index: 10;
+}
+
+/* Active morph state (applied by JS during transition) */
+#layout .item.morphing {
+  transition: none !important;
+}
+
+/* Text styling with subtle gradient */
+#layout .item span,
+#layout .item {
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  #layout .item,
+  #layout .grid-layout {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  #layout .item:hover {
+    transform: none !important;
+  }
+
+  .pillar-animation-frame::before {
+    display: none;
+  }
+}
 
 /* --------------------------------------------------------------------------
    RESPONSIVE — shrink frame on small screens
@@ -127,6 +262,11 @@
   #layout .layout-container {
     min-height: 240px;
   }
+
+  #layout .item {
+    font-size: 0.875rem;
+    min-height: 56px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -137,8 +277,41 @@
   #layout .item {
     font-size: 0.8125rem;
     min-height: 52px;
+    padding: var(--space-xs);
+  }
+
+  #layout .grid-layout {
+    gap: 8px;
   }
 }
 
-/* ANIMATION FIXED CORNER */
+/* --------------------------------------------------------------------------
+   ENTRANCE KEYFRAMES (fallback for non-JS or initial paint)
+   -------------------------------------------------------------------------- */
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(30px) rotate(-5deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-4px) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
 
+/* Staggered entrance for each card (CSS fallback) */
+#layout .item:nth-child(1) { animation: cardEntrance 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.1s both; }
+#layout .item:nth-child(2) { animation: cardEntrance 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both; }
+#layout .item:nth-child(3) { animation: cardEntrance 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both; }
+#layout .item:nth-child(4) { animation: cardEntrance 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s both; }
+
+/* Disable CSS entrance when JS takes over (JS removes .no-js class) */
+.no-js #layout .item {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}

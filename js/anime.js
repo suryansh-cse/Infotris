@@ -1,89 +1,400 @@
 /**
- * ANIME.JS — Pillar card layout loop
- *
- * WHY THE ORIGINAL CODE FAILED:
- * 1. CSS selectors used "#layout" but HTML had no id="layout" → grid never applied.
- * 2. anime.js was loaded TWICE (in <head> and before </body>) → double init / race.
- * 3. No card/container sizing in CSS → nothing visible to animate.
- * 4. Script ran before DOM was guaranteed ready (head load) without checks.
- * 5. Opening index.html via file:// can block ES module CDN imports — use a local
- *    server (Live Server, `npx serve`, etc.) so modules load over http/https.
- *
- * HOW THIS WORKS:
- * - createLayout() watches ".layout-container" and records each card's position/size.
- * - layout.update() changes data-grid (1→2→3→4→1…), which swaps CSS grid rules.
- * - anime.js smoothly animates each card from old positions to new ones.
- * - onComplete + setTimeout restarts the loop for continuous motion.
+ * ANIME.JS — Pillar card layout morphing animation
+ * Premium Infotris hero animation with smooth morphing, staggered entrances,
+ * particle trail effects, and visual feedback during transitions.
  */
 
-import { createLayout, stagger } from 'animejs';
+import { createLayout, animate, stagger, utils, timeline } from 'animejs';
 
-/** Pause between layout morphs (ms) — keeps the loop calm and readable */
-const PAUSE_BETWEEN_LAYOUTS = 700;
+/** Configuration constants */
+const CONFIG = {
+  pauseBetweenLayouts: 1200,
+  morphDuration: 1000,
+  staggerDelay: 80,
+  ease: 'outExpo',
+  cardEntranceDelay: 200,
+  particleCount: 12,
+  particleColors: ['#3b82f6', '#10b981', '#f59e0b', '#f43f5e'],
+};
 
 /** Counter cycles data-grid through 1, 2, 3, 4 */
 let gridIndex = 1;
+let layout = null;
+let isAnimating = false;
+let animationTimeline = null;
+let particleContainer = null;
+
+/** DOM elements cache */
+const elements = {
+  container: null,
+  items: [],
+  frame: null,
+};
 
 /**
- * Starts the infinite layout animation loop.
- * Called once after the DOM and CSS are ready.
+ * Creates particle container for trail effects
+ */
+function createParticleContainer() {
+  if (particleContainer) return particleContainer;
+
+  particleContainer = document.createElement('div');
+  particleContainer.className = 'particle-container';
+  particleContainer.style.cssText = `
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 5;
+  `;
+  elements.frame.appendChild(particleContainer);
+  return particleContainer;
+}
+
+/**
+ * Spawns particles from a card during morph
+ */
+function spawnParticles(cardIndex) {
+  const item = elements.items[cardIndex];
+  if (!item || !elements.frame) return;
+
+  const rect = item.getBoundingClientRect();
+  const frameRect = elements.frame.getBoundingClientRect();
+  const centerX = rect.left - frameRect.left + rect.width / 2;
+  const centerY = rect.top - frameRect.top + rect.height / 2;
+
+  const container = createParticleContainer();
+  const color = CONFIG.particleColors[cardIndex % CONFIG.particleColors.length];
+
+  for (let i = 0; i < CONFIG.particleCount; i++) {
+    const particle = document.createElement('div');
+    const size = utils.random(3, 8);
+    const angle = utils.random(0, Math.PI * 2);
+    const distance = utils.random(40, 100);
+    const duration = utils.random(400, 800);
+
+    particle.style.cssText = `
+      position: absolute;
+      left: ${centerX}px;
+      top: ${centerY}px;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${color};
+      border-radius: 50%;
+      opacity: 0.8;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      will-change: transform, opacity;
+    `;
+
+    container.appendChild(particle);
+
+    animate(particle, {
+      translateX: Math.cos(angle) * distance,
+      translateY: Math.sin(angle) * distance,
+      scale: [1, 0],
+      opacity: [0.8, 0],
+      rotate: utils.random(-180, 180),
+      duration,
+      ease: 'outExpo',
+      complete: () => particle.remove(),
+    });
+  }
+}
+
+/**
+ * Initializes DOM references and validates structure
+ */
+function cacheElements() {
+  elements.container = document.querySelector('.layout-container');
+  elements.frame = document.querySelector('.pillar-animation-frame');
+  elements.items = Array.from(document.querySelectorAll('.layout-container .item'));
+
+  if (!elements.container) {
+    console.error('[Infotris] .layout-container not found');
+    return false;
+  }
+  if (elements.items.length !== 4) {
+    console.warn('[Infotris] Expected 4 .item elements, found', elements.items.length);
+  }
+  return true;
+}
+
+/**
+ * Creates entrance animation for cards on initial load
+ */
+function playEntranceAnimation() {
+  return animate(elements.items, {
+    scale: [0.6, 1],
+    opacity: [0, 1],
+    rotate: [utils.random(-12, 12), 0],
+    y: [30, 0],
+    duration: 800,
+    delay: stagger(CONFIG.cardEntranceDelay, { start: 100, easing: 'outExpo' }),
+    ease: 'outElastic(1, 0.6)',
+  });
+}
+
+/**
+ * Creates a subtle "breathing" idle animation
+ */
+function createIdleAnimation() {
+  return animate(elements.items, {
+    scale: [1, 1.02, 1],
+    duration: 3000,
+    delay: stagger(200),
+    ease: 'inOutSine',
+    loop: true,
+    direction: 'alternate',
+  });
+}
+
+/**
+ * Adds a subtle glow pulse to the active/morphing card
+ */
+function pulseCard(index, intensity = 1) {
+  const item = elements.items[index];
+  if (!item) return;
+
+  animate(item, {
+    boxShadow: [
+      '0 4px 14px rgba(13, 13, 13, 0.12)',
+      `0 8px 28px rgba(13, 13, 13, ${0.18 * intensity}), 0 0 0 2px rgba(255,255,255,${0.1 * intensity})`,
+      '0 4px 14px rgba(13, 13, 13, 0.12)',
+    ],
+    duration: 600,
+    ease: 'outQuad',
+  });
+}
+
+/**
+ * Morphs to the next grid layout with premium animation
+ */
+function animateNextLayout() {
+  if (isAnimating || !layout) return;
+  isAnimating = true;
+
+  /** Advance grid state: 1 → 2 → 3 → 4 → 1 … */
+  gridIndex = (gridIndex % 4) + 1;
+
+  /** Create a timeline for coordinated animations */
+  animationTimeline = timeline({
+    onComplete: () => {
+      isAnimating = false;
+      setTimeout(animateNextLayout, CONFIG.pauseBetweenLayouts);
+    },
+  });
+
+  /** Pre-morph: subtle anticipation - cards slightly lift */
+  animationTimeline.add({
+    targets: elements.items,
+    scale: [1, 1.03],
+    y: [-2, -4],
+    duration: 150,
+    delay: stagger(20),
+    ease: 'outQuad',
+  });
+
+  /** Spawn particles from cards that will move most */
+  animationTimeline.add({
+    targets: {},
+    duration: 0,
+    begin: () => {
+      spawnParticles(0);
+      spawnParticles(3);
+    },
+  }, '-=100');
+
+  /** Main morph: anime.js layout engine handles position/size interpolation */
+  animationTimeline.add({
+    targets: elements.container,
+    duration: CONFIG.morphDuration,
+    delay: 0,
+    ease: CONFIG.ease,
+    begin: () => {
+      layout.update(({ root }) => {
+        root.dataset.grid = String(gridIndex);
+      });
+    },
+    complete: () => {
+      /** Post-morph: cards settle with a satisfying bounce */
+      animate(elements.items, {
+        scale: [1.03, 1],
+        y: [-4, 0],
+        duration: 400,
+        delay: stagger(30),
+        ease: 'outBounce(1.5)',
+      });
+
+      /** Pulse the card that moved the most (usually first or last) */
+      pulseCard(gridIndex % 4);
+      pulseCard((gridIndex + 1) % 4);
+    },
+  });
+
+  /** Staggered rotation micro-animation during morph */
+  animationTimeline.add({
+    targets: elements.items,
+    rotate: (el, i) => utils.random(-3, 3) * (i % 2 === 0 ? 1 : -1),
+    duration: CONFIG.morphDuration,
+    delay: stagger(40),
+    ease: 'outElastic(1, 0.4)',
+  }, '-=' + (CONFIG.morphDuration * 0.6));
+}
+
+/**
+ * Adds mouse-follow parallax effect to cards
+ */
+function initParallax() {
+  if (!elements.frame) return;
+
+  elements.frame.addEventListener('mousemove', (e) => {
+    const rect = elements.frame.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    elements.items.forEach((item, i) => {
+      const factor = (i + 1) * 0.8;
+      animate(item, {
+        x: x * 12 * factor,
+        y: y * 8 * factor,
+        rotate: x * 4 * factor,
+        duration: 600,
+        ease: 'outQuad',
+      });
+    });
+  });
+
+  elements.frame.addEventListener('mouseleave', () => {
+    animate(elements.items, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      duration: 800,
+      ease: 'outElastic(1, 0.5)',
+    });
+  });
+}
+
+/**
+ * Adds click/tap interaction - card expands on click
+ */
+function initClickInteraction() {
+  elements.items.forEach((item, i) => {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', () => {
+      animate(item, {
+        scale: [1, 1.15, 1],
+        duration: 400,
+        ease: 'outElastic(1, 0.5)',
+      });
+      pulseCard(i, 1.5);
+      spawnParticles(i);
+    });
+  });
+}
+
+/**
+ * Adds unique personality animations to each card
+ * Each card has a distinct behavior reflecting its meaning
+ */
+function initPersonalityAnimations() {
+  const personalities = [
+    { // Learn - subtle pulse, knowledge breathing
+      index: 0,
+      animation: () => animate(elements.items[0], {
+        boxShadow: [
+          '0 4px 14px rgba(13, 13, 13, 0.12)',
+          '0 0 0 4px rgba(59, 130, 246, 0.3), 0 8px 28px rgba(13, 13, 13, 0.18)',
+          '0 4px 14px rgba(13, 13, 13, 0.12)',
+        ],
+        duration: 2000,
+        ease: 'inOutSine',
+        loop: true,
+        direction: 'alternate',
+      }),
+    },
+    { // Build - steady upward drift, construction feel
+      index: 1,
+      animation: () => animate(elements.items[1], {
+        y: [0, -3, 0],
+        rotate: [0, 0.5, 0],
+        duration: 3000,
+        ease: 'inOutSine',
+        loop: true,
+        direction: 'alternate',
+      }),
+    },
+    { // Solve - geometric rotation, puzzle piece
+      index: 2,
+      animation: () => animate(elements.items[2], {
+        rotate: [0, 2, 0, -2, 0],
+        scale: [1, 1.02, 1, 1.02, 1],
+        duration: 4000,
+        ease: 'inOutQuad',
+        loop: true,
+      }),
+    },
+    { // Ship - forward momentum, launch trajectory
+      index: 3,
+      animation: () => animate(elements.items[3], {
+        x: [0, 4, 0],
+        skewX: [0, 2, 0],
+        duration: 2500,
+        ease: 'inOutCubic',
+        loop: true,
+        direction: 'alternate',
+      }),
+    },
+  ];
+
+  personalities.forEach(({ index, animation }) => {
+    if (elements.items[index]) {
+      // Start each with a random delay for organic feel
+      setTimeout(() => animation(), utils.random(0, 2000));
+    }
+  });
+}
+
+/**
+ * Handles reduced motion preference
+ */
+function respectsReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/**
+ * Main initialization
  */
 function startPillarAnimation() {
-  const container = document.querySelector('.layout-container');
-
-  if (!container) {
-    console.error(
-      '[Infotris anime.js] .layout-container not found. Check index.html markup.'
-    );
+  if (!cacheElements()) return;
+  if (respectsReducedMotion()) {
+    console.log('[Infotris] Reduced motion enabled - skipping animations');
     return;
   }
 
-  // Bind anime.js layout engine to the grid container
-  const layout = createLayout('.layout-container');
+  /** Bind anime.js layout engine */
+  layout = createLayout('.layout-container');
 
-  function animateNextLayout() {
-    layout.update(
-      ({ root }) => {
-        // Advance grid state: 1 → 2 → 3 → 4 → 1 …
-        gridIndex = (gridIndex % 4) + 1;
-        root.dataset.grid = String(gridIndex);
-      },
-      {
-        duration: 900,
-        delay: stagger(120),
-        ease: 'out(3)',
-        onComplete: () => {
-          setTimeout(animateNextLayout, PAUSE_BETWEEN_LAYOUTS);
-        },
-      }
-    );
-  }
+  /** Play entrance animation first */
+  playEntranceAnimation().finished.then(() => {
+    /** Start idle breathing animation */
+    createIdleAnimation();
 
-  // Small delay so the browser paints grid state "1" before the first morph
-  setTimeout(animateNextLayout, 800);
+    /** Start personality animations */
+    initPersonalityAnimations();
+
+    /** Start morph loop after a delay */
+    setTimeout(animateNextLayout, 2000);
+
+    /** Initialize interactions */
+    initParallax();
+    initClickInteraction();
+  });
 }
 
-// Wait until HTML is parsed so .layout-container exists
+/** Wait for DOM ready */
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', startPillarAnimation);
 } else {
   startPillarAnimation();
 }
-
-
-import { animate, utils } from 'https://esm.sh/animejs';
-console.log("anime.js loaded");
-animate('.square', {
-  x: $el => $el.getAttribute('data-x'),
-  y: (_, i) => 50 + (-50 * i),
-  scale: (_, i, t) => (t.length - i) * 0.75,
-  rotate: () => utils.random(-360, 360),
-  borderRadius: () => `+=${utils.random(0, 8)}`,
-  duration: () => utils.random(1200, 1800),
-  delay: () => utils.random(0, 400),
-  ease: 'outElastic(1, .5)',
-
-  loop: true,
-  alternate: true
-});
- 
