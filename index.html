@@ -23,12 +23,13 @@
     <link rel="stylesheet" href="css/system/responsive.css">
     <link rel="stylesheet" href="css/system/animations.css">
     <link rel="stylesheet" href="css/system/variables.css">
+    <link rel="stylesheet" href="css/system/micro-interactions.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <!--
       Import map: lets anime.js use "import … from 'animejs'" without npm/Vite.
       Maps the package name to a browser-ready ES module on jsDelivr CDN.
     -->
-    <script type="importmap">
+<script type="importmap">
     {
       "imports": {
         "animejs": "https://cdn.jsdelivr.net/npm/animejs@4.4.1/+esm"
@@ -120,16 +121,78 @@
                 </div>
 
 
-
                 <div class="hero-visual">
-                    <div id="layout" class="pillar-animation">
-                        <div class="pillar-animation-frame">
-                            <div class="layout-container grid-layout" data-grid="1">
-                                <div class="item">Learn</div>
-                                <div class="item">Build</div>
-                                <div class="item">Solve</div>
-                                <div class="item">Ship</div>
-                            </div>
+                    <!-- Journey Visualization: Learn → Solve → Build → Ship -->
+                    <div class="journey-visual" aria-label="Learning journey: Learn, Solve, Build, Ship">
+                        <div class="journey-track" role="img" aria-label="Progress track connecting four stages">
+                            <svg class="journey-svg" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true">
+                                <!-- Main track line -->
+                                <path class="journey-path" d="M40,60 Q150,20 300,60 Q450,100 560,60" 
+                                      fill="none" stroke="var(--border-color)" stroke-width="2" stroke-linecap="round"/>
+                                <!-- Progress fill (animated via CSS) -->
+                                <path class="journey-progress" d="M40,60 Q150,20 300,60 Q450,100 560,60" 
+                                      fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round"
+                                      stroke-dasharray="800" stroke-dashoffset="800"/>
+                                <!-- Node positions -->
+                                <circle class="journey-node journey-node--1" cx="40" cy="60" r="12" fill="var(--bg-light)" stroke="var(--text-primary)" stroke-width="2"/>
+                                <circle class="journey-node journey-node--2" cx="180" cy="30" r="12" fill="var(--bg-light)" stroke="var(--border-color)" stroke-width="2"/>
+                                <circle class="journey-node journey-node--3" cx="340" cy="60" r="12" fill="var(--bg-light)" stroke="var(--border-color)" stroke-width="2"/>
+                                <circle class="journey-node journey-node--4" cx="500" cy="60" r="12" fill="var(--bg-light)" stroke="var(--border-color)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="journey-stages">
+                            <!-- Stage 1: LEARN -->
+                            <article class="journey-stage journey-stage--1 is-active" data-stage="1">
+                                <div class="journey-stage-marker" aria-hidden="true">
+                                    <span class="journey-stage-number">01</span>
+                                    <span class="journey-stage-icon" aria-hidden="true">◎</span>
+                                </div>
+                                <div class="journey-stage-content">
+                                    <h3 class="journey-stage-title">Learn</h3>
+                                    <p class="journey-stage-desc">Understand the concept</p>
+                                    <p class="journey-stage-detail">Curated resources, clear explanations, and structured paths from trusted educators.</p>
+                                </div>
+                            </article>
+
+                            <!-- Stage 2: SOLVE -->
+                            <article class="journey-stage journey-stage--2" data-stage="2">
+                                <div class="journey-stage-marker" aria-hidden="true">
+                                    <span class="journey-stage-number">02</span>
+                                    <span class="journey-stage-icon" aria-hidden="true">◇</span>
+                                </div>
+                                <div class="journey-stage-content">
+                                    <h3 class="journey-stage-title">Solve</h3>
+                                    <p class="journey-stage-desc">Practice and challenge</p>
+                                    <p class="journey-stage-detail">Exercises, debugging practice, and problem patterns that sharpen your thinking.</p>
+                                </div>
+                            </article>
+
+                            <!-- Stage 3: BUILD -->
+                            <article class="journey-stage journey-stage--3" data-stage="3">
+                                <div class="journey-stage-marker" aria-hidden="true">
+                                    <span class="journey-stage-number">03</span>
+                                    <span class="journey-stage-icon" aria-hidden="true">▣</span>
+                                </div>
+                                <div class="journey-stage-content">
+                                    <h3 class="journey-stage-title">Build</h3>
+                                    <p class="journey-stage-desc">Turn knowledge into reality</p>
+                                    <p class="journey-stage-detail">Real projects, portfolio pieces, and hands-on implementation that proves your skills.</p>
+                                </div>
+                            </article>
+
+                            <!-- Stage 4: SHIP -->
+                            <article class="journey-stage journey-stage--4" data-stage="4">
+                                <div class="journey-stage-marker" aria-hidden="true">
+                                    <span class="journey-stage-number">04</span>
+                                    <span class="journey-stage-icon" aria-hidden="true">↗</span>
+                                </div>
+                                <div class="journey-stage-content">
+                                    <h3 class="journey-stage-title">Ship</h3>
+                                    <p class="journey-stage-desc">Create something real</p>
+                                    <p class="journey-stage-detail">Deploy, share, and iterate. Skills that translate to careers and opportunities.</p>
+                                </div>
+                            </article>
                         </div>
                     </div>
                 </div>
@@ -142,7 +205,7 @@
     <main>
 
 
-        <section class="showcase-section" aria-labelledby="showcase-heading">
+        <section class="showcase-section scroll-reveal" aria-labelledby="showcase-heading">
             <div class="showcase-content">
                 <h2 id="showcase-heading" class="showcase-title">
                     Explore connected knowledge.
@@ -152,62 +215,62 @@
                 </p>
 
                 <!-- Premium tech logo carousel animation -->
-                <div class="logo-carousel-container" aria-label="Technology stack carousel">
+                <div class="logo-carousel-container stagger-reveal" aria-label="Technology stack carousel">
                     <div class="logo-carousel">
                         <!-- Logos duplicated for seamless infinite loop -->
                         <!-- First set -->
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/python.svg" alt="Python" title="Python" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/cpp.svg" alt="C++" title="C++" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/java.svg" alt="Java" title="Java" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/javascript.svg" alt="JavaScript" title="JavaScript" width="64"
                                 height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/github.svg" alt="GitHub" title="GitHub" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/git.svg" alt="Git" title="Git" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/sql.svg" alt="SQL" title="SQL" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/rust.svg" alt="Rust" title="Rust" width="64" height="64">
                         </div>
                         <!-- Duplicate set for seamless loop -->
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/python.svg" alt="Python" title="Python" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/cpp.svg" alt="C++" title="C++" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/java.svg" alt="Java" title="Java" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/javascript.svg" alt="JavaScript" title="JavaScript" width="64"
                                 height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/github.svg" alt="GitHub" title="GitHub" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/git.svg" alt="Git" title="Git" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/sql.svg" alt="SQL" title="SQL" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/rust.svg" alt="Rust" title="Rust" width="64" height="64">
                         </div>
-                        <div class="logo-item">
+                        <div class="logo-item stagger-item">
                             <img src="assets/icons/css.svg" alt="Css" title="Css" width="64" height="64">
                         </div>
                     </div>
@@ -282,11 +345,13 @@
         </div>
     </footer>
 
-        <script src="js/anime.js" type="module"></script>
+<script src="js/anime.js" type="module"></script>
         <script src="js/trisgraph.js" type="module"></script>
         <script src="js/infotris-index.js"></script>
-<script src="js/search.js"></script>
-<script type="module" src="js/navbar.js"></script>
+        <script src="js/search.js"></script>
+        <script type="module" src="js/navbar.js"></script>
+        <script src="js/scroll-animations.js"></script>
+        <script src="js/hero-journey.js"></script>
 
 </body>
 

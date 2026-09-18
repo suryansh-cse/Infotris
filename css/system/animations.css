@@ -12,13 +12,13 @@ summary:focus-visible {
   outline-offset: 2px;
 }
 
-/* --- Scroll reveal (About page + future sections) --- */
+/* --- Scroll reveal system --- */
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
   transition:
-    opacity 1s var(--ease-premium),
-    transform 1s var(--ease-premium);
+    opacity 0.8s var(--ease-premium),
+    transform 0.8s var(--ease-premium);
   will-change: transform, opacity;
 }
 
@@ -27,10 +27,216 @@ summary:focus-visible {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+/* Reveal variants */
+.scroll-reveal--fade {
+  transform: none;
+  transition: opacity 0.6s var(--ease-default);
+}
+
+.scroll-reveal--slide-left {
+  transform: translateX(-40px);
+}
+
+.scroll-reveal--slide-right {
+  transform: translateX(40px);
+}
+
+.scroll-reveal--scale {
+  transform: scale(0.92);
+}
+
+.scroll-reveal--slide-up-sm {
+  transform: translateY(16px);
+  transition-duration: 0.6s;
+}
+
+/* Stagger delays */
+.reveal-delay-1 { transition-delay: 0.05s; }
+.reveal-delay-2 { transition-delay: 0.1s; }
+.reveal-delay-3 { transition-delay: 0.15s; }
+.reveal-delay-4 { transition-delay: 0.2s; }
+.reveal-delay-5 { transition-delay: 0.25s; }
+.reveal-delay-6 { transition-delay: 0.3s; }
+
+/* Stagger container + items (JS-driven) */
+.stagger-reveal .stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s var(--ease-premium),
+    transform 0.6s var(--ease-premium);
+  will-change: transform, opacity;
+}
+
+.stagger-reveal .stagger-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Counter animation */
+[data-count] {
+  will-change: contents;
+}
+
+/* --- Keyframes --- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes practice-success-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(calc(-112px * 8));
+  }
+  50.01% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes line-flow {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.4);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(17, 17, 17, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0);
+  }
+}
+
+/* --- Animation utility classes --- */
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--ease-default);
+}
+
+.animate-slide-up {
+  animation: slide-up var(--duration-normal) var(--ease-premium);
+}
+
+.animate-slide-down {
+  animation: slide-down var(--duration-normal) var(--ease-premium);
+}
+
+.animate-slide-left {
+  animation: slide-left var(--duration-normal) var(--ease-premium);
+}
+
+.animate-slide-right {
+  animation: slide-right var(--duration-normal) var(--ease-premium);
+}
+
+.animate-scale-in {
+  animation: scale-in var(--duration-normal) var(--ease-premium);
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-reveal,
+  .stagger-reveal .stagger-item {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  .lift-hover:hover {
+    transform: none;
+  }
+
+  [data-count] {
+    will-change: auto;
+  }
+}
 
 /* --- Keyframes --- */
 @keyframes fade-in {

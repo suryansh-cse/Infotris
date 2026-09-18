@@ -1,0 +1,465 @@
+/* ==========================================================================
+   MICRO-INTERACTIONS.CSS — Small, meaningful interaction feedback
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BUTTONS — Press feedback, hover lift, focus rings
+   -------------------------------------------------------------------------- */
+
+/* Base button press state (works for all .btn variants) */
+.btn:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-sign-in:active,
+.careers-btn:active,
+.careers-path-card__cta:active {
+  transform: scale(0.97);
+  transition: transform 0.08s ease-out;
+}
+
+/* Subtle lift on hover for primary actions */
+.lift-hover:hover {
+  transform: translateY(-2px);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.lift-hover:active {
+  transform: translateY(0);
+}
+
+/* Navbar brand logo - subtle scale on hover */
+.navbar-logo {
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.navbar-logo:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+.navbar-logo:active {
+  transform: scale(0.98);
+}
+
+/* Navbar links - color transition with subtle underline animation */
+.navbar-links a {
+  position: relative;
+  transition: color var(--transition);
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--text-primary);
+  transition: width 0.3s var(--ease-premium);
+}
+
+.navbar-links a:hover::after,
+.navbar-links a[aria-current="page"]::after {
+  width: 100%;
+}
+
+/* Search bar focus enhancement */
+.search-bar:focus-within {
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-bar-input:focus,
+.search-input:focus {
+  outline: none;
+}
+
+/* Search button press */
+.search-bar-button:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+  transition: transform 0.08s ease-out, opacity 0.08s ease-out;
+}
+
+/* Chips - subtle press and hover */
+.chip {
+  transition: 
+    color var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
+    transform var(--transition);
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+/* --------------------------------------------------------------------------
+   CARDS — Elevation, hover glow, press feedback
+   -------------------------------------------------------------------------- */
+
+/* Base card hover */
+.card {
+  transition:
+    transform 0.25s var(--ease-premium),
+    box-shadow 0.25s var(--ease-premium),
+    border-color 0.25s var(--ease-premium);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: #c4c4c4;
+}
+
+.card:active {
+  transform: translateY(-1px) scale(0.99);
+  transition: transform 0.08s ease-out;
+}
+
+/* Course cards */
+.course-card {
+  transition:
+    transform 0.3s var(--ease-premium),
+    box-shadow 0.3s var(--ease-premium),
+    border-color 0.3s var(--ease-premium);
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(13, 13, 13, 0.1);
+  border-color: var(--text-primary);
+}
+
+.course-card:active {
+  transform: translateY(-2px) scale(0.99);
+  transition: transform 0.08s ease-out;
+}
+
+/* Course card CTA button */
+.course-card__cta {
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
+}
+
+.course-card__cta:hover {
+  transform: translateY(-1px);
+}
+
+.course-card__cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Career path cards */
+.careers-path-card {
+  transition:
+    transform 0.3s var(--ease-premium),
+    box-shadow 0.3s var(--ease-premium),
+    border-color 0.3s var(--ease-premium);
+}
+
+.careers-path-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(13, 13, 13, 0.1);
+  border-color: var(--text-primary);
+}
+
+.careers-path-card:active {
+  transform: translateY(-2px) scale(0.99);
+  transition: transform 0.08s ease-out;
+}
+
+.careers-path-card__cta {
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
+}
+
+.careers-path-card__cta:hover {
+  transform: translateY(-1px);
+}
+
+.careers-path-card__cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* TrisGraph cards */
+.trisgraph-card {
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.trisgraph-card:hover {
+  border-color: var(--text-primary);
+  background-color: rgba(17, 17, 17, 0.01);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.trisgraph-card:active {
+  transform: translateY(0) scale(0.99);
+  transition: transform 0.08s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   NAVIGATION — Sidebar links, breadcrumbs
+   -------------------------------------------------------------------------- */
+
+/* Sidebar links */
+.side-bar__link {
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    padding-left var(--transition);
+}
+
+.side-bar__link:hover {
+  padding-left: 1rem;
+}
+
+.side-bar__sublink {
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    padding-left var(--transition);
+}
+
+.side-bar__sublink:hover {
+  padding-left: 2rem;
+}
+
+/* Breadcrumb links */
+.breadcrumb a,
+.lesson-breadcrumb a,
+.path-breadcrumb a {
+  position: relative;
+  transition: color var(--transition);
+}
+
+.breadcrumb a::after,
+.lesson-breadcrumb a::after,
+.path-breadcrumb a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--text-primary);
+  transition: width 0.2s var(--ease-premium);
+}
+
+.breadcrumb a:hover::after,
+.lesson-breadcrumb a:hover::after,
+.path-breadcrumb a:hover::after {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER — Social icons, links
+   -------------------------------------------------------------------------- */
+
+.footer-links a {
+  position: relative;
+  transition: color var(--transition);
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--text-primary);
+  transition: width 0.2s var(--ease-premium);
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+.footer-social-icon {
+  transition:
+    border-color var(--transition),
+    color var(--transition),
+    background-color var(--transition),
+    transform var(--transition);
+}
+
+.footer-social-icon:hover {
+  border-color: var(--bg-dark);
+  transform: translateY(-3px) scale(1.1);
+}
+
+.footer-social-icon:active {
+  transform: translateY(-1px) scale(0.95);
+  transition: transform 0.08s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   INPUTS & FORM CONTROLS
+   -------------------------------------------------------------------------- */
+
+.form-input,
+.form-textarea,
+.search-input {
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.search-input:focus {
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+  background-color: var(--color-surface);
+}
+
+/* --------------------------------------------------------------------------
+   LINKS — General link hover underline
+   -------------------------------------------------------------------------- */
+
+a[href]:not(.btn):not(.navbar-logo):not(.chip):not(.footer-social-icon):not(.course-card__cta):not(.careers-path-card__cta):not(.side-bar__link):not(.side-bar__sublink):not(.breadcrumb a):not(.lesson-breadcrumb a):not(.path-breadcrumb a):not(.footer-links a):not(.search-bar-button):not(.btn-sign-in) {
+  text-decoration: none;
+  position: relative;
+}
+
+a[href]:not(.btn):not(.navbar-logo):not(.chip):not(.footer-social-icon):not(.course-card__cta):not(.careers-path-card__cta):not(.side-bar__link):not(.side-bar__sublink):not(.breadcrumb a):not(.lesson-breadcrumb a):not(.path-breadcrumb a):not(.footer-links a):not(.search-bar-button):not(.btn-sign-in)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.2s var(--ease-premium);
+  opacity: 0.6;
+}
+
+a[href]:not(.btn):not(.navbar-logo):not(.chip):not(.footer-social-icon):not(.course-card__cta):not(.careers-path-card__cta):not(.side-bar__link):not(.side-bar__sublink):not(.breadcrumb a):not(.lesson-breadcrumb a):not(.path-breadcrumb a):not(.footer-links a):not(.search-bar-button):not(.btn-sign-in):hover::after {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   LOGO CAROUSEL — Enhanced hover
+   -------------------------------------------------------------------------- */
+
+.logo-item {
+  transition:
+    transform 0.3s var(--ease-premium),
+    box-shadow 0.3s var(--ease-premium),
+    background-color 0.3s var(--ease-premium),
+    border-color 0.3s var(--ease-premium);
+}
+
+.logo-item:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.logo-item:active {
+  transform: translateY(-4px) scale(1.02);
+  transition: transform 0.08s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   JOURNEY STAGES — Already have hover, ensure press feedback
+   -------------------------------------------------------------------------- */
+
+.journey-stage:active {
+  transform: translateY(-1px) scale(0.99);
+  transition: transform 0.08s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   TOGGLES & ACCORDIONS
+   -------------------------------------------------------------------------- */
+
+details summary {
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+details summary:hover {
+  color: var(--text-primary);
+}
+
+details summary::marker {
+  color: var(--text-secondary);
+  transition: color var(--transition), transform var(--transition);
+}
+
+details[open] summary::marker {
+  transform: rotate(45deg);
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION — Disable transform animations
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .lift-hover:hover,
+  .card:hover,
+  .course-card:hover,
+  .careers-path-card:hover,
+  .trisgraph-card:hover,
+  .side-bar__link:hover,
+  .side-bar__sublink:hover,
+  .logo-item:hover,
+  .journey-stage:hover,
+  .footer-social-icon:hover,
+  .navbar-logo:hover {
+    transform: none;
+  }
+
+  .btn:active,
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-sign-in:active,
+  .careers-btn:active,
+  .careers-path-card__cta:active,
+  .course-card__cta:active,
+  .search-bar-button:active,
+  .chip:active,
+  .card:active,
+  .course-card:active,
+  .careers-path-card:active,
+  .trisgraph-card:active,
+  .journey-stage:active,
+  .footer-social-icon:active,
+  .logo-item:active,
+  .navbar-logo:active {
+    transform: none;
+  }
+
+  .navbar-links a::after,
+  .breadcrumb a::after,
+  .lesson-breadcrumb a::after,
+  .path-breadcrumb a::after,
+  .footer-links a::after,
+  a[href]::after {
+    transition: none;
+  }
+
+  details summary::marker {
+    transition: none;
+  }
+}
