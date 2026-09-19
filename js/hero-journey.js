@@ -119,30 +119,32 @@
   }
 
   /**
-   * Hover interaction - preview stage on hover
+   * Hover interaction - preview stage on hover (with gentle rAF, not jumpy)
    */
   function initHoverInteraction() {
     if (prefersReducedMotion) return;
 
     let hoverTimeout = null;
-    let currentActive = 1;
 
     stages.forEach((stage, index) => {
       const stageNum = index + 1;
-
       stage.addEventListener('mouseenter', () => {
         clearTimeout(hoverTimeout);
-        currentActive = stageNum;
         activateStage(stageNum);
+        // subtle icon micro-rotation for personality
+        const icon = stage.querySelector('.journey-stage-icon');
+        if (icon) {
+          icon.style.transition = 'transform 0.3s var(--ease-premium)';
+          icon.style.transform = 'translateY(-2px) scale(1.08)';
+        }
       });
-
       stage.addEventListener('mouseleave', () => {
+        const icon = stage.querySelector('.journey-stage-icon');
+        if (icon) icon.style.transform = '';
         hoverTimeout = setTimeout(() => {
-          // Re-evaluate based on scroll position
           const viewportCenter = window.innerHeight / 2;
           let closestStage = 1;
           let minDistance = Infinity;
-
           stages.forEach((s, i) => {
             const rect = s.getBoundingClientRect();
             const center = rect.top + rect.height / 2;
@@ -152,12 +154,34 @@
               closestStage = i + 1;
             }
           });
-
-          currentActive = closestStage;
           activateStage(closestStage);
-        }, 300);
+        }, 320);
       });
     });
+
+    // auto-cycle gently when in viewport and not hovered (very slow, not distracting)
+    let cycleTimer = null;
+    const visualObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !prefersReducedMotion) {
+          let idx = 1;
+          cycleTimer = setInterval(() => {
+            if (journeyVisual.matches(':hover') || document.hidden) return;
+            // only cycle if user hasn't manually interacted recently
+            if (Date.now() - lastUserInteraction < 8000) return;
+            idx = (idx % 4) + 1;
+            activateStage(idx);
+          }, 3800);
+        } else {
+          clearInterval(cycleTimer);
+        }
+      });
+    }, { threshold: 0.35 });
+    visualObserver.observe(journeyVisual);
+
+    let lastUserInteraction = 0;
+    stages.forEach(s => s.addEventListener('mouseenter', () => { lastUserInteraction = Date.now(); }));
+    journeyVisual.addEventListener('mouseenter', () => { lastUserInteraction = Date.now(); });
   }
 
   /**
