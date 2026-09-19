@@ -1,6 +1,7 @@
 /**
  * SCROLL ANIMATIONS — IntersectionObserver-based reveal system
  * Lightweight, performant, respects prefers-reduced-motion
+ * Supports: fade, slide, scale, stagger, counters, parallax
  */
 
 (function() {
@@ -19,6 +20,8 @@
   // Animation classes
   const REVEAL_CLASS = 'scroll-reveal';
   const VISIBLE_CLASS = 'is-visible';
+  const STAGGER_CONTAINER = 'stagger-reveal';
+  const STAGGER_ITEM = 'stagger-item';
 
   /**
    * Initialize scroll reveal for elements with .scroll-reveal class
@@ -26,7 +29,6 @@
    */
   function initScrollReveal(options = {}) {
     if (prefersReducedMotion) {
-      // Immediately show all elements if reduced motion is preferred
       document.querySelectorAll(`.${REVEAL_CLASS}`).forEach(el => {
         el.classList.add(VISIBLE_CLASS);
       });
@@ -77,7 +79,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             children.forEach((child, index) => {
-              child.style.transitionDelay = `${index * 100}ms`;
+              child.style.transitionDelay = `${index * 60}ms`;
               child.classList.add(VISIBLE_CLASS);
             });
             if (config.once) {
@@ -114,21 +116,32 @@
         if (entry.isIntersecting) {
           const el = entry.target;
           const target = parseInt(el.dataset.count || el.textContent, 10);
-          const duration = parseInt(el.dataset.duration || '1500', 10);
+          const duration = parseInt(el.dataset.duration || '1200', 10);
           const startTime = performance.now();
+          const isDecimal = el.dataset.count && el.dataset.count.includes('.');
+          const decimals = isDecimal ? (el.dataset.count.split('.')[1]?.length || 0) : 0;
 
           function updateCounter(currentTime) {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             // Ease out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(eased * target);
-            el.textContent = current.toLocaleString();
+            const current = eased * target;
+            
+            if (decimals > 0) {
+              el.textContent = current.toFixed(decimals);
+            } else {
+              el.textContent = Math.floor(current).toLocaleString();
+            }
 
             if (progress < 1) {
               requestAnimationFrame(updateCounter);
             } else {
-              el.textContent = target.toLocaleString();
+              if (decimals > 0) {
+                el.textContent = target.toFixed(decimals);
+              } else {
+                el.textContent = target.toLocaleString();
+              }
             }
           }
 
@@ -149,7 +162,7 @@
    * @param {string} selector - Element selector
    * @param {number} strength - Parallax strength (0-1)
    */
-  function initParallax(selector, strength = 0.3) {
+  function initParallax(selector, strength = 0.2) {
     if (prefersReducedMotion) return;
 
     const elements = document.querySelectorAll(selector);
@@ -184,6 +197,84 @@
   }
 
   /**
+   * Progress bar animation on scroll
+   * @param {string} selector - Progress bar selector (expects data-progress attribute)
+   */
+  function initProgressAnimation(selector, options = {}) {
+    if (prefersReducedMotion) {
+      document.querySelectorAll(selector).forEach(el => {
+        const progress = el.dataset.progress || '100';
+        el.style.width = `${progress}%`;
+        if (el.dataset.animate !== 'false') {
+          el.style.transition = 'width 1s var(--ease-premium)';
+        }
+      });
+      return;
+    }
+
+    const config = { ...DEFAULT_CONFIG, threshold: 0.3, ...options };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const progress = el.dataset.progress || '100';
+          el.style.width = `${progress}%`;
+          if (config.once) {
+            obs.unobserve(el);
+          }
+        } else if (!config.once) {
+          entry.target.style.width = '0%';
+        }
+      });
+    }, config);
+
+    document.querySelectorAll(selector).forEach(el => observer.observe(el));
+  }
+
+  /**
+   * Text reveal animation (character/word by word)
+   * @param {string} selector - Text element selector
+   * @param {Object} options - Configuration options
+   */
+  function initTextReveal(selector, options = {}) {
+    if (prefersReducedMotion) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    const config = { ...DEFAULT_CONFIG, threshold: 0.2, ...options };
+    const elements = document.querySelectorAll(selector);
+
+    elements.forEach(el => {
+      const text = el.textContent;
+      const words = text.split(' ');
+      el.innerHTML = words.map((word, i) => 
+        `<span class="text-reveal-word" style="transition-delay: ${i * 30}ms">${word}</span>`
+      ).join(' ');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.text-reveal-word').forEach((word, i) => {
+              setTimeout(() => {
+                word.style.opacity = '1';
+                word.style.transform = 'translateY(0)';
+              }, i * 30);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, config);
+      
+      observer.observe(el);
+    });
+  }
+
+  /**
    * Initialize all scroll animations
    * Call this on DOMContentLoaded
    */
@@ -191,6 +282,7 @@
     initScrollReveal();
     initStaggeredReveal('.stagger-reveal', '.stagger-item');
     initCounterAnimation('[data-count]');
+    initProgressAnimation('.progress-bar[data-progress]');
   }
 
   // Auto-initialize on DOM ready
@@ -206,6 +298,8 @@
     initStaggeredReveal,
     initCounterAnimation,
     initParallax,
+    initProgressAnimation,
+    initTextReveal,
     initAll
   };
 })();

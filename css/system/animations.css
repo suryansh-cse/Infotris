@@ -1,24 +1,26 @@
 /* ==========================================================================
    ANIMATIONS.CSS — Shared keyframes, transitions, and motion preferences
+   Infotris Animation Language: subtle, purposeful, human
    ========================================================================== */
 
-/* --- Hover & focus defaults --- */
+/* --- Focus States --- */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
-summary:focus-visible {
+summary:focus-visible,
+[tabindex]:focus-visible {
   outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
-/* --- Scroll reveal system --- */
+/* --- Scroll Reveal System --- */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(24px);
   transition:
-    opacity 0.8s var(--ease-premium),
-    transform 0.8s var(--ease-premium);
+    opacity 0.7s var(--ease-premium),
+    transform 0.7s var(--ease-premium);
   will-change: transform, opacity;
 }
 
@@ -27,44 +29,46 @@ summary:focus-visible {
   transform: translateY(0);
 }
 
-/* Reveal variants */
+/* Reveal Variants */
 .scroll-reveal--fade {
   transform: none;
-  transition: opacity 0.6s var(--ease-default);
+  transition: opacity 0.5s var(--ease-default);
 }
 
 .scroll-reveal--slide-left {
-  transform: translateX(-40px);
+  transform: translateX(-32px);
 }
 
 .scroll-reveal--slide-right {
-  transform: translateX(40px);
+  transform: translateX(32px);
 }
 
 .scroll-reveal--scale {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }
 
 .scroll-reveal--slide-up-sm {
-  transform: translateY(16px);
-  transition-duration: 0.6s;
+  transform: translateY(12px);
+  transition-duration: 0.5s;
 }
 
-/* Stagger delays */
-.reveal-delay-1 { transition-delay: 0.05s; }
-.reveal-delay-2 { transition-delay: 0.1s; }
-.reveal-delay-3 { transition-delay: 0.15s; }
-.reveal-delay-4 { transition-delay: 0.2s; }
-.reveal-delay-5 { transition-delay: 0.25s; }
-.reveal-delay-6 { transition-delay: 0.3s; }
+/* Stagger delays for CSS-only staggering */
+.reveal-delay-1 { transition-delay: 0.04s; }
+.reveal-delay-2 { transition-delay: 0.08s; }
+.reveal-delay-3 { transition-delay: 0.12s; }
+.reveal-delay-4 { transition-delay: 0.16s; }
+.reveal-delay-5 { transition-delay: 0.2s; }
+.reveal-delay-6 { transition-delay: 0.24s; }
+.reveal-delay-7 { transition-delay: 0.28s; }
+.reveal-delay-8 { transition-delay: 0.32s; }
 
 /* Stagger container + items (JS-driven) */
 .stagger-reveal .stagger-item {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
   transition:
-    opacity 0.6s var(--ease-premium),
-    transform 0.6s var(--ease-premium);
+    opacity 0.5s var(--ease-premium),
+    transform 0.5s var(--ease-premium);
   will-change: transform, opacity;
 }
 
@@ -78,7 +82,7 @@ summary:focus-visible {
   will-change: contents;
 }
 
-/* --- Keyframes --- */
+/* --- Entrance Animations (for initial load) --- */
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -87,7 +91,7 @@ summary:focus-visible {
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -98,7 +102,7 @@ summary:focus-visible {
 @keyframes slide-down {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-16px);
   }
   to {
     opacity: 1;
@@ -109,7 +113,7 @@ summary:focus-visible {
 @keyframes slide-left {
   from {
     opacity: 0;
-    transform: translateX(-16px);
+    transform: translateX(-24px);
   }
   to {
     opacity: 1;
@@ -120,7 +124,7 @@ summary:focus-visible {
 @keyframes slide-right {
   from {
     opacity: 0;
-    transform: translateX(16px);
+    transform: translateX(24px);
   }
   to {
     opacity: 1;
@@ -150,35 +154,25 @@ summary:focus-visible {
   }
 }
 
-@keyframes marquee-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(calc(-112px * 8));
-  }
-  50.01% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(0);
-  }
+/* Subtle breathing for ambient elements */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.02); opacity: 1; }
 }
 
-@keyframes line-flow {
-  to {
-    stroke-dashoffset: -200;
-  }
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 @keyframes pulse-ring {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.4);
+    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.3);
   }
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(17, 17, 17, 0);
+    box-shadow: 0 0 0 10px rgba(17, 17, 17, 0);
   }
   100% {
     transform: scale(0.95);
@@ -186,7 +180,16 @@ summary:focus-visible {
   }
 }
 
-/* --- Animation utility classes --- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes line-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* --- Animation Utility Classes --- */
 .animate-fade-in {
   animation: fade-in var(--duration-normal) var(--ease-default);
 }
@@ -211,7 +214,70 @@ summary:focus-visible {
   animation: scale-in var(--duration-normal) var(--ease-premium);
 }
 
-/* --- Reduced motion --- */
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.animate-gentle-float {
+  animation: gentle-float 4s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* --- Progress Animations --- */
+@keyframes progress-fill {
+  from { width: 0; }
+  to { width: var(--progress-width, 100%); }
+}
+
+.animate-progress {
+  animation: progress-fill 1s var(--ease-premium) forwards;
+}
+
+/* --- Loading States --- */
+@keyframes skeleton-pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.4; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border-color) 25%,
+    var(--color-overlay-light) 50%,
+    var(--border-color) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Page Transitions --- */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s var(--ease-premium), transform 0.3s var(--ease-premium);
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s var(--ease-default), transform 0.2s var(--ease-default);
+}
+
+/* --- Reduced Motion --- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -229,106 +295,86 @@ summary:focus-visible {
     will-change: auto;
   }
 
-  .lift-hover:hover {
+  .lift-hover:hover,
+  .card:hover,
+  .course-card:hover,
+  .careers-path-card:hover,
+  .trisgraph-card:hover,
+  .journey-stage:hover,
+  .footer-social-icon:hover,
+  .navbar-logo:hover,
+  .logo-item:hover,
+  .stat-card:hover,
+  .milestone-card:hover,
+  .sidebar-widget:hover {
     transform: none;
   }
 
-  [data-count] {
-    will-change: auto;
-  }
-}
-
-/* --- Keyframes --- */
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes practice-success-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes marquee-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(calc(-112px * 8));
-  }
-  50.01% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes line-flow {
-  to {
-    stroke-dashoffset: -200;
-  }
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.4);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(17, 17, 17, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0);
-  }
-}
-
-/* --- Animation utility classes --- */
-.animate-fade-in {
-  animation: fade-in var(--duration-normal) var(--ease-default);
-}
-
-.animate-slide-up {
-  animation: slide-up var(--duration-normal) var(--ease-premium);
-}
-
-/* --- Reduced motion --- */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .scroll-reveal {
-    opacity: 1;
+  .btn:active,
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-sign-in:active,
+  .careers-btn:active,
+  .careers-path-card__cta:active,
+  .course-card__cta:active,
+  .search-bar-button:active,
+  .chip:active,
+  .card:active,
+  .course-card:active,
+  .careers-path-card:active,
+  .trisgraph-card:active,
+  .journey-stage:active,
+  .footer-social-icon:active,
+  .logo-item:active,
+  .navbar-logo:active {
     transform: none;
-    will-change: auto;
   }
 
-  .lift-hover:hover {
+  .navbar-links a::after,
+  .breadcrumb a::after,
+  .lesson-breadcrumb a::after,
+  .path-breadcrumb a::after,
+  .footer-links a::after,
+  a[href]::after,
+  .sidebar-widget:hover {
+    transition: none;
+  }
+
+  details summary::marker {
+    transition: none;
+  }
+
+  .skeleton {
+    animation: none;
+    background: var(--border-color);
+  }
+
+  .dsa-node,
+  .dsa-edge-glow {
+    animation: none !important;
+  }
+
+  #layout .item,
+  #layout .grid-layout {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .logo-carousel {
+    animation: none !important;
+  }
+
+  .journey-progress {
+    transition: none;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* --- Print Styles --- */
+@media print {
+  .scroll-reveal,
+  .stagger-reveal .stagger-item {
+    opacity: 1;
     transform: none;
   }
 }
