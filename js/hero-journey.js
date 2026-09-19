@@ -1,230 +1,99 @@
 /**
- * HERO JOURNEY — Learn → Solve → Build → Ship interactive visualization
- * Scroll-aware stage activation with smooth transitions
+ * HERO JOURNEY — Learn → Solve → Build → Ship
+ * Supports legacy .journey-visual and new .journey-steps vertical rail.
+ * No auto-cycle, no continuous scroll handlers — IntersectionObserver only.
  */
-
-(function() {
+(function () {
   'use strict';
-
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // --- Legacy horizontal journey (if present) ---
   const journeyVisual = document.querySelector('.journey-visual');
   const stages = document.querySelectorAll('.journey-stage');
   const nodes = document.querySelectorAll('.journey-node');
-
-  if (!journeyVisual || !stages.length) return;
-
-  /**
-   * Update visual progress based on active stage
-   */
-  function updateProgress(activeStage) {
-    journeyVisual.dataset.progress = activeStage;
-
-    // Update SVG nodes
-    nodes.forEach((node, index) => {
-      const stageNum = index + 1;
-      node.classList.toggle('is-active', stageNum === activeStage);
-      node.classList.toggle('is-complete', stageNum < activeStage);
-    });
-  }
-
-  /**
-   * Activate a specific stage
-   */
-  function activateStage(stageNum) {
-    stages.forEach((stage, index) => {
-      const num = index + 1;
-      stage.classList.toggle('is-active', num === stageNum);
-      stage.classList.toggle('is-complete', num < stageNum);
-    });
-
-    updateProgress(stageNum);
-  }
-
-  /**
-   * Continuous scroll-aware activation — feels like progressing through a journey.
-   * Uses both IntersectionObserver (for discrete stage entry) and a lightweight
-   * scroll progress calculation on the hero section for smooth path drawing.
-   */
-  function initScrollActivation() {
-    if (prefersReducedMotion) {
-      stages.forEach(stage => stage.classList.add('is-complete'));
-      activateStage(4);
-      return;
-    }
-
-    const heroSection = document.querySelector('.hero-section');
-    let ticking = false;
-    let lastStage = 1;
-
-    // Discrete observer keeps keyboard/hover fallback precise
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const stageNum = parseInt(entry.target.dataset.stage, 10);
-          if (!ticking) {
-            lastStage = stageNum;
-            activateStage(stageNum);
-          }
-        }
+  if (journeyVisual && stages.length) {
+    function updateProgress(activeStage) {
+      journeyVisual.dataset.progress = activeStage;
+      nodes.forEach((node, i) => {
+        const n = i + 1;
+        node.classList.toggle('is-active', n === activeStage);
+        node.classList.toggle('is-complete', n < activeStage);
       });
-    }, {
-      root: null,
-      rootMargin: '0px 0px -55% 0px',
-      threshold: 0.15
-    });
-    stages.forEach(stage => observer.observe(stage));
+    }
+    function activateStage(n) {
+      stages.forEach((s, i) => {
+        const num = i + 1;
+        s.classList.toggle('is-active', num === n);
+        s.classList.toggle('is-complete', num < n);
+      });
+      updateProgress(n);
+    }
+    function initLegacy() {
+      if (prefersReducedMotion) { stages.forEach(s => s.classList.add('is-complete')); activateStage(4); return; }
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) activateStage(parseInt(e.target.dataset.stage, 10)); });
+      }, { rootMargin: '0px 0px -55% 0px', threshold: 0.15 });
+      stages.forEach(s => obs.observe(s));
+      stages.forEach((s, i) => {
+        s.setAttribute('tabindex', '0');
+        s.setAttribute('role', 'button');
+        s.addEventListener('mouseenter', () => activateStage(i + 1));
+        s.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateStage(i + 1); }
+        });
+      });
+      activateStage(1);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLegacy);
+    else initLegacy();
+  }
 
-    // Continuous progress based on hero scroll — subtle parallax-like trail draw
-    function onScroll() {
-      if (!heroSection || journeyVisual.matches(':hover')) {
-        ticking = false;
+  // --- New vertical journey ---
+  const rail = document.querySelector('.journey-rail');
+  const steps = document.querySelectorAll('.journey-step');
+  const fill = document.getElementById('journeyFill');
+  if (rail && steps.length) {
+    function setActive(index) {
+      steps.forEach((s, i) => {
+        s.classList.toggle('is-active', i === index);
+        s.classList.toggle('is-complete', i < index);
+      });
+      if (fill) {
+        const pct = ((index + 1) / steps.length) * 100;
+        fill.style.height = pct + '%';
+      }
+    }
+    function initNew() {
+      if (prefersReducedMotion) {
+        steps.forEach(s => s.classList.add('is-complete'));
+        setActive(steps.length - 1);
+        if (fill) fill.style.height = '100%';
         return;
       }
-      const rect = heroSection.getBoundingClientRect();
-      const vh = window.innerHeight;
-      // progress 0 = hero fully in view, 1 = hero scrolled past
-      const progress = Math.min(Math.max((vh * 0.2 - rect.top) / (rect.height * 0.65), 0), 1);
-      const stage = Math.min(4, Math.max(1, Math.ceil(progress * 4) || 1));
-      if (stage !== lastStage) {
-        lastStage = stage;
-        activateStage(stage);
-      }
-      ticking = false;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const idx = parseInt(e.target.dataset.step, 10) - 1;
+            setActive(idx);
+          }
+        });
+      }, { rootMargin: '0px 0px -50% 0px', threshold: 0.2 });
+      steps.forEach(s => obs.observe(s));
+      steps.forEach((s, i) => {
+        s.setAttribute('tabindex', '0');
+        s.setAttribute('role', 'button');
+        s.setAttribute('aria-label', s.querySelector('h3') ? s.querySelector('h3').textContent : 'Step ' + (i + 1));
+        s.addEventListener('mouseenter', () => setActive(i));
+        s.addEventListener('focus', () => setActive(i));
+        s.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(i); }
+          if (e.key === 'ArrowDown' && i < steps.length - 1) { e.preventDefault(); steps[i + 1].focus(); }
+          if (e.key === 'ArrowUp' && i > 0) { e.preventDefault(); steps[i - 1].focus(); }
+        });
+      });
+      setActive(0);
     }
-
-    function requestTick() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(onScroll);
-      }
-    }
-
-    // Only bind if frequently scrolling on desktop — passive & cheap
-    let scrollBound = false;
-    const enableScroll = () => {
-      if (!scrollBound && window.innerWidth > 768) {
-        window.addEventListener('scroll', requestTick, { passive: true });
-        scrollBound = true;
-      }
-    };
-    const disableScroll = () => {
-      if (scrollBound && window.innerWidth <= 768) {
-        window.removeEventListener('scroll', requestTick);
-        scrollBound = false;
-      }
-    };
-    enableScroll();
-    window.addEventListener('resize', () => { enableScroll(); disableScroll(); });
-  }
-
-  /**
-   * Hover interaction - preview stage on hover (with gentle rAF, not jumpy)
-   */
-  function initHoverInteraction() {
-    if (prefersReducedMotion) return;
-
-    let hoverTimeout = null;
-
-    stages.forEach((stage, index) => {
-      const stageNum = index + 1;
-      stage.addEventListener('mouseenter', () => {
-        clearTimeout(hoverTimeout);
-        activateStage(stageNum);
-        // subtle icon micro-rotation for personality
-        const icon = stage.querySelector('.journey-stage-icon');
-        if (icon) {
-          icon.style.transition = 'transform 0.3s var(--ease-premium)';
-          icon.style.transform = 'translateY(-2px) scale(1.08)';
-        }
-      });
-      stage.addEventListener('mouseleave', () => {
-        const icon = stage.querySelector('.journey-stage-icon');
-        if (icon) icon.style.transform = '';
-        hoverTimeout = setTimeout(() => {
-          const viewportCenter = window.innerHeight / 2;
-          let closestStage = 1;
-          let minDistance = Infinity;
-          stages.forEach((s, i) => {
-            const rect = s.getBoundingClientRect();
-            const center = rect.top + rect.height / 2;
-            const distance = Math.abs(center - viewportCenter);
-            if (distance < minDistance) {
-              minDistance = distance;
-              closestStage = i + 1;
-            }
-          });
-          activateStage(closestStage);
-        }, 320);
-      });
-    });
-
-    // auto-cycle gently when in viewport and not hovered (very slow, not distracting)
-    let cycleTimer = null;
-    const visualObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !prefersReducedMotion) {
-          let idx = 1;
-          cycleTimer = setInterval(() => {
-            if (journeyVisual.matches(':hover') || document.hidden) return;
-            // only cycle if user hasn't manually interacted recently
-            if (Date.now() - lastUserInteraction < 8000) return;
-            idx = (idx % 4) + 1;
-            activateStage(idx);
-          }, 3800);
-        } else {
-          clearInterval(cycleTimer);
-        }
-      });
-    }, { threshold: 0.35 });
-    visualObserver.observe(journeyVisual);
-
-    let lastUserInteraction = 0;
-    stages.forEach(s => s.addEventListener('mouseenter', () => { lastUserInteraction = Date.now(); }));
-    journeyVisual.addEventListener('mouseenter', () => { lastUserInteraction = Date.now(); });
-  }
-
-  /**
-   * Keyboard navigation for stages
-   */
-  function initKeyboardNav() {
-    stages.forEach((stage, index) => {
-      stage.setAttribute('tabindex', '0');
-      stage.setAttribute('role', 'button');
-      stage.setAttribute('aria-label', `Stage ${index + 1}: ${stage.querySelector('.journey-stage-title')?.textContent}`);
-
-      stage.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          activateStage(index + 1);
-          stage.focus();
-        } else if (e.key === 'ArrowRight' && index < stages.length - 1) {
-          e.preventDefault();
-          stages[index + 1].focus();
-        } else if (e.key === 'ArrowLeft' && index > 0) {
-          e.preventDefault();
-          stages[index - 1].focus();
-        }
-      });
-    });
-  }
-
-  /**
-   * Initialize all journey interactions
-   */
-  function init() {
-    initScrollActivation();
-    initHoverInteraction();
-    initKeyboardNav();
-
-    // Initial state - first stage active
-    activateStage(1);
-  }
-
-  // Wait for DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initNew);
+    else initNew();
   }
 })();
