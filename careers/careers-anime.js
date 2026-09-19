@@ -1,4 +1,4 @@
-import { animate } from 'https://esm.sh/animejs';
+import { animate } from 'https://cdn.jsdelivr.net/npm/animejs@4.4.1/+esm';
 
 console.log("Career animation loaded");
 

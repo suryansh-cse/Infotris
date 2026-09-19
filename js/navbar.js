@@ -13,39 +13,41 @@ onAuthStateChanged(auth, (user) => {
 
         const name = user.email.split("@")[0];
 
-        navbarUser.innerHTML = `
-        
-        <div class="profile-menu">
+        if (navbarUser) {
+            navbarUser.innerHTML = `
 
-            <button class="profile-btn">
+            <div class="profile-menu">
 
-                👤 ${name}
+                <button class="profile-btn">
 
-            </button>
+                    👤 ${name}
 
-            <div class="profile-dropdown">
+                </button>
 
-                <a href="student-dashboard.html">
-                    Dashboard
-                </a>
+                <div class="profile-dropdown">
 
-                <a href="courses/coming/profile-coming">
-                    Profile
-                </a>
+                    <a href="student-dashboard.html">
+                        Dashboard
+                    </a>
 
-                <a href="#" id="logoutBtn">
-                    Logout
-                </a>
+                    <a href="courses/coming/profile-coming">
+                        Profile
+                    </a>
+
+                    <a href="#" id="logoutBtn">
+                        Logout
+                    </a>
+
+                </div>
 
             </div>
 
-        </div>
+            `;
+        }
 
-        `;
-
-        document
-            .getElementById("logoutBtn")
-            .addEventListener("click", async (e) => {
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async (e) => {
 
                 e.preventDefault();
 
@@ -54,27 +56,31 @@ onAuthStateChanged(auth, (user) => {
                 location.reload();
 
             });
+        }
 
     }
 
 });
 
-// Get references to elements
+// Get references to elements - optional, may not exist on all pages
 const profileBtn = document.getElementById('profileBtn');
 const profileDropdown = document.getElementById('profileDropdown');
 
-// 1. Toggle dropdown when clicking the button
-profileBtn.addEventListener('click', function(event) {
-  profileDropdown.classList.toggle('show');
-  
-  // Stops the click event from bubbling up to the window immediately
-  event.stopPropagation(); 
-});
+// 1. Toggle dropdown when clicking the button - only if elements exist
+if (profileBtn && profileDropdown) {
+    profileBtn.addEventListener('click', function(event) {
+      profileDropdown.classList.toggle('show');
+
+      // Stops the click event from bubbling up to the window immediately
+      event.stopPropagation();
+    });
+}
 
 // 2. Hide dropdown when clicking anywhere else on the screen
 window.addEventListener('click', function(event) {
   // If the clicked target is NOT inside the profile menu container, close it
-  if (!event.target.closest('.profile-menu')) {
+  // Only manipulate dropdown if it exists
+  if (profileDropdown && !event.target.closest('.profile-menu')) {
     profileDropdown.classList.remove('show');
   }
 });
