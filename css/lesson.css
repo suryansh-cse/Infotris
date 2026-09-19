@@ -8,6 +8,32 @@
   color: var(--text-secondary);
 }
 
+/* Subtle entrance — learning pages stay readable, but feel polished */
+.lesson-header {
+  animation: lesson-header-in 0.55s var(--ease-premium);
+}
+@keyframes lesson-header-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lesson-content {
+  animation: lesson-content-in 0.6s var(--ease-premium) 0.08s both;
+}
+@keyframes lesson-content-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lesson-content pre {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.lesson-content pre:hover {
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lesson-header, .lesson-content { animation: none; }
+}
+
 .lesson-breadcrumb a:hover {
   color: var(--text-primary);
 }

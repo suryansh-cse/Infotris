@@ -61,7 +61,15 @@
   width: 0%;
   background-color: var(--bg-dark);
   border-radius: 999px;
-  transition: width 0.35s ease;
+  transition: width 0.65s var(--ease-premium);
+  /* shimmer when filling for satisfying feedback */
+}
+.practice-panel {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s var(--ease-premium);
+}
+.practice-panel:hover {
+  border-color: rgba(17,17,17,0.12);
+  box-shadow: 0 8px 28px rgba(13,13,13,0.07);
 }
 
 .practice-progress__label {

@@ -165,16 +165,16 @@
         <main class="course-content" id="courses">
 
             <!-- Page header -->
-            <header class="courses-page-header">
+            <header class="courses-page-header scroll-reveal">
                 <h1 class="courses-page-title">Featured Trails</h1>
                 <p class="courses-page-subtitle">Learn • Build • Grow</p>
             </header>
 
             <!-- Featured spotlight — primary course -->
-            <section class="course-spotlight" id="course-python" aria-labelledby="spotlight-heading">
+            <section class="course-spotlight scroll-reveal" id="course-python" aria-labelledby="spotlight-heading">
                 <p class="course-spotlight__eyebrow">Featured Trail</p>
 
-                <article class="course-card course-card--spotlight">
+                <article class="course-card course-card--spotlight stagger-item">
                     <div class="course-card__header">
                         <div class="course-card__icon" aria-hidden="true">Py</div>
                         <div class="course-card__intro">
@@ -199,14 +199,14 @@
             </section>
 
             <!-- Web Foundations group -->
-            <section class="course-group" id="web-foundations" aria-labelledby="web-foundations-heading">
+            <section class="course-group scroll-reveal" id="web-foundations" aria-labelledby="web-foundations-heading">
                 <header class="course-group__header">
                     <h2 id="web-foundations-heading" class="course-group__title">Web Foundations</h2>
                     <p class="course-group__desc">Core building blocks for every web developer.</p>
                 </header>
 
-                <div class="course-grid course-grid--3">
-                    <article class="course-card" id="course-html">
+                <div class="course-grid course-grid--3 stagger-reveal">
+                    <article class="course-card stagger-item" id="course-html">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">HTML</div>
                             <h3 class="course-card__title">HTML</h3>
@@ -223,7 +223,7 @@
                         <a class="course-card__cta" href="courses/coming/coming.html">Start Learning</a>
                     </article>
 
-                    <article class="course-card" id="course-css">
+                    <article class="course-card stagger-item" id="course-css">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">CSS</div>
                             <h3 class="course-card__title">CSS</h3>
@@ -240,7 +240,7 @@
                         <a class="course-card__cta" href="courses/coming/coming.html">Start Learning</a>
                     </article>
 
-                    <article class="course-card" id="course-javascript">
+                    <article class="course-card stagger-item" id="course-javascript">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">JS</div>
                             <h3 class="course-card__title">JavaScript</h3>
@@ -260,14 +260,14 @@
             </section>
 
             <!-- Programming group -->
-            <section class="course-group" id="programming" aria-labelledby="programming-heading">
+            <section class="course-group scroll-reveal" id="programming" aria-labelledby="programming-heading">
                 <header class="course-group__header">
                     <h2 id="programming-heading" class="course-group__title">Programming &amp; Logic</h2>
                     <p class="course-group__desc">Sharpen how you think, solve, and write efficient code.</p>
                 </header>
 
-                <div class="course-grid course-grid--2">
-                    <article class="course-card" id="course-dsa">
+                <div class="course-grid course-grid--2 stagger-reveal">
+                    <article class="course-card stagger-item" id="course-dsa">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">DSA</div>
                             <h3 class="course-card__title">DSA</h3>
@@ -284,7 +284,7 @@
                         <a class="course-card__cta" href="courses/dsa/">Start Learning</a>
                     </article>
 
-                    <article class="course-card" id="course-problem-solving">
+                    <article class="course-card stagger-item" id="course-problem-solving">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">PS</div>
                             <h3 class="course-card__title">Problem Solving</h3>
@@ -304,14 +304,14 @@
             </section>
 
             <!-- Tools & Growth group -->
-            <section class="course-group" id="tools" aria-labelledby="tools-heading">
+            <section class="course-group scroll-reveal" id="tools" aria-labelledby="tools-heading">
                 <header class="course-group__header">
                     <h2 id="tools-heading" class="course-group__title">Tools &amp; Growth</h2>
                     <p class="course-group__desc">Ship projects, collaborate, and stay ahead with modern skills.</p>
                 </header>
 
-                <div class="course-grid course-grid--3">
-                    <article class="course-card" id="course-git">
+                <div class="course-grid course-grid--3 stagger-reveal">
+                    <article class="course-card stagger-item" id="course-git">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">Git</div>
                             <h3 class="course-card__title">Git &amp; GitHub</h3>
@@ -328,7 +328,7 @@
                         <a class="course-card__cta" href="courses/coming/coming.html">Start Learning</a>
                     </article>
 
-                    <article class="course-card" id="course-webdev">
+                    <article class="course-card stagger-item" id="course-webdev">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">Web</div>
                             <h3 class="course-card__title">Web Development</h3>
@@ -345,7 +345,7 @@
                         <a class="course-card__cta" href="courses/coming/coming.html">Start Learning</a>
                     </article>
 
-                    <article class="course-card" id="course-ai">
+                    <article class="course-card stagger-item" id="course-ai">
                         <div class="course-card__header">
                             <div class="course-card__icon" aria-hidden="true">AI</div>
                             <h3 class="course-card__title">AI</h3>
@@ -437,6 +437,7 @@
         <script src="js/infotris-index.js"></script>
 <script src="js/search.js"></script>
     <script type="module" src="js/navbar.js"></script>
-    <script src="js/scroll-animations.js"></script>`n<script src="js/philosophy.js"></script>
+    <script src="js/scroll-animations.js"></script>
+<script src="js/philosophy.js"></script>
 </body>
 </html>
