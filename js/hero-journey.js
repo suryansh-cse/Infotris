@@ -42,30 +42,80 @@
   }
 
   /**
-   * IntersectionObserver to activate stages on scroll
+   * Continuous scroll-aware activation — feels like progressing through a journey.
+   * Uses both IntersectionObserver (for discrete stage entry) and a lightweight
+   * scroll progress calculation on the hero section for smooth path drawing.
    */
   function initScrollActivation() {
     if (prefersReducedMotion) {
-      // Show all stages immediately
       stages.forEach(stage => stage.classList.add('is-complete'));
       activateStage(4);
       return;
     }
 
+    const heroSection = document.querySelector('.hero-section');
+    let ticking = false;
+    let lastStage = 1;
+
+    // Discrete observer keeps keyboard/hover fallback precise
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const stageNum = parseInt(entry.target.dataset.stage, 10);
-          activateStage(stageNum);
+          if (!ticking) {
+            lastStage = stageNum;
+            activateStage(stageNum);
+          }
         }
       });
     }, {
       root: null,
-      rootMargin: '0px 0px -60% 0px',
+      rootMargin: '0px 0px -55% 0px',
       threshold: 0.15
     });
-
     stages.forEach(stage => observer.observe(stage));
+
+    // Continuous progress based on hero scroll — subtle parallax-like trail draw
+    function onScroll() {
+      if (!heroSection || journeyVisual.matches(':hover')) {
+        ticking = false;
+        return;
+      }
+      const rect = heroSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // progress 0 = hero fully in view, 1 = hero scrolled past
+      const progress = Math.min(Math.max((vh * 0.2 - rect.top) / (rect.height * 0.65), 0), 1);
+      const stage = Math.min(4, Math.max(1, Math.ceil(progress * 4) || 1));
+      if (stage !== lastStage) {
+        lastStage = stage;
+        activateStage(stage);
+      }
+      ticking = false;
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(onScroll);
+      }
+    }
+
+    // Only bind if frequently scrolling on desktop — passive & cheap
+    let scrollBound = false;
+    const enableScroll = () => {
+      if (!scrollBound && window.innerWidth > 768) {
+        window.addEventListener('scroll', requestTick, { passive: true });
+        scrollBound = true;
+      }
+    };
+    const disableScroll = () => {
+      if (scrollBound && window.innerWidth <= 768) {
+        window.removeEventListener('scroll', requestTick);
+        scrollBound = false;
+      }
+    };
+    enableScroll();
+    window.addEventListener('resize', () => { enableScroll(); disableScroll(); });
   }
 
   /**
