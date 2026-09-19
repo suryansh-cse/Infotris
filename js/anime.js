@@ -4,7 +4,7 @@
  * particle trail effects, and visual feedback during transitions.
  */
 
-import { createLayout, animate, stagger, utils, timeline } from 'animejs';
+import { createLayout, animate, stagger, utils, timeline } from 'https://cdn.jsdelivr.net/npm/animejs@4.4.1/+esm';
 
 /** Configuration constants */
 const CONFIG = {
