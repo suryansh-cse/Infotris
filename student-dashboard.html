@@ -1239,7 +1239,7 @@
     <main class="dashboard-container">
 
         <!-- Welcome Banner -->
-        <section class="dashboard-welcome" aria-labelledby="welcome-heading" style="margin-bottom: var(--space-md);">
+        <section class="dashboard-welcome scroll-reveal" aria-labelledby="welcome-heading" style="margin-bottom: var(--space-md);">
             <div class="welcome-content">
                 <h1 id="welcome-heading" class="welcome-greeting">Welcome back, <span id="welcomeStudentName">Student</span> 👋</h1>
                 <p class="welcome-motivation" id="welcomeMotivationText">Continue learning and stay ahead.</p>
@@ -1253,27 +1253,27 @@
             <div class="dashboard-main-col">
                 
                 <!-- Performance KPI Row -->
-                <div class="stats-grid">
-                    <div class="stat-card">
+                <div class="stats-grid stagger-reveal">
+                    <div class="stat-card stagger-item">
                         <span class="stat-card__num" id="kpiProgress">18%</span>
                         <span class="stat-card__lbl">Python Progress</span>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card stagger-item">
                         <span class="stat-card__num" id="kpiStreak">🔥 9</span>
                         <span class="stat-card__lbl">Active Streak</span>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card stagger-item">
                         <span class="stat-card__num" id="kpiHours">11.3h</span>
                         <span class="stat-card__lbl">Study Time</span>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card stagger-item">
                         <span class="stat-card__num" id="kpiCertificates">0 / 1</span>
                         <span class="stat-card__lbl">Certificates</span>
                     </div>
                 </div>
 
                 <!-- Learning Progress Section (Dynamic Checklist) -->
-                <section class="dashboard-section" aria-labelledby="progress-heading">
+                <section class="dashboard-section scroll-reveal" aria-labelledby="progress-heading">
                     <div class="dashboard-section-header">
                         <h2 id="progress-heading" class="dashboard-section-title">Course Tracker: Python</h2>
                         <span class="syllabus-module-badge" id="pythonCompletenessStatus">18% Completed</span>
@@ -1294,7 +1294,7 @@
                 </section>
 
                 <!-- Certificates & Milestones -->
-                <section class="dashboard-section" aria-labelledby="milestones-heading">
+                <section class="dashboard-section scroll-reveal" aria-labelledby="milestones-heading">
                     <div class="dashboard-section-header">
                         <h2 id="milestones-heading" class="dashboard-section-title">Certificates &amp; Credentials</h2>
                     </div>
@@ -1315,7 +1315,7 @@
                 </section>
 
                 <!-- Quick Actions Section -->
-                <section class="dashboard-section" aria-labelledby="actions-heading">
+                <section class="dashboard-section scroll-reveal" aria-labelledby="actions-heading">
                     <div class="dashboard-section-header">
                         <h2 id="actions-heading" class="dashboard-section-title">Quick Actions</h2>
                     </div>
@@ -1332,7 +1332,7 @@
             <div class="dashboard-sidebar-col">
                 
                 <!-- Daily Study Goal Gauge (Interactive SVG) -->
-                <div class="sidebar-widget">
+                <div class="sidebar-widget scroll-reveal">
                     <h3 class="widget-title">Daily Study Goal</h3>
                     <div class="goal-gauge-container">
                         <svg class="goal-svg" width="90" height="90" viewBox="0 0 90 90">
@@ -1359,7 +1359,7 @@
                 </div>
 
                 <!-- Daily Streak Card & Heatmap Grid -->
-                <div class="sidebar-widget">
+                <div class="sidebar-widget scroll-reveal">
                     <h3 class="widget-title">Learning Activity</h3>
                     <div style="text-align: center; margin-bottom: var(--space-md);">
                         <span style="font-size: 2.25rem; display: block;" id="streakIcon">🔥</span>
@@ -1386,7 +1386,7 @@
                 </div>
 
                 <!-- Weekly Goals Checklist Widget -->
-                <div class="sidebar-widget">
+                <div class="sidebar-widget scroll-reveal">
                     <h3 class="widget-title">Weekly Focus</h3>
                     <div class="weekly-goals-checklist">
                         <label class="weekly-goal-checkbox">
@@ -1405,7 +1405,7 @@
                 </div>
 
                 <!-- Recent Activity Feed -->
-                <div class="sidebar-widget">
+                <div class="sidebar-widget scroll-reveal">
                     <h3 class="widget-title">Recent Achievements</h3>
                     <div class="activity-timeline" id="recentActivityTimeline">
                         <!-- Populated Dynamically via JS -->
@@ -2281,5 +2281,6 @@
             });
         });
     </script>
+<script src="js/philosophy.js"></script>
 </body>
 </html>

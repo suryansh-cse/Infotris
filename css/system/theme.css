@@ -11,6 +11,7 @@
 @import url("utilities.css");
 @import url("responsive.css");
 @import url("animations.css");
+@import url("philosophy.css");
 
 /* Page-level theme overrides (preserve existing body class conventions) */
 body.page-about .site-header {
