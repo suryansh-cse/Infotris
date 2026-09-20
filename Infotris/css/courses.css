@@ -1,0 +1,395 @@
+/* ==========================================================================
+   COURSES.CSS — Courses page layout (sidebar + main catalog)
+   ========================================================================== */
+
+/* Page shell — sidebar + content sit side by side */
+.courses-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: var(--space-md);
+  max-width: calc(var(--max-width) + 260px + var(--space-md));
+  margin: 0 auto;
+  padding: var(--space-md);
+  padding-top: var(--space-md);
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   SIDEBAR — sticky catalog navigation with grouped links
+   -------------------------------------------------------------------------- */
+.side-bar {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-sm));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-height: calc(100vh - var(--nav-height) - var(--space-md));
+  padding: var(--space-md);
+  background-color: var(--bg-dark);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(13, 13, 13, 0.18);
+  overflow: hidden;
+}
+
+/* Header — title + path count pill */
+.side-bar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.side-bar__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--bg-light);
+  line-height: 1.2;
+}
+
+.side-bar__count {
+  flex-shrink: 0;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a8a8a8;
+  background-color: rgba(247, 247, 245, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+/* Scrollable nav area */
+.side-bar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.side-bar__nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.side-bar__nav::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+/* Section label inside nav groups */
+.side-bar__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.side-bar__label {
+  padding: 0.25rem 0.75rem 0.125rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+.side-bar__divider {
+  height: 1px;
+  margin: 0.125rem 0;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.side-bar__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+/* Primary nav link */
+.side-bar__link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #a8a8a8;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.side-bar__link:hover {
+  color: var(--bg-light);
+  background-color: rgba(247, 247, 245, 0.07);
+}
+
+.side-bar__link-icon {
+  flex-shrink: 0;
+  width: 1rem;
+  font-size: 0.625rem;
+  text-align: center;
+  color: #666666;
+  transition: color var(--transition);
+}
+
+.side-bar__link:hover .side-bar__link-icon {
+  color: #a8a8a8;
+}
+
+/* Count badge on overview links */
+.side-bar__badge {
+  margin-left: auto;
+  padding: 0.125rem 0.4rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #888888;
+  background-color: rgba(247, 247, 245, 0.06);
+  border-radius: 999px;
+}
+
+.side-bar__badge--featured {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bg-light);
+  background-color: rgba(247, 247, 245, 0.14);
+}
+
+/* Desktop vs mobile link labels */
+.side-bar__link-text--short {
+  display: none;
+}
+
+/* Featured Python link */
+.side-bar__link--featured {
+  border-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(247, 247, 245, 0.05);
+}
+
+.side-bar__link--featured .side-bar__link-icon {
+  color: var(--bg-light);
+}
+
+/* Nested course links — indented sub-nav */
+.side-bar__sublink {
+  display: block;
+  padding: 0.375rem 0.75rem 0.375rem 1.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #777777;
+  border-radius: var(--radius-sm);
+  border-left: 2px solid transparent;
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.side-bar__sublink:hover {
+  color: var(--bg-light);
+  background-color: rgba(247, 247, 245, 0.05);
+  border-left-color: rgba(247, 247, 245, 0.25);
+}
+
+/* Footer — back link */
+.side-bar__footer {
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.side-bar__footer-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #888888;
+  border-radius: var(--radius-sm);
+  transition:
+    color var(--transition),
+    background-color var(--transition);
+}
+
+.side-bar__footer-link:hover {
+  color: var(--bg-light);
+  background-color: rgba(247, 247, 245, 0.07);
+}
+
+/* --------------------------------------------------------------------------
+   ACTIVE STATES — CSS-only via :target (no JavaScript)
+   Highlights the sidebar link matching the scrolled-to section.
+   -------------------------------------------------------------------------- */
+
+/* Default: All Courses active when no hash in URL */
+body:not(:has(:target)) .side-bar__link[href="#courses"] {
+  color: var(--bg-light);
+  background-color: rgba(247, 247, 245, 0.1);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body:not(:has(:target)) .side-bar__link[href="#courses"] .side-bar__link-icon {
+  color: var(--bg-light);
+}
+
+/* Category overview links */
+body:has(#courses:target) .side-bar__link[href="#courses"],
+body:has(#web-foundations:target) .side-bar__link[href="#web-foundations"],
+body:has(#programming:target) .side-bar__link[href="#programming"],
+body:has(#tools:target) .side-bar__link[href="#tools"],
+body:has(#course-python:target) .side-bar__link[href="#course-python"] {
+  color: var(--bg-light);
+  background-color: rgba(247, 247, 245, 0.1);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body:has(#courses:target) .side-bar__link[href="#courses"] .side-bar__link-icon,
+body:has(#web-foundations:target) .side-bar__link[href="#web-foundations"] .side-bar__link-icon,
+body:has(#programming:target) .side-bar__link[href="#programming"] .side-bar__link-icon,
+body:has(#tools:target) .side-bar__link[href="#tools"] .side-bar__link-icon,
+body:has(#course-python:target) .side-bar__link[href="#course-python"] .side-bar__link-icon {
+  color: var(--bg-light);
+}
+
+/* Individual course sublinks */
+body:has(#course-html:target) .side-bar__sublink[href="#course-html"],
+body:has(#course-css:target) .side-bar__sublink[href="#course-css"],
+body:has(#course-javascript:target) .side-bar__sublink[href="#course-javascript"],
+body:has(#course-dsa:target) .side-bar__sublink[href="#course-dsa"],
+body:has(#course-problem-solving:target) .side-bar__sublink[href="#course-problem-solving"],
+body:has(#course-git:target) .side-bar__sublink[href="#course-git"],
+body:has(#course-webdev:target) .side-bar__sublink[href="#course-webdev"],
+body:has(#course-ai:target) .side-bar__sublink[href="#course-ai"] {
+  color: var(--bg-light);
+  background-color: rgba(247, 247, 245, 0.07);
+  border-left-color: var(--bg-light);
+}
+
+/* --------------------------------------------------------------------------
+   MAIN CONTENT — scrollable course catalog panel
+   -------------------------------------------------------------------------- */
+.course-content {
+  min-width: 0;
+  padding: var(--space-lg);
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px rgba(13, 13, 13, 0.06);
+}
+
+/* Page header */
+.courses-page-header {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.courses-page-title {
+  font-size: clamp(1.625rem, 2.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 0.375rem;
+}
+
+.courses-page-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .courses-layout {
+    grid-template-columns: 1fr;
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+  }
+
+  .side-bar {
+    position: static;
+    max-height: none;
+    gap: var(--space-sm);
+  }
+
+  .side-bar__header {
+    padding-bottom: var(--space-xs);
+  }
+
+  /* On tablet/mobile: hide nested links, show category pills only */
+  .side-bar__sublink {
+    display: none;
+  }
+
+  .side-bar__section .side-bar__label {
+    display: none;
+  }
+
+  .side-bar__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: visible;
+    gap: 0.375rem;
+  }
+
+  .side-bar__section {
+    display: contents;
+  }
+
+  .side-bar__group {
+    display: contents;
+  }
+
+  .side-bar__divider {
+    display: none;
+  }
+
+  .side-bar__link {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.8125rem;
+    background-color: rgba(247, 247, 245, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .side-bar__link-icon {
+    display: none;
+  }
+
+  .side-bar__link-text--long {
+    display: none;
+  }
+
+  .side-bar__link-text--short {
+    display: inline;
+  }
+
+  .side-bar__badge:not(.side-bar__badge--featured) {
+    display: none;
+  }
+
+  .side-bar__footer {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .course-content {
+    padding: var(--space-md);
+  }
+
+  .side-bar {
+    padding: var(--space-sm);
+  }
+}

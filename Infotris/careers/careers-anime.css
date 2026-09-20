@@ -1,0 +1,46 @@
+/* Main animation container */
+.career-animation-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+
+}
+
+/* Main wrapper */
+.docs-demo-html {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Row area */
+.row {
+    position: relative;
+    height: 90px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+/* Animated boxes */
+.square {
+    width: 70px;
+    height: 70px;
+    background: #111111;
+    border-radius: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    /* smooth look */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.career-animation-section {
+    position: absolute;
+
+    top: 90px;      /* distance from top */
+    right: 400px;     /* distance from right */
+
+    z-index: 50;
+}

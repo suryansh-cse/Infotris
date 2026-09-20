@@ -1,0 +1,137 @@
+/* ==========================================================================
+   PHILOSOPHY.CSS — Tiny discovery details for Infotris
+   Small, human, slightly playful — never shouting.
+   ========================================================================== */
+
+/* Inline micro note — e.g. beside a heading or between sections */
+.philosophy-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.78;
+  line-height: 1.4;
+}
+
+.philosophy-note::before {
+  content: '—';
+  opacity: 0.45;
+  font-weight: 400;
+}
+
+.philosophy-note--muted {
+  opacity: 0.6;
+}
+
+/* Section whisper — small centered line between sections */
+.philosophy-whisper {
+  display: block;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  opacity: 0.62;
+  padding: 1.25rem 1rem;
+  font-style: italic;
+}
+
+.philosophy-whisper strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text-primary);
+  opacity: 0.85;
+}
+
+/* Hover hint — appears on card hover, very subtle */
+.philosophy-hover-hint {
+  position: absolute;
+  bottom: 0.55rem;
+  right: 0.7rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0,0,0,0.06);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s var(--ease-premium), transform 0.25s var(--ease-premium);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+*:hover > .philosophy-hover-hint,
+.course-card:hover .philosophy-hover-hint,
+.careers-path-card:hover .philosophy-hover-hint,
+.journey-stage:hover .philosophy-hover-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Empty state poetry — when nothing is there, be human */
+.philosophy-empty {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+.philosophy-empty em {
+  color: var(--text-primary);
+  font-style: normal;
+  font-weight: 600;
+}
+.philosophy-empty small {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+/* Tiny label near progress bars */
+.philosophy-progress-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.72;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.philosophy-progress-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+  opacity: 0.6;
+}
+
+/* Footer quote that rotates subtly */
+.philosophy-rotate {
+  transition: opacity 0.5s var(--ease-premium);
+}
+
+/* Dark variant for showcase / dark bands */
+.philosophy-whisper--dark {
+  color: rgba(247, 247, 245, 0.5);
+}
+.philosophy-whisper--dark strong {
+  color: rgba(247, 247, 245, 0.85);
+}
+
+/* Hide on reduced motion? no — keep content, just no animation */
+@media (prefers-reduced-motion: reduce) {
+  .philosophy-hover-hint {
+    transition: none;
+  }
+}

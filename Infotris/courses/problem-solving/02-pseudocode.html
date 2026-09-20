@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotris | Pseudocode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/system/theme.css">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/lesson.css">
+    <link rel="stylesheet" href="../../css/practice.css">
+</head>
+<body class="page-lesson">
+    <main>
+        <header class="lesson-header">
+            <div class="lesson-header__inner">
+                <a class="lesson-header__back" href="01-break-down-problems">← Previous</a>
+                <h1 class="lesson-header__title">Pseudocode before code</h1>
+            </div>
+        </header>
+        <article class="lesson-content">
+            <div class="lesson-content__inner">
+                <p>Pseudocode is structured plain language — not Python, not perfect English. It bridges your plan and real syntax.</p>
+                <pre><code>FUNCTION find_max(numbers):
+    IF numbers is empty:
+        RETURN none
+    max_val = numbers[0]
+    FOR each n in numbers:
+        IF n > max_val:
+            max_val = n
+    RETURN max_val</code></pre>
+                <p>Translate line by line into Python only after the logic feels solid.</p>
+                <section class="practice-panel" data-practice-type="lesson" data-practice-id="ps-02-pseudocode" aria-labelledby="practice-title">
+                    <div class="practice-panel__header">
+                        <span class="practice-panel__eyebrow">Reflect</span>
+                        <h2 id="practice-title" class="practice-panel__title">Quick check</h2>
+                        <p class="practice-panel__hint">Confirm you understand when and how to use pseudocode.</p>
+                        <div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div>
+                        <span class="practice-progress__label">0% complete</span>
+                    </div>
+                    <fieldset class="practice-checklist">
+                        <legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I can explain how pseudocode differs from Python</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I wrote pseudocode for one small function before coding it</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>My pseudocode uses clear steps (IF, FOR, RETURN) without syntax errors</span></label>
+                    </fieldset>
+                    <div class="practice-success" hidden>
+                        <span class="practice-success__icon" aria-hidden="true">✓</span>
+                        <p class="practice-success__title">Practice complete!</p>
+                        <p class="practice-success__text">Pseudocode habit formed — debugging strategies are next.</p>
+                    </div>
+                </section>
+                <nav class="lesson-nav">
+                    <a href="01-break-down-problems">← Previous</a>
+                    <a class="lesson-nav__next" href="03-debugging">Next →</a>
+                </nav>
+            </div>
+        </article>
+    </main>
+    <script src="../../js/practice.js" defer></script>
+<script src="../../js/scroll-animations.js"></script>
+<script src="../../js/philosophy.js"></script>
+</body>
+</html>

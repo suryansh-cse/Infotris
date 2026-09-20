@@ -1,0 +1,45 @@
+{
+  "id": "python-developer",
+  "title": "Python Developer",
+  "studyTime": "8–12 weeks",
+  "level": "Beginner → Advanced",
+  "weeks": [
+    {
+      "title": "Week 1 — Python foundations",
+      "lessons": ["courses/python/01-intro.html", "courses/python/02-variables.html"],
+      "project": "courses/python/project-01-greeting.html"
+    },
+    {
+      "title": "Week 2 — Control flow & collections",
+      "lessons": ["courses/python/03-conditionals.html", "courses/python/04-loops.html", "courses/python/05-lists.html"],
+      "project": "courses/python/project-02-guesser.html"
+    },
+    {
+      "title": "Week 3 — Functions & dictionaries",
+      "lessons": ["courses/python/06-functions.html", "courses/python/07-dictionaries.html"],
+      "project": "courses/python/project-03-contact-book.html"
+    },
+    {
+      "title": "Week 4 — Strings, files & modules",
+      "lessons": ["courses/python/08-strings-files.html", "courses/python/09-modules.html"]
+    },
+    {
+      "title": "Week 5 — Problem solving mindset",
+      "lessons": ["courses/problem-solving/01-break-down-problems.html", "courses/problem-solving/02-pseudocode.html"]
+    },
+    {
+      "title": "Week 6 — Debugging & practice",
+      "lessons": ["courses/problem-solving/03-debugging.html", "courses/problem-solving/04-practice-patterns.html"],
+      "project": "courses/problem-solving/project-challenges.html"
+    },
+    {
+      "title": "Week 7 — DSA fundamentals",
+      "lessons": ["courses/dsa/01-why-dsa.html", "courses/dsa/02-arrays.html", "courses/dsa/03-big-o.html"]
+    },
+    {
+      "title": "Week 8 — Search, sort & capstone",
+      "lessons": ["courses/dsa/04-searching.html", "courses/dsa/05-sorting.html"],
+      "project": "courses/python/project-capstone-cli.html"
+    }
+  ]
+}
