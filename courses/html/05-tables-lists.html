@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Infotris | Tables & Lists</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/system/theme.css"><link rel="stylesheet" href="../../css/global.css"><link rel="stylesheet" href="../../css/home.css"><link rel="stylesheet" href="../../css/lesson.css"><link rel="stylesheet" href="../../css/practice.css"><link rel="icon" type="image/png" href="../../assets/logo.png"></head><body class="page-lesson"><header class="site-header"><nav class="navbar" aria-label="Main navigation"><a class="navbar-logo" href="../../" aria-label="Infotris home"><img src="../../assets/logo.png" alt="" width="40" height="40"><span class="navbar-brand-text">Infotris</span></a><ul class="navbar-links"><li><a href="../../courses" aria-current="page">Skills</a></li><li><a href="../../careers">Careers</a></li><li><a href="../../trisgraph">TrisGraph</a></li><li><a href="../../about">About</a></li></ul></nav></header><nav class="lesson-breadcrumb" aria-label="Breadcrumb"><a href="./">HTML</a><span>/</span><span>Lesson 5</span></nav><main><header class="lesson-header"><div class="lesson-header__inner"><a class="lesson-header__back" href="./">← All lessons</a><p class="lesson-header__label">Lesson 5 · HTML</p><h1 class="lesson-header__title">Tables & Lists</h1><p class="lesson-header__meta">~20 min</p></div></header><article class="lesson-content"><div class="lesson-content__inner">
+<h2>1. Tables — for tabular data only</h2><p>Use tables when data belongs in rows/columns (like a spreadsheet). Never for page layout — use CSS instead.</p><pre><code>&lt;table&gt;
+  &lt;caption&gt;Skills Progress&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th scope="col"&gt;Skill&lt;/th&gt;&lt;th scope="col"&gt;Level&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;HTML&lt;/td&gt;&lt;td&gt;Beginner&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;CSS&lt;/td&gt;&lt;td&gt;Learning&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre><p><code>&lt;th&gt;</code> = header, <code>scope="col"</code> helps screen readers, <code>caption</code> = table title.</p><h2>2. Lists deep-dive</h2><pre><code>&lt;ol&gt;
+  &lt;li&gt;Learn HTML&lt;/li&gt;
+  &lt;li&gt;Practice&lt;/li&gt;
+  &lt;li&gt;Build project&lt;/li&gt;
+&lt;/ol&gt;
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;&lt;dd&gt;Structure&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;&lt;dd&gt;Style&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+<section class="practice-panel" data-practice-type="lesson" data-practice-id="05-tables-lists" aria-labelledby="practice-title"><div class="practice-panel__header"><span class="practice-panel__eyebrow">Interactive Practice</span><h2 id="practice-title" class="practice-panel__title">Practice: Tables & Lists</h2><p class="practice-panel__hint">Try the examples in your editor and check off when done.</p><div class="practice-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="practice-progress__bar"></div></div><span class="practice-progress__label">0% complete</span></div><fieldset class="practice-checklist"><legend>Check when done</legend>
+                        <label class="practice-check"><input type="checkbox"><span>I built a table with thead/tbody</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I added caption and th scope</span></label>
+                        <label class="practice-check"><input type="checkbox"><span>I created ul, ol, and dl</span></label>
+                    </fieldset><div class="practice-success" hidden><span class="practice-success__icon">✓</span><p class="practice-success__title">Practice complete!</p><p class="practice-success__text">Great — take the quiz to unlock the next lesson.</p></div></section><section class="quiz-panel" data-quiz-id="05-tables-lists"><div class="quiz-panel__header"><span class="quiz-panel__eyebrow">Quiz</span><h2 class="quiz-panel__title">Test Your Understanding</h2></div>
+                    <div class="quiz-question"><p class="quiz-question__text">1. When should you use &lt;table&gt;?</p><div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="q1" data-correct="false" data-explanation="Tables = data"><span class="quiz-option__indicator"></span><span class="quiz-option__text">For page layout</span></label>
+                            <label class="quiz-option"><input type="radio" name="q1" data-correct="true" data-explanation="Tables = data"><span class="quiz-option__indicator"></span><span class="quiz-option__text">For tabular data</span></label>
+                            <label class="quiz-option"><input type="radio" name="q1" data-correct="false" data-explanation="Tables = data"><span class="quiz-option__indicator"></span><span class="quiz-option__text">For images</span></label>
+                        </div><div class="quiz-feedback"></div></div>
+                    <div class="quiz-question"><p class="quiz-question__text">2. Which is table header?</p><div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="q2" data-correct="false" data-explanation="th = header cell"><span class="quiz-option__indicator"></span><span class="quiz-option__text">&lt;td&gt;</span></label>
+                            <label class="quiz-option"><input type="radio" name="q2" data-correct="true" data-explanation="th = header cell"><span class="quiz-option__indicator"></span><span class="quiz-option__text">&lt;th&gt;</span></label>
+                            <label class="quiz-option"><input type="radio" name="q2" data-correct="false" data-explanation="th = header cell"><span class="quiz-option__indicator"></span><span class="quiz-option__text">&lt;tr&gt;</span></label>
+                        </div><div class="quiz-feedback"></div></div>
+                    <button type="button" class="quiz-btn-submit">Submit Answers</button></section><nav class="lesson-nav"><a href="./">All lessons</a><a class="lesson-nav__next" href="06-forms.html">Next: Forms & Inputs →</a></nav></div></article></main><footer class="footer-section"><div class="footer-bottom"><p>&copy; 2026 Infotris.</p></div></footer><script src="../../js/practice.js" defer></script><script src="../../js/scroll-animations.js"></script><script src="../../js/philosophy.js"></script></body></html>

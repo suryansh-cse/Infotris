@@ -63,10 +63,23 @@
         pandas: { title: 'Pandas & DataFrames', desc: 'Read, filter, aggregate, and clean data in Python.' },
         sql: { title: 'SQL Databases', desc: 'Schemas, joins, indexes, and query design.' },
         statistics: { title: 'Applied Statistics', desc: 'Distributions, hypothesis testing, and significance.' },
+        html: {
+          title: 'HTML Skill Trail',
+          desc: 'Structure the web with semantic, accessible markup — 10 lessons, 2 projects. Beginner-friendly.',
+          ctaText: 'Start HTML Trail',
+          ctaUrl: 'courses/html/',
+          badge: 'New',
+          steps: [
+            { node: 'html', label: 'HTML Basics', desc: 'What HTML is and first page.' },
+            { node: 'html-structure', label: 'Document Structure', desc: 'doctype, head, body.' },
+            { node: 'html-forms', label: 'Forms', desc: 'Inputs and validation.' },
+            { node: 'html-semantic', label: 'Semantic Layout', desc: 'Accessible page structure.' }
+          ]
+        },
         dsa: { title: 'DSA — Data Structures & Algorithms', desc: 'Efficient problem-solving for interviews and real software.' },
         'dsa-arrays': { title: 'Arrays & Hashing', desc: 'Foundations for DSA — contiguous memory, maps, and sets.' },
         'dsa-graphs': { title: 'Graphs', desc: 'BFS/DFS, shortest paths, and network reasoning.' },
-        'dsa-dp': { title: 'Dynamic Programming', desc: 'Memoization, tabulation, and optimal substructure.' }
+        'html': { title: 'HTML', desc: 'Structure the web with semantic, accessible markup — the skeleton of every site.' },'html-structure': { title: 'Document Structure', desc: 'doctype, html, head, body — the 4 parts every page needs.' },'html-forms': { title: 'Forms', desc: 'Inputs, labels, validation, and accessibility.' },'html-semantic': { title: 'Semantic Layout', desc: 'header, nav, main, article, footer — build like a pro.' },'dsa-dp': { title: 'Dynamic Programming', desc: 'Memoization, tabulation, and optimal substructure.' }
       };
 
       // TRAILS: architecture for adding languages without rewrite
@@ -119,6 +132,19 @@
             { node: 'pandas', label: 'Pandas Aggregations', desc: 'Processing data tables cleanly.' },
             { node: 'sql', label: 'SQL Query Optimization', desc: 'Managing databases & stores.' },
             { node: 'statistics', label: 'Applied Statistics', desc: 'Probability distribution models.' }
+          ]
+        },
+        html: {
+          title: 'HTML Skill Trail',
+          desc: 'Structure the web with semantic, accessible markup — 10 lessons, 2 projects. Beginner-friendly.',
+          ctaText: 'Start HTML Trail',
+          ctaUrl: 'courses/html/',
+          badge: 'New',
+          steps: [
+            { node: 'html', label: 'HTML Basics', desc: 'What HTML is and first page.' },
+            { node: 'html-structure', label: 'Document Structure', desc: 'doctype, head, body.' },
+            { node: 'html-forms', label: 'Forms', desc: 'Inputs and validation.' },
+            { node: 'html-semantic', label: 'Semantic Layout', desc: 'Accessible page structure.' }
           ]
         },
         dsa: {

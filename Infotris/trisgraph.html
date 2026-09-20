@@ -93,6 +93,14 @@
                         </div>
                         <a href="courses/python/" class="trail-selector-btn__cta" onclick="event.stopPropagation()" aria-label="Start Python trail">Start →</a>
                     </button>
+                                        <button class="trail-selector-btn" data-path="html" role="tab" aria-selected="false">
+                        <span class="btn-bullet" aria-hidden="true"></span>
+                        <div class="btn-content">
+                            <h3>HTML Skill Trail</h3>
+                            <p>Structure &amp; semantics — 10 lessons</p>
+                        </div>
+                        <a href="courses/html/" class="trail-selector-btn__cta" onclick="event.stopPropagation()">Start →</a>
+                    </button>
                     <button class="trail-selector-btn" data-path="ai" role="tab" aria-selected="false">
                         <span class="btn-bullet" aria-hidden="true"></span>
                         <div class="btn-content">
@@ -194,6 +202,10 @@
                     <line x1="480" y1="170" x2="490" y2="60" class="trisgraph-line path-ai" data-from="ai" data-to="pytorch" />
 
                     <line x1="220" y1="330" x2="100" y2="400" class="trisgraph-line path-webdev" data-from="webdev" data-to="htmlcss" />
+                    <line x1="220" y1="330" x2="120" y2="280" class="trisgraph-line path-html path-webdev" data-from="webdev" data-to="html" />
+                    <line x1="120" y1="280" x2="80" y2="220" class="trisgraph-line path-html" data-from="html" data-to="html-structure" />
+                    <line x1="120" y1="280" x2="80" y2="340" class="trisgraph-line path-html" data-from="html" data-to="html-forms" />
+                    <line x1="120" y1="280" x2="80" y2="270" class="trisgraph-line path-html" data-from="html" data-to="html-semantic" />
                     <line x1="220" y1="330" x2="200" y2="440" class="trisgraph-line path-webdev" data-from="webdev" data-to="react" />
                     <line x1="220" y1="330" x2="350" y2="410" class="trisgraph-line path-webdev path-datascience" data-from="webdev" data-to="sql" />
 
@@ -284,9 +296,24 @@
                         <circle cx="400" cy="470" r="6" class="trisgraph-node-circle" />
                         <text x="400" y="488" text-anchor="middle" class="trisgraph-node-text">DP</text>
                     </g>
+                                    <g class="trisgraph-node-group node-html" data-node="html">
+                        <circle cx="120" cy="280" r="8" class="trisgraph-node-circle" />
+                        <text x="120" y="264" text-anchor="middle" class="trisgraph-node-text">HTML</text>
+                    </g>
+                    <g class="trisgraph-node-group node-html" data-node="html-structure">
+                        <circle cx="80" cy="220" r="6" class="trisgraph-node-circle" />
+                        <text x="80" y="206" text-anchor="middle" class="trisgraph-node-text">Structure</text>
+                    </g>
+                    <g class="trisgraph-node-group node-html" data-node="html-forms">
+                        <circle cx="80" cy="340" r="6" class="trisgraph-node-circle" />
+                        <text x="80" y="358" text-anchor="middle" class="trisgraph-node-text">Forms</text>
+                    </g>
+                    <g class="trisgraph-node-group node-html" data-node="html-semantic">
+                        <circle cx="80" cy="270" r="6" class="trisgraph-node-circle" />
+                        <text x="80" y="288" text-anchor="middle" class="trisgraph-node-text">Semantic</text>
+                    </g>
                 </svg>
             </div>
-
             <div class="canvas-floating-tooltip" id="canvas-node-tooltip" role="status" aria-live="polite">
                 <h4 class="tooltip-heading">Select a node</h4>
                 <p class="tooltip-content">Hover or search to explore skills and how they connect.</p>
