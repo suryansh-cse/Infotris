@@ -263,6 +263,48 @@
     var currentResults = [];
     var debounceTimer = null;
 
+    // --- Portal: move the dropdown to <body> on open so hero
+    // `overflow-x: clip` and transformed ancestors can never trap it.
+    // Positioned fixed under the input; restored to place on close.
+    var homeParent = resultsBox.parentNode;
+    var homeNext = resultsBox.nextSibling;
+    var portaled = false;
+
+    function positionPortal() {
+      if (!portaled || resultsBox.style.display === 'none') return;
+      try {
+        var r = input.getBoundingClientRect();
+        var w = Math.min(r.width, window.innerWidth - 16);
+        var left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8));
+        resultsBox.style.left = left + 'px';
+        resultsBox.style.top = (r.bottom + 8) + 'px';
+        resultsBox.style.width = w + 'px';
+      } catch (_) {}
+    }
+
+    function portal() {
+      if (portaled) return;
+      portaled = true;
+      try {
+        document.body.appendChild(resultsBox);
+      } catch (_) {}
+      resultsBox.classList.add('search-results--portaled');
+      positionPortal();
+    }
+
+    function unportal() {
+      if (!portaled) return;
+      portaled = false;
+      resultsBox.classList.remove('search-results--portaled');
+      resultsBox.style.left = '';
+      resultsBox.style.top = '';
+      resultsBox.style.width = '';
+      try {
+        if (homeNext && homeNext.parentNode === homeParent) homeParent.insertBefore(resultsBox, homeNext);
+        else if (homeParent) homeParent.appendChild(resultsBox);
+      } catch (_) {}
+    }
+
     function footerHtml(query) {
       return ''
         + '<div class="search-footer">'
@@ -302,6 +344,7 @@
         + '</div>'
         + footerHtml('');
       resultsBox.style.display = 'block';
+      portal();
       input.setAttribute('aria-expanded', 'true');
       wireChips();
       liveRegion.textContent = 'Type to search courses, careers, skills and trails';
@@ -354,6 +397,7 @@
           + '</div>'
           + footerHtml(query);
         resultsBox.style.display = 'block';
+        portal();
         liveRegion.textContent = 'No results for ' + query;
         return;
       }
@@ -363,12 +407,18 @@
       var header = document.createElement('div');
       header.className = 'search-results__header';
       header.innerHTML = '<span>' + total + ' result' + (total !== 1 ? 's' : '') + ' for &ldquo;' + escapeHtml(query) + '&rdquo;</span><button type="button" class="search-results__clear" aria-label="Clear search">Clear</button>';
-      header.querySelector('.search-results__clear').addEventListener('click', function(e) {
-        e.stopPropagation();
-        input.value = '';
-        input.focus();
-        clearResults();
-      });
+      var headerClear = null;
+      try {
+        headerClear = header.querySelector('.search-results__clear');
+      } catch (_) {}
+      if (headerClear) {
+        headerClear.addEventListener('click', function(e) {
+          e.stopPropagation();
+          input.value = '';
+          input.focus();
+          clearResults();
+        });
+      }
       resultsBox.appendChild(header);
 
       var typeLabels = { course: 'Courses', career: 'Careers', skill: 'Skills', trail: 'Trails', topic: 'Topics', other: 'Other' };
@@ -446,12 +496,14 @@
       while (footer.firstChild) resultsBox.appendChild(footer.firstChild);
 
       resultsBox.style.display = 'block';
+      portal();
       liveRegion.textContent = total + ' results for ' + query;
     }
 
     function clearResults() {
       resultsBox.innerHTML = '';
       resultsBox.style.display = 'none';
+      unportal();
       input.setAttribute('aria-expanded', 'false');
       input.removeAttribute('aria-activedescendant');
       selectedIndex = -1;
@@ -492,6 +544,7 @@
         console.error('Search error:', e);
         resultsBox.innerHTML = '<div class="search-state search-state--error"><p class="search-state__title">Search unavailable</p><p class="search-state__desc">The search index could not be loaded. <button type="button" class="search-state__retry">Retry</button></p></div>' + footerHtml(query);
         resultsBox.style.display = 'block';
+        portal();
         var retry = resultsBox.querySelector('.search-state__retry');
         if (retry) retry.addEventListener('click', handleInput);
         liveRegion.textContent = 'Search error';
@@ -564,19 +617,27 @@
         handleInput();
       } else {
         resultsBox.style.display = 'block';
+        portal();
         input.setAttribute('aria-expanded', 'true');
       }
     });
 
     document.addEventListener('click', function(e) {
       try {
-        if (container === document) {
+        if (portaled) {
+          if (!resultsBox.contains(e.target) && e.target !== input) clearResults();
+        } else if (container === document) {
           if (!resultsBox.contains(e.target) && e.target !== input) clearResults();
         } else if (!container.contains(e.target)) {
           clearResults();
         }
       } catch (_) {}
     });
+
+    // Keep a portaled dropdown glued under the input
+    document.addEventListener('scroll', positionPortal, { capture: true, passive: true });
+    window.addEventListener('resize', positionPortal);
+    window.addEventListener('orientationchange', positionPortal);
 
     document.addEventListener('keydown', function(e) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
