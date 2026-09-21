@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search Infotris — courses, careers, skills and trails in one place.">
+    <title>Search | Infotris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/system/theme.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/system/search.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body class="search-page">
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="navbar-logo" href="./" aria-label="Infotris home">
+                <img src="assets/logo.png" alt="Infotris logo" width="40" height="40">
+                <span class="navbar-brand-text">Infotris</span>
+            </a>
+            <ul class="navbar-links">
+                <li><a href="courses">Skills</a></li>
+                <li><a href="trisgraph">TrisGraph</a></li>
+                <li><a href="careers">Career</a></li>
+                <li><a href="about">About</a></li>
+            </ul>
+            <div id="navbar-user">
+                <a class="btn-sign-in" href="signup.html">Sign In</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="search-page__wrap">
+        <p class="search-page__eyebrow">Search Infotris</p>
+        <h1 class="search-page__title">Find your next skill.</h1>
+        <div class="search-page__bar" role="search">
+            <label class="visually-hidden" for="search-page-input">Search courses, careers, skills and trails</label>
+            <input id="search-page-input" class="search-page__input" type="search" autocomplete="off" placeholder="Try Python, DSA, Machine Learning...">
+            <button id="search-page-go" class="search-page__go" type="button">Search</button>
+        </div>
+        <p id="search-page-meta" class="search-page__meta" aria-live="polite"></p>
+        <div id="search-page-list" class="search-page__list"></div>
+        <noscript><p class="search-page__meta">Search needs JavaScript. Browse <a href="courses">Skills</a>, <a href="careers">Careers</a> or <a href="trisgraph">TrisGraph</a> instead.</p></noscript>
+    </main>
+
+    <footer class="footer-section">
+        <div class="footer-inner">
+            <div class="footer-column footer-brand">
+                <a class="footer-logo" href="./" aria-label="Infotris home"><img src="assets/logo.png" alt="Infotris logo" width="36" height="36"><span>Infotris</span></a>
+                <p class="footer-tagline">Learn • Build • Grow</p>
+                <p class="footer-mission">Infotris doesn't create knowledge — it organizes the world's knowledge into structured trails so anyone can learn, build, and grow.</p>
+            </div>
+            <div class="footer-column"><h3 class="footer-heading">Navigation</h3><ul class="footer-links"><li><a href="about">About</a></li><li><a href="careers">Career Paths</a></li><li><a href="courses">Skills</a></li><li><a href="courses/coming/terms-soon">Terms &amp; Privacy</a></li></ul></div>
+            <div class="footer-column"><h3 class="footer-heading">Community</h3><ul class="footer-links"><li><a href="https://www.instagram.com/infotrishq" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://x.com/Infotrishq" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li><li><a href="https://www.reddit.com/user/Infotrishq/" target="_blank" rel="noopener noreferrer">Reddit</a></li><li><a href="https://www.youtube.com/@Infotrishq" target="_blank" rel="noopener noreferrer">YouTube</a></li></ul></div>
+            <div class="footer-column"><h3 class="footer-heading">Contact</h3><ul class="footer-links"><li><a href="mailto:hello.infotris@gmail.com">Email</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Infotris. All rights reserved.</p></div>
+    </footer>
+
+    <script>document.documentElement.classList.remove("no-js");document.documentElement.classList.add("js");</script>
+    <script src="js/infotris-index.js"></script>
+    <script src="js/search.js"></script>
+    <script type="module" src="js/navbar.js"></script>
+</body>
+</html>
