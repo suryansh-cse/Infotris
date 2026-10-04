@@ -8,3 +8,17 @@ Devlop, build and founded by Suryansh
 Instagram - https://www.instagram.com/suryansh1_0 
 
 Linkedin - https://www.linkedin.com/in/suryansh-cse10/
+
+## Profile image uploads
+
+Profile photos and banners are uploaded to Firebase Storage under
+`profileImages/{userId}/avatar` and `profileImages/{userId}/banner`. Their
+download URLs are saved with the profile in `users/{userId}` in Firestore.
+The Storage rules in `storage.rules` restrict uploads and reads to the signed-in
+owner and allow JPEG, PNG, WebP, or GIF images up to 5 MB.
+
+After enabling Firebase Storage for the `infotris` project, deploy the rules with:
+
+```sh
+firebase deploy --only storage --project infotris
+```

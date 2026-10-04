@@ -36,6 +36,7 @@ let currentUser = null;
 let state = structuredClone(defaultState);
 let isSavingProfile = false;
 let previousBodyOverflow = "";
+const uploadPreviewUrls = new Map();
 
 const elements = {
   avatar: document.getElementById("profile-avatar"),
@@ -70,6 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("editProfileButton")?.addEventListener("click", openProfileModal);
   document.getElementById("closeModalButton")?.addEventListener("click", closeProfileModal);
   document.getElementById("cancelProfileButton")?.addEventListener("click", closeProfileModal);
+  document.getElementById("formAvatar")?.addEventListener("change", (event) => {
+    renderUploadPreview(event.currentTarget, "avatar-upload-preview", "photo");
+  });
+  document.getElementById("formBanner")?.addEventListener("change", (event) => {
+    renderUploadPreview(event.currentTarget, "banner-upload-preview", "banner");
+  });
   elements.modal?.addEventListener("click", (event) => {
     if (event.target === elements.modal) closeProfileModal();
   });
@@ -407,6 +414,8 @@ function openProfileModal() {
   fields.portfolio.value = state.socials.portfolio || "";
   fields.career.value = state.careerDirection || "";
   fields.interestTags.value = Array.isArray(state.careerInterests) ? state.careerInterests.join(", ") : "";
+  renderExistingUploadPreview("avatar-upload-preview", state.avatar, "Current profile photo", "photo");
+  renderExistingUploadPreview("banner-upload-preview", state.banner, "Current profile banner", "banner");
 
   previousBodyOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
@@ -422,6 +431,7 @@ function closeProfileModal() {
   elements.modal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = previousBodyOverflow;
   elements.form?.reset();
+  clearUploadPreviews();
   elements.editButton?.focus();
 }
 
@@ -549,7 +559,7 @@ async function handleProfileSave(event) {
     closeProfileModal();
   } catch (error) {
     console.error("Failed to save profile:", error);
-    setSaveStatus(`Could not save your profile: ${error.message || "Please try again."}`, true);
+    setSaveStatus(getProfileSaveError(error), true);
   } finally {
     isSavingProfile = false;
     if (saveButton) saveButton.disabled = false;
@@ -562,14 +572,66 @@ async function uploadProfileImage(file, type) {
   if (!file) return "";
   if (!auth || !currentUser || !storage) throw new Error("Image storage is unavailable. Please try again later.");
   const fileRef = ref(storage, `profileImages/${currentUser.uid}/${type}`);
-  const uploadResult = await uploadBytes(fileRef, file, { contentType: file.type });
+  const uploadResult = await uploadBytes(fileRef, file, {
+    contentType: file.type,
+    cacheControl: "private,no-cache,max-age=0,must-revalidate"
+  });
   return await getDownloadURL(uploadResult.ref);
 }
 
 function validateImage(file, label) {
   if (!file) return;
-  if (!file.type.startsWith("image/")) throw new Error(`${label} must be an image file.`);
+  if (!["image/jpeg", "image/png", "image/webp", "image/gif"].includes(file.type)) {
+    throw new Error(`${label} must be a JPEG, PNG, WebP, or GIF image.`);
+  }
   if (file.size > 5 * 1024 * 1024) throw new Error(`${label} must be 5 MB or smaller.`);
+}
+
+function renderUploadPreview(input, previewId, label) {
+  const file = input.files?.[0];
+  if (file) {
+    const objectUrl = URL.createObjectURL(file);
+    replaceUploadPreview(previewId, objectUrl, file.name);
+    return;
+  }
+  const currentUrl = previewId.startsWith("avatar") ? state.avatar : state.banner;
+  renderExistingUploadPreview(previewId, currentUrl, label, previewId.startsWith("banner") ? "banner" : "photo");
+}
+
+function renderExistingUploadPreview(previewId, url, label, kind) {
+  const container = document.getElementById(previewId);
+  if (!container) return;
+  if (url && isHttpUrl(url)) {
+    replaceUploadPreview(previewId, url, label, false);
+    return;
+  }
+  clearUploadPreviewUrl(previewId);
+  container.replaceChildren(document.createTextNode(`No ${kind === "banner" ? "banner" : "photo"} uploaded yet.`));
+}
+
+function replaceUploadPreview(previewId, url, label, revokeAfterClose = true) {
+  const container = document.getElementById(previewId);
+  if (!container) return;
+  clearUploadPreviewUrl(previewId);
+  if (revokeAfterClose) uploadPreviewUrls.set(previewId, url);
+  const image = document.createElement("img");
+  image.src = url;
+  image.alt = "";
+  const caption = document.createElement("span");
+  caption.textContent = label;
+  container.replaceChildren(image, caption);
+}
+
+function clearUploadPreviewUrl(previewId) {
+  const previousUrl = uploadPreviewUrls.get(previewId);
+  if (previousUrl) {
+    URL.revokeObjectURL(previousUrl);
+    uploadPreviewUrls.delete(previewId);
+  }
+}
+
+function clearUploadPreviews() {
+  for (const previewId of uploadPreviewUrls.keys()) clearUploadPreviewUrl(previewId);
 }
 
 function isHttpUrl(value) {
@@ -585,6 +647,19 @@ function setSaveStatus(message, isError = false) {
   if (!elements.saveStatus) return;
   elements.saveStatus.textContent = message;
   elements.saveStatus.dataset.error = String(isError);
+}
+
+function getProfileSaveError(error) {
+  if (error?.code === "storage/unauthorized") {
+    return "Firebase Storage denied this upload. Deploy storage.rules for the infotris project, then try again.";
+  }
+  if (error?.code === "firestore/permission-denied") {
+    return "Firestore denied this profile update. Check the project's users/{userId} write rules.";
+  }
+  if (error?.code === "storage/canceled") {
+    return "The image upload was canceled. Choose the image again and retry.";
+  }
+  return `Could not save your profile: ${error?.message || "Please try again."}`;
 }
 
 function initialsFor(name) {
