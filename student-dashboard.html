@@ -84,6 +84,7 @@
 
         .navbar-user{ position:relative; display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; }
         .user-avatar{ width:2rem; height:2rem; border-radius:50%; background:var(--bg-dark); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.875rem; }
+        .user-avatar img,.welcome-avatar img{ width:100%; height:100%; border-radius:inherit; object-fit:cover; }
         .user-dropdown{ position:absolute; top:calc(100% + .5rem); right:0; width:180px; background:#fff; border:1px solid var(--border-color); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.08); display:none; flex-direction:column; z-index:10; }
         .navbar-user:focus-within .user-dropdown, .navbar-user:hover .user-dropdown{ display:flex; }
         .user-dropdown a{ padding:.6rem .8rem; font-size:.8125rem; color:var(--text-secondary); text-decoration:none; }
@@ -111,6 +112,7 @@
                 <div class="user-avatar" id="navbarAvatar">?</div>
                 <div class="user-dropdown">
                     <a href="./">Home</a>
+                    <a href="profile.html">My Profile</a>
                     <a href="courses/python/">Python Trail</a>
                     <a href="trisgraph.html">TrisGraph</a>
                     <a href="#" id="signOutBtn">Sign Out</a>

@@ -61,6 +61,18 @@ function lessonUrl(l) { return `courses/python/${l.file}.html`; }
 function esc(s) {
   return String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
+function renderUserAvatar(element, avatar, displayName) {
+  if (!element) return;
+  if (typeof avatar === "string" && /^https?:\/\//i.test(avatar)) {
+    const image = document.createElement("img");
+    image.src = avatar;
+    image.alt = `${displayName || "User"} profile`;
+    image.referrerPolicy = "no-referrer";
+    element.replaceChildren(image);
+    return;
+  }
+  element.textContent = (displayName || "?").charAt(0).toUpperCase();
+}
 
 // DOM
 const $ = (id) => document.getElementById(id);
@@ -262,8 +274,8 @@ function render() {
 
     // Welcome
     try {
-      if (dom.welcomeAvatar) dom.welcomeAvatar.textContent = (state.displayName || "?").charAt(0).toUpperCase();
-      if (dom.navbarAvatar) dom.navbarAvatar.textContent = (state.displayName || "?").charAt(0).toUpperCase();
+      renderUserAvatar(dom.welcomeAvatar, state.avatar, state.displayName);
+      renderUserAvatar(dom.navbarAvatar, state.avatar, state.displayName);
       if (dom.welcomeName) dom.welcomeName.textContent = `Welcome back, ${state.displayName || "Learner"}`;
       if (dom.welcomeTrail) dom.welcomeTrail.textContent = `${trail.title} · ${pct}%`;
       if (dom.welcomeStatus) {
