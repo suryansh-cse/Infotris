@@ -1,15 +1,3 @@
-import { auth, db } from "./firebase.js";
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    updateProfile
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-import {
-    doc,
-    serverTimestamp,
-    setDoc
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
 const form = document.getElementById("authForm");
 
 if (form) {
@@ -182,6 +170,9 @@ if (form) {
     }
 
     function setupPasswordControls() {
+        if (passwordToggle) {
+            passwordToggle.textContent = "Show";
+        }
         passwordToggle?.setAttribute("aria-label", "Show password");
         passwordToggle?.setAttribute("aria-pressed", "false");
 
@@ -194,7 +185,7 @@ if (form) {
             passwordToggle.setAttribute("aria-pressed", String(shouldShow));
         });
 
-        passwordInput.addEventListener("input", () => {
+        function updatePasswordStrength() {
             const password = passwordInput.value;
             let score = 0;
             if (password.length >= 8) score += 1;
@@ -208,10 +199,13 @@ if (form) {
                 : ["Weak", "Weak", "Fair", "Good", "Strong", "Very strong"][score];
             passwordStrength.textContent = `Password strength: ${strength}`;
             passwordStrength.dataset.strength = password.length === 0 ? "empty" : String(score);
-        });
+        }
+
+        passwordInput.addEventListener("input", updatePasswordStrength);
+        updatePasswordStrength();
     }
 
-    function createUserProfile(user, displayName) {
+    function createUserProfile(user, displayName, serverTimestamp) {
         return {
             profile: {
                 displayName,
@@ -276,13 +270,23 @@ if (form) {
         submitButton.textContent = isSignup ? "Creating your account..." : "Signing you in...";
 
         try {
+            const [
+                { auth, db },
+                { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile },
+                { doc, serverTimestamp, setDoc }
+            ] = await Promise.all([
+                import("./firebase.js"),
+                import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
+                import("https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js")
+            ]);
+
             if (isSignup) {
                 const displayName = nameInput.value.trim();
                 const { user } = await createUserWithEmailAndPassword(auth, email, password);
                 await updateProfile(user, { displayName });
                 await setDoc(
                     doc(db, "users", user.uid),
-                    createUserProfile(user, displayName),
+                    createUserProfile(user, displayName, serverTimestamp),
                     { merge: true }
                 );
             } else {
