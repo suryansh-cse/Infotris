@@ -34,6 +34,8 @@ const defaultState = {
 
 let currentUser = null;
 let state = structuredClone(defaultState);
+let isSavingProfile = false;
+let previousBodyOverflow = "";
 
 const elements = {
   avatar: document.getElementById("profile-avatar"),
@@ -71,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
   elements.modal?.addEventListener("click", (event) => {
     if (event.target === elements.modal) closeProfileModal();
   });
+  document.addEventListener("keydown", handleProfileModalKeydown);
   elements.form?.addEventListener("submit", handleProfileSave);
 
   attachAuthListener();
@@ -405,15 +408,50 @@ function openProfileModal() {
   fields.career.value = state.careerDirection || "";
   fields.interestTags.value = Array.isArray(state.careerInterests) ? state.careerInterests.join(", ") : "";
 
+  previousBodyOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
   elements.modal.classList.add("is-open");
   elements.modal.setAttribute("aria-hidden", "false");
+  setSaveStatus("");
+  requestAnimationFrame(() => document.getElementById("formDisplayName")?.focus());
 }
 
 function closeProfileModal() {
-  if (!elements.modal) return;
+  if (!elements.modal || isSavingProfile) return;
   elements.modal.classList.remove("is-open");
   elements.modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = previousBodyOverflow;
   elements.form?.reset();
+  elements.editButton?.focus();
+}
+
+function handleProfileModalKeydown(event) {
+  if (!elements.modal?.classList.contains("is-open")) return;
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeProfileModal();
+    return;
+  }
+  if (event.key !== "Tab") return;
+
+  const focusable = [...elements.modal.querySelectorAll(
+    'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+  )].filter((element) => element.getClientRects().length > 0);
+  if (!focusable.length) {
+    event.preventDefault();
+    elements.modal.querySelector('[role="dialog"]')?.focus();
+    return;
+  }
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (event.shiftKey && (document.activeElement === first || !elements.modal.contains(document.activeElement))) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !elements.modal.contains(document.activeElement))) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 async function handleProfileSave(event) {
@@ -443,7 +481,10 @@ async function handleProfileSave(event) {
   const bannerFile = document.getElementById("formBanner")?.files?.[0];
 
   const saveButton = form.querySelector('button[type="submit"]');
+  isSavingProfile = true;
   if (saveButton) saveButton.disabled = true;
+  document.getElementById("cancelProfileButton").disabled = true;
+  document.getElementById("closeModalButton").disabled = true;
   setSaveStatus("Saving profile…");
   try {
     validateImage(avatarFile, "Profile picture");
@@ -504,12 +545,16 @@ async function handleProfileSave(event) {
     renderProfile();
     renderAuthNavigation();
     setSaveStatus("Profile saved.");
+    isSavingProfile = false;
     closeProfileModal();
   } catch (error) {
     console.error("Failed to save profile:", error);
     setSaveStatus(`Could not save your profile: ${error.message || "Please try again."}`, true);
   } finally {
+    isSavingProfile = false;
     if (saveButton) saveButton.disabled = false;
+    document.getElementById("cancelProfileButton").disabled = false;
+    document.getElementById("closeModalButton").disabled = false;
   }
 }
 

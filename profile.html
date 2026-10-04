@@ -557,25 +557,32 @@
             background: rgba(17, 17, 17, 0.38);
             backdrop-filter: blur(4px);
             display: none;
-            align-items: center;
+            align-items: safe center;
             justify-content: center;
             padding: 1rem;
+            overflow-y: auto;
+            overscroll-behavior: contain;
         }
         .profile-modal.is-open { display: flex; }
         .profile-modal-panel {
             width: min(680px, 100%);
+            max-height: calc(100vh - 2rem);
+            max-height: calc(100dvh - 2rem);
+            display: flex;
+            flex-direction: column;
             background: #fff;
             border: 1px solid var(--profile-border);
             border-radius: 22px;
             box-shadow: 0 30px 80px rgba(17,17,17,0.15);
-            padding: 1.3rem;
+            padding: 1.1rem 1.3rem 0;
+            overflow: hidden;
         }
         .modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            margin-bottom: 1rem;
+            flex: 0 0 auto;
             padding-bottom: 0.8rem;
             border-bottom: 1px solid var(--profile-border);
         }
@@ -598,8 +605,17 @@
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 0.9rem 1rem;
+            flex: 1 1 auto;
+            min-width: 0;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            padding: 1rem 0.35rem 1rem 0;
         }
-        .field { display: flex; flex-direction: column; gap: 0.38rem; }
+        #profileForm { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; overflow: hidden; }
+        .field { display: flex; flex-direction: column; gap: 0.38rem; min-width: 0; }
         .field.full { grid-column: 1 / -1; }
         label {
             font-size: 0.72rem;
@@ -617,20 +633,28 @@
             color: var(--profile-text);
             resize: vertical;
         }
+        .field input,
+        .field textarea { width: 100%; min-width: 0; max-width: 100%; }
+        .field input[type="file"] { padding: 0.65rem; font-size: 0.82rem; }
         input:focus,textarea:focus {
             outline: 2px solid rgba(17,17,17,0.12);
             outline-offset: 1px;
         }
         textarea { min-height: 100px; }
+        .profile-form-footer {
+            flex: 0 0 auto;
+            margin: 0 -1.3rem;
+            padding: 0.7rem 1.3rem 1rem;
+            background: #fff;
+            border-top: 1px solid var(--profile-border);
+        }
         .modal-actions {
             display: flex;
             justify-content: flex-end;
             gap: 0.7rem;
-            margin-top: 1rem;
-            padding-top: 0.9rem;
-            border-top: 1px solid var(--profile-border);
+            margin-top: 0.65rem;
         }
-        .profile-save-status { min-height: 1.3em; margin: 0.8rem 0 0; color: var(--profile-muted); font-size: 0.85rem; }
+        .profile-save-status { min-height: 1.2em; margin: 0; color: var(--profile-muted); font-size: 0.85rem; }
         .profile-save-status[data-error="true"] { color: #a12622; }
         .btn-secondary {
             appearance: none;
@@ -643,6 +667,15 @@
             font-weight: 600;
             cursor: pointer;
         }
+        .btn-secondary:disabled { cursor: not-allowed; opacity: 0.55; }
+        .close-modal:focus-visible,
+        .btn-primary:focus-visible,
+        .btn-secondary:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid rgba(17,17,17,0.28);
+            outline-offset: 2px;
+        }
         @media (max-width: 830px) {
             .profile-layout { grid-template-columns: 1fr; }
         }
@@ -653,6 +686,17 @@
             .profile-body { padding-left: 1rem; padding-right: 1rem; }
             .profile-top-row,.profile-heading-row { align-items: flex-start; }
             .profile-form-grid { grid-template-columns: 1fr; }
+            .profile-modal { align-items: flex-end; padding: 0; }
+            .profile-modal-panel {
+                width: 100%;
+                max-height: 92vh;
+                max-height: 92dvh;
+                border-radius: 20px 20px 0 0;
+                padding: 1rem 1rem 0;
+            }
+            .profile-form-footer { margin: 0 -1rem; padding: 0.7rem 1rem max(1rem, env(safe-area-inset-bottom)); }
+            .modal-actions { display: grid; grid-template-columns: 1fr 1fr; }
+            .modal-actions button { min-height: 46px; }
         }
     </style>
 </head>
@@ -681,7 +725,7 @@
             <div class="profile-body">
                 <div class="profile-top-row">
                     <div class="profile-avatar" id="profile-avatar" aria-label="Profile avatar">AS</div>
-                    <button class="btn-primary" id="editProfileButton" type="button">Edit Profile</button>
+                    <button class="btn-primary" id="editProfileButton" type="button" aria-haspopup="dialog" aria-controls="profileModal">Edit Profile</button>
                 </div>
                 <div class="profile-heading-row">
                     <div class="profile-name-block">
@@ -760,7 +804,7 @@
         </div>
     </main>
     <div class="profile-modal" id="profileModal" aria-hidden="true">
-        <div class="profile-modal-panel" role="dialog" aria-modal="true" aria-labelledby="editProfileTitle">
+        <div class="profile-modal-panel" role="dialog" aria-modal="true" aria-labelledby="editProfileTitle" tabindex="-1">
             <div class="modal-header">
                 <h2 id="editProfileTitle">Edit Profile</h2>
                 <button class="close-modal" type="button" id="closeModalButton" aria-label="Close profile editor">×</button>
@@ -828,11 +872,13 @@
                         <input id="formInterestTags" name="interestTags" type="text" placeholder="Python, Backend, Machine Learning, AI Systems">
                     </div>
                 </div>
-                <div class="modal-actions">
-                    <button class="btn-secondary" id="cancelProfileButton" type="button">Cancel</button>
-                    <button class="btn-primary" type="submit">Save Changes</button>
+                <div class="profile-form-footer">
+                    <p class="profile-save-status" id="profile-save-status" role="status" aria-live="polite"></p>
+                    <div class="modal-actions">
+                        <button class="btn-secondary" id="cancelProfileButton" type="button">Cancel</button>
+                        <button class="btn-primary" type="submit">Save Changes</button>
+                    </div>
                 </div>
-                <p class="profile-save-status" id="profile-save-status" role="status" aria-live="polite"></p>
             </form>
         </div>
     </div>
